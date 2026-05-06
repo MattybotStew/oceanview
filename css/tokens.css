@@ -1,0 +1,283 @@
+/* ============================================================
+   Oceanview Life & Annuity — Design Tokens
+   Colors and Type
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Open+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap");
+
+/* PP Editorial New — proprietary brand display serif */
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("../fonts/PPEditorialNew-Ultralight.otf") format("opentype");
+  font-weight: 200; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("../fonts/PPEditorialNew-UltralightItalic.otf") format("opentype");
+  font-weight: 200; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("../fonts/PPEditorialNew-Regular.otf") format("opentype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("../fonts/PPEditorialNew-Italic.otf") format("opentype");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("../fonts/PPEditorialNew-Ultrabold.otf") format("opentype");
+  font-weight: 800; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("../fonts/PPEditorialNew-UltraboldItalic.otf") format("opentype");
+  font-weight: 800; font-style: italic; font-display: swap;
+}
+
+/* PP Mori — proprietary brand sans */
+@font-face {
+  font-family: "PP Mori";
+  src: url("../fonts/PPMori-Extralight.otf") format("opentype");
+  font-weight: 200; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "PP Mori";
+  src: url("../fonts/PPMori-ExtralightItalic.otf") format("opentype");
+  font-weight: 200; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "PP Mori";
+  src: url("../fonts/PPMori-Regular.otf") format("opentype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "PP Mori";
+  src: url("../fonts/PPMori-Italic.otf") format("opentype");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "PP Mori";
+  src: url("../fonts/PPMori-Semibold.otf") format("opentype");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "PP Mori";
+  src: url("../fonts/PPMori-SemiboldItalic.otf") format("opentype");
+  font-weight: 600; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "PP Mori";
+  src: url("../fonts/PPMori-Black.otf") format("opentype");
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "PP Mori";
+  src: url("../fonts/PPMori-BlackItalic.otf") format("opentype");
+  font-weight: 900; font-style: italic; font-display: swap;
+}
+
+:root {
+  /* ---------- Brand: Navy ---------- */
+  --ov-navy-1000: #001F54;
+  --ov-navy-900:  #0D1F4E;
+  --ov-navy-800:  #1A2452;
+  --ov-navy-700:  #16317B;
+  --ov-navy-600:  #1A3070;
+  --ov-navy-500:  #233D7C;
+  --ov-navy-400:  #223F84;
+  --ov-navy-300:  #4472C4;
+
+  /* ---------- Brand: Teal / Cyan ---------- */
+  --ov-teal-700:  #1976A0;
+  --ov-teal-600:  #2494C1;
+  --ov-teal-500:  #06BCC1;
+  --ov-teal-400:  #6BBABF;
+  --ov-teal-300:  #70BABF;
+
+  /* ---------- Surfaces ---------- */
+  --ov-surface-0:      #FFFFFF;
+  --ov-surface-tint:   #F1FBFF;
+  --ov-surface-tint-2: #F2FCFF;
+  --ov-surface-tint-3: #F2FAFE;
+  --ov-surface-cream:  #F0EEE9;
+  --ov-surface-soft:   #F9F9F9;
+
+  /* ---------- Neutrals ---------- */
+  --ov-grey-900: #212529;
+  --ov-grey-800: #333333;
+  --ov-grey-700: #2B3A4F;
+  --ov-grey-600: #4A5568;
+  --ov-grey-500: #6B7280;
+  --ov-grey-400: #828282;
+  --ov-grey-300: #DADADA;
+  --ov-grey-200: #E9EBF5;
+  --ov-grey-150: #CFD5EA;
+  --ov-grey-100: #D9D9D9;
+  --ov-grey-50:  #F2F2F2;
+
+  /* ---------- Borders ---------- */
+  --ov-border-faint:    rgba(13, 31, 78, 0.10);
+  --ov-border-soft:     rgba(13, 31, 78, 0.12);
+  --ov-border-dark:     rgba(13, 31, 78, 0.20);
+  --ov-border-on-dark:  rgba(255, 255, 255, 0.20);
+  --ov-border-hairline: rgba(0, 0, 0, 0.13);
+
+  /* ---------- Shadows ---------- */
+  --ov-shadow-card:   0 24px 60px 0 rgba(13, 31, 78, 0.12);
+  --ov-shadow-cover:  0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --ov-shadow-button: 0 2px 8px 0 rgba(13, 31, 78, 0.10);
+  --ov-shadow-press:  inset 0 1px 0 rgba(0, 0, 0, 0.10);
+
+  /* ---------- Semantic ---------- */
+  --ov-success: #008000;
+  --ov-danger:  #FF0000;
+  --ov-info:    var(--ov-teal-600);
+
+  /* ---------- Semantic aliases ---------- */
+  --ov-bg:              var(--ov-surface-0);
+  --ov-bg-soft:         var(--ov-surface-tint);
+  --ov-bg-deep:         var(--ov-navy-500);
+  --ov-fg:              var(--ov-navy-900);
+  --ov-fg-on-dark:      var(--ov-surface-tint-2);
+  --ov-fg-muted:        var(--ov-grey-600);
+  --ov-fg-meta:         var(--ov-grey-400);
+  --ov-link:            var(--ov-teal-600);
+  --ov-cta-primary-bg:  var(--ov-teal-400);
+  --ov-cta-primary-fg:  var(--ov-navy-1000);
+  --ov-cta-secondary-bg: var(--ov-navy-500);
+  --ov-cta-secondary-fg: var(--ov-fg-on-dark);
+
+  /* ---------- Type families ---------- */
+  --ov-ff-display: "PP Editorial New", "Cormorant Garamond", "Playfair Display", ui-serif, Georgia, "Times New Roman", serif;
+  --ov-ff-serif:   "Playfair Display", "Miller Text", "Cormorant Garamond", ui-serif, Georgia, serif;
+  --ov-ff-sans:    "PP Mori", "Manrope", "DM Sans", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --ov-ff-body:    "PP Mori", "DM Sans", "Manrope", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --ov-ff-eyebrow: "PP Mori", "Open Sans", "Proxima Nova", ui-sans-serif, sans-serif;
+  --ov-ff-mono:    ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace;
+
+  /* ---------- Type scale ---------- */
+  --ov-fz-display-1: 124px;
+  --ov-fz-display-2: 69px;
+  --ov-fz-display-3: 63px;
+  --ov-fz-h1:        48px;
+  --ov-fz-h2:        42px;
+  --ov-fz-h3:        36px;
+  --ov-fz-h4:        28px;
+  --ov-fz-h5:        24px;
+  --ov-fz-h6:        20px;
+  --ov-fz-body-lg:   18px;
+  --ov-fz-body:      16px;
+  --ov-fz-body-sm:   14px;
+  --ov-fz-meta:      13px;
+  --ov-fz-caption:   12px;
+  --ov-fz-eyebrow:   16px;
+
+  /* ---------- Line heights ---------- */
+  --ov-lh-tight: 1.0;
+  --ov-lh-snug:  1.16;
+  --ov-lh-base:  1.4;
+  --ov-lh-body:  1.6;
+  --ov-lh-loose: 1.65;
+
+  /* ---------- Letter spacing ---------- */
+  --ov-ls-eyebrow: 0.10em;
+  --ov-ls-tight:   -0.01em;
+
+  /* ---------- Spacing ---------- */
+  --ov-sp-1:  4px;
+  --ov-sp-2:  8px;
+  --ov-sp-3:  12px;
+  --ov-sp-4:  16px;
+  --ov-sp-5:  20px;
+  --ov-sp-6:  24px;
+  --ov-sp-7:  30px;
+  --ov-sp-8:  40px;
+  --ov-sp-9:  50px;
+  --ov-sp-10: 65px;
+
+  /* ---------- Radii ---------- */
+  --ov-radius-sm:   4px;
+  --ov-radius-md:   6px;
+  --ov-radius-lg:   10px;
+  --ov-radius-xl:   12px;
+  --ov-radius-pill: 200px;
+
+  /* ---------- Layout ---------- */
+  --ov-container: 1200px;
+  --ov-gutter:    120px;
+  --ov-gutter-sm: 16px;
+  --ov-header-h:  96px;
+  --ov-ticker-h:  32px;
+}
+
+/* ============================================================
+   SEMANTIC TYPE CLASSES
+   ============================================================ */
+
+.ov-display,
+.ov-h1, .ov-h2, .ov-h3, .ov-h4, .ov-h5 {
+  font-family: var(--ov-ff-display);
+  color: var(--ov-navy-900);
+  font-weight: 400;
+  line-height: var(--ov-lh-snug);
+  letter-spacing: 0;
+  margin: 0;
+}
+.ov-display { font-size: var(--ov-fz-display-3); line-height: var(--ov-lh-tight); font-weight: 400; }
+.ov-h1      { font-size: var(--ov-fz-h1); }
+.ov-h2      { font-size: var(--ov-fz-h2); line-height: 1.1; }
+.ov-h3      { font-size: var(--ov-fz-h3); }
+.ov-h4      { font-size: var(--ov-fz-h4); }
+.ov-h5      { font-size: var(--ov-fz-h5); }
+
+.ov-eyebrow {
+  font-family: var(--ov-ff-eyebrow);
+  font-size: var(--ov-fz-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ov-ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ov-fg-on-dark);
+}
+
+.ov-p, .ov-body {
+  font-family: var(--ov-ff-body);
+  font-size: var(--ov-fz-body);
+  line-height: var(--ov-lh-body);
+  color: var(--ov-grey-600);
+  margin: 0;
+}
+.ov-p-lg    { font-family: var(--ov-ff-body); font-size: var(--ov-fz-body-lg); line-height: var(--ov-lh-loose); color: var(--ov-grey-400); }
+.ov-p-sm    { font-family: var(--ov-ff-body); font-size: var(--ov-fz-body-sm); line-height: 1.5; color: var(--ov-grey-600); }
+.ov-meta    { font-family: var(--ov-ff-body); font-size: var(--ov-fz-meta); line-height: 1.5; color: var(--ov-grey-400); }
+.ov-caption { font-family: var(--ov-ff-sans); font-size: var(--ov-fz-caption); line-height: 1.4; color: var(--ov-grey-500); }
+
+.ov-link { color: var(--ov-link); text-decoration: none; font-weight: 500; }
+.ov-link:hover { color: var(--ov-teal-700); text-decoration: underline; }
+
+.ov-on-dark { color: var(--ov-fg-on-dark); }
+
+/* ============================================================
+   PAGE DEFAULTS
+   ============================================================ */
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--ov-bg);
+  color: var(--ov-fg);
+  font-family: var(--ov-ff-body);
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+button { font-family: inherit; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+
+.ov-container {
+  max-width: var(--ov-container);
+  margin: 0 auto;
+  padding: 0 var(--ov-gutter);
+}
+@media (max-width: 1100px) { .ov-container { padding: 0 32px; } }
+@media (max-width: 720px)  { .ov-container { padding: 0 var(--ov-gutter-sm); } }
