@@ -1,5 +1,34 @@
-// Header.jsx — Ticker + nav with mega-dropdown panels (2026 Figma design)
+// Header.jsx — Clean header matching Figma design with chevron indicators
 const { useState, useRef } = React;
+
+// ─── CHEVRON ICON COMPONENT ───────────────────────────────────────────────────
+function Chevron({ direction = "down", size = 16, color = "#FFF" }) {
+  const paths = {
+    down: "M4 6L8 10L12 6",
+    up: "M4 10L8 6L12 10",
+    right: "M6 4L10 8L6 12",
+    left: "M10 4L6 8L10 12"
+  };
+  
+  return (
+    <svg 
+      width={size} 
+      height={size} 
+      viewBox="0 0 16 16" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ marginLeft: "4px", flexShrink: 0 }}
+    >
+      <path 
+        d={paths[direction]} 
+        stroke={color} 
+        strokeWidth="1.5" 
+        strokeLinecap="round" 
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 // ─── NAV DATA ─────────────────────────────────────────────────────────────────
 const NAV_DROPDOWNS = {
@@ -94,97 +123,199 @@ const NAV_DROPDOWNS = {
 
 // ─── STYLES ───────────────────────────────────────────────────────────────────
 const S = {
-  ticker: {
-    background: "var(--ov-surface-tint)", height: 32,
-    display: "flex", alignItems: "center", justifyContent: "center",
-    overflow: "hidden", fontSize: 13, fontFamily: "var(--ov-ff-body)",
+  bar: { 
+    background: "var(--ov-navy-500)", 
+    height: 72,
+    display: "flex", 
+    alignItems: "center",
+    width: "100%",
+    borderBottom: "1px solid rgba(255,255,255,0.1)"
   },
-  tickerInner: { display: "flex", gap: 36, alignItems: "center", whiteSpace: "nowrap" },
-  tick: { display: "inline-flex", gap: 8, alignItems: "center", color: "var(--ov-grey-800)" },
-  tickLbl: { fontWeight: 500 },
-  tickVal: { fontVariantNumeric: "tabular-nums" },
-  up:   { color: "var(--ov-success)", fontWeight: 600 },
-  down: { color: "var(--ov-danger)",  fontWeight: 600 },
-
-  bar:   { background: "var(--ov-navy-500)", height: 64, display: "flex", alignItems: "center" },
-  inner: { display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" },
+  inner: { 
+    display: "flex", 
+    alignItems: "center", 
+    justifyContent: "space-between", 
+    width: "100%",
+    maxWidth: "1400px",
+    margin: "0 auto",
+    padding: "0",
+  },
 
   logo: {
-    display: "inline-flex", alignItems: "center", gap: 10, color: "#fff",
-    fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: 22,
-    letterSpacing: ".005em", cursor: "pointer",
+    display: "inline-flex",
+    alignItems: "center",
+    color: "#fff",
+    cursor: "pointer",
+    textDecoration: "none",
+    flexShrink: 0,
   },
-  navGroup: { display: "flex", alignItems: "center", gap: 4 },
+  logoImage: {
+    height: "32px",
+    width: "auto",
+    display: "block",
+  },
+  navGroup: { 
+    display: "flex", 
+    alignItems: "center", 
+    gap: 8 
+  },
   navBtn: {
-    padding: "8px 14px", borderRadius: 4, cursor: "pointer",
-    color: "#fff", background: "none", border: 0,
-    fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13,
-    letterSpacing: ".10em", transition: "background .15s ease", whiteSpace: "nowrap",
+    padding: "8px 16px",
+    borderRadius: 6,
+    cursor: "pointer",
+    color: "#FFF",
+    background: "none",
+    border: "none",
+    fontFamily: "PP Mori",
+    fontSize: "13.7px",
+    fontWeight: 400,
+    lineHeight: "14px",
+    textTransform: "uppercase",
+    letterSpacing: "0.08em",
+    transition: "all .15s ease",
+    whiteSpace: "nowrap",
+    display: "flex",
+    alignItems: "center",
+    gap: "4px",
   },
   audChip: {
-    padding: "8px 14px", borderRadius: 4,
-    background: "rgba(255,255,255,.08)", border: "1px solid rgba(255,255,255,.12)",
-    color: "#fff", marginLeft: 6, cursor: "pointer",
-    fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, letterSpacing: ".10em",
+    display: "flex",
+    padding: "10px",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 6,
+    background: "rgba(255,255,255,0.1)",
+    border: "1px solid rgba(255,255,255,0.2)",
+    color: "#FFF",
+    marginLeft: 8,
+    cursor: "pointer",
+    fontFamily: "PP Mori",
+    fontSize: "13.7px",
+    fontWeight: 400,
+    lineHeight: "14px",
+    textTransform: "uppercase",
+    letterSpacing: "0.08em",
+    transition: "all .15s ease",
+    whiteSpace: "nowrap",
   },
 
+  // Dropdown styles
   dropPanel: {
-    background: "#fff", borderRadius: 12,
+    background: "#fff", 
+    borderRadius: 12,
     boxShadow: "0 24px 60px 0 rgba(13,31,78,0.12)",
-    overflow: "hidden", display: "flex",
+    overflow: "hidden", 
+    display: "flex",
   },
   sidebar: {
-    width: 220, flexShrink: 0, background: "#F0EEE9",
+    width: 220, 
+    flexShrink: 0, 
+    background: "#F0EEE9",
     borderRight: "1px solid rgba(13,31,78,0.12)",
-    display: "flex", flexDirection: "column",
+    display: "flex", 
+    flexDirection: "column",
   },
   sideBtn: {
-    height: 52, width: "100%", flexShrink: 0,
-    display: "flex", alignItems: "flex-start",
-    paddingTop: 15.5, paddingLeft: 14, paddingRight: 12,
-    background: "none", border: "none", borderLeft: "2px solid transparent",
-    cursor: "pointer", textAlign: "left",
+    height: 52, 
+    width: "100%", 
+    flexShrink: 0,
+    display: "flex", 
+    alignItems: "flex-start",
+    paddingTop: 15.5, 
+    paddingLeft: 14, 
+    paddingRight: 12,
+    background: "none", 
+    border: "none", 
+    borderLeft: "2px solid transparent",
+    cursor: "pointer", 
+    textAlign: "left",
   },
   sideBtnInner: {
-    display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%",
+    display: "flex", 
+    alignItems: "center", 
+    justifyContent: "space-between", 
+    width: "100%",
   },
   sideBtnLabel: {
-    fontFamily: "var(--ov-ff-sans)", fontWeight: 500,
-    fontSize: 14, color: "var(--ov-navy-900)", lineHeight: "21px",
-    flex: 1, minWidth: 0,
+    fontFamily: "var(--ov-ff-sans)", 
+    fontWeight: 500,
+    fontSize: 14, 
+    color: "var(--ov-navy-900)", 
+    lineHeight: "21px",
+    flex: 1, 
+    minWidth: 0,
   },
-
   content: {
-    flex: 1, padding: 30, display: "flex", flexDirection: "column", minWidth: 420,
+    flex: 1, 
+    padding: 30, 
+    display: "flex", 
+    flexDirection: "column", 
+    minWidth: 420,
   },
-  contentTop: { display: "flex", flexDirection: "column", gap: 24 },
+  contentTop: { 
+    display: "flex", 
+    flexDirection: "column", 
+    gap: 24 
+  },
   eyebrow: {
-    fontFamily: "var(--ov-ff-sans)", fontWeight: 500,
-    fontSize: 10, color: "#2494C1", letterSpacing: "1.2px", textTransform: "uppercase",
+    fontFamily: "var(--ov-ff-sans)", 
+    fontWeight: 500,
+    fontSize: 10, 
+    color: "#2494C1", 
+    letterSpacing: "1.2px", 
+    textTransform: "uppercase",
   },
   panelHeading: {
-    fontFamily: "var(--ov-ff-serif)", fontWeight: 600,
-    fontSize: 22, color: "var(--ov-navy-900)", lineHeight: "27.5px", margin: 0,
+    fontFamily: "var(--ov-ff-serif)", 
+    fontWeight: 600,
+    fontSize: 22, 
+    color: "var(--ov-navy-900)", 
+    lineHeight: "27.5px", 
+    margin: 0,
   },
   panelBody: {
-    fontFamily: "var(--ov-ff-sans)", fontWeight: 400,
-    fontSize: 14, color: "#595959", lineHeight: "23.1px", margin: 0,
+    fontFamily: "var(--ov-ff-sans)", 
+    fontWeight: 400,
+    fontSize: 14, 
+    color: "#595959", 
+    lineHeight: "23.1px", 
+    margin: 0,
   },
-  divider: { height: 1, background: "rgba(13,31,78,0.12)", flexShrink: 0 },
-  tags: { display: "flex", gap: 6, flexWrap: "wrap" },
+  divider: { 
+    height: 1, 
+    background: "rgba(13,31,78,0.12)", 
+    flexShrink: 0 
+  },
+  tags: { 
+    display: "flex", 
+    gap: 6, 
+    flexWrap: "wrap" 
+  },
   tag: {
-    background: "rgba(13,31,78,0.06)", borderRadius: 99, padding: "3px 9px",
-    fontFamily: "var(--ov-ff-sans)", fontWeight: 500,
-    fontSize: 11, color: "#1A3070", lineHeight: "16.5px", whiteSpace: "nowrap",
+    background: "rgba(13,31,78,0.06)", 
+    borderRadius: 99, 
+    padding: "3px 9px",
+    fontFamily: "var(--ov-ff-sans)", 
+    fontWeight: 500,
+    fontSize: 11, 
+    color: "#1A3070", 
+    lineHeight: "16.5px", 
+    whiteSpace: "nowrap",
   },
   ctaLink: {
-    display: "inline-flex", alignItems: "center", gap: 4,
-    fontFamily: "var(--ov-ff-sans)", fontWeight: 500,
-    fontSize: 13, color: "var(--ov-navy-900)", lineHeight: "19.5px", textDecoration: "none",
+    display: "inline-flex", 
+    alignItems: "center", 
+    gap: 4,
+    fontFamily: "var(--ov-ff-sans)", 
+    fontWeight: 500,
+    fontSize: 13, 
+    color: "var(--ov-navy-900)", 
+    lineHeight: "19.5px", 
+    textDecoration: "none",
   },
 };
 
-// ─── DROPDOWN SUBCOMPONENTS ────────────────────────────────────────────────────
+// ─── DROPDOWN SUBCOMPONENTS ─────────────────────────────────────────────────
 
 function ProductLink({ link, onClose }) {
   const [hov, setHov] = useState(false);
@@ -193,7 +324,9 @@ function ProductLink({ link, onClose }) {
       href={link.href}
       onClick={onClose}
       style={{
-        display: "flex", flexDirection: "column", textDecoration: "none",
+        display: "flex", 
+        flexDirection: "column", 
+        textDecoration: "none",
         borderLeft: hov ? "1px solid #70BABF" : "2px solid transparent",
         paddingLeft: hov ? 20 : 0,
         transition: "padding .12s ease, border-color .12s ease",
@@ -201,14 +334,37 @@ function ProductLink({ link, onClose }) {
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
     >
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingBottom: link.desc ? 12 : 0 }}>
-        <span style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 500, fontSize: 15, color: hov ? "#70BABF" : "#1A3070", lineHeight: "21px" }}>
+      <div style={{ 
+        display: "flex", 
+        alignItems: "center", 
+        justifyContent: "space-between", 
+        paddingBottom: link.desc ? 12 : 0 
+      }}>
+        <span style={{ 
+          fontFamily: "var(--ov-ff-sans)", 
+          fontWeight: 500, 
+          fontSize: 15, 
+          color: hov ? "#70BABF" : "#1A3070", 
+          lineHeight: "21px" 
+        }}>
           {link.label}
         </span>
-        <span style={{ fontFamily: "Inter, sans-serif", fontSize: 15, color: hov ? "#70BABF" : "#1A3070", lineHeight: "22.5px" }}>→</span>
+        <span style={{ 
+          fontFamily: "Inter, sans-serif", 
+          fontSize: 15, 
+          color: hov ? "#70BABF" : "#1A3070", 
+          lineHeight: "22.5px" 
+        }}>→</span>
       </div>
       {link.desc && (
-        <p style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 400, fontSize: 13, color: "var(--ov-grey-600)", lineHeight: "21.45px", margin: 0 }}>
+        <p style={{ 
+          fontFamily: "var(--ov-ff-sans)", 
+          fontWeight: 400, 
+          fontSize: 13, 
+          color: "var(--ov-grey-600)", 
+          lineHeight: "21.45px", 
+          margin: 0 
+        }}>
           {link.desc}
         </p>
       )}
@@ -223,10 +379,16 @@ function SimpleLink({ link, onClose }) {
       href={link.href}
       onClick={onClose}
       style={{
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        fontFamily: "var(--ov-ff-sans)", fontWeight: 500, fontSize: 15,
-        color: hov ? "#70BABF" : "#1A3070", lineHeight: "21px",
-        textDecoration: "none", cursor: "pointer",
+        display: "flex", 
+        alignItems: "center", 
+        justifyContent: "space-between",
+        fontFamily: "var(--ov-ff-sans)", 
+        fontWeight: 500, 
+        fontSize: 15,
+        color: hov ? "#70BABF" : "#1A3070", 
+        lineHeight: "21px",
+        textDecoration: "none", 
+        cursor: "pointer",
       }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
@@ -238,7 +400,7 @@ function SimpleLink({ link, onClose }) {
 }
 
 function TabbedContent({ tab, onClose }) {
-  const hasCta   = !!tab.cta;
+  const hasCta = !!tab.cta;
   const hasLinks = tab.links && tab.links.length > 0;
   return (
     <div style={{ ...S.content, justifyContent: hasCta ? "space-between" : "center" }}>
@@ -281,7 +443,9 @@ function TabbedDropdown({ config, onClose }) {
               <div style={S.sideBtnInner}>
                 <span style={S.sideBtnLabel}>{t.label}</span>
                 <span style={{
-                  fontFamily: "Inter, sans-serif", fontSize: 14, lineHeight: "21px",
+                  fontFamily: "Inter, sans-serif", 
+                  fontSize: 14, 
+                  lineHeight: "21px",
                   color: active ? "#2494C1" : "var(--ov-navy-900)",
                   opacity: active ? 1 : 0.5,
                 }}>→</span>
@@ -313,36 +477,52 @@ function SimpleDropdown({ config, onClose }) {
 function NavItem({ name, config, onNav, active }) {
   const [open, setOpen] = useState(false);
   const timer = useRef(null);
+  const hasDropdown = !!config;
 
-  const keepOpen  = () => { clearTimeout(timer.current); setOpen(true); };
-  const schedClose = () => { timer.current = setTimeout(() => setOpen(false), 200); };
+  const keepOpen = () => { 
+    clearTimeout(timer.current); 
+    setOpen(true); 
+  };
+  const schedClose = () => { 
+    timer.current = setTimeout(() => setOpen(false), 200); 
+  };
 
-  if (!config) {
+  if (!hasDropdown) {
     return (
       <button
         style={S.navBtn}
         onClick={() => onNav && onNav(name)}
-        onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,.08)"}
+        onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
         onMouseLeave={e => e.currentTarget.style.background = "none"}
-      >{name}</button>
+      >
+        {name}
+      </button>
     );
   }
 
   const align = config.dropAlign === "right" ? { right: 0 } : { left: 0 };
-  // paddingTop bridges the visual gap so mouse stays in the hit area
-  const dropWrapStyle = { position: "absolute", top: "100%", paddingTop: 8, zIndex: 200, ...align };
+  const dropWrapStyle = { 
+    position: "absolute", 
+    top: "100%", 
+    paddingTop: 12, 
+    zIndex: 200, 
+    ...align 
+  };
 
   return (
     <div style={{ position: "relative" }}>
       <button
         style={{
           ...S.navBtn,
-          background: open ? "rgba(255,255,255,.08)" : "none",
+          background: open ? "rgba(255,255,255,0.1)" : "none",
           borderBottom: active === name ? "2px solid #70BABF" : "2px solid transparent",
         }}
         onMouseEnter={keepOpen}
         onMouseLeave={schedClose}
-      >{name}</button>
+      >
+        {name}
+        <Chevron direction={open ? "up" : "down"} color="#FFF" />
+      </button>
       {open && (
         <div style={dropWrapStyle} onMouseEnter={keepOpen} onMouseLeave={schedClose}>
           {config.type === "tabbed"
@@ -355,38 +535,19 @@ function NavItem({ name, config, onNav, active }) {
   );
 }
 
-// ─── TICKER ───────────────────────────────────────────────────────────────────
-function Ticker() {
-  const items = [
-    ["S&P 500",        "6840",  "+0.06%", true],
-    ["NASDAQ 100",    "24753",  "+0.06%", true],
-    ["Russell 2000",   "1759",  "+1.34%", true],
-    ["VIX",              "21",  "+2.27%", true],
-    ["10Y US Treasury", "4.05", "-0.17%", false],
-  ];
-  return (
-    <div style={S.ticker}>
-      <div style={S.tickerInner}>
-        {items.map(([k, v, c, up]) => (
-          <span key={k} style={S.tick}>
-            <span style={S.tickLbl}>{k}</span>
-            <span style={S.tickVal}>{v}</span>
-            <span style={up ? S.up : S.down}>{c}</span>
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 function Logo() {
   return (
-    <span style={S.logo}>
-      <img src="assets/oceanview-logo-white.png" alt="Oceanview" style={{ height: 32, width: "auto" }}
-        onError={e => { e.target.style.display = "none"; e.target.nextSibling.style.display = "inline"; }}
+    <div style={S.logo}>
+      <img 
+        src="assets/oceanview-logo-white.png" 
+        alt="Oceanview" 
+        style={S.logoImage}
+        onError={e => { 
+          e.target.style.display = "none"; 
+          e.target.parentElement.innerText = "Oceanview";
+        }}
       />
-      <span style={{ display: "none" }}>Oceanview</span>
-    </span>
+    </div>
   );
 }
 
@@ -397,18 +558,31 @@ const AUD_ITEMS = ["Individuals", "Professionals"];
 function Header({ active = "Home", onNav }) {
   return (
     <header style={{ position: "relative", zIndex: 100 }}>
-      <Ticker />
       <div style={S.bar}>
-        <div className="ov-container" style={S.inner}>
-          <span onClick={() => onNav && onNav("Home")} style={{ cursor: "pointer" }}>
+        <div style={S.inner}>
+          <div onClick={() => onNav && onNav("Home")} style={{ cursor: "pointer" }}>
             <Logo />
-          </span>
+          </div>
           <div style={S.navGroup}>
             {NAV_ITEMS.map(n => (
-              <NavItem key={n} name={n} config={NAV_DROPDOWNS[n] || null} onNav={onNav} active={active} />
+              <NavItem 
+                key={n} 
+                name={n} 
+                config={NAV_DROPDOWNS[n] || null} 
+                onNav={onNav} 
+                active={active} 
+              />
             ))}
             {AUD_ITEMS.map(a => (
-              <button key={a} style={S.audChip} onClick={() => onNav && onNav(a)}>{a}</button>
+              <button 
+                key={a} 
+                style={S.audChip} 
+                onClick={() => onNav && onNav(a)}
+                onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.2)"}
+                onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
+              >
+                {a}
+              </button>
             ))}
           </div>
         </div>
@@ -417,4 +591,4 @@ function Header({ active = "Home", onNav }) {
   );
 }
 
-Object.assign(window, { Header, Ticker, Logo });
+Object.assign(window, { Header, Logo, Chevron });

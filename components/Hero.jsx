@@ -1,4 +1,4 @@
-// Hero.jsx — Rounded card hero matching 2026 Figma design (node 7139:269)
+// Hero.jsx — Rounded card hero with WaveShaper
 const heroStyles = {
   section: {
     paddingTop: 20,
@@ -7,35 +7,44 @@ const heroStyles = {
     paddingBottom: 0,
     display: "flex",
     justifyContent: "center",
+    position: "relative",
   },
   card: {
     position: "relative",
     borderRadius: 30,
-    overflow: "hidden",
+    overflow: "visible",  // This clips the wave - change to "visible"?
     width: "100%",
     maxWidth: 1400,
+    zIndex: 1,
   },
   bg: {
-    position: "absolute", inset: 0,
+    position: "absolute", 
+    inset: 0,
     backgroundImage: "url(assets/hero-beach-couple.jpg)",
-    backgroundSize: "cover", backgroundPosition: "center",
+    backgroundSize: "cover", 
+    backgroundPosition: "center",
     zIndex: 0,
   },
-  scrim: {
-    position: "absolute", inset: 0, zIndex: 1,
-    background: "linear-gradient(to right, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0.28) 45%, rgba(0,0,0,0) 75%)",
-  },
   h1: {
-    fontFamily: "var(--ov-ff-display)", fontWeight: 800,
-    fontSize: 63, lineHeight: 1.0,
-    color: "#F2FCFF", margin: 0,
+    fontFamily: "var(--ov-ff-display)", 
+    fontWeight: 800,
+    fontSize: 63, 
+    lineHeight: 1.0,
+    color: "#F2FCFF", 
+    margin: 0,
   },
   subtitle: {
-    fontFamily: "var(--ov-ff-sans)", fontWeight: 600,
-    fontSize: 20, lineHeight: 1.4,
-    color: "#F2FCFF", margin: 0,
+    fontFamily: "var(--ov-ff-sans)", 
+    fontWeight: 600,
+    fontSize: 20, 
+    lineHeight: 1.4,
+    color: "#F2FCFF", 
+    margin: 0,
   },
-  ctas: { display: "flex", gap: 21 },
+  ctas: { 
+    display: "flex", 
+    gap: 21 
+  },
 };
 
 function Hero({ onPrimary, onSecondary }) {
@@ -53,6 +62,8 @@ function Hero({ onPrimary, onSecondary }) {
           </div>
         </div>
       </div>
+      {/* WaveShaper moved OUTSIDE the card to prevent clipping */}
+      <WaveShaper color="#FFFFFF" />
     </section>
   );
 }

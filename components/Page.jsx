@@ -21,6 +21,7 @@ function Page() {
   };
   return (
     <React.Fragment>
+      <TickerBar />
       <Header active={route} onNav={goto} />
       {route === "FAQ" ? <FAQPage /> : <HomePage goto={goto} />}
       <Footer />

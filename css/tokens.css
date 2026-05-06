@@ -296,3 +296,80 @@ a { color: inherit; text-decoration: none; }
   .ov-hero-card    { height: 480px; }
   .ov-hero-content { left: 20px; right: 20px; max-width: none; }
 }
+
+/* ============================================================
+   TICKER BAR COMPONENT
+   ============================================================ */
+
+.ov-ticker {
+  background: var(--ov-surface-tint);
+  height: var(--ov-ticker-h);
+  overflow: hidden;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--ov-border-faint);
+  position: relative;
+  z-index: 10;
+}
+
+.ov-ticker-track {
+  display: inline-flex;
+  gap: var(--ov-sp-8);
+  padding: 0 var(--ov-sp-4);
+  height: 100%;
+  align-items: center;
+  animation: tickerScroll 30s linear infinite;
+}
+
+.ov-ticker-track:hover {
+  animation-play-state: paused;
+}
+
+.ov-ticker-item {
+  display: inline-flex;
+  gap: var(--ov-sp-3);
+  font-family: var(--ov-ff-sans);
+  font-size: var(--ov-fz-body-sm);
+  font-weight: 500;
+  color: var(--ov-navy-900);
+}
+
+.ov-ticker-symbol {
+  font-weight: 700;
+  color: var(--ov-navy-700);
+}
+
+.ov-ticker-value {
+  font-weight: 500;
+  color: var(--ov-navy-900);
+}
+
+.ov-ticker-change-positive {
+  color: var(--ov-success);
+  font-weight: 500;
+}
+
+.ov-ticker-change-negative {
+  color: var(--ov-danger);
+  font-weight: 500;
+}
+
+@keyframes tickerScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Mobile ticker adjustments */
+@media (max-width: 768px) {
+  .ov-ticker-track {
+    gap: var(--ov-sp-6);
+  }
+  
+  .ov-ticker-item {
+    font-size: var(--ov-fz-caption);
+    gap: var(--ov-sp-2);
+  }
+}
