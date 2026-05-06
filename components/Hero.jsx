@@ -14,7 +14,6 @@ const heroStyles = {
     overflow: "hidden",
     width: "100%",
     maxWidth: 1400,
-    height: 800,
   },
   bg: {
     position: "absolute", inset: 0,
@@ -25,12 +24,6 @@ const heroStyles = {
   scrim: {
     position: "absolute", inset: 0, zIndex: 1,
     background: "linear-gradient(to right, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0.28) 45%, rgba(0,0,0,0) 75%)",
-  },
-  content: {
-    position: "absolute", top: "50%", transform: "translateY(-50%)",
-    left: 120, maxWidth: 760,
-    display: "flex", flexDirection: "column", gap: 40,
-    zIndex: 2,
   },
   h1: {
     fontFamily: "var(--ov-ff-display)", fontWeight: 800,
@@ -48,10 +41,10 @@ const heroStyles = {
 function Hero({ onPrimary, onSecondary }) {
   return (
     <section style={heroStyles.section}>
-      <div style={heroStyles.card}>
+      <div style={heroStyles.card} className="ov-hero-card">
         <div style={heroStyles.bg} />
         <div style={heroStyles.scrim} />
-        <div style={heroStyles.content}>
+        <div className="ov-hero-content">
           <h1 style={heroStyles.h1}>Plan today for the tomorrow you deserve</h1>
           <p style={heroStyles.subtitle}>Guaranteed interest, flexible options, and growth potential — with principal protection at every step.</p>
           <div style={heroStyles.ctas}>

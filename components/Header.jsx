@@ -119,13 +119,13 @@ const S = {
     padding: "8px 14px", borderRadius: 4, cursor: "pointer",
     color: "#fff", background: "none", border: 0,
     fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13,
-    letterSpacing: ".05em", transition: "background .15s ease", whiteSpace: "nowrap",
+    letterSpacing: ".10em", transition: "background .15s ease", whiteSpace: "nowrap",
   },
   audChip: {
     padding: "8px 14px", borderRadius: 4,
     background: "rgba(255,255,255,.08)", border: "1px solid rgba(255,255,255,.12)",
     color: "#fff", marginLeft: 6, cursor: "pointer",
-    fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, letterSpacing: ".05em",
+    fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, letterSpacing: ".10em",
   },
 
   dropPanel: {
@@ -186,11 +186,12 @@ const S = {
 
 // ─── DROPDOWN SUBCOMPONENTS ────────────────────────────────────────────────────
 
-function ProductLink({ link }) {
+function ProductLink({ link, onClose }) {
   const [hov, setHov] = useState(false);
   return (
     <a
       href={link.href}
+      onClick={onClose}
       style={{
         display: "flex", flexDirection: "column", textDecoration: "none",
         borderLeft: hov ? "1px solid #70BABF" : "2px solid transparent",
@@ -215,11 +216,12 @@ function ProductLink({ link }) {
   );
 }
 
-function SimpleLink({ link }) {
+function SimpleLink({ link, onClose }) {
   const [hov, setHov] = useState(false);
   return (
     <a
       href={link.href}
+      onClick={onClose}
       style={{
         display: "flex", alignItems: "center", justifyContent: "space-between",
         fontFamily: "var(--ov-ff-sans)", fontWeight: 500, fontSize: 15,
@@ -235,7 +237,7 @@ function SimpleLink({ link }) {
   );
 }
 
-function TabbedContent({ tab }) {
+function TabbedContent({ tab, onClose }) {
   const hasCta   = !!tab.cta;
   const hasLinks = tab.links && tab.links.length > 0;
   return (
@@ -252,18 +254,18 @@ function TabbedContent({ tab }) {
         {hasLinks && tab.links.map(link => (
           <React.Fragment key={link.label}>
             <div style={S.divider} />
-            <ProductLink link={link} />
+            <ProductLink link={link} onClose={onClose} />
           </React.Fragment>
         ))}
       </div>
       {hasCta && (
-        <a href={tab.cta.href} style={S.ctaLink}>{tab.cta.label} →</a>
+        <a href={tab.cta.href} onClick={onClose} style={S.ctaLink}>{tab.cta.label} →</a>
       )}
     </div>
   );
 }
 
-function TabbedDropdown({ config }) {
+function TabbedDropdown({ config, onClose }) {
   const [activeIdx, setActiveIdx] = useState(0);
   return (
     <div style={S.dropPanel}>
@@ -288,19 +290,19 @@ function TabbedDropdown({ config }) {
           );
         })}
       </div>
-      <TabbedContent tab={config.tabs[activeIdx]} />
+      <TabbedContent tab={config.tabs[activeIdx]} onClose={onClose} />
     </div>
   );
 }
 
-function SimpleDropdown({ config }) {
+function SimpleDropdown({ config, onClose }) {
   return (
     <div style={{ ...S.dropPanel, minWidth: 420 }}>
       <div style={{ padding: 30, display: "flex", flexDirection: "column", gap: 24, width: "100%" }}>
         {config.links.map((link, i) => (
           <React.Fragment key={link.label}>
             {i > 0 && <div style={S.divider} />}
-            <SimpleLink link={link} />
+            <SimpleLink link={link} onClose={onClose} />
           </React.Fragment>
         ))}
       </div>
@@ -308,7 +310,7 @@ function SimpleDropdown({ config }) {
   );
 }
 
-function NavItem({ name, config, onNav }) {
+function NavItem({ name, config, onNav, active }) {
   const [open, setOpen] = useState(false);
   const timer = useRef(null);
 
@@ -333,15 +335,19 @@ function NavItem({ name, config, onNav }) {
   return (
     <div style={{ position: "relative" }}>
       <button
-        style={{ ...S.navBtn, background: open ? "rgba(255,255,255,.08)" : "none" }}
+        style={{
+          ...S.navBtn,
+          background: open ? "rgba(255,255,255,.08)" : "none",
+          borderBottom: active === name ? "2px solid #70BABF" : "2px solid transparent",
+        }}
         onMouseEnter={keepOpen}
         onMouseLeave={schedClose}
       >{name}</button>
       {open && (
         <div style={dropWrapStyle} onMouseEnter={keepOpen} onMouseLeave={schedClose}>
           {config.type === "tabbed"
-            ? <TabbedDropdown config={config} />
-            : <SimpleDropdown config={config} />
+            ? <TabbedDropdown config={config} onClose={() => setOpen(false)} />
+            : <SimpleDropdown config={config} onClose={() => setOpen(false)} />
           }
         </div>
       )}
@@ -399,7 +405,7 @@ function Header({ active = "Home", onNav }) {
           </span>
           <div style={S.navGroup}>
             {NAV_ITEMS.map(n => (
-              <NavItem key={n} name={n} config={NAV_DROPDOWNS[n] || null} onNav={onNav} />
+              <NavItem key={n} name={n} config={NAV_DROPDOWNS[n] || null} onNav={onNav} active={active} />
             ))}
             {AUD_ITEMS.map(a => (
               <button key={a} style={S.audChip} onClick={() => onNav && onNav(a)}>{a}</button>
