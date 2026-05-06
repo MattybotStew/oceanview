@@ -122,7 +122,7 @@ const S = {
     lineHeight: "14px",
     textTransform: "uppercase",
     letterSpacing: "0.08em",
-    transition: "all .15s ease",
+    transition: "background 0.2s ease, color 0.2s ease",
     whiteSpace: "nowrap",
     display: "flex",
     alignItems: "center",
@@ -144,7 +144,7 @@ const S = {
     fontWeight: 400,
     textTransform: "uppercase",
     letterSpacing: "0.08em",
-    transition: "all .15s ease",
+    transition: "background 0.2s ease",
     whiteSpace: "nowrap",
   },
   dropPanel: {
@@ -163,19 +163,19 @@ const S = {
     flexDirection: "column",
   },
   sideBtn: {
-    height: 52,
+    minHeight: 52,
+    height: "auto",
     width: "100%",
     flexShrink: 0,
     display: "flex",
-    alignItems: "flex-start",
-    paddingTop: 15.5,
-    paddingLeft: 14,
-    paddingRight: 12,
+    alignItems: "center",
+    padding: "12px 12px 12px 14px",
     background: "none",
     border: "none",
     borderLeft: "2px solid transparent",
     cursor: "pointer",
     textAlign: "left",
+    transition: "background 0.2s ease",
   },
   sideBtnInner: {
     display: "flex",
@@ -257,16 +257,16 @@ function ProductLink({ link, onClose }) {
   return (
     <a href={link.href} onClick={onClose} style={{
       display: "flex", flexDirection: "column", textDecoration: "none",
-      borderLeft: hov ? "1px solid #70BABF" : "2px solid transparent",
-      paddingLeft: hov ? 20 : 0,
-      transition: "padding .12s ease, border-color .12s ease",
+      borderLeft: hov ? "2px solid #70BABF" : "2px solid transparent",
+      paddingLeft: hov ? 12 : 0,
+      transition: "padding 0.2s ease, border-color 0.2s ease",
     }}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingBottom: link.desc ? 12 : 0 }}>
-        <span style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 500, fontSize: 15, color: hov ? "#70BABF" : "#1A3070", lineHeight: "21px" }}>
+        <span style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 500, fontSize: 15, color: hov ? "#70BABF" : "#1A3070", lineHeight: "21px", transition: "color 0.2s ease" }}>
           {link.label}
         </span>
-        <span style={{ fontFamily: "Inter, sans-serif", fontSize: 15, color: hov ? "#70BABF" : "#1A3070" }}>→</span>
+        <span style={{ fontFamily: "Inter, sans-serif", fontSize: 15, color: hov ? "#70BABF" : "#1A3070", transition: "color 0.2s ease" }}>→</span>
       </div>
       {link.desc && (
         <p style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 400, fontSize: 13, color: "var(--ov-grey-600)", lineHeight: "21.45px", margin: 0 }}>
@@ -285,6 +285,7 @@ function SimpleLink({ link, onClose }) {
       fontFamily: "var(--ov-ff-sans)", fontWeight: 500, fontSize: 15,
       color: hov ? "#70BABF" : "#1A3070", lineHeight: "21px",
       textDecoration: "none", cursor: "pointer",
+      transition: "color 0.2s ease",
     }}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
       <span>{link.label}</span>
@@ -295,7 +296,7 @@ function SimpleLink({ link, onClose }) {
 
 function TabbedContent({ tab, onClose }) {
   return (
-    <div style={{ ...S.content, justifyContent: tab.cta ? "space-between" : "center" }}>
+    <div style={{ ...S.content, justifyContent: tab.cta ? "space-between" : "flex-start" }}>
       <div style={S.contentTop}>
         <span style={S.eyebrow}>{tab.eyebrow}</span>
         <h3 style={S.panelHeading}>{tab.heading}</h3>
@@ -325,7 +326,7 @@ function TabbedDropdown({ config, onClose }) {
               onMouseEnter={() => setActiveIdx(i)}>
               <div style={S.sideBtnInner}>
                 <span style={S.sideBtnLabel}>{t.label}</span>
-                <span style={{ fontFamily: "Inter, sans-serif", fontSize: 14, color: active ? "#2494C1" : "var(--ov-navy-900)", opacity: active ? 1 : 0.5 }}>→</span>
+                <span style={{ fontFamily: "Inter, sans-serif", fontSize: 14, color: active ? "#2494C1" : "var(--ov-navy-900)", opacity: active ? 1 : 0.5, transition: "color 0.2s ease, opacity 0.2s ease" }}>→</span>
               </div>
             </button>
           );
@@ -368,7 +369,6 @@ function NavItem({ name, config, onNav, active }) {
     );
   }
 
-  const align = config.dropAlign === "right" ? { right: 0 } : { left: 0 };
   return (
     <div style={{ position: "relative" }}>
       <button className="ov-nav-btn" style={{ ...S.navBtn, background: open ? "rgba(255,255,255,0.1)" : "none", borderBottom: active === name ? "2px solid #70BABF" : "2px solid transparent" }}
@@ -377,7 +377,7 @@ function NavItem({ name, config, onNav, active }) {
         <Chevron direction={open ? "up" : "down"} color="#FFF"/>
       </button>
       {open && (
-        <div style={{ position: "absolute", top: "100%", paddingTop: 12, zIndex: 200, ...align }}
+        <div style={{ position: "absolute", top: "100%", paddingTop: 12, zIndex: 200, left: "50%", transform: "translateX(-50%)" }}
           onMouseEnter={keepOpen} onMouseLeave={schedClose}>
           {config.type === "tabbed"
             ? <TabbedDropdown config={config} onClose={() => setOpen(false)}/>

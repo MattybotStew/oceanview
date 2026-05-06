@@ -2,12 +2,11 @@
 
 function HeroShaper({ fill = "#ffffff" }) {
   return (
-    <div style={{
+    <div className="ov-hero-shaper" style={{
       position: "absolute",
       bottom: 0,
-      left: "50%",
-      transform: "translateX(-50%)",
-      width: "93%",
+      left: 0,
+      width: "100%",
       lineHeight: 0,
       zIndex: 10,
       pointerEvents: "none",
@@ -29,15 +28,14 @@ const heroStyles = {
     flexDirection: "column",
     alignItems: "center",
     position: "relative",
+    overflow: "hidden",
   },
   card: {
     position: "relative",
-    borderRadius: 30,
     overflow: "hidden",
     width: "100%",
-    maxWidth: 1400,
     zIndex: 1,
-    backgroundColor: "#233D7C",
+    borderRadius: 30,
   },
   bg: {
     position: "absolute",
@@ -46,14 +44,12 @@ const heroStyles = {
     backgroundPosition: "center",
     transition: "background-image 0.5s ease-in-out",
     zIndex: 0,
-    borderRadius: 30,
   },
   scrim: {
     position: "absolute",
     inset: 0,
     background: "linear-gradient(90deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 100%)",
     zIndex: 1,
-    borderRadius: 30,
   },
   noise: {
     position: "absolute",
@@ -67,16 +63,13 @@ const heroStyles = {
     borderRadius: 30,
   },
   content: {
-    position: "relative",
     zIndex: 2,
-    padding: "clamp(24px, 5vw, 60px) clamp(20px, 4vw, 48px)",
-    maxWidth: "700px",
   },
   h1: {
     fontFamily: "var(--ov-ff-display)",
     fontWeight: 800,
-    fontSize: "clamp(30px, 4.5vw, 63px)",
-    lineHeight: 1.0,
+    fontSize: "clamp(32px, 5.2vw, 63px)",
+    lineHeight: 1.05,
     color: "#F2FCFF",
     margin: 0,
     textShadow: "0 2px 4px rgba(0,0,0,0.3)",
@@ -84,68 +77,55 @@ const heroStyles = {
   subtitle: {
     fontFamily: "var(--ov-ff-sans)",
     fontWeight: 600,
-    fontSize: "clamp(14px, 1.5vw, 20px)",
-    lineHeight: 1.4,
+    fontSize: "clamp(16px, 1.9vw, 20px)",
+    lineHeight: 1.45,
     color: "#F2FCFF",
     margin: 0,
     textShadow: "0 2px 4px rgba(0,0,0,0.3)",
   },
   ctas: {
     display: "flex",
-    gap: 21,
+    gap: 16,
+    flexWrap: "wrap",
   },
   dotsContainer: {
     display: "flex",
+    alignItems: "center",
     justifyContent: "center",
-    gap: 12,
-    marginTop: 24,
+    gap: 8,
+    marginTop: 20,
     marginBottom: 0,
     zIndex: 200,
     position: "relative",
   },
   dot: {
-    width: 10,
-    height: 10,
+    width: 8,
+    height: 8,
     borderRadius: "50%",
-    backgroundColor: "#233D7C",
+    backgroundColor: "#CFD5EA",
     cursor: "pointer",
     transition: "all 0.2s ease",
     border: "none",
     padding: 0,
-    opacity: 0.5,
+    flexShrink: 0,
   },
   dotActive: {
-    backgroundColor: "#233D7C",
-    width: 24,
-    borderRadius: 12,
-    opacity: 1,
+    backgroundColor: "#2494C1",
+    width: 22,
+    height: 8,
+    borderRadius: 4,
   },
-  arrows: {
-    position: "absolute",
-    left: 32,
-    right: 32,
-    top: "50%",
-    transform: "translateY(-50%)",
-    display: "flex",
-    justifyContent: "space-between",
-    zIndex: 3,
-    pointerEvents: "none",
-  },
-  arrow: {
-    background: "rgba(255,255,255,0.2)",
-    backdropFilter: "blur(8px)",
+  arrowBtn: {
+    width: 34,
+    height: 34,
+    borderRadius: "50%",
+    background: "#233D7C",
     border: "none",
-    borderRadius: 40,
-    width: 44,
-    height: 44,
+    cursor: "pointer",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    cursor: "pointer",
-    fontSize: 28,
-    fontWeight: 600,
-    color: "#FFFFFF",
-    pointerEvents: "auto",
+    flexShrink: 0,
     transition: "background 0.2s ease",
   },
 };
@@ -201,15 +181,17 @@ function updateHeroSlide(container, slideIndex) {
 
   dots.forEach((dot, idx) => {
     if (idx === slideIndex) {
-      dot.style.backgroundColor = "#233D7C";
-      dot.style.width = "24px";
-      dot.style.borderRadius = "12px";
+      dot.style.backgroundColor = "#2494C1";
+      dot.style.width = "22px";
+      dot.style.height = "8px";
+      dot.style.borderRadius = "4px";
       dot.style.opacity = "1";
     } else {
-      dot.style.backgroundColor = "#233D7C";
-      dot.style.width = "10px";
+      dot.style.backgroundColor = "#CFD5EA";
+      dot.style.width = "8px";
+      dot.style.height = "8px";
       dot.style.borderRadius = "50%";
-      dot.style.opacity = "0.5";
+      dot.style.opacity = "1";
     }
   });
 }
@@ -242,10 +224,10 @@ function resetAutoScroll(container) {
 }
 
 function initHero(container) {
-  const prevBtn = container.querySelector('.ov-hero-prev');
-  const nextBtn = container.querySelector('.ov-hero-next');
-  const dots = document.querySelectorAll('.ov-hero-dot');
   const heroSection = container.closest('section');
+  const prevBtn = heroSection ? heroSection.querySelector('.ov-hero-prev') : container.querySelector('.ov-hero-prev');
+  const nextBtn = heroSection ? heroSection.querySelector('.ov-hero-next') : container.querySelector('.ov-hero-next');
+  const dots = document.querySelectorAll('.ov-hero-dot');
 
   startAutoScroll(container);
 
@@ -281,7 +263,6 @@ function Hero({ onPrimary, onSecondary }) {
     backgroundPosition: "center",
     transition: "background-image 0.5s ease-in-out",
     zIndex: 0,
-    borderRadius: 30,
   };
 
   return (
@@ -289,7 +270,6 @@ function Hero({ onPrimary, onSecondary }) {
       <div style={heroStyles.card} className="ov-hero-card">
         <div style={bgStyle} className="ov-hero-bg" />
         <div style={heroStyles.scrim} />
-        <div style={heroStyles.noise} />
         <div className="ov-hero-content" style={heroStyles.content}>
           <h1 style={heroStyles.h1} className="ov-hero-title">
             {currentContent.title}
@@ -307,19 +287,15 @@ function Hero({ onPrimary, onSecondary }) {
           </div>
         </div>
 
-        <div style={heroStyles.arrows}>
-          <button style={heroStyles.arrow} className="ov-hero-prev" aria-label="Previous slide">
-            ‹
-          </button>
-          <button style={heroStyles.arrow} className="ov-hero-next" aria-label="Next slide">
-            ›
-          </button>
-        </div>
-
         <HeroShaper />
       </div>
 
       <div style={heroStyles.dotsContainer}>
+        <button style={heroStyles.arrowBtn} className="ov-hero-prev" aria-label="Previous slide">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M10 4L6 8L10 12" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
         {heroSlides.map((_, idx) => (
           <button
             key={idx}
@@ -329,6 +305,11 @@ function Hero({ onPrimary, onSecondary }) {
             aria-label={`Go to slide ${idx + 1}`}
           />
         ))}
+        <button style={heroStyles.arrowBtn} className="ov-hero-next" aria-label="Next slide">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M6 4L10 8L6 12" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
       </div>
     </section>
   );
