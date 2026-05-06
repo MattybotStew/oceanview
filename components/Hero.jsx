@@ -5,8 +5,9 @@ function HeroShaper({ fill = "#ffffff" }) {
     <div className="ov-hero-shaper" style={{
       position: "absolute",
       bottom: 0,
-      left: 0,
-      width: "100%",
+      left: "50%",
+      transform: "translateX(-50%)",
+      width: "93%",
       lineHeight: 0,
       zIndex: 10,
       pointerEvents: "none",
@@ -54,13 +55,12 @@ const heroStyles = {
   noise: {
     position: "absolute",
     inset: 0,
-    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+    backgroundImage: `url("assets/Noise.png")`,
     backgroundRepeat: "repeat",
     backgroundSize: "200px",
-    opacity: 0.08,
+    opacity: 0.8,
     pointerEvents: "none",
     zIndex: 1,
-    borderRadius: 30,
   },
   content: {
     zIndex: 2,
@@ -95,7 +95,7 @@ const heroStyles = {
     gap: 8,
     marginTop: 20,
     marginBottom: 0,
-    zIndex: 200,
+    zIndex: 10,
     position: "relative",
   },
   dot: {
@@ -133,10 +133,10 @@ const heroStyles = {
 const heroSlides = [
   {
     title: "Plan today for the tomorrow you deserve",
-    subtitle: "Guaranteed interest, flexible options, and growth potential — with principal protection at every step.",
-    image: "assets/hero-beach-couple.jpg",
-    ctaPrimary: "Get Started",
-    ctaSecondary: "View Products",
+    subtitle: "Smart annuity solutions built for long-term financial confidence and flexibility.",
+    image: "assets/hero-couple.jpg",
+    ctaPrimary: "View Products",
+    ctaSecondary: "Contact Us",
   },
   {
     title: "Secure your retirement with confidence",
@@ -270,6 +270,7 @@ function Hero({ onPrimary, onSecondary }) {
       <div style={heroStyles.card} className="ov-hero-card">
         <div style={bgStyle} className="ov-hero-bg" />
         <div style={heroStyles.scrim} />
+        <div style={heroStyles.noise} />
         <div className="ov-hero-content" style={heroStyles.content}>
           <h1 style={heroStyles.h1} className="ov-hero-title">
             {currentContent.title}

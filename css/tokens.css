@@ -206,7 +206,7 @@
   --ov-radius-pill: 200px;
 
   /* ---------- Layout ---------- */
-  --ov-container: 1200px;
+  --ov-container: 1300px;
   --ov-gutter:    120px;
   --ov-gutter-sm: 16px;
   --ov-header-h:  96px;
@@ -315,6 +315,12 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 480px) {
   .ov-hero-card    { height: 520px; }
   .ov-hero-content { left: 20px; right: 20px; gap: 16px; }
+}
+
+/* ─── Highlights ────────────────────────────────────────────── */
+@media (max-width: 800px) {
+  .ov-highlights-grid { flex-direction: column !important; }
+  .ov-highlights-grid > :first-child { width: 100% !important; aspect-ratio: 4/3 !important; }
 }
 
 /* ============================================================

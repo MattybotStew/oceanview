@@ -1,79 +1,100 @@
-// Highlights.jsx — 4-tile section: "Committed to Enhancing Retirement Savings"
+// Highlights.jsx — Figma node 7271:1840
 const highlightStyles = {
-  section: { padding: "112px 0 96px", background: "var(--ov-bg)" },
-  grid: { display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 64, alignItems: "start" },
-  eyebrow: {
-    fontFamily: "var(--ov-ff-eyebrow)", fontWeight: 600, fontSize: 13,
-    letterSpacing: ".12em", textTransform: "uppercase",
-    color: "var(--ov-navy-600)", marginBottom: 22,
+  section: {
+    padding: "80px 0 96px",
+    background: "#fff",
   },
-  h2: {
-    fontFamily: "var(--ov-ff-display)", fontWeight: 400,
-    fontSize: "clamp(34px, 4.2vw, 56px)", lineHeight: 1.06,
-    color: "var(--ov-navy-900)", letterSpacing: "-0.01em",
-    margin: "0 0 28px", textWrap: "balance",
+  heading: {
+    fontFamily: "var(--ov-ff-display)",
+    fontWeight: 400,
+    fontSize: "clamp(36px, 4.2vw, 60px)",
+    lineHeight: 1.1,
+    color: "#233D7C",
+    textAlign: "center",
+    letterSpacing: "-1.14px",
+    margin: "0 0 56px",
   },
-  lede: {
-    fontSize: 17, lineHeight: 1.65, color: "var(--ov-grey-600)",
-    margin: "0 0 36px", maxWidth: "44ch",
+  layout: {
+    display: "flex",
+    gap: 64,
+    alignItems: "flex-start",
   },
-  tiles: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 },
-  tile: {
-    background: "var(--ov-surface-tint-2)", padding: "24px 24px 26px",
-    borderRadius: 10, border: "1px solid rgba(13,31,78,.06)",
-  },
-  tileTitle: {
-    fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 16,
-    lineHeight: 1.3, color: "var(--ov-navy-900)", margin: "0 0 8px",
-  },
-  tileBody: { fontSize: 13.5, lineHeight: 1.65, color: "var(--ov-grey-600)", margin: 0 },
   photoWrap: {
-    position: "relative", borderRadius: 12, overflow: "hidden",
-    aspectRatio: "5/6", boxShadow: "var(--ov-shadow-card)",
+    borderRadius: 16,
+    overflow: "hidden",
+    width: "clamp(260px, 30vw, 420px)",
+    aspectRatio: "1 / 1",
+    flexShrink: 0,
   },
-  photo: { width: "100%", height: "100%", objectFit: "cover", display: "block" },
-  cap: {
-    position: "absolute", left: 24, bottom: 24, color: "#fff",
-    fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: 28,
-    lineHeight: 1.1, maxWidth: "78%",
+  photo: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    display: "block",
+  },
+  cards: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 10,
+    flex: 1,
+  },
+  card: {
+    background: "rgba(112,186,191,0.2)",
+    borderRadius: 16,
+    padding: "28px 30px 30px",
+  },
+  cardTitle: {
+    fontFamily: "var(--ov-ff-display)",
+    fontWeight: 400,
+    fontSize: 24,
+    lineHeight: 1.16,
+    color: "#333",
+    letterSpacing: "-0.36px",
+    margin: "0 0 16px",
+  },
+  cardBody: {
+    fontFamily: "var(--ov-ff-sans)",
+    fontWeight: 400,
+    fontSize: 17,
+    lineHeight: 1.6,
+    color: "rgba(51,51,51,0.8)",
+    margin: 0,
   },
 };
 
 const HIGHLIGHTS = [
-  ["Comprehensive Suite of Retirement Products",
-   "Multi-year guaranteed annuities (MYGAs) and fixed indexed annuities (FIAs) tailored to your goals."],
-  ["Customer-Focused Solutions",
-   "Customer service and competitive products that go beyond expectations to help your money work harder."],
-  ["Stable & Reliable Industry Partner",
-   "Backed by a strong, well-capitalized organization with a long-term, conservative approach."],
-  ["Tax-Deferred Growth Potential",
-   "Funds grow tax-deferred until withdrawal, preserving more of your hard-earned savings."],
+  {
+    title: "Committed to Enhancing Retirement Savings and Protecting Policyholders",
+    body: "Oceanview focuses on providing high-quality retirement savings and income products. Our services offer the policy owners financial protection over the life of their policies.",
+  },
+  {
+    title: "Comprehensive Suite of Retirement Products",
+    body: "Oceanview has developed a suite of retirement products, including multi-year guaranteed annuities (MYGAs) and fixed indexed annuities (FIAs) to meet the demands of retirees and pre-retirees.",
+  },
+  {
+    title: "Bringing Retirement Savings to You",
+    body: "Oceanview's retirement savings products are offered and distributed nationally through a network of agents, advisors, banks, and broker-dealers. Talk to your financial professional or call our Sales Team today for more information!",
+  },
 ];
 
 function Highlights() {
   return (
     <section style={highlightStyles.section}>
       <div className="ov-container">
-        <div style={highlightStyles.grid}>
-          <div>
-            <div style={highlightStyles.eyebrow}>Why Oceanview</div>
-            <h2 style={highlightStyles.h2}>Committed to enhancing retirement savings.</h2>
-            <p style={highlightStyles.lede}>
-              Oceanview focuses on providing high-quality retirement savings and income products
-              backed by a stable, well-capitalized partner.
-            </p>
-            <div style={highlightStyles.tiles}>
-              {HIGHLIGHTS.map(([t, b]) => (
-                <div key={t} style={highlightStyles.tile}>
-                  <h3 style={highlightStyles.tileTitle}>{t}</h3>
-                  <p style={highlightStyles.tileBody}>{b}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+        <h2 style={highlightStyles.heading}>
+          Oceanview Life &amp; Annuity<br />Company Highlights
+        </h2>
+        <div style={highlightStyles.layout} className="ov-highlights-grid">
           <div style={highlightStyles.photoWrap}>
-            <img style={highlightStyles.photo} src="assets/older-couple-1.png" alt="" />
-            <div style={highlightStyles.cap}>A future you can count on.</div>
+            <img style={highlightStyles.photo} src="assets/family.png" alt="" />
+          </div>
+          <div style={highlightStyles.cards}>
+            {HIGHLIGHTS.map(({ title, body }) => (
+              <div key={title} style={highlightStyles.card}>
+                <h3 style={highlightStyles.cardTitle}>{title}</h3>
+                <p style={highlightStyles.cardBody}>{body}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
