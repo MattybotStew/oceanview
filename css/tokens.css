@@ -413,6 +413,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ─── Footer ─────────────────────────────────────────────────── */
+.ov-footer-form-row input::placeholder { color: rgba(255,255,255,.6); }
+
 @media (max-width: 960px) {
   .ov-footer-signup { gap: 40px !important; }
   .ov-footer-cols   { gap: 32px !important; }
