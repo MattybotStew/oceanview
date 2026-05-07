@@ -289,7 +289,7 @@ function Hero({ onPrimary, onSecondary }) {
       <section className="ov-hero-section" style={heroStyles.section}>
         <div className="ov-hero-card" style={heroStyles.card}>
           <div className="ov-hero-bg" style={bgStyle} />
-          <div style={heroStyles.scrim} />
+          <div style={heroStyles.scrim} className="ov-hero-scrim" />
           <div style={heroStyles.noise} />
           <div className="ov-hero-content" style={heroStyles.content}>
             <h1 className="ov-hero-title" style={heroStyles.h1}>
