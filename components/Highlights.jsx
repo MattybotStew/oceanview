@@ -47,7 +47,7 @@ const highlightStyles = {
     fontWeight: 400,
     fontSize: 24,
     lineHeight: 1.16,
-    color: "#333",
+    color: "var(--ov-navy-800)",
     letterSpacing: "-0.36px",
     margin: "0 0 16px",
   },
@@ -56,7 +56,7 @@ const highlightStyles = {
     fontWeight: 400,
     fontSize: 17,
     lineHeight: 1.6,
-    color: "rgba(51,51,51,0.8)",
+    color: "var(--ov-grey-600)",
     margin: 0,
   },
 };

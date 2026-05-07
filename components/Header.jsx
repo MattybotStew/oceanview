@@ -257,16 +257,16 @@ function ProductLink({ link, onClose }) {
   return (
     <a href={link.href} onClick={onClose} style={{
       display: "flex", flexDirection: "column", textDecoration: "none",
-      borderLeft: hov ? "2px solid #70BABF" : "2px solid transparent",
+      borderLeft: hov ? "2px solid #71BABF" : "2px solid transparent",
       paddingLeft: hov ? 12 : 0,
       transition: "padding 0.2s ease, border-color 0.2s ease",
     }}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingBottom: link.desc ? 12 : 0 }}>
-        <span style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 500, fontSize: 15, color: hov ? "#70BABF" : "#1A3070", lineHeight: "21px", transition: "color 0.2s ease" }}>
+        <span style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 500, fontSize: 15, color: hov ? "#71BABF" : "#1A3070", lineHeight: "21px", transition: "color 0.2s ease" }}>
           {link.label}
         </span>
-        <span style={{ fontFamily: "Inter, sans-serif", fontSize: 15, color: hov ? "#70BABF" : "#1A3070", transition: "color 0.2s ease" }}>→</span>
+        <span style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 15, color: hov ? "#71BABF" : "#1A3070", transition: "color 0.2s ease" }}>→</span>
       </div>
       {link.desc && (
         <p style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 400, fontSize: 13, color: "var(--ov-grey-600)", lineHeight: "21.45px", margin: 0 }}>
@@ -283,13 +283,13 @@ function SimpleLink({ link, onClose }) {
     <a href={link.href} onClick={onClose} style={{
       display: "flex", alignItems: "center", justifyContent: "space-between",
       fontFamily: "var(--ov-ff-sans)", fontWeight: 500, fontSize: 15,
-      color: hov ? "#70BABF" : "#1A3070", lineHeight: "21px",
+      color: hov ? "#71BABF" : "#1A3070", lineHeight: "21px",
       textDecoration: "none", cursor: "pointer",
       transition: "color 0.2s ease",
     }}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
       <span>{link.label}</span>
-      <span style={{ fontFamily: "Inter, sans-serif" }}>→</span>
+      <span style={{ fontFamily: "var(--ov-ff-sans)" }}>→</span>
     </a>
   );
 }
@@ -326,7 +326,7 @@ function TabbedDropdown({ config, onClose }) {
               onMouseEnter={() => setActiveIdx(i)}>
               <div style={S.sideBtnInner}>
                 <span style={S.sideBtnLabel}>{t.label}</span>
-                <span style={{ fontFamily: "Inter, sans-serif", fontSize: 14, color: active ? "#2494C1" : "var(--ov-navy-900)", opacity: active ? 1 : 0.5, transition: "color 0.2s ease, opacity 0.2s ease" }}>→</span>
+                <span style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: active ? "#2494C1" : "var(--ov-navy-900)", opacity: active ? 1 : 0.5, transition: "color 0.2s ease, opacity 0.2s ease" }}>→</span>
               </div>
             </button>
           );
@@ -371,7 +371,7 @@ function NavItem({ name, config, onNav, active }) {
 
   return (
     <div style={{ position: "relative" }}>
-      <button className="ov-nav-btn" style={{ ...S.navBtn, background: open ? "rgba(255,255,255,0.1)" : "none", borderBottom: active === name ? "2px solid #70BABF" : "2px solid transparent" }}
+      <button className="ov-nav-btn" style={{ ...S.navBtn, background: open ? "rgba(255,255,255,0.1)" : "none", borderBottom: active === name ? "2px solid #71BABF" : "2px solid transparent" }}
         onMouseEnter={keepOpen} onMouseLeave={schedClose}>
         {name}
         <Chevron direction={open ? "up" : "down"} color="#FFF"/>

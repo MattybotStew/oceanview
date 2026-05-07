@@ -56,7 +56,7 @@ function TextLink({ children, onClick, color, style }) {
   return (
     <button onClick={onClick} style={{ ...buttonStyles.textLink, color: color || "var(--ov-navy-600)", ...style }}>
       <span>{children}</span>
-      <span style={{ fontFamily: "Inter, system-ui, sans-serif", letterSpacing: "-0.01em" }}>→</span>
+      <span style={{ fontFamily: "var(--ov-ff-sans)", letterSpacing: "-0.01em" }}>→</span>
     </button>
   );
 }

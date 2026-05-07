@@ -39,7 +39,7 @@ const faqStyles = {
     padding: "0 4px 26px", fontSize: 16, lineHeight: 1.7,
     color: "var(--ov-grey-600)", maxWidth: "62ch",
   },
-  tog: { fontFamily: "Inter, system-ui", fontSize: 22, color: "var(--ov-navy-600)" },
+  tog: { fontFamily: "var(--ov-ff-sans)", fontSize: 22, color: "var(--ov-navy-600)" },
 };
 
 const FAQS = [
