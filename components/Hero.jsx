@@ -53,7 +53,7 @@ const heroStyles = {
   scrim: {
     position: "absolute",
     inset: 0,
-    background: "linear-gradient(90deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 100%)",
+    background: "linear-gradient(85deg, rgba(0,0,0,0.80) 2.63%, rgba(102,102,102,0.00) 65.98%)",
     zIndex: 1,
   },
   noise: {
