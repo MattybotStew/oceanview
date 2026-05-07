@@ -4,8 +4,8 @@ function HomePage({ goto }) {
     <main>
       <Hero onPrimary={() => goto("FAQ")} onSecondary={() => goto("Products")} />
       <Highlights />
-      <AboutBlock />
       <ProductsCard />
+      <AboutBlock />
       <RatingBlock />
       <CTAPanel />
     </main>

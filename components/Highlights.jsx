@@ -1,7 +1,7 @@
 // Highlights.jsx — Figma node 7271:1840
 const highlightStyles = {
   section: {
-    padding: "80px 0 96px",
+    padding: "80px 0 0    ",
     background: "#fff",
   },
   heading: {

@@ -1,7 +1,7 @@
 // ProductsCard.jsx — Tabbed product card (MYGAs / FIAs)
 const productsStyles = {
   section: { padding: "104px 0", background: "var(--ov-bg)" },
-  grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" },
+  grid: { display: "flex", gap: 80, alignItems: "center" },
   eyebrow: {
     fontFamily: "var(--ov-ff-eyebrow)", fontWeight: 600, fontSize: 13,
     letterSpacing: ".12em", textTransform: "uppercase",
@@ -78,22 +78,22 @@ function ProductsCard() {
   const [tab, setTab] = React.useState("myga");
   const data = PRODUCTS[tab];
   return (
-    <section style={productsStyles.section}>
+    <section style={productsStyles.section} className="ov-products-section">
       <div className="ov-container">
-        <div style={productsStyles.grid}>
-          <div>
+        <div style={productsStyles.grid} className="ov-products-grid">
+          <div style={{ flex: 1 }}>
             <div style={productsStyles.eyebrow}>Our Products</div>
             <h2 style={productsStyles.h2}>Built around what retirement actually looks like.</h2>
             <p style={productsStyles.body}>
               Two complementary annuity families — Multi-Year Guaranteed and Fixed Indexed — each
               designed to balance protection, growth, and tax-deferred efficiency.
             </p>
-            <div style={{ display: "flex", gap: 12 }}>
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <PillNavy>Compare Products</PillNavy>
               <TextLink>Talk to a professional</TextLink>
             </div>
           </div>
-          <div style={productsStyles.card}>
+          <div style={{ ...productsStyles.card, flex: 1 }} className="ov-products-card">
             <div style={productsStyles.tabs}>
               {[["myga", "MYGAs"], ["fia", "FIAs"]].map(([k, l]) => (
                 <button key={k}

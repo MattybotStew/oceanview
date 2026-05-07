@@ -1,10 +1,13 @@
 // AboutBlock.jsx — Split layout: photo left, copy right
 const aboutStyles = {
-  section: { padding: "104px 0", background: "var(--ov-surface-tint-2)" },
-  grid: { display: "grid", gridTemplateColumns: "1fr 1.05fr", gap: 80, alignItems: "center" },
+  section: { padding: "0", background: "#fff" },
+  grid: { display: "flex", gap: 80, alignItems: "center" },
   photoWrap: {
-    borderRadius: 12, overflow: "hidden",
-    aspectRatio: "4/5", boxShadow: "var(--ov-shadow-card)",
+    borderRadius: 16,
+    overflow: "hidden",
+    width: "clamp(260px, 30vw, 420px)",
+    aspectRatio: "1 / 1",
+    flexShrink: 0,
   },
   photo: { width: "100%", height: "100%", objectFit: "cover", display: "block" },
   eyebrow: {
@@ -31,22 +34,15 @@ function AboutBlock() {
       <div className="ov-container">
         <div style={aboutStyles.grid}>
           <div style={aboutStyles.photoWrap}>
-            <img style={aboutStyles.photo} src="assets/older-couple-2.png" alt="" />
+            <img style={aboutStyles.photo} src="assets/couple-walking.png" alt="" />
           </div>
           <div>
-            <div style={aboutStyles.eyebrow}>About Oceanview</div>
             <h2 style={aboutStyles.h2}>
-              A reliable source of top-tier fixed and fixed-indexed annuities.
+              About Oceanview Life and Annuity Company
             </h2>
             <p style={aboutStyles.body}>
-              Oceanview Life and Annuity Company stands as a reliable source of top-tier fixed and
-              fixed-indexed annuity offerings. Our paramount objective is to offer a sense of security
-              and financial stability to both our agents and our policyholders.
-            </p>
-            <p style={aboutStyles.body}>
-              Backed by a long-term, conservative investment approach, we focus on durable returns and
-              service that goes beyond expectations.
-            </p>
+              Oceanview Life and Annuity Company stands as a reliable source of top-tier fixed and fixed-indexed annuity offerings. Our paramount objective is to offer a sense of security and financial stability to both our agents, who recommend our annuities to their clients, and our policyholders as they strive to achieve their financial objectives through our annuity products.
+            </p>  
             <div style={aboutStyles.ctas}>
               <PillGhost>More About Us</PillGhost>
               <TextLink>Read our 2024 Annual Report</TextLink>
@@ -55,6 +51,7 @@ function AboutBlock() {
         </div>
       </div>
     </section>
+    
   );
 }
 
