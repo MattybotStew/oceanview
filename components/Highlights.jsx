@@ -1,7 +1,6 @@
 // Highlights.jsx — Figma node 7271:1840
 const highlightStyles = {
   section: {
-    padding: "80px 0 0    ",
     background: "#fff",
   },
   heading: {
@@ -79,7 +78,7 @@ const HIGHLIGHTS = [
 
 function Highlights() {
   return (
-    <section style={highlightStyles.section}>
+    <section style={highlightStyles.section} className="ov-section">
       <div className="ov-container">
         <h2 style={highlightStyles.heading}>
           Oceanview Life &amp; Annuity<br />Company Highlights

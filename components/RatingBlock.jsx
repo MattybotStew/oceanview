@@ -1,9 +1,8 @@
 // RatingBlock.jsx — A.M. Best "A" Excellent rating
 
 const ratingStyles = {
-  section: { 
-    padding: "80px 0 0", 
-    background: "var(--ov-bg)" 
+  section: {
+    background: "var(--ov-bg)",
   },
   grid: { 
     display: "flex", 
@@ -44,9 +43,9 @@ const ratingStyles = {
 
 function RatingBlock() {
   return (
-    <section style={ratingStyles.section}>
+    <section style={ratingStyles.section} className="ov-section">
       <div className="ov-container">
-        <div style={ratingStyles.grid}>
+        <div style={ratingStyles.grid} className="ov-rating-grid">
           <div>
             <h2 style={ratingStyles.h2}>Rated "A" Excellent by A.M. Best.</h2>
             <p style={ratingStyles.body}>

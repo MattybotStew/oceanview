@@ -1,6 +1,6 @@
 // ProductsCard.jsx — Tabbed product card (MYGAs / FIAs)
 const productsStyles = {
-  section: { padding: "104px 0", background: "var(--ov-bg)" },
+  section: { background: "var(--ov-bg)" },
   grid: { display: "flex", gap: 80, alignItems: "center" },
   eyebrow: {
     fontFamily: "var(--ov-ff-eyebrow)", fontWeight: 600, fontSize: 13,
@@ -45,20 +45,23 @@ const productsStyles = {
     fontSize: 13.5, lineHeight: 1.6, color: "var(--ov-grey-600)", margin: "0 0 18px",
   },
   row: {
-    display: "flex", 
-    justifyContent: "space-between", 
+    display: "flex",
+    justifyContent: "space-between",
     alignItems: "center",
-    padding: "16px 0", 
+    padding: "16px 0",
     borderTop: "1px solid rgba(13,31,78,.10)",
-    cursor: "pointer", 
+    cursor: "pointer",
     transition: "padding-left .15s ease",
     width: "100%",
-    gap: 16,
+    gap: 12,
+    flexWrap: "nowrap",
   },
   productInfo: {
     display: "flex",
     flexDirection: "column",
     gap: 4,
+    flex: 1,
+    minWidth: 0,
   },
   productName: {
     fontFamily: "var(--ov-ff-sans)",
@@ -76,6 +79,7 @@ const productsStyles = {
     display: "flex",
     alignItems: "center",
     gap: 18,
+    flexShrink: 0,
   },
   rate: {
     fontFamily: "var(--ov-ff-display)", 
@@ -116,7 +120,7 @@ function ProductsCard() {
   const data = PRODUCTS[tab];
   
   return (
-    <section style={productsStyles.section} className="ov-products-section">
+    <section style={productsStyles.section} className="ov-section ov-products-section">
       <div className="ov-container">
         <div style={productsStyles.grid} className="ov-products-grid">
           <div style={{ flex: 1 }}>

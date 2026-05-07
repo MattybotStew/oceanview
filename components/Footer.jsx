@@ -3,7 +3,7 @@ const footerStyles = {
   wrap: {
     background: "var(--ov-navy-1000)",
     color: "rgba(255,255,255,.72)",
-    padding: "56px 0 28px", marginTop: 80,
+    padding: "56px 0 28px",
   },
 
   // Email capture row
@@ -18,7 +18,8 @@ const footerStyles = {
     letterSpacing: ".12em", textTransform: "uppercase", color: "rgba(255,255,255,.7)",
   },
   signupTitle: {
-    fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: 28,
+    fontFamily: "var(--ov-ff-display)", fontWeight: 400,
+    fontSize: "clamp(22px, 3vw, 28px)",
     lineHeight: 1.15, color: "#fff", margin: 0, textWrap: "balance",
   },
   signupSub: {
@@ -91,7 +92,7 @@ function Footer() {
       <div className="ov-container">
 
         {/* Email signup */}
-        <div style={footerStyles.signup}>
+        <div style={footerStyles.signup} className="ov-footer-signup">
           <div style={footerStyles.signupCopy}>
             <span style={footerStyles.signupEyebrow}>Stay in the know</span>
             <h2 style={footerStyles.signupTitle}>Smart insights, delivered.</h2>
@@ -100,7 +101,7 @@ function Footer() {
             </p>
           </div>
           <form style={footerStyles.form} onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>
-            <div style={footerStyles.formRow}>
+            <div style={footerStyles.formRow} className="ov-footer-form-row">
               <input style={footerStyles.input} placeholder="First name" required />
               <input style={footerStyles.input} type="email" placeholder="Email address" required />
               <button type="submit" style={footerStyles.submit}
@@ -117,7 +118,7 @@ function Footer() {
         </div>
 
         {/* Link columns */}
-        <div style={footerStyles.top}>
+        <div style={footerStyles.top} className="ov-footer-cols">
           <div>
             <div style={footerStyles.logoBlock}>
               <img src="assets/oceanview-logo-white.png" alt="Oceanview" style={{ height: 28, width: "auto" }}

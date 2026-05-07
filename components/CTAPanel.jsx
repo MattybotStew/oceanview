@@ -1,9 +1,8 @@
 // CTAPanel.jsx — Soft sky tint "Get Started with Oceanview" panel
 
 const ctaPanelStyles = {
-  section: { 
-    padding: "80px 0 0", 
-    background: "var(--ov-bg)" 
+  section: {
+    background: "var(--ov-bg)",
   },
   panel: {
     background: "var(--ov-surface-tint)", 
@@ -49,7 +48,7 @@ const ctaPanelStyles = {
 
 function CTAPanel() {
   return (
-    <section style={ctaPanelStyles.section}>
+    <section style={ctaPanelStyles.section} className="ov-section">
       <div className="ov-container">
         <div style={ctaPanelStyles.panel}>
           <h2 style={ctaPanelStyles.h2}>

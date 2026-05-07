@@ -1,8 +1,7 @@
 // AboutBlock.jsx — Split layout: photo left, copy right
 const aboutStyles = {
-  section: { 
-    padding: "80px 0 0", 
-    background: "var(--ov-bg)"  
+  section: {
+    background: "var(--ov-bg)",
   },
   grid: { 
     display: "flex", 
@@ -50,9 +49,9 @@ const aboutStyles = {
 
 function AboutBlock() {
   return (
-    <section style={aboutStyles.section}>
+    <section style={aboutStyles.section} className="ov-section ov-about-section">
       <div className="ov-container">
-        <div style={aboutStyles.grid}>
+        <div style={aboutStyles.grid} className="ov-about-grid">
           <div style={aboutStyles.photoWrap}>
             <img 
               style={aboutStyles.photo} 
@@ -79,20 +78,6 @@ function AboutBlock() {
         </div>
       </div>
       
-      {/* Mobile responsive styles */}
-      <style>{`
-        @media (max-width: 800px) {
-          .ov-container div[style*="flex"] {
-            flex-direction: column !important;
-            text-align: center;
-          }
-          .ov-container div[style*="flex"] > div:last-child {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          }
-        }
-      `}</style>
     </section>
   );
 }

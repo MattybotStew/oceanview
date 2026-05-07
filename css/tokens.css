@@ -211,7 +211,14 @@
   --ov-gutter-sm: 16px;
   --ov-header-h:  96px;
   --ov-ticker-h:  32px;
+
+  /* ---------- Section spacing ---------- */
+  --ov-section-py: 80px;
 }
+
+@media (max-width: 1024px) { :root { --ov-section-py: 64px; } }
+@media (max-width: 720px)  { :root { --ov-section-py: 48px; } }
+@media (max-width: 480px)  { :root { --ov-section-py: 36px; } }
 
 /* ============================================================
    SEMANTIC TYPE CLASSES
@@ -273,6 +280,8 @@ html, body {
 img { max-width: 100%; display: block; }
 button { font-family: inherit; cursor: pointer; }
 a { color: inherit; text-decoration: none; }
+
+.ov-section { padding: var(--ov-section-py) 0; }
 
 /* ============================================================
    CONTAINER SYSTEM — All content including heroes now respect max-width
@@ -393,6 +402,37 @@ a { color: inherit; text-decoration: none; }
   .ov-hamburger   { display: flex !important; align-items: center; }
 }
 
+/* ─── Footer ─────────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .ov-footer-signup { gap: 40px !important; }
+  .ov-footer-cols   { gap: 32px !important; }
+}
+@media (max-width: 800px) {
+  .ov-footer-signup { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .ov-footer-cols   { grid-template-columns: 1fr 1fr !important; gap: 28px 40px !important; }
+}
+@media (max-width: 640px) {
+  .ov-footer-form-row { flex-wrap: wrap !important; }
+  .ov-footer-form-row input  { flex: 1 1 calc(50% - 5px) !important; min-width: 0 !important; }
+  .ov-footer-form-row button { flex: 1 1 100% !important; height: 48px !important; border-radius: 8px !important; }
+}
+@media (max-width: 480px) {
+  .ov-footer-cols { grid-template-columns: 1fr !important; }
+  .ov-footer-form-row input { flex: 1 1 100% !important; }
+}
+
+/* ─── About ──────────────────────────────────────────────────── */
+@media (max-width: 800px) {
+  .ov-about-grid { flex-direction: column !important; gap: 40px !important; }
+  .ov-about-grid > :first-child { width: 100% !important; aspect-ratio: 4/3 !important; }
+}
+
+/* ─── Rating ─────────────────────────────────────────────────── */
+@media (max-width: 800px) {
+  .ov-rating-grid { flex-direction: column-reverse !important; gap: 40px !important; }
+  .ov-rating-grid > :last-child { width: 100% !important; aspect-ratio: 4/3 !important; }
+}
+
 /* ─── Highlights ────────────────────────────────────────────── */
 @media (max-width: 800px) {
   .ov-highlights-grid { flex-direction: column !important; }
@@ -404,51 +444,15 @@ a { color: inherit; text-decoration: none; }
   .ov-products-grid { gap: 48px !important; }
 }
 @media (max-width: 800px) {
-  .ov-products-grid { flex-direction: column !important; gap: 40px !important; }
+  .ov-products-grid { flex-direction: column-reverse !important; gap: 40px !important; }
   .ov-products-grid > * { flex: none !important; width: 100% !important; }
-
-  /* Card padding */
-  .ov-products-card { padding: 21px 17px !important; }
-
-  /* Tabs: vertical stack, full-width rows */
-  .ov-products-tabs {
-    flex-direction: column !important;
-    gap: 0 !important;
-    border-bottom: none !important;
-    margin-bottom: 16px !important;
-  }
-  .ov-products-tab {
-    flex: none !important;
-    width: 100% !important;
-    text-align: center !important;
-    margin-bottom: 0 !important;
-    border-bottom: 1px solid rgba(13,31,78,.10) !important;
-    padding: 10px 16px 12px !important;
-    font-size: 13px !important;
-  }
-  .ov-products-tab-active {
-    border-bottom: 2px solid var(--ov-teal-600) !important;
-  }
-
-  /* Card title + subtitle centered */
-  .ov-products-card-title { text-align: center !important; }
-  .ov-products-card-sub   { text-align: center !important; }
-
-  /* Product rows: always horizontal, desktop style at all breakpoints */
-  .ov-product-row {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    text-align: left !important;
-  }
 }
 @media (max-width: 720px) {
   .ov-products-section { padding: 72px 0 !important; }
 }
 @media (max-width: 480px) {
   .ov-products-section { padding: 56px 0 !important; }
-  .ov-product-row { padding: 13px 0 12px !important; }
+  .ov-products-card { padding: 24px 20px 20px !important; }
 }
 
 /* ============================================================
