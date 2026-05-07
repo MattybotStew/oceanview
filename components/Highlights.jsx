@@ -38,7 +38,7 @@ const highlightStyles = {
     flex: 1,
   },
   card: {
-    background: "rgba(112,186,191,0.2)",
+    background: "#F1FBFF",
     borderRadius: 16,
     padding: "28px 30px 30px",
   },
