@@ -35,7 +35,7 @@ const footerStyles = {
   },
   submit: {
     height: 44, padding: "0 22px", borderRadius: 200, border: 0,
-    background: "var(--ov-teal-400)", color: "var(--ov-navy-1000)",
+    background: "#fff", color: "var(--ov-navy-1000)",
     fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 14,
     cursor: "pointer", whiteSpace: "nowrap", transition: "opacity .15s ease",
   },

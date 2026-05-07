@@ -299,7 +299,7 @@ function Hero({ onPrimary, onSecondary }) {
               {currentContent.subtitle}
             </p>
             <div style={heroStyles.ctas}>
-              <PillMint hero onClick={onPrimary} className="ov-hero-primary">
+              <PillMint hero onClick={onPrimary} className="ov-hero-primary" style={{ background: "#fff", color: "var(--ov-navy-900)" }}>
                 {currentContent.ctaPrimary}
               </PillMint>
               <PillNavy hero onClick={onSecondary} className="ov-hero-secondary">
