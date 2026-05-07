@@ -31,7 +31,7 @@ const productsStyles = {
     padding: "12px 20px", border: 0, background: "none",
     fontFamily: "var(--ov-ff-eyebrow)", fontWeight: 600, fontSize: 14,
     letterSpacing: ".08em", textTransform: "uppercase",
-    color: "var(--ov-grey-400)", cursor: "pointer",
+    color: "var(--ov-grey-600)", cursor: "pointer",
     borderBottom: "2px solid transparent", marginBottom: -1,
     transition: "color .15s ease",
     flex: 1,
@@ -84,11 +84,11 @@ const productsStyles = {
   rate: {
     fontFamily: "var(--ov-ff-display)", 
     fontSize: 20,
-    color: "var(--ov-teal-600)", 
+    color: "var(--ov-teal-700)",
     fontWeight: 500, 
   },
   arrow: { 
-    fontFamily: "Inter, system-ui, sans-serif", 
+    fontFamily: "var(--ov-ff-sans)",
     color: "var(--ov-navy-600)", 
     fontSize: 18,
     transition: "transform .15s ease",

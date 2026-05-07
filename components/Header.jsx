@@ -204,7 +204,7 @@ const S = {
     fontFamily: "var(--ov-ff-sans)",
     fontWeight: 500,
     fontSize: 10,
-    color: "#2494C1",
+    color: "var(--ov-navy-600)",
     letterSpacing: "1.2px",
     textTransform: "uppercase",
   },
@@ -263,10 +263,10 @@ function ProductLink({ link, onClose }) {
     }}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingBottom: link.desc ? 12 : 0 }}>
-        <span style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 500, fontSize: 15, color: hov ? "#71BABF" : "#1A3070", lineHeight: "21px", transition: "color 0.2s ease" }}>
+        <span style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 500, fontSize: 15, color: hov ? "#1976A0" : "#1A3070", lineHeight: "21px", transition: "color 0.2s ease" }}>
           {link.label}
         </span>
-        <span style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 15, color: hov ? "#71BABF" : "#1A3070", transition: "color 0.2s ease" }}>→</span>
+        <span style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 15, color: hov ? "#1976A0" : "#1A3070", transition: "color 0.2s ease" }}>→</span>
       </div>
       {link.desc && (
         <p style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 400, fontSize: 13, color: "var(--ov-grey-600)", lineHeight: "21.45px", margin: 0 }}>
@@ -283,7 +283,7 @@ function SimpleLink({ link, onClose }) {
     <a href={link.href} onClick={onClose} style={{
       display: "flex", alignItems: "center", justifyContent: "space-between",
       fontFamily: "var(--ov-ff-sans)", fontWeight: 500, fontSize: 15,
-      color: hov ? "#71BABF" : "#1A3070", lineHeight: "21px",
+      color: hov ? "#1976A0" : "#1A3070", lineHeight: "21px",
       textDecoration: "none", cursor: "pointer",
       transition: "color 0.2s ease",
     }}
@@ -326,7 +326,7 @@ function TabbedDropdown({ config, onClose }) {
               onMouseEnter={() => setActiveIdx(i)}>
               <div style={S.sideBtnInner}>
                 <span style={S.sideBtnLabel}>{t.label}</span>
-                <span style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: active ? "#2494C1" : "var(--ov-navy-900)", opacity: active ? 1 : 0.5, transition: "color 0.2s ease, opacity 0.2s ease" }}>→</span>
+                <span style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: active ? "var(--ov-navy-600)" : "var(--ov-navy-900)", opacity: active ? 1 : 0.5, transition: "color 0.2s ease, opacity 0.2s ease" }}>→</span>
               </div>
             </button>
           );
@@ -433,7 +433,7 @@ function MobileNavContent({ config, onClose }) {
         {config.tabs.map((tab, i) => (
           <div key={tab.label}>
             {i > 0 && <div style={{ height: 1, background: "rgba(13,31,78,0.08)", margin: "6px 20px 6px 44px" }}/>}
-            <div style={{ padding: "10px 20px 4px 44px", fontFamily: "var(--ov-ff-sans)", fontSize: 10, fontWeight: 600, color: "#2494C1", letterSpacing: "1.2px", textTransform: "uppercase" }}>
+            <div style={{ padding: "10px 20px 4px 44px", fontFamily: "var(--ov-ff-sans)", fontSize: 10, fontWeight: 600, color: "var(--ov-navy-600)", letterSpacing: "1.2px", textTransform: "uppercase" }}>
               {tab.label}
             </div>
             {tab.links.map(link => (

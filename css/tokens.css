@@ -148,7 +148,7 @@
   --ov-fg-on-dark:      var(--ov-surface-tint-2);
   --ov-fg-muted:        var(--ov-grey-600);
   --ov-fg-meta:         var(--ov-grey-400);
-  --ov-link:            var(--ov-teal-600);
+  --ov-link:            var(--ov-teal-700);
   --ov-cta-primary-bg:  var(--ov-teal-400);
   --ov-cta-primary-fg:  var(--ov-navy-1000);
   --ov-cta-secondary-bg: var(--ov-navy-500);
@@ -260,9 +260,9 @@
   color: var(--ov-grey-600);
   margin: 0;
 }
-.ov-p-lg    { font-family: var(--ov-ff-body); font-size: var(--ov-fz-body-lg); line-height: var(--ov-lh-loose); color: var(--ov-grey-400); }
+.ov-p-lg    { font-family: var(--ov-ff-body); font-size: var(--ov-fz-body-lg); line-height: var(--ov-lh-loose); color: var(--ov-grey-600); }
 .ov-p-sm    { font-family: var(--ov-ff-body); font-size: var(--ov-fz-body-sm); line-height: 1.5; color: var(--ov-grey-600); }
-.ov-meta    { font-family: var(--ov-ff-body); font-size: var(--ov-fz-meta); line-height: 1.5; color: var(--ov-grey-400); }
+.ov-meta    { font-family: var(--ov-ff-body); font-size: var(--ov-fz-meta); line-height: 1.5; color: var(--ov-grey-600); }
 .ov-caption { font-family: var(--ov-ff-sans); font-size: var(--ov-fz-caption); line-height: 1.4; color: var(--ov-grey-500); }
 
 .ov-link { color: var(--ov-link); text-decoration: none; font-weight: 500; }
