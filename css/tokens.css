@@ -406,13 +406,52 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 800px) {
   .ov-products-grid { flex-direction: column !important; gap: 40px !important; }
   .ov-products-grid > * { flex: none !important; width: 100% !important; }
+
+  /* Card padding */
+  .ov-products-card { padding: 21px 17px !important; }
+
+  /* Tabs: vertical stack, full-width rows */
+  .ov-products-tabs {
+    flex-direction: column !important;
+    gap: 0 !important;
+    border-bottom: none !important;
+    margin-bottom: 16px !important;
+  }
+  .ov-products-tab {
+    flex: none !important;
+    width: 100% !important;
+    text-align: center !important;
+    margin-bottom: 0 !important;
+    border-bottom: 1px solid rgba(13,31,78,.10) !important;
+    padding: 10px 16px 12px !important;
+    font-size: 13px !important;
+  }
+  .ov-products-tab-active {
+    border-bottom: 2px solid var(--ov-teal-600) !important;
+  }
+
+  /* Card title + subtitle centered */
+  .ov-products-card-title { text-align: center !important; }
+  .ov-products-card-sub   { text-align: center !important; }
+
+  /* Product rows: force horizontal, reset any inherited text-align */
+  .ov-product-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    text-align: left !important;
+  }
+  .ov-product-name  { font-size: 12px !important; text-align: left !important; }
+  .ov-product-years { font-size: 10px !important; text-align: left !important; }
+  .ov-product-rate  { font-size: 13px !important; }
 }
 @media (max-width: 720px) {
   .ov-products-section { padding: 72px 0 !important; }
 }
 @media (max-width: 480px) {
   .ov-products-section { padding: 56px 0 !important; }
-  .ov-products-card { padding: 24px 20px 20px !important; }
+  .ov-product-row { padding: 13px 0 12px !important; }
 }
 
 /* ============================================================

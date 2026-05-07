@@ -179,58 +179,6 @@ function ProductsCard() {
         </div>
       </div>
       
-      <style>{`
-        @media (max-width: 800px) {
-          .ov-products-grid {
-            flex-direction: column !important;
-            gap: 48px !important;
-          }
-          .ov-products-grid > div {
-            width: 100% !important;
-          }
-          .ov-products-card {
-            padding: 21px 17px !important;
-          }
-
-          /* Tabs: stack vertically, each full-width row */
-          .ov-products-tabs {
-            flex-direction: column !important;
-            gap: 0 !important;
-            border-bottom: none !important;
-            margin-bottom: 16px !important;
-          }
-          .ov-products-tab {
-            flex: none !important;
-            width: 100% !important;
-            text-align: center !important;
-            margin-bottom: 0 !important;
-            border-bottom: 1px solid rgba(13,31,78,.10) !important;
-            padding: 10px 16px 12px !important;
-            font-size: 13px !important;
-          }
-          .ov-products-tab-active {
-            border-bottom: 2px solid var(--ov-teal-600) !important;
-          }
-
-          /* Center title and subtitle */
-          .ov-products-card-title {
-            text-align: center !important;
-          }
-          .ov-products-card-sub {
-            text-align: center !important;
-          }
-
-          /* Product row text sizes */
-          .ov-product-name  { font-size: 12px !important; }
-          .ov-product-years { font-size: 10px !important; }
-          .ov-product-rate  { font-size: 13px !important; }
-        }
-
-        @media (max-width: 480px) {
-          .ov-products-section { padding: 64px 0 !important; }
-          .ov-product-row { padding: 13px 0 12px !important; }
-        }
-      `}</style>
     </section>
   );
 }
