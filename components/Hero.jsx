@@ -124,8 +124,8 @@ const heroStyles = {
     borderRadius: 4,
   },
   arrowBtn: {
-    width: 34,
-    height: 34,
+    width: 30.6,
+    height: 30.6,
     borderRadius: "50%",
     background: "#233D7C",
     border: "none",
@@ -313,7 +313,7 @@ function Hero({ onPrimary, onSecondary }) {
 
         <div style={heroStyles.dotsContainer}>
           <button className="ov-hero-prev" style={heroStyles.arrowBtn} aria-label="Previous slide">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <svg width="12.6" height="12.6" viewBox="0 0 16 16" fill="none">
               <path d="M10 4L6 8L10 12" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
@@ -327,7 +327,7 @@ function Hero({ onPrimary, onSecondary }) {
             />
           ))}
           <button className="ov-hero-next" style={heroStyles.arrowBtn} aria-label="Next slide">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <svg width="12.6" height="12.6" viewBox="0 0 16 16" fill="none">
               <path d="M6 4L10 8L6 12" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
