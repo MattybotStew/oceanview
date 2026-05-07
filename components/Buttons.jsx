@@ -36,7 +36,7 @@ function PillMint({ children, hero, onClick, style }) {
         if (isWhite) {
           b.style.background = "var(--ov-navy-900)";
           b.style.color = "#fff";
-          b.style.boxShadow = "0 8px 28px rgba(255,255,255,0.25)";
+          b.style.boxShadow = "0 8px 32px rgba(255,255,255,0.45)";
         } else {
           b.style.boxShadow = "0 8px 24px rgba(107,186,191,0.5)";
         }
@@ -60,7 +60,7 @@ function PillNavy({ children, hero, onClick, style }) {
     <button onClick={onClick} style={{ ...base, background: "var(--ov-navy-500)", color: "#F2FCFF", ...style }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = "translateY(-2px)";
-        e.currentTarget.style.boxShadow = "0 8px 28px rgba(255,255,255,0.25)";
+        e.currentTarget.style.boxShadow = "0 8px 32px rgba(255,255,255,0.45)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = "";
