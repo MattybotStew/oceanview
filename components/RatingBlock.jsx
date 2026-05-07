@@ -1,29 +1,44 @@
 // RatingBlock.jsx — A.M. Best "A" Excellent rating
+
 const ratingStyles = {
-  section: { padding: "96px 0", background: "var(--ov-bg)" },
-  grid: { display: "grid", gridTemplateColumns: "0.85fr 1.15fr", gap: 64, alignItems: "center" },
-  card: {
-    background: "var(--ov-navy-500)", color: "#F2FCFF",
-    padding: "44px 48px", borderRadius: 12, boxShadow: "var(--ov-shadow-card)",
-    display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 18,
+  section: { 
+    padding: "80px 0 0", 
+    background: "var(--ov-bg)" 
   },
-  badge: {
-    display: "inline-flex", alignItems: "center", justifyContent: "center",
-    fontFamily: "var(--ov-ff-display)", fontWeight: 800,
-    fontSize: 92, lineHeight: 1, color: "var(--ov-teal-400)",
+  grid: { 
+    display: "flex", 
+    gap: 80, 
+    alignItems: "center" 
   },
-  badgeSub: {
-    fontFamily: "var(--ov-ff-eyebrow)", fontWeight: 600, fontSize: 13,
-    letterSpacing: ".14em", textTransform: "uppercase", color: "rgba(255,255,255,.78)",
+  photoWrap: {
+    borderRadius: 24,
+    overflow: "hidden",
+    width: "clamp(260px, 30vw, 420px)",
+    aspectRatio: "1 / 1",
+    flexShrink: 0,
+  },
+  photo: { 
+    width: "100%", 
+    height: "100%", 
+    objectFit: "cover", 
+    display: "block" 
   },
   h2: {
-    fontFamily: "var(--ov-ff-display)", fontWeight: 400,
-    fontSize: "clamp(28px, 3.2vw, 44px)", lineHeight: 1.1,
-    color: "var(--ov-navy-900)", margin: "0 0 18px", textWrap: "balance",
+    fontFamily: "var(--ov-ff-display)", 
+    fontWeight: 400,
+    fontSize: "clamp(30px, 3.6vw, 48px)", 
+    lineHeight: 1.2,
+    color: "var(--ov-navy-900)", 
+    letterSpacing: "-0.01em",
+    margin: "0 0 24px", 
   },
   body: {
-    fontSize: 16.5, lineHeight: 1.7, color: "var(--ov-grey-600)",
-    margin: "0 0 12px", maxWidth: "52ch",
+    fontSize: 17, 
+    lineHeight: 1.6, 
+    color: "var(--ov-grey-600)",
+    margin: "0 0 18px", 
+    // REMOVED: maxWidth: "52ch",  // This was limiting the width
+    width: "100%",  // Allow full width within the container
   },
 };
 
@@ -32,13 +47,6 @@ function RatingBlock() {
     <section style={ratingStyles.section}>
       <div className="ov-container">
         <div style={ratingStyles.grid}>
-          <div style={ratingStyles.card}>
-            <div style={ratingStyles.badgeSub}>A.M. Best Rating</div>
-            <div style={ratingStyles.badge}>A</div>
-            <div style={{ fontSize: 14, opacity: 0.86, lineHeight: 1.5, fontStyle: "italic" }}>
-              "Excellent" — affirmed for financial strength and operating performance.
-            </div>
-          </div>
           <div>
             <h2 style={ratingStyles.h2}>Rated "A" Excellent by A.M. Best.</h2>
             <p style={ratingStyles.body}>
@@ -48,10 +56,24 @@ function RatingBlock() {
             </p>
             <TextLink>Read the latest A.M. Best report</TextLink>
           </div>
+          <div style={ratingStyles.photoWrap}>
+            <img 
+              style={ratingStyles.photo} 
+              src="assets/ratingMain.png" 
+              alt="Couple walking together"
+            />
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-Object.assign(window, { RatingBlock });
+// Global registration
+if (typeof window !== 'undefined') {
+  Object.assign(window, { RatingBlock });
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = RatingBlock;
+}

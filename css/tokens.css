@@ -206,7 +206,7 @@
   --ov-radius-pill: 200px;
 
   /* ---------- Layout ---------- */
-  --ov-container: 1300px;
+  --ov-container: 1600px;  /* Global max-width for containers AND heroes */
   --ov-gutter:    120px;
   --ov-gutter-sm: 16px;
   --ov-header-h:  96px;
@@ -274,13 +274,109 @@ img { max-width: 100%; display: block; }
 button { font-family: inherit; cursor: pointer; }
 a { color: inherit; text-decoration: none; }
 
+/* ============================================================
+   CONTAINER SYSTEM — All content including heroes now respect max-width
+   ============================================================ */
+
 .ov-container {
   max-width: var(--ov-container);
   margin: 0 auto;
   padding: 0 var(--ov-gutter);
 }
-@media (max-width: 1100px) { .ov-container { padding: 0 32px; } }
-@media (max-width: 720px)  { .ov-container { padding: 0 var(--ov-gutter-sm); } }
+
+/* Hero section wrapper - adds max-width constraint while keeping card styling */
+.ov-hero-wrapper {
+  max-width: var(--ov-container);
+  margin: 0 auto;
+  padding: 0 var(--ov-gutter);
+}
+
+/* The actual hero card inside the wrapper */
+.ov-hero-card {
+  border-radius: 32px;
+  overflow: hidden;
+  position: relative;
+  height: 800px;
+}
+
+/* Responsive container gutters - progressive narrowing */
+@media (max-width: calc(var(--ov-container) + 240px)) {
+  .ov-container,
+  .ov-hero-wrapper {
+    padding: 0 60px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .ov-container,
+  .ov-hero-wrapper {
+    padding: 0 32px;
+  }
+}
+
+@media (max-width: 720px) {
+  .ov-container,
+  .ov-hero-wrapper {
+    padding: 0 var(--ov-gutter-sm);
+  }
+}
+
+/* Optional: Cap max-width on very wide screens to maintain readability */
+@media (min-width: 2000px) {
+  .ov-container,
+  .ov-hero-wrapper {
+    padding: 0 200px;
+  }
+}
+
+/* Hero responsive height adjustments */
+@media (max-width: 1100px) {
+  .ov-hero-card { height: 580px; }
+}
+@media (max-width: 720px) {
+  .ov-hero-card { height: 560px; }
+}
+@media (max-width: 480px) {
+  .ov-hero-card { height: 520px; }
+}
+
+/* Hero content positioning - relative to the now-constrained card */
+.ov-hero-content {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 80px;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  z-index: 2;
+}
+
+@media (max-width: 1100px) {
+  .ov-hero-content {
+    left: 40px;
+    max-width: 520px;
+    gap: 28px;
+  }
+}
+
+@media (max-width: 720px) {
+  .ov-hero-content {
+    left: 24px;
+    right: 24px;
+    max-width: none;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ov-hero-content {
+    left: 20px;
+    right: 20px;
+    gap: 16px;
+  }
+}
 
 /* ─── Mobile nav toggle ─────────────────────────────────────────── */
 .ov-hamburger   { display: none; }
@@ -295,26 +391,6 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 1024px) {
   .ov-desktop-nav { display: none !important; }
   .ov-hamburger   { display: flex !important; align-items: center; }
-}
-
-/* ─── Hero ──────────────────────────────────────────────────────── */
-.ov-hero-card   { height: 800px; }
-.ov-hero-content {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  left: 80px; max-width: 720px;
-  display: flex; flex-direction: column; gap: 40px; z-index: 2;
-}
-@media (max-width: 1100px) {
-  .ov-hero-card    { height: 580px; }
-  .ov-hero-content { left: 40px; max-width: 520px; gap: 28px; }
-}
-@media (max-width: 720px) {
-  .ov-hero-card    { height: 560px; }
-  .ov-hero-content { left: 24px; right: 24px; max-width: none; gap: 20px; }
-}
-@media (max-width: 480px) {
-  .ov-hero-card    { height: 520px; }
-  .ov-hero-content { left: 20px; right: 20px; gap: 16px; }
 }
 
 /* ─── Highlights ────────────────────────────────────────────── */
