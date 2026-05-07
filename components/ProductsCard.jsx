@@ -50,40 +50,44 @@ const productsStyles = {
     alignItems: "center",
     padding: "16px 0", 
     borderTop: "1px solid rgba(13,31,78,.10)",
-    fontWeight: 500, 
-    fontSize: 15, 
-    color: "var(--ov-navy-900)",
     cursor: "pointer", 
     transition: "padding-left .15s ease",
     width: "100%",
-    gap: 16, // Add gap between elements
+    gap: 16,
+  },
+  productInfo: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 4,
   },
   productName: {
+    fontFamily: "var(--ov-ff-sans)",
     fontSize: 16,
     fontWeight: 600,
     color: "var(--ov-navy-900)",
-    whiteSpace: "nowrap", // Prevent wrapping
   },
   productYears: {
-    fontSize: 14,
+    fontFamily: "var(--ov-ff-sans)",
+    fontSize: 13,
     color: "var(--ov-grey-500)",
     fontWeight: 400,
-    whiteSpace: "nowrap", // Prevent wrapping
+  },
+  rateContainer: {
+    display: "flex",
+    alignItems: "center",
+    gap: 18,
   },
   rate: {
     fontFamily: "var(--ov-ff-display)", 
     fontSize: 20,
     color: "var(--ov-teal-600)", 
     fontWeight: 500, 
-    fontVariantNumeric: "tabular-nums",
-    whiteSpace: "nowrap", // Prevent wrapping
   },
   arrow: { 
     fontFamily: "Inter, system-ui, sans-serif", 
     color: "var(--ov-navy-600)", 
     fontSize: 18,
     transition: "transform .15s ease",
-    whiteSpace: "nowrap", // Prevent wrapping
   },
 };
 
@@ -128,13 +132,14 @@ function ProductsCard() {
             </div>
           </div>
           <div style={{ ...productsStyles.card, flex: 1 }} className="ov-products-card">
-            <div style={productsStyles.tabs}>
+            <div style={productsStyles.tabs} className="ov-products-tabs">
               {[["myga", "MYGAs"], ["fia", "FIAs"]].map(([k, l]) => (
-                <button 
+                <button
                   key={k}
-                  style={{ 
-                    ...productsStyles.tab, 
-                    ...(tab === k ? productsStyles.tabActive : {}) 
+                  className={`ov-products-tab${tab === k ? " ov-products-tab-active" : ""}`}
+                  style={{
+                    ...productsStyles.tab,
+                    ...(tab === k ? productsStyles.tabActive : {}),
                   }}
                   onClick={() => setTab(k)}
                 >
@@ -142,35 +147,38 @@ function ProductsCard() {
                 </button>
               ))}
             </div>
-            <div style={productsStyles.cardTitle}>{data.title}</div>
-            <p style={productsStyles.cardSub}>{data.sub}</p>
+            <div style={productsStyles.cardTitle} className="ov-products-card-title">{data.title}</div>
+            <p style={productsStyles.cardSub} className="ov-products-card-sub">{data.sub}</p>
             {data.items.map((it) => (
-              <div 
-                key={it.name} 
+              <div
+                key={it.name}
                 style={productsStyles.row}
                 className="ov-product-row"
                 onMouseEnter={(e) => {
                   e.currentTarget.style.paddingLeft = "12px";
-                  const arrow = e.currentTarget.querySelector('.product-arrow');
+                  const arrow = e.currentTarget.querySelector(".product-arrow");
                   if (arrow) arrow.style.transform = "translateX(6px)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.paddingLeft = "0";
-                  const arrow = e.currentTarget.querySelector('.product-arrow');
+                  const arrow = e.currentTarget.querySelector(".product-arrow");
                   if (arrow) arrow.style.transform = "translateX(0)";
                 }}
               >
-                <span style={productsStyles.productName}>{it.name}</span>
-                <span style={productsStyles.productYears}>{it.years}</span>
-                <span style={productsStyles.rate}>{it.rate}</span>
-                <span style={productsStyles.arrow} className="product-arrow">→</span>
+                <div style={productsStyles.productInfo}>
+                  <span style={productsStyles.productName} className="ov-product-name">{it.name}</span>
+                  <span style={productsStyles.productYears} className="ov-product-years">{it.years}</span>
+                </div>
+                <div style={productsStyles.rateContainer}>
+                  <span style={productsStyles.rate} className="ov-product-rate">{it.rate}</span>
+                  <span style={productsStyles.arrow} className="product-arrow">→</span>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </div>
       
-      {/* Responsive styles - keep everything inline on mobile */}
       <style>{`
         @media (max-width: 800px) {
           .ov-products-grid {
@@ -181,70 +189,46 @@ function ProductsCard() {
             width: 100% !important;
           }
           .ov-products-card {
-            padding: 24px 20px !important;
+            padding: 21px 17px !important;
           }
-          .ov-products-card button {
-            flex: 1;
+
+          /* Tabs: stack vertically, each full-width row */
+          .ov-products-tabs {
+            flex-direction: column !important;
+            gap: 0 !important;
+            border-bottom: none !important;
+            margin-bottom: 16px !important;
+          }
+          .ov-products-tab {
+            flex: none !important;
+            width: 100% !important;
+            text-align: center !important;
+            margin-bottom: 0 !important;
+            border-bottom: 1px solid rgba(13,31,78,.10) !important;
+            padding: 10px 16px 12px !important;
             font-size: 13px !important;
-            padding: 10px 12px !important;
           }
-          
-          /* Keep all items inline horizontally on mobile */
-          .ov-product-row {
-            display: flex !important;
-            flex-direction: row !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            flex-wrap: nowrap !important;
-            gap: 8px !important;
+          .ov-products-tab-active {
+            border-bottom: 2px solid var(--ov-teal-600) !important;
           }
-          
-          .ov-product-row span {
-            white-space: nowrap !important;
+
+          /* Center title and subtitle */
+          .ov-products-card-title {
+            text-align: center !important;
           }
+          .ov-products-card-sub {
+            text-align: center !important;
+          }
+
+          /* Product row text sizes */
+          .ov-product-name  { font-size: 12px !important; }
+          .ov-product-years { font-size: 10px !important; }
+          .ov-product-rate  { font-size: 13px !important; }
         }
-        
-        @media (max-width: 600px) {
-          .ov-product-row {
-            font-size: 13px !important;
-          }
-          
-          .ov-product-row span:first-child {
-            font-size: 13px !important;
-          }
-          
-          .ov-product-row span:nth-child(2) {
-            font-size: 11px !important;
-          }
-          
-          .ov-product-row span:nth-child(3) {
-            font-size: 14px !important;
-          }
-        }
-        
+
         @media (max-width: 480px) {
-          .ov-products-section {
-            padding: 64px 0 !important;
-          }
-          .ov-products-card {
-            padding: 20px 16px !important;
-          }
-          .ov-product-row {
-            padding: 12px 0 !important;
-            gap: 6px !important;
-          }
-          
-          .ov-product-row span:first-child {
-            font-size: 12px !important;
-          }
-          
-          .ov-product-row span:nth-child(2) {
-            font-size: 10px !important;
-          }
-          
-          .ov-product-row span:nth-child(3) {
-            font-size: 13px !important;
-          }
+          .ov-products-section { padding: 64px 0 !important; }
+          .ov-product-row { padding: 13px 0 12px !important; }
         }
       `}</style>
     </section>
