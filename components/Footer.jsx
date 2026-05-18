@@ -43,7 +43,7 @@ const footerStyles = {
 
   // Link columns
   top: {
-    display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr 1fr", gap: 56,
+    display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr 1fr 1fr", gap: 40,
     padding: "44px 0 36px", borderBottom: "1px solid rgba(255,255,255,.12)",
   },
   logoBlock: {
@@ -83,9 +83,10 @@ const footerStyles = {
 function Footer() {
   const [submitted, setSubmitted] = React.useState(false);
   const cols = [
-    ["Products",   ["Multi-Year Guaranteed Annuities", "Fixed Indexed Annuities", "Crescendo", "Harbourview"]],
-    ["Company",    ["About", "Leadership", "Press", "Careers"]],
-    ["Resources",  ["FAQ", "Forms", "Contact", "Find a Professional"]],
+    ["Products",   ["Harbourview MYGA", "Horizon MYGA", "Current Rate Fixed Annuity", "Harbourview FIA", "CapLock", "Topsider"]],
+    ["Company",    ["Our Story", "Leadership", "Board of Directors", "Newsroom","Careers"]],
+    ["Client Resources",  ["Case Studies", "Downloads", "Glossary", "Rates", "How Oceanview MYGAs Compare"]],
+    ["Insights",   ["Retirement Risk Series", "Life Events Series", "White Papers"]],
   ];
   return (
     <footer style={footerStyles.wrap}>
@@ -121,7 +122,7 @@ function Footer() {
         <div style={footerStyles.top} className="ov-footer-cols">
           <div>
             <div style={footerStyles.logoBlock}>
-              <img src="assets/oceanview-logo-white.png" alt="Oceanview" style={{ height: 28, width: "auto" }}
+              <img src="assets/oceanview-logo-white.png" alt="Oceanview" style={{ height: 39.859, width: "auto" }}
                 onError={(e) => { e.target.style.display = "none"; }}
               />
             </div>

@@ -323,7 +323,14 @@ function TabbedDropdown({ config, onClose }) {
           const active = i === activeIdx;
           return (
             <button key={t.label} style={{ ...S.sideBtn, background: active ? "#fff" : "none" }}
-              onMouseEnter={() => setActiveIdx(i)}>
+              onMouseEnter={() => setActiveIdx(i)}
+              onClick={() => {
+                if (t.cta && t.cta.href) {
+                  window.location.hash = t.cta.href.replace("#", "");
+                  window.scrollTo({ top: 0, behavior: "instant" });
+                  onClose();
+                }
+              }}>
               <div style={S.sideBtnInner}>
                 <span style={S.sideBtnLabel}>{t.label}</span>
                 <span style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: active ? "var(--ov-navy-600)" : "var(--ov-navy-900)", opacity: active ? 1 : 0.5, transition: "color 0.2s ease, opacity 0.2s ease" }}>→</span>
@@ -372,7 +379,7 @@ function NavItem({ name, config, onNav, active }) {
   return (
     <div style={{ position: "relative" }}>
       <button className="ov-nav-btn" style={{ ...S.navBtn, background: open ? "rgba(255,255,255,0.1)" : "none", borderBottom: active === name ? "2px solid #71BABF" : "2px solid transparent" }}
-        onMouseEnter={keepOpen} onMouseLeave={schedClose}>
+        onMouseEnter={keepOpen} onMouseLeave={schedClose} onClick={() => { onNav && onNav(name); setOpen(false); }}>
         {name}
         <Chevron direction={open ? "up" : "down"} color="#FFF"/>
       </button>
@@ -448,7 +455,7 @@ function MobileNavContent({ config, onClose }) {
   return null;
 }
 
-function MobileNavItem({ name, config, expanded, onToggle, onClose }) {
+function MobileNavItem({ name, config, expanded, onToggle, onClose, onNav }) {
   const rowStyle = {
     display: "flex",
     alignItems: "center",
@@ -468,7 +475,7 @@ function MobileNavItem({ name, config, expanded, onToggle, onClose }) {
   };
 
   if (!config) {
-    return <button style={rowStyle} onClick={() => { onClose(); }}>{name}</button>;
+    return <button style={rowStyle} onClick={() => { onNav && onNav(name); onClose(); }}>{name}</button>;
   }
 
   return (
@@ -592,6 +599,7 @@ function Header({ active = "Home", onNav }) {
                 expanded={mobileExpanded === name}
                 onToggle={() => toggleItem(name)}
                 onClose={closeMobile}
+                onNav={onNav}
               />
             </React.Fragment>
           ))}

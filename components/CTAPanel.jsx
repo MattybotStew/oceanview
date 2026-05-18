@@ -16,7 +16,7 @@ const ctaPanelStyles = {
     fontSize: 13,
     letterSpacing: ".12em", 
     textTransform: "uppercase",
-    color: "var(--ov-navy-600)", 
+    color: "var(--ov-navy-600)",
     marginBottom: 18,
   },
   h2: {

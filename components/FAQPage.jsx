@@ -1,30 +1,5 @@
 // FAQPage.jsx — FAQ page with hero + accordion list
 const faqStyles = {
-  hero: {
-    position: "relative", minHeight: 360,
-    display: "flex", alignItems: "center",
-    color: "#F2FCFF", overflow: "hidden", isolation: "isolate",
-  },
-  heroBg: {
-    position: "absolute", inset: 0,
-    backgroundImage: "url(assets/faq-hero.jpg)",
-    backgroundSize: "cover", backgroundPosition: "center", zIndex: -2,
-  },
-  heroScrim: {
-    position: "absolute", inset: 0, zIndex: -1,
-    background: "linear-gradient(180deg, rgba(13,31,78,.55), rgba(13,31,78,.78))",
-  },
-  inner:   { padding: "72px 0" },
-  eyebrow: {
-    fontFamily: "var(--ov-ff-eyebrow)", fontWeight: 600, fontSize: 13,
-    letterSpacing: ".12em", textTransform: "uppercase",
-    marginBottom: 14, color: "rgba(255,255,255,.78)",
-  },
-  h1: {
-    fontFamily: "var(--ov-ff-display)", fontWeight: 400,
-    fontSize: "clamp(40px, 5.6vw, 76px)", lineHeight: 1.0,
-    letterSpacing: "-0.01em", margin: 0, color: "#F2FCFF",
-  },
   body:    { background: "var(--ov-bg)", padding: "80px 0 32px" },
   list:    { maxWidth: 820, margin: "0 auto" },
   item:    { borderTop: "1px solid rgba(13,31,78,.10)" },
@@ -59,14 +34,7 @@ function FAQPage() {
   const [open, setOpen] = React.useState(0);
   return (
     <main>
-      <section style={faqStyles.hero}>
-        <div style={faqStyles.heroBg} />
-        <div style={faqStyles.heroScrim} />
-        <div className="ov-container" style={faqStyles.inner}>
-          <div style={faqStyles.eyebrow}>Frequently Asked</div>
-          <h1 style={faqStyles.h1}>Answers to common questions.</h1>
-        </div>
-      </section>
+      <PageHero image="assets/faq-hero.jpg" eyebrow="Frequently Asked" title="Answers to common questions." />
       <section style={faqStyles.body}>
         <div className="ov-container">
           <div style={faqStyles.list}>
@@ -81,7 +49,6 @@ function FAQPage() {
             ))}
           </div>
         </div>
-        <CTAPanel />
       </section>
     </main>
   );
