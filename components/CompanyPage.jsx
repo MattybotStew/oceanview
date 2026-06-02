@@ -224,9 +224,9 @@ function CompanyPage() {
               <button style={cmpS.btnLink}>Read the latest A.M. Best report →</button>
             </div>
             <img
-              src="assets/older-couple-1.png"
-              alt="Oceanview clients"
-              style={cmpS.twoColImg}
+              src="assets/ambest.png"
+              alt="A.M. Best A Excellent Financial Strength Rating"
+              style={{ ...cmpS.twoColImg, objectFit: "contain", background: "transparent" }}
               className="ov-company-rating-img"
             />
           </div>
