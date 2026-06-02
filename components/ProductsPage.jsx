@@ -1,9 +1,307 @@
-// ProductsPage.jsx — Products landing page
+// ProductsPage.jsx — Products catalog (mobile-first)
+
+const PS = {
+  // ── Nav strip ──────────────────────────────────────────────────────────
+  navWrap:    { background: "#fff", borderBottom: "1px solid rgba(13,31,78,.08)", overflowX: "auto", WebkitOverflowScrolling: "touch" },
+  navInner:   { display: "flex", minWidth: "max-content", gap: 0, margin: "0 auto", maxWidth: 1240, padding: "0 20px" },
+  navTab:     { display: "block", padding: "14px 20px", fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "#4A5568", whiteSpace: "nowrap", border: "none", background: "none", cursor: "pointer", borderBottom: "2px solid transparent", transition: "color .15s, border-color .15s", textDecoration: "none" },
+
+  // ── Section shell ──────────────────────────────────────────────────────
+  sectionWhite: { background: "#fff" },
+  sectionTint:  { background: "var(--ov-surface-tint)" },
+
+  // ── Category intro row (mobile: col) ───────────────────────────────────
+  introRow:    { display: "flex", flexDirection: "column", gap: 32, alignItems: "flex-start" },
+  introImg:    { width: "100%", aspectRatio: "4/3", borderRadius: 20, objectFit: "cover", objectPosition: "center top", display: "block", flexShrink: 0 },
+  introText:   { display: "flex", flexDirection: "column", gap: 22, flex: 1 },
+
+  eyebrowRow:  { display: "flex", alignItems: "center", gap: 6 },
+  eyebrowLine: { width: 18, height: 1, background: "#2494C1", flexShrink: 0 },
+  eyebrow:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1" },
+  h2:          { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(26px, 3vw, 40px)", color: "#0D1F4E", letterSpacing: "-0.025em", lineHeight: 1.12, margin: 0 },
+  body:        { fontFamily: "var(--ov-ff-sans)", fontSize: 15, color: "#4A5568", lineHeight: 1.65, margin: 0 },
+
+  // ── Key Features teal card ─────────────────────────────────────────────
+  kfCard:      { background: "rgba(112,186,191,.18)", borderRadius: 12, padding: "18px 24px 20px" },
+  kfLabel:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1", marginBottom: 12 },
+  kfItem:      { display: "flex", gap: 8, alignItems: "flex-start", padding: "9px 0", borderTop: "1px solid rgba(36,148,193,.12)" },
+  kfText:      { fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "#4A5568", lineHeight: 1.55, margin: 0 },
+
+  // ── Product cards grid (mobile: col) ───────────────────────────────────
+  cardsGrid:   { display: "flex", flexDirection: "column", gap: 24 },
+  card:        { background: "#fff", border: "1px solid rgba(13,31,78,.08)", borderRadius: 16, padding: "28px 32px 32px", display: "flex", flexDirection: "column", gap: 18, boxShadow: "0 2px 12px rgba(13,31,78,.04)" },
+  cardEyebrow: { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1" },
+  cardH3:      { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(18px, 1.8vw, 22px)", color: "#0D1F4E", letterSpacing: "-0.015em", lineHeight: 1.2, margin: "4px 0 0" },
+  cardBody:    { fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "#4A5568", lineHeight: 1.65, margin: 0 },
+  cardBullets: { background: "rgba(112,186,191,.15)", borderRadius: 10, padding: "14px 18px" },
+  cbLabel:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1", marginBottom: 10 },
+  cbItem:      { display: "flex", gap: 8, alignItems: "flex-start", padding: "8px 0", borderTop: "1px solid rgba(36,148,193,.10)" },
+  cbText:      { fontFamily: "var(--ov-ff-sans)", fontSize: 13, color: "#4A5568", lineHeight: 1.5, margin: 0 },
+
+  // ── Bottom CTA ─────────────────────────────────────────────────────────
+  ctaPanel:    { background: "var(--ov-surface-tint)", borderRadius: 20, padding: "clamp(48px,6vw,72px) clamp(24px,5vw,56px)", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 20 },
+  ctaH2:       { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(26px,3vw,40px)", color: "#0D1F4E", letterSpacing: "-0.025em", lineHeight: 1.12, margin: 0 },
+  ctaBody:     { fontFamily: "var(--ov-ff-sans)", fontSize: 15, color: "#4A5568", lineHeight: 1.65, maxWidth: "52ch", margin: 0 },
+  ctaBtns:     { display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" },
+};
+
+const CHECK = (
+  <svg width="8" height="9" viewBox="0 0 8 9" fill="none" style={{ flexShrink: 0, marginTop: 3 }}>
+    <path d="M1 4.5L3 6.5L7 2.5" stroke="#2494C1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+function PrdEyebrow({ children }) {
+  return (
+    <div style={PS.eyebrowRow}>
+      <div style={PS.eyebrowLine}/>
+      <span style={PS.eyebrow}>{children}</span>
+    </div>
+  );
+}
+
+function KeyFeaturesCard({ features }) {
+  return (
+    <div style={PS.kfCard}>
+      <div style={PS.kfLabel}>Key Features</div>
+      {features.map((f, i) => (
+        <div key={i} style={PS.kfItem}>{CHECK}<p style={PS.kfText}>{f}</p></div>
+      ))}
+    </div>
+  );
+}
+
+function ProductCard({ eyebrow, heading, body, bullets }) {
+  return (
+    <div style={PS.card}>
+      <div>
+        <div style={PS.cardEyebrow}>{eyebrow}</div>
+        <h3 style={PS.cardH3}>{heading}</h3>
+      </div>
+      <p style={PS.cardBody}>{body}</p>
+      <div style={PS.cardBullets}>
+        <div style={PS.cbLabel}>Ideal for individuals who</div>
+        {bullets.map((b, i) => (
+          <div key={i} style={PS.cbItem}>{CHECK}<p style={PS.cbText}>{b}</p></div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Data ────────────────────────────────────────────────────────────────────
+
+const CAT1_FEATURES = [
+  "Guaranteed interest rate for a set term",
+  "Predictable, tax-deferred accumulation",
+  "Straightforward structure, clear outcomes",
+];
+
+const CAT2_FEATURES = [
+  "Guaranteed interest during the initial period",
+  "Built-in flexibility for future growth options",
+  "Designed for changing retirement needs",
+];
+
+const CAT3_FEATURES = [
+  "Guaranteed interest rate for a set term",
+  "Predictable, tax-deferred accumulation",
+  "Straightforward structure, clear outcomes",
+];
+
+const PRODUCTS = {
+  harbourviewMYGA: {
+    eyebrow: "Harbourview MYGA",
+    heading: "Guaranteed interest with straightforward accumulation",
+    body: "A fixed annuity designed for individuals seeking predictable growth through a guaranteed interest rate over a defined period — with no exposure to market volatility.",
+    bullets: [
+      "Value predictable growth with a guaranteed interest rate",
+      "Prefer a simple, clearly defined accumulation approach",
+      "Are seeking stability as part of a broader retirement strategy",
+      "Want to limit exposure to market-related variability",
+    ],
+  },
+  horizonMYGA: {
+    eyebrow: "Horizon MYGA",
+    heading: "A clear path to predictable, guaranteed growth",
+    body: "Provides guaranteed interest for a set term, offering stable and predictable growth without exposure to market fluctuations — suited for those who want simplicity and certainty.",
+    bullets: [
+      "Are looking for straightforward, guaranteed growth over a set term",
+      "Prioritize clarity and consistency in their retirement planning",
+      "Prefer a fixed interest structure with clearly defined outcomes",
+      "Want an easy-to-understand accumulation solution",
+    ],
+  },
+  currentRate: {
+    eyebrow: "Current Rate Fixed Annuity",
+    heading: "Guaranteed growth today with flexibility for the future",
+    body: "Begins with a guaranteed interest rate, providing predictable growth during the initial period — with options to adjust your approach as retirement goals evolve.",
+    bullets: [
+      "Want guaranteed interest during an initial period",
+      "May want flexibility to adjust their growth approach in the future",
+      "Prefer starting with a fixed strategy while keeping options open",
+      "Are planning for retirement in an evolving market environment",
+    ],
+  },
+  harbourviewFIA: {
+    eyebrow: "Harbourview FIA",
+    heading: "Balanced growth potential with principal protection",
+    body: "Offers the opportunity for interest credits based on the performance of a market index, while providing protection of principal from market downturns.",
+    bullets: [
+      "Are seeking growth potential linked to a market index",
+      "Value protection of principal from market downturns",
+      "Prefer a balanced, long-term accumulation approach",
+      "Want multiple crediting options within a structured framework",
+    ],
+  },
+  capLock: {
+    eyebrow: "CapLock",
+    heading: "Defined growth parameters with clarity and structure",
+    body: "A fixed indexed annuity designed to provide index-linked interest credits within clearly defined limits — transparency around how interest may be credited.",
+    bullets: [
+      "Prefer clearly defined growth parameters",
+      "Value transparency around how interest may be credited",
+      "Are comfortable with structured limits in exchange for clarity",
+      "Want a disciplined approach to indexed growth potential",
+    ],
+  },
+  topsider: {
+    eyebrow: "Topsider",
+    heading: "Upside-focused growth potential with built-in protection",
+    body: "Designed to emphasize upside potential through index-linked interest crediting — for those focused on accumulation within a structured, protected framework.",
+    bullets: [
+      "Are focused on upside growth potential within a protected structure",
+      "Understand that indexed strategies operate within defined limits",
+      "Are comfortable with variability in interest credits year to year",
+      "Want an accumulation-focused indexed annuity option",
+    ],
+  },
+};
+
+const NAV_PRODUCTS = [
+  { label: "Harbourview MYGA", href: "#harbourview-myga" },
+  { label: "Horizon MYGA",     href: "#horizon-myga" },
+  { label: "Current Rate Fixed Annuity", href: "#current-rate" },
+  { label: "Harbourview FIA",  href: "#harbourview-fia" },
+  { label: "CapLock",          href: "#caplock" },
+  { label: "Topsider",         href: "#topsider" },
+];
+
+// ── Page ────────────────────────────────────────────────────────────────────
+
 function ProductsPage() {
   return (
     <main>
-      <PageHero image="assets/hero-beach-couple.jpg" eyebrow="Our Products" title="Annuities built for retirement security." />
-      <ProductsCard />
+      <PageHero
+        image="assets/hero-beach-couple.jpg"
+        eyebrow="Our Products"
+        title="Retirement solutions designed for clarity and confidence."
+        subtitle="Guaranteed interest, flexible options, and growth potential — with principal protection at every step."
+        ctaPrimary="Compare Products"
+      />
+
+      {/* ── Product anchor nav ──────────────────────────────────────── */}
+      <nav style={PS.navWrap} aria-label="Products">
+        <div style={PS.navInner}>
+          {NAV_PRODUCTS.map((p) => (
+            <a key={p.href} href={p.href} style={PS.navTab}
+              onMouseEnter={e => { e.currentTarget.style.color = "#0D1F4E"; e.currentTarget.style.borderBottomColor = "#2494C1"; }}
+              onMouseLeave={e => { e.currentTarget.style.color = "#4A5568"; e.currentTarget.style.borderBottomColor = "transparent"; }}>
+              {p.label}
+            </a>
+          ))}
+        </div>
+      </nav>
+
+      {/* ══ Section 1 — Fixed Annuities ════════════════════════════════ */}
+      <section style={PS.sectionWhite} className="ov-section prd-section">
+        <div className="ov-container">
+
+          {/* Intro: text left, image right */}
+          <div style={PS.introRow} className="prd-intro-row prd-intro-img-right">
+            <img src="assets/family.png" alt="Couple planning retirement" style={PS.introImg} className="prd-intro-img"/>
+            <div style={PS.introText}>
+              <div>
+                <PrdEyebrow>Fixed Annuities</PrdEyebrow>
+                <h2 style={PS.h2}>Predictable growth with guaranteed interest</h2>
+              </div>
+              <p style={PS.body}>Fixed annuities are designed for individuals seeking stability and certainty as part of their retirement strategy. These products provide a guaranteed interest rate for a defined period, offering predictable, tax-deferred growth without exposure to market fluctuations.</p>
+              <p style={PS.body}>They are often used by those who value simplicity, consistency, and knowing what to expect over time.</p>
+              <KeyFeaturesCard features={CAT1_FEATURES}/>
+            </div>
+          </div>
+
+          {/* Product grid: 2 cards */}
+          <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-2col">
+            <div id="harbourview-myga"><ProductCard {...PRODUCTS.harbourviewMYGA}/></div>
+            <div id="horizon-myga"><ProductCard {...PRODUCTS.horizonMYGA}/></div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ══ Section 2 — Fixed Annuities with Flexibility ═══════════════ */}
+      <section style={PS.sectionTint} className="ov-section prd-section">
+        <div className="ov-container">
+
+          {/* Intro: image left, text right */}
+          <div style={PS.introRow} className="prd-intro-row prd-intro-img-left">
+            <img src="assets/older-couple-1.png" alt="Couple with flexibility in retirement" style={PS.introImg} className="prd-intro-img"/>
+            <div style={PS.introText}>
+              <div>
+                <PrdEyebrow>Fixed Annuities with Flexibility</PrdEyebrow>
+                <h2 style={PS.h2}>Guaranteed growth today with the ability to adapt tomorrow</h2>
+              </div>
+              <p style={PS.body}>Designed for individuals who want guaranteed interest now while preserving the option to adjust their growth approach down the road.</p>
+              <KeyFeaturesCard features={CAT2_FEATURES}/>
+            </div>
+          </div>
+
+          {/* Single product card */}
+          <div style={{ marginTop: 56 }} id="current-rate">
+            <ProductCard {...PRODUCTS.currentRate}/>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ══ Section 3 — Fixed Indexed Annuities ════════════════════════ */}
+      <section style={PS.sectionWhite} className="ov-section prd-section">
+        <div className="ov-container">
+
+          {/* Intro: centered text, no image */}
+          <div style={{ maxWidth: 720 }}>
+            <PrdEyebrow>Fixed Indexed Annuities</PrdEyebrow>
+            <h2 style={{ ...PS.h2, marginTop: 12, marginBottom: 16 }}>Growth potential linked to market indexes with principal protection</h2>
+            <p style={PS.body}>Fixed indexed annuities are designed for individuals seeking growth potential tied to a market index — while maintaining protection of principal from market downturns. They are often used by those who value simplicity, consistency, and knowing what to expect over time.</p>
+            <div style={{ marginTop: 24 }}>
+              <KeyFeaturesCard features={CAT3_FEATURES}/>
+            </div>
+          </div>
+
+          {/* Product grid: 3 cards */}
+          <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-3col">
+            <div id="harbourview-fia"><ProductCard {...PRODUCTS.harbourviewFIA}/></div>
+            <div id="caplock"><ProductCard {...PRODUCTS.capLock}/></div>
+            <div id="topsider"><ProductCard {...PRODUCTS.topsider}/></div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ══ CTA panel ══════════════════════════════════════════════════ */}
+      <section className="ov-section" style={{ background: "#fff" }}>
+        <div className="ov-container">
+          <div style={PS.ctaPanel}>
+            <h2 style={PS.ctaH2}>Not sure which product is right for you?</h2>
+            <p style={PS.ctaBody}>Talk to a financial professional or contact our team to find the solution that fits your retirement timeline, income goals, and risk comfort.</p>
+            <div style={PS.ctaBtns}>
+              <PillMint>Get Started</PillMint>
+              <PillGhost>Find a Professional</PillGhost>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

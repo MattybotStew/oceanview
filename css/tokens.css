@@ -480,6 +480,40 @@ a { color: inherit; text-decoration: none; }
   .ov-products-card { padding: 24px 20px 20px !important; }
 }
 
+/* ─── Products catalog page (mobile-first → desktop upgrades) ── */
+
+/* Intro row: stacked on mobile, side-by-side on desktop */
+@media (min-width: 900px) {
+  .prd-intro-row {
+    flex-direction: row !important;
+    gap: 72px !important;
+    align-items: center !important;
+  }
+  .prd-intro-img {
+    width: 42% !important;
+    min-width: 320px !important;
+    max-width: 480px !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
+    align-self: stretch !important;
+    object-fit: cover !important;
+  }
+
+  /* Image right: reorder visually so text is left, image is right */
+  .prd-intro-img-right { flex-direction: row-reverse !important; }
+}
+
+/* Product card grids: 1-col → 2-col → 3-col */
+@media (min-width: 600px) {
+  .prd-cards-2col,
+  .prd-cards-3col { flex-direction: row !important; flex-wrap: wrap !important; align-items: stretch !important; }
+  .prd-cards-2col > * { flex: 1 1 calc(50% - 12px) !important; min-width: 260px !important; }
+  .prd-cards-3col > * { flex: 1 1 calc(50% - 12px) !important; min-width: 240px !important; }
+}
+@media (min-width: 960px) {
+  .prd-cards-3col > * { flex: 1 1 calc(33.33% - 16px) !important; min-width: 0 !important; }
+}
+
 /* ============================================================
    TICKER BAR COMPONENT
    ============================================================ */
