@@ -1,7 +1,7 @@
 // ProductsCard.jsx — Tabbed product card (MYGAs / FIAs)
 const productsStyles = {
   section: { background: "var(--ov-bg)" },
-  grid: { display: "flex", gap: 80, alignItems: "center" },
+  grid: { display: "flex", gap: 64, alignItems: "center" },
   eyebrow: {
     fontFamily: "var(--ov-ff-eyebrow)", fontWeight: 600, fontSize: 13,
     letterSpacing: ".12em", textTransform: "uppercase",
@@ -84,7 +84,7 @@ const productsStyles = {
   rate: {
     fontFamily: "var(--ov-ff-display)", 
     fontSize: 20,
-    color: "var(--ov-teal-700)",
+    color: "var(--ov-teal-600)",
     fontWeight: 500, 
   },
   arrow: { 

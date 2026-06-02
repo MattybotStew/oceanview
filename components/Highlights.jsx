@@ -21,7 +21,7 @@ const highlightStyles = {
   photoWrap: {
     borderRadius: 16,
     overflow: "hidden",
-    width: "clamp(260px, 30vw, 420px)",
+    width: "clamp(260px, 30vw, 450px)",
     aspectRatio: "1 / 1",
     flexShrink: 0,
   },
