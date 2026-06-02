@@ -6,7 +6,6 @@ const STUB_ROUTES = {
   "professionals":    { title: "For Professionals",               eyebrow: "Advisor Tools"               },
   // About sub-pages
   "our-story":        { title: "Our Story",                       eyebrow: "Since 1987"                  },
-  "leadership":       { title: "Leadership",                      eyebrow: "Our People"                  },
   "board":            { title: "Board of Directors",              eyebrow: "Governance"                  },
   "newsroom":         { title: "Newsroom",                        eyebrow: "Latest Updates"              },
   "careers":          { title: "Careers",                         eyebrow: "Join Us"                     },
@@ -35,7 +34,7 @@ const STUB_ROUTES = {
 const ROUTE_TO_NAV = {
   "about": "About", "products": "Products",
   "client-resources": "Client Resources", "insights": "Insights",
-  "faq": "FAQ", "blog": "Blog",
+  "faq": "FAQ", "blog": "Blog", "leadership": "About"
 };
 
 function HomePage({ goto }) {
@@ -88,6 +87,7 @@ function Page() {
       case "client-resources":  return <ClientResourcesPage />;
       case "insights":          return <InsightsPage />;
       case "faq":               return <FAQPage />;
+      case "leadership":        return <window.LeadershipPage />;
       default:                  return <HomePage goto={goto} />;
     }
   };
