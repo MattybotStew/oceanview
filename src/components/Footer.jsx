@@ -88,7 +88,7 @@ export default function Footer() {
     ["Products",   ["Harbourview MYGA", "Horizon MYGA", "Current Rate Fixed Annuity", "Harbourview FIA", "CapLock", "Topsider"]],
     ["Company",    ["Our Story", "Leadership", "Board of Directors", "Newsroom","Careers"]],
     ["Client Resources",  ["Case Studies", "Downloads", "Glossary", "Rates", "How Oceanview MYGAs Compare"]],
-    ["Insights",   ["Retirement Risk Series", "Life Events Series", "White Papers"]],
+    ["Insights",   ["Retirement Risk Series", "Life Events Series", "White Papers", "Contact"]],
   ];
   return (
     <footer style={footerStyles.wrap}>
@@ -153,6 +153,7 @@ export default function Footer() {
               <ul style={footerStyles.ul}>
                 {items.map((i) => (
                   <li key={i} style={footerStyles.li}
+                    onClick={() => { window.location.hash = i.toLowerCase().replace(/\s+/g, "-") }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
                     onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,.7)")}
                   >{i}</li>

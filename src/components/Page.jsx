@@ -16,12 +16,17 @@ import ProductsPage from './ProductsPage.jsx'
 import CompanyPage from './CompanyPage.jsx'
 import ClientResourcesPage from './ClientResourcesPage.jsx'
 import InsightsPage from './InsightsPage.jsx'
+import ProfessionalsPage from './ProfessionalsPage.jsx'
+import SalesToolsPage from './SalesToolsPage.jsx'
+import AgentFAQsPage from './AgentFAQsPage.jsx'
+import ContactPage from './ContactPage.jsx'
+import LPLLandingPage from './LPLLandingPage.jsx'
+import CeteraLandingPage from './CeteraLandingPage.jsx'
 
 const STUB_ROUTES = {
   // Top-level nav
   "blog":             { title: "Blog",                            eyebrow: "Latest from Oceanview"       },
   "individuals":      { title: "For Individuals",                 eyebrow: "Personal Planning"           },
-  "professionals":    { title: "For Professionals",               eyebrow: "Advisor Tools"               },
   // About sub-pages
   "our-story":        { title: "Our Story",                       eyebrow: "Since 1987"                  },
   "board":            { title: "Board of Directors",              eyebrow: "Governance"                  },
@@ -47,12 +52,18 @@ const STUB_ROUTES = {
   "retirement-risk":  { title: "Retirement Risk Series",          eyebrow: "Insights"                    },
   "life-events":      { title: "Life Events Series",              eyebrow: "Insights"                    },
   "white-papers":     { title: "White Papers",                    eyebrow: "Insights"                    },
+  // Professionals sub-pages
+  "agent-portal":     { title: "Agent Portal",                    eyebrow: "For Professionals"            },
+  "state-approval":   { title: "State Approval Chart",            eyebrow: "For Professionals"            },
+  "product-brochures":{ title: "Product Brochures",               eyebrow: "For Professionals"            },
+  // agent-faqs and sales-tools are real pages — handled in switch below
 };
 
 const ROUTE_TO_NAV = {
   "about": "About", "products": "Products",
   "client-resources": "Client Resources", "insights": "Insights",
-  "faq": "FAQ", "blog": "Blog", "leadership": "About"
+  "faq": "FAQ", "blog": "Blog", "leadership": "About",
+  "professionals": "Professionals",
 };
 
 function HomePage({ goto }) {
@@ -104,6 +115,12 @@ export default function Page() {
       case "about":             return <CompanyPage />;
       case "client-resources":  return <ClientResourcesPage />;
       case "insights":          return <InsightsPage />;
+      case "professionals":     return <ProfessionalsPage />;
+      case "sales-tools":       return <SalesToolsPage />;
+      case "agent-faqs":        return <AgentFAQsPage />;
+      case "contact":           return <ContactPage />;
+      case "lpl-landing":        return <LPLLandingPage />;
+      case "cetera-landing":     return <CeteraLandingPage />;
       case "faq":               return <FAQPage />;
       case "leadership":        return <LeadershipPage />;
       default:                  return <HomePage goto={goto} />;

@@ -1,12 +1,27 @@
 // ProductsPage.jsx — Products catalog (mobile-first)
+import { useState, useEffect, useRef } from 'react'
 import PageHero from './PageHero.jsx'
 import { PillMint, PillGhost } from './Buttons.jsx'
+import CTABanner from './CTABanner.jsx'
 
 const PS = {
-  // ── Nav strip ──────────────────────────────────────────────────────────
-  navWrap:    { background: "#fff", borderBottom: "1px solid rgba(13,31,78,.08)", overflowX: "auto", WebkitOverflowScrolling: "touch" },
-  navInner:   { display: "flex", minWidth: "max-content", gap: 0, margin: "0 auto", maxWidth: 1240, padding: "0 20px" },
-  navTab:     { display: "block", padding: "14px 20px", fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "#4A5568", whiteSpace: "nowrap", border: "none", background: "none", cursor: "pointer", borderBottom: "2px solid transparent", transition: "color .15s, border-color .15s", textDecoration: "none" },
+  // ── Two-level sticky nav (Figma 6940-103) ─────────────────────────────
+  // top: 96px = --ov-header-h so it sticks below the sticky header
+  navOuter:   { background: "#fff", position: "sticky", top: "var(--ov-header-h)", zIndex: 50, boxShadow: "0 1px 0 #e8e5e5" },
+
+  // Category row (top)
+  catRow:     { display: "flex", overflowX: "auto", WebkitOverflowScrolling: "touch" },
+  catTab:     { flex: "1 0 0", minWidth: 160, display: "flex", flexDirection: "column", alignItems: "center", gap: 13, padding: "16px 12px 17px", textDecoration: "none", transition: "border-color .15s" },
+  catTabActive:{ borderBottom: "3px solid #2494C1", paddingBottom: 19 },
+  catTabInactive:{ borderBottom: "1px solid #e8e5e5" },
+  catLabel:   { fontFamily: "var(--ov-ff-display)", fontWeight: 800, fontSize: "clamp(11px,1vw,13px)", letterSpacing: ".04em", textTransform: "uppercase", color: "#233D7C", textAlign: "center", lineHeight: 1.1, whiteSpace: "nowrap" },
+  catSub:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 400, fontSize: "clamp(11px,.9vw,13px)", color: "rgba(51,51,51,0.8)", textAlign: "center", lineHeight: "28.8px", whiteSpace: "nowrap" },
+
+  // Product row (bottom)
+  prdRow:     { display: "flex", borderBottom: "1px solid #e8e5e5", overflowX: "auto", WebkitOverflowScrolling: "touch" },
+  prdTab:     { flex: "1 0 0", minWidth: 100, height: 51, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 24px", borderRight: "1px solid #e8e5e5", fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "#001F54", textDecoration: "none", whiteSpace: "nowrap", textTransform: "capitalize", transition: "background .15s" },
+  prdTabActive:{ background: "rgba(226,241,242,0.6)" },
+  prdTabInactive:{ background: "transparent" },
 
   // ── Section shell ──────────────────────────────────────────────────────
   sectionWhite: { background: "#fff" },
@@ -180,18 +195,46 @@ const PRODUCTS = {
   },
 };
 
+const CATEGORIES = [
+  { id: "fixed-annuities",  label: "Fixed Annuities",                  sub: "Predictable growth with guaranteed interest",                href: "#cat-fixed-annuities" },
+  { id: "fixed-with-flex",  label: "Fixed Annuities with Flexibility", sub: "Guaranteed today with future growth options",                href: "#cat-fixed-with-flex" },
+  { id: "fixed-indexed",    label: "Fixed Indexed Annuities",          sub: "Growth potential tied to market indexes with protection",    href: "#cat-fixed-indexed" },
+];
+
+// scroll-margin-top = header (96px) + nav (~148px) + breathing room (16px)
+const SCROLL_MARGIN = "260px";
+
 const NAV_PRODUCTS = [
-  { label: "Harbourview MYGA", href: "#harbourview-myga" },
-  { label: "Horizon MYGA",     href: "#horizon-myga" },
-  { label: "Current Rate Fixed Annuity", href: "#current-rate" },
-  { label: "Harbourview FIA",  href: "#harbourview-fia" },
-  { label: "CapLock",          href: "#caplock" },
-  { label: "Topsider",         href: "#topsider" },
+  { label: "Harbourview MYGA",         href: "#harbourview-myga", cat: "fixed-annuities" },
+  { label: "Horizon MYGA",             href: "#horizon-myga",     cat: "fixed-annuities" },
+  { label: "Current Rate Fixed Annuity", href: "#current-rate",   cat: "fixed-with-flex" },
+  { label: "Harbourview FIA",          href: "#harbourview-fia",  cat: "fixed-indexed" },
+  { label: "CapLock",                  href: "#caplock",          cat: "fixed-indexed" },
+  { label: "Topsider",                 href: "#topsider",         cat: "fixed-indexed" },
 ];
 
 // ── Page ────────────────────────────────────────────────────────────────────
 
 export default function ProductsPage() {
+  const [activeProduct, setActiveProduct] = useState("harbourview-myga")
+  const activeCategory = NAV_PRODUCTS.find(p => p.href === `#${activeProduct}`)?.cat ?? "fixed-annuities"
+
+  useEffect(() => {
+    // Watch product cards to track the active product tab
+    const productIds = NAV_PRODUCTS.map(p => p.href.slice(1))
+    const observers = productIds.map(id => {
+      const el = document.getElementById(id)
+      if (!el) return null
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveProduct(id) },
+        { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
+      )
+      obs.observe(el)
+      return obs
+    })
+    return () => observers.forEach(o => o?.disconnect())
+  }, [])
+
   return (
     <main>
       <PageHero
@@ -202,21 +245,50 @@ export default function ProductsPage() {
         ctaPrimary="Compare Products"
       />
 
-      {/* ── Product anchor nav ──────────────────────────────────────── */}
-      <nav style={PS.navWrap} aria-label="Products">
-        <div style={PS.navInner}>
-          {NAV_PRODUCTS.map((p) => (
-            <a key={p.href} href={p.href} style={PS.navTab}
-              onMouseEnter={e => { e.currentTarget.style.color = "#0D1F4E"; e.currentTarget.style.borderBottomColor = "#2494C1"; }}
-              onMouseLeave={e => { e.currentTarget.style.color = "#4A5568"; e.currentTarget.style.borderBottomColor = "transparent"; }}>
-              {p.label}
-            </a>
-          ))}
+      {/* ── Two-level sticky product nav (Figma 6940-103) ──────────── */}
+      <nav style={PS.navOuter} aria-label="Products">
+        <div className="ov-container" style={{ padding: 0 }}>
+
+          {/* Category row */}
+          <div style={PS.catRow}>
+            {CATEGORIES.map(cat => {
+              const isActive = cat.id === activeCategory
+              return (
+                <a
+                  key={cat.id}
+                  href={cat.href}
+                  style={{ ...PS.catTab, ...(isActive ? PS.catTabActive : PS.catTabInactive) }}
+                >
+                  <span style={PS.catLabel}>{cat.label}</span>
+                  <span style={PS.catSub}>{cat.sub}</span>
+                </a>
+              )
+            })}
+          </div>
+
+          {/* Product row */}
+          <div style={PS.prdRow}>
+            {NAV_PRODUCTS.map(p => {
+              const isActive = `#${activeProduct}` === p.href
+              return (
+                <a
+                  key={p.href}
+                  href={p.href}
+                  style={{ ...PS.prdTab, ...(isActive ? PS.prdTabActive : PS.prdTabInactive) }}
+                  onMouseEnter={e => { if (!isActive) e.currentTarget.style.background = "rgba(226,241,242,0.35)" }}
+                  onMouseLeave={e => { if (!isActive) e.currentTarget.style.background = "transparent" }}
+                >
+                  {p.label}
+                </a>
+              )
+            })}
+          </div>
+
         </div>
       </nav>
 
       {/* ══ Section 1 — Fixed Annuities ════════════════════════════════ */}
-      <section style={PS.sectionWhite} className="ov-section prd-section">
+      <section id="cat-fixed-annuities" style={{ ...PS.sectionWhite, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
         <div className="ov-container">
 
           {/* Intro: text left, image right */}
@@ -235,15 +307,15 @@ export default function ProductsPage() {
 
           {/* Product grid: 2 cards */}
           <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-2col">
-            <div id="harbourview-myga"><ProductCard {...PRODUCTS.harbourviewMYGA}/></div>
-            <div id="horizon-myga"><ProductCard {...PRODUCTS.horizonMYGA}/></div>
+            <div id="harbourview-myga" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.harbourviewMYGA}/></div>
+            <div id="horizon-myga"     style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.horizonMYGA}/></div>
           </div>
 
         </div>
       </section>
 
       {/* ══ Section 2 — Fixed Annuities with Flexibility ═══════════════ */}
-      <section style={PS.sectionTint} className="ov-section prd-section">
+      <section id="cat-fixed-with-flex" style={{ ...PS.sectionTint, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
         <div className="ov-container">
 
           {/* Intro: image left, text right */}
@@ -260,7 +332,7 @@ export default function ProductsPage() {
           </div>
 
           {/* Single product card */}
-          <div style={{ marginTop: 56 }} id="current-rate">
+          <div id="current-rate" style={{ marginTop: 56, scrollMarginTop: SCROLL_MARGIN }}>
             <ProductCard {...PRODUCTS.currentRate}/>
           </div>
 
@@ -268,7 +340,7 @@ export default function ProductsPage() {
       </section>
 
       {/* ══ Section 3 — Fixed Indexed Annuities ════════════════════════ */}
-      <section style={PS.sectionWhite} className="ov-section prd-section">
+      <section id="cat-fixed-indexed" style={{ ...PS.sectionWhite, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
         <div className="ov-container">
 
           {/* Intro: centered text, no image */}
@@ -283,9 +355,9 @@ export default function ProductsPage() {
 
           {/* Product grid: 3 cards */}
           <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-3col">
-            <div id="harbourview-fia"><ProductCard {...PRODUCTS.harbourviewFIA}/></div>
-            <div id="caplock"><ProductCard {...PRODUCTS.capLock}/></div>
-            <div id="topsider"><ProductCard {...PRODUCTS.topsider}/></div>
+            <div id="harbourview-fia" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.harbourviewFIA}/></div>
+            <div id="caplock"         style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.capLock}/></div>
+            <div id="topsider"        style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.topsider}/></div>
           </div>
 
         </div>
@@ -302,6 +374,20 @@ export default function ProductsPage() {
               <PillGhost>Find a Professional</PillGhost>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ══ CTABanner (alternative CTA style) ══════════════════════════ */}
+      <section className="ov-section" style={{ background: "var(--ov-surface-tint)" }}>
+        <div className="ov-container">
+          <CTABanner
+            eyebrow="Harbourview FIA"
+            title="Ready to explore"
+            titleAccent="the Harbourview FIA?"
+            body="Talk to a financial professional or contact our team to find the strategy that fits your retirement goals."
+            cta="Get Started"
+            onClick={() => { window.location.hash = 'contact' }}
+          />
         </div>
       </section>
     </main>

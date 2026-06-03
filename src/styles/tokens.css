@@ -590,3 +590,12 @@ a { color: inherit; text-decoration: none; }
     gap: var(--ov-sp-2);
   }
 }
+/* ── LPL Landing Page ──────────────────────────────────────────────────────── */
+@media (min-width: 900px) {
+  .lpl-resources-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 56px 64px !important; }
+  .lpl-res-list       { display: flex !important; flex-direction: column !important; }
+  .lpl-bottom-row     { display: grid !important; grid-template-columns: 1fr 1fr !important; align-items: start !important; }
+}
+@media (min-width: 1100px) {
+  .lpl-res-3col { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+}

@@ -1,5 +1,6 @@
 // PageHero.jsx — Inner-page hero: same card, height, and content positioning as homepage Hero
 import { PillMint, PillNavy } from './Buttons.jsx'
+import HeroShaper from './HeroShaper.jsx'
 
 export default function PageHero({ image, eyebrow, title, subtitle, ctaPrimary, onPrimary, ctaSecondary, onSecondary }) {
   return (
@@ -14,6 +15,7 @@ export default function PageHero({ image, eyebrow, title, subtitle, ctaPrimary, 
             <div className="ov-hero-scrim" style={{ position: "absolute", inset: 0, background: "linear-gradient(85deg, rgba(0,0,0,0.80) 2.63%, rgba(102,102,102,0.00) 65.98%)", zIndex: 1 }} />
           )}
           <div style={{ position: "absolute", inset: 0, backgroundImage: `url("assets/Noise.png")`, backgroundRepeat: "repeat", backgroundSize: "200px", opacity: 0.8, pointerEvents: "none", zIndex: 2 }} />
+          <HeroShaper />
           <div className="ov-hero-content">
             {eyebrow && (
               <div style={{ fontFamily: "var(--ov-ff-eyebrow)", fontWeight: 600, fontSize: 13, letterSpacing: ".12em", textTransform: "uppercase", color: "rgba(255,255,255,.72)" }}>
