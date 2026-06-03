@@ -1,5 +1,5 @@
-import PageHero from './PageHero.jsx'
-import { PillMint, PillNavy, TextLink } from './Buttons.jsx'
+import { TextLink, PillNavy } from './Buttons.jsx'
+import CTABanner from './CTABanner.jsx'
 import {
   FileText, BookOpen, LayoutDashboard,
   Download, Map, Layers,
@@ -9,6 +9,13 @@ import {
 const PS = {
   sectionWhite: { background: '#fff' },
   sectionTint:  { background: 'var(--ov-surface-tint)' },
+
+  pageHeaderInner: { display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 20 },
+  pageEyebrowRow:  { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 },
+  pageEyebrowLine: { width: 18, height: 1, background: '#2494C1', flexShrink: 0 },
+  pageEyebrow:     { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#2494C1' },
+  pageH1:          { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(36px,5vw,64px)', color: '#0D1F4E', letterSpacing: '-0.03em', lineHeight: 1.08, margin: 0 },
+  pageLede:        { fontFamily: 'var(--ov-ff-sans)', fontSize: 'clamp(15px,1.4vw,18px)', color: '#4A5568', lineHeight: 1.65, maxWidth: '54ch', margin: 0 },
 
   eyebrowRow:  { display: 'flex', alignItems: 'center', gap: 6 },
   eyebrowLine: { width: 18, height: 1, background: '#2494C1', flexShrink: 0 },
@@ -40,10 +47,6 @@ const PS = {
 
   divider:     { width: '100%', height: 1, background: 'rgba(13,31,78,.07)', margin: 0 },
 
-  ctaPanel:    { background: 'var(--ov-surface-tint)', borderRadius: 20, padding: 'clamp(48px,6vw,72px) clamp(24px,5vw,56px)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 20 },
-  ctaH2:       { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(26px,3vw,40px)', color: '#0D1F4E', letterSpacing: '-0.025em', lineHeight: 1.12, margin: 0 },
-  ctaBody:     { fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: '#4A5568', lineHeight: 1.65, maxWidth: '52ch', margin: 0 },
-  ctaBtns:     { display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' },
 }
 
 // ── Sub-components ────────────────────────────────────────────────────────────
@@ -134,28 +137,19 @@ const PORTALS = [
 export default function ProfessionalsPage() {
   return (
     <main>
-      <PageHero
-        image="assets/hero-overlay.jpg"
-        eyebrow="For Professionals"
-        title="Tools and support built for financial advisors."
-        subtitle="Everything you need to serve your clients — from sales resources to account management."
-        ctaPrimary="Get Started"
-        ctaSecondary="Contact Us"
-      />
-
-      {/* ── Intro ──────────────────────────────────────────────────────── */}
-      <section style={PS.sectionWhite} className="ov-section">
-        <div className="ov-container" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <Eyebrow>Advisor Resources</Eyebrow>
-          <h2 style={PS.h2}>
-            Dedicated tools, support, and services<br />
-            for financial professionals.
-          </h2>
-          <p style={{ ...PS.lede, marginTop: 8 }}>
-            Oceanview Life and Annuity offers a suite of resources designed to help
-            financial professionals evaluate, present, and manage fixed annuity solutions
-            for their clients — with clarity and confidence at every step.
-          </p>
+      {/* ── Page header ──────────────────────────────────────────────── */}
+      <section style={{ background: '#fff', padding: 'clamp(72px,9vw,112px) 0 0' }}>
+        <div className="ov-container">
+          <div style={PS.pageHeaderInner}>
+            <div style={PS.pageEyebrowRow}>
+              <div style={PS.pageEyebrowLine} />
+              <span style={PS.pageEyebrow}>For Professionals</span>
+            </div>
+            <h1 style={PS.pageH1}>Tools and support built for financial advisors.</h1>
+            <p style={PS.pageLede}>
+              Everything you need to serve your clients — from sales resources to account management.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -170,20 +164,17 @@ export default function ProfessionalsPage() {
         </div>
       </section>
 
-      {/* ── CTA panel ──────────────────────────────────────────────────── */}
+      {/* ── CTA ──────────────────────────────────────────────────────── */}
       <section className="ov-section" style={{ background: '#fff' }}>
         <div className="ov-container">
-          <div style={PS.ctaPanel}>
-            <h2 style={PS.ctaH2}>Ready to get started with Oceanview?</h2>
-            <p style={PS.ctaBody}>
-              Partner with a company focused on fixed annuity solutions — clear products,
-              strong financial foundation, and dedicated support for the professionals who count on us.
-            </p>
-            <div style={PS.ctaBtns}>
-              <PillMint>Get Started</PillMint>
-              <PillNavy>Contact Our Team</PillNavy>
-            </div>
-          </div>
+          <CTABanner
+            eyebrow="Get Started"
+            title="Ready to partner with"
+            titleAccent="Oceanview?"
+            body="Clear products, strong ratings, and dedicated support for the professionals who count on us."
+            cta="Get Started"
+            onClick={() => { window.location.hash = 'contact' }}
+          />
         </div>
       </section>
     </main>

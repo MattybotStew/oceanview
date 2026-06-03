@@ -1,17 +1,17 @@
-import { useState } from 'react'
-import { PillMint, PillNavy, PillGhost } from './Buttons.jsx'
+import { PillMint, PillGhost } from './Buttons.jsx'
 import {
-  Award, Layers, TrendingUp, Users,
-  ShieldCheck, Eye, Zap, Star,
-  FileText, BarChart2, Download, Map,
-  Mail, Phone, Check,
+  Award, TrendingUp, Users, Eye,
+  ShieldCheck, Zap, Star,
+  FileText, BarChart2, Download, Layers, Map,
+  Mail, Phone,
 } from 'lucide-react'
 import HeroShaper from './HeroShaper.jsx'
 
-// ── Shared styles (mirrors LPLLandingPage / ProductsPage tokens) ─────────────
+// ── Styles — exact mirror of LPLLandingPage ───────────────────────────────────
 const PS = {
   sectionWhite: { background: '#fff' },
   sectionTint:  { background: 'var(--ov-surface-tint)' },
+  sectionNavy:  { background: 'var(--ov-navy-1000)' },
 
   eyebrowRow:  { display: 'flex', alignItems: 'center', gap: 6 },
   eyebrowLine: { width: 18, height: 1, background: '#2494C1', flexShrink: 0 },
@@ -27,22 +27,23 @@ const PS = {
   introImg:  { width: '100%', aspectRatio: '4/3', borderRadius: 20, objectFit: 'cover', objectPosition: 'center top', display: 'block', flexShrink: 0 },
   introText: { display: 'flex', flexDirection: 'column', gap: 22, flex: 1 },
 
-  kfCard:  { background: 'rgba(112,186,191,.18)', borderRadius: 12, padding: '18px 24px 20px' },
+  kfCard:  { background: '#fff', border: '1px solid rgba(36,148,193,.15)', borderRadius: 12, padding: '18px 24px 20px' },
   kfLabel: { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#2494C1', marginBottom: 12 },
   kfItem:  { display: 'flex', gap: 8, alignItems: 'flex-start', padding: '9px 0', borderTop: '1px solid rgba(36,148,193,.12)' },
   kfText:  { fontFamily: 'var(--ov-ff-sans)', fontSize: 14, color: '#4A5568', lineHeight: 1.55, margin: 0 },
 
   cardsGrid:   { display: 'flex', flexDirection: 'column', gap: 24 },
   card:        { background: '#fff', border: '1px solid rgba(13,31,78,.08)', borderRadius: 16, padding: '28px 32px 32px', display: 'flex', flexDirection: 'column', gap: 18, boxShadow: '0 2px 12px rgba(13,31,78,.04)' },
-  cardEyebrow: { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#2494C1' },
-  cardH3:      { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(18px,1.8vw,22px)', color: '#0D1F4E', letterSpacing: '-0.015em', lineHeight: 1.2, margin: '4px 0 0' },
+  cardEyebrow: { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#2494C1', marginBottom: 10 },
+  cardH3:      { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(18px,1.8vw,22px)', color: '#0D1F4E', letterSpacing: '-0.015em', lineHeight: 1.2, margin: 0 },
   cardBody:    { fontFamily: 'var(--ov-ff-sans)', fontSize: 14, color: '#4A5568', lineHeight: 1.65, margin: 0 },
   iconTile:    { width: 48, height: 48, borderRadius: 10, background: '#fff', border: '1px solid rgba(13,31,78,.10)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
 
-  ctaPanel: { background: 'var(--ov-surface-tint)', borderRadius: 20, padding: 'clamp(48px,6vw,72px) clamp(24px,5vw,56px)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 20 },
-  ctaH2:    { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(26px,3vw,40px)', color: '#0D1F4E', letterSpacing: '-0.025em', lineHeight: 1.12, margin: 0 },
-  ctaBody:  { fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: '#4A5568', lineHeight: 1.65, maxWidth: '52ch', margin: 0 },
-  ctaBtns:  { display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' },
+  ctaPanel:  { background: 'rgba(112,186,191,.18)', border: '1px solid rgba(36,148,193,.2)', borderRadius: 16, padding: 'clamp(36px,4vw,56px) clamp(32px,5vw,80px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 48, flexWrap: 'wrap' },
+  ctaLeft:   { display: 'flex', flexDirection: 'column', gap: 8, flex: '1 1 320px', minWidth: 0 },
+  ctaH2:     { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(26px,3vw,40px)', color: '#001F54', letterSpacing: '-0.025em', lineHeight: 1.12, margin: 0 },
+  ctaBody:   { fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: 'rgba(0,31,84,.72)', lineHeight: 1.65, maxWidth: '52ch', margin: 0, marginTop: 4 },
+  ctaBtns:   { display: 'flex', gap: 12, flexWrap: 'wrap', flexShrink: 0 },
 }
 
 const CHECK = (
@@ -51,7 +52,6 @@ const CHECK = (
   </svg>
 )
 
-// ── Sub-components ────────────────────────────────────────────────────────────
 function PrdEyebrow({ light, children }) {
   return (
     <div style={PS.eyebrowRow}>
@@ -73,7 +73,7 @@ function KeyFeaturesCard({ features }) {
 }
 
 function IconCard({ icon: Icon, eyebrow, title, body, tint }) {
-  const bg = tint ? 'var(--ov-surface-tint-2)' : '#fff'
+  const bg     = tint ? 'var(--ov-surface-tint-2)' : '#fff'
   const border = tint ? '1px solid rgba(13,31,78,.06)' : '1px solid rgba(13,31,78,.08)'
   const tileBg = tint ? 'rgba(255,255,255,.75)' : '#fff'
   return (
@@ -97,9 +97,9 @@ function IconCard({ icon: Icon, eyebrow, title, body, tint }) {
 function ResourceCard({ label, title }) {
   return (
     <div
-      style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderRadius: 10, background: '#fff', border: '1px solid rgba(13,31,78,.08)', cursor: 'pointer', transition: 'border-color .15s, box-shadow .15s', gap: 16 }}
-      onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(36,148,193,.4)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(13,31,78,.07)' }}
-      onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(13,31,78,.08)'; e.currentTarget.style.boxShadow = '' }}
+      style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderRadius: 10, background: 'rgba(112,186,191,.18)', border: '1px solid rgba(36,148,193,.2)', cursor: 'pointer', transition: 'border-color .15s, box-shadow .15s', gap: 16 }}
+      onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(36,148,193,.5)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(13,31,78,.07)' }}
+      onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(36,148,193,.2)'; e.currentTarget.style.boxShadow = '' }}
     >
       <div>
         <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#2494C1', marginBottom: 3 }}>{label}</div>
@@ -113,7 +113,7 @@ function ResourceCard({ label, title }) {
 function ContactCard({ icon: Icon, label, name, detail, sub }) {
   return (
     <div style={{ background: '#fff', border: '1px solid rgba(13,31,78,.08)', borderRadius: 16, padding: '28px 28px 24px', display: 'flex', flexDirection: 'column', gap: 12, boxShadow: '0 2px 12px rgba(13,31,78,.04)' }}>
-      <div style={{ ...PS.iconTile }}>
+      <div style={PS.iconTile}>
         <Icon size={20} color="var(--ov-navy-500)" strokeWidth={1.75} />
       </div>
       <div>
@@ -126,65 +126,19 @@ function ContactCard({ icon: Icon, label, name, detail, sub }) {
   )
 }
 
-// ── Email signup ──────────────────────────────────────────────────────────────
-const inputStyle = { fontFamily: 'var(--ov-ff-sans)', fontSize: 14.5, color: '#0D1F4E', border: '1px solid rgba(13,31,78,.15)', borderRadius: 10, padding: '13px 16px', outline: 'none', width: '100%', boxSizing: 'border-box', transition: 'border-color .15s, box-shadow .15s', background: '#fff' }
-
-function EmailSignup() {
-  const [form, setForm] = useState({ firstName: '', lastName: '', email: '', consent: false })
-  const [done, setDone] = useState(false)
-  const [focused, setFocused] = useState(null)
-
-  const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }))
-  const focusStyle = (k) => focused === k ? { borderColor: '#2494C1', boxShadow: '0 0 0 3px rgba(36,148,193,.12)' } : {}
-
-  if (done) return (
-    <div style={{ textAlign: 'center', padding: '32px 0', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
-      <div style={{ width: 52, height: 52, borderRadius: '50%', background: 'rgba(36,148,193,.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Check size={24} color="#2494C1" strokeWidth={2.5} />
-      </div>
-      <p style={{ fontFamily: 'var(--ov-ff-display)', fontSize: 'clamp(18px,2vw,24px)', color: '#0D1F4E', letterSpacing: '-0.01em', margin: 0 }}>You're on the list.</p>
-      <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 14, color: '#4A5568', margin: 0 }}>Thank you — we'll be in touch.</p>
-    </div>
-  )
-
-  return (
-    <form onSubmit={e => { e.preventDefault(); setDone(true) }} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-        {[['firstName', 'First Name'], ['lastName', 'Last Name']].map(([k, label]) => (
-          <div key={k} style={{ display: 'flex', flexDirection: 'column', gap: 6, flex: '1 1 140px' }}>
-            <label style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.08em', textTransform: 'uppercase', color: '#4A5568' }}>{label}</label>
-            <input required type="text" value={form[k]} onChange={set(k)} onFocus={() => setFocused(k)} onBlur={() => setFocused(null)} style={{ ...inputStyle, ...focusStyle(k) }} />
-          </div>
-        ))}
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        <label style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.08em', textTransform: 'uppercase', color: '#4A5568' }}>Email</label>
-        <input required type="email" value={form.email} onChange={set('email')} onFocus={() => setFocused('email')} onBlur={() => setFocused(null)} style={{ ...inputStyle, ...focusStyle('email') }} />
-      </div>
-      <label style={{ display: 'flex', gap: 10, alignItems: 'flex-start', cursor: 'pointer' }}>
-        <input required type="checkbox" checked={form.consent} onChange={set('consent')} style={{ marginTop: 3, flexShrink: 0, accentColor: '#2494C1' }} />
-        <span style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: '#4A5568', lineHeight: 1.55 }}>
-          I agree to receive communications from Oceanview Life and Annuity. I understand I can unsubscribe at any time.
-        </span>
-      </label>
-      <PillMint type="submit" style={{ alignSelf: 'flex-start' }}>Join the List</PillMint>
-    </form>
-  )
-}
-
 // ── Page data ─────────────────────────────────────────────────────────────────
 const VALUE_CARDS = [
-  { icon: Award,     eyebrow: 'Financial Strength', title: 'Financial Strength You Can Count On',       body: 'Rated "A" (Excellent) by A.M. Best and backed by Bayview Asset Management, we offer the stability and surplus strength that today\'s clients demand.' },
-  { icon: Eye,       eyebrow: 'Transparency',        title: 'Straightforward Products, No Gimmicks',    body: 'Our MYGAs and FIAs are designed with simplicity in mind — clear terms, transparent renewals, and no hidden fees or unnecessary riders.' },
-  { icon: TrendingUp,eyebrow: 'Competitive Value',   title: 'Industry-Leading Rates',                   body: 'We consistently offer top-tier crediting strategies and competitive yields — helping you deliver more value in every retirement conversation.' },
-  { icon: Users,     eyebrow: 'Advisor Support',     title: 'Built for Financial Professionals',        body: 'Fast, responsive, and easy to work with — our team is here to support your success, not get in your way.' },
+  { icon: Award,      eyebrow: 'Financial Strength', title: 'Financial Strength You Can Count On',    body: 'Rated "A" (Excellent) by A.M. Best and backed by Bayview Asset Management, we offer the stability and surplus strength that today\'s clients demand.' },
+  { icon: Eye,        eyebrow: 'Transparency',        title: 'Straightforward Products, No Gimmicks', body: 'Our MYGAs and FIAs are designed with simplicity in mind — clear terms, transparent renewals, and no hidden fees or unnecessary riders.' },
+  { icon: TrendingUp, eyebrow: 'Competitive Value',   title: 'Industry-Leading Rates',                body: 'We consistently offer top-tier crediting strategies and competitive yields — helping you deliver more value in every retirement conversation.' },
+  { icon: Users,      eyebrow: 'Advisor Support',     title: 'Built for Financial Professionals',     body: 'Fast, responsive, and easy to work with — our team is here to support your success, not get in your way.' },
 ]
 
 const DIFF_CARDS = [
-  { icon: ShieldCheck, eyebrow: 'Foundation',  title: 'Financial Strength',           body: 'An A (Excellent) A.M. Best rating backed by the capital strength of Bayview Asset Management.' },
-  { icon: Eye,         eyebrow: 'Clarity',     title: 'Transparency',                 body: 'Clear terms, no hidden fees, and transparent renewal rates — clients always know what to expect.' },
-  { icon: Zap,         eyebrow: 'Performance', title: 'Competitive and Flexible',     body: 'Top-tier crediting strategies across fixed and indexed products, designed to meet varied client goals.' },
-  { icon: Star,        eyebrow: 'Service',     title: 'Client-Focused Features',      body: 'Products and service built around your clients — intuitive, accessible, and designed for real retirement outcomes.' },
+  { icon: ShieldCheck, eyebrow: 'Foundation',  title: 'Financial Strength',       body: 'An A (Excellent) A.M. Best rating backed by the capital strength of Bayview Asset Management.' },
+  { icon: Eye,         eyebrow: 'Clarity',     title: 'Transparency',             body: 'Clear terms, no hidden fees, and transparent renewal rates — clients always know what to expect.' },
+  { icon: Zap,         eyebrow: 'Performance', title: 'Competitive and Flexible', body: 'Top-tier crediting strategies across fixed and indexed products, designed to meet varied client goals.' },
+  { icon: Star,        eyebrow: 'Service',     title: 'Client-Focused Features',  body: 'Products and service built around your clients — intuitive, accessible, and designed for real retirement outcomes.' },
 ]
 
 const RESOURCES = {
@@ -238,8 +192,10 @@ export default function CeteraLandingPage() {
                 <PillMint hero onClick={() => document.getElementById('cetera-products')?.scrollIntoView({ behavior: 'smooth' })}>
                   Explore Products
                 </PillMint>
-                <PillGhost onClick={() => document.getElementById('cetera-resources')?.scrollIntoView({ behavior: 'smooth' })}
-                  style={{ background: 'rgba(255,255,255,.12)', color: '#fff', borderColor: 'rgba(255,255,255,.3)', backdropFilter: 'blur(4px)' }}>
+                <PillGhost
+                  onClick={() => document.getElementById('cetera-resources')?.scrollIntoView({ behavior: 'smooth' })}
+                  style={{ background: 'rgba(255,255,255,.12)', color: '#fff', borderColor: 'rgba(255,255,255,.3)', backdropFilter: 'blur(4px)' }}
+                >
                   Download Resources
                 </PillGhost>
               </div>
@@ -301,7 +257,7 @@ export default function CeteraLandingPage() {
                 'Predictable, tax-deferred accumulation',
                 'Straightforward structure with clearly defined outcomes',
               ]} />
-              <PillGhost onClick={() => { window.location.hash = 'products' }}>
+              <PillGhost onClick={() => { window.location.hash = 'products' }} style={{ alignSelf: 'flex-start' }}>
                 View Product Details →
               </PillGhost>
             </div>
@@ -326,7 +282,7 @@ export default function CeteraLandingPage() {
                 'Multiple crediting strategy options',
                 'Tax-deferred accumulation',
               ]} />
-              <PillGhost onClick={() => { window.location.hash = 'products' }}>
+              <PillGhost onClick={() => { window.location.hash = 'products' }} style={{ alignSelf: 'flex-start' }}>
                 View Product Details →
               </PillGhost>
             </div>
@@ -351,7 +307,7 @@ export default function CeteraLandingPage() {
                 'Transparency around how interest is credited',
                 'Structured approach to indexed growth potential',
               ]} />
-              <PillGhost onClick={() => { window.location.hash = 'products' }}>
+              <PillGhost onClick={() => { window.location.hash = 'products' }} style={{ alignSelf: 'flex-start' }}>
                 View Product Details →
               </PillGhost>
             </div>
@@ -363,8 +319,8 @@ export default function CeteraLandingPage() {
       {/* ══ Case study callout ═════════════════════════════════════════ */}
       <section style={PS.sectionWhite} className="ov-section">
         <div className="ov-container">
-          <div style={{ background: 'var(--ov-navy-1000)', borderRadius: 20, overflow: 'hidden' }}>
-            <div style={{ padding: 'clamp(36px,5vw,64px)', display: 'flex', flexDirection: 'column', gap: 24 }}>
+          <div style={{ background: 'var(--ov-navy-1000)', borderRadius: 20, overflow: 'hidden', display: 'flex', flexDirection: 'column' }} className="lpl-case-study">
+            <div style={{ padding: 'clamp(36px,5vw,64px)', display: 'flex', flexDirection: 'column', gap: 24, flex: 1 }}>
               <div>
                 <div style={{ ...PS.eyebrowRow, marginBottom: 4 }}>
                   <div style={{ ...PS.eyebrowLine, background: 'rgba(112,186,191,.5)' }} />
@@ -381,7 +337,9 @@ export default function CeteraLandingPage() {
                 for their loved ones.
               </p>
               <div>
-                <PillMint onClick={() => { window.location.hash = 'case-studies' }}>Read Their Story</PillMint>
+                <PillMint onClick={() => { window.location.hash = 'case-studies' }}>
+                  Read Their Story
+                </PillMint>
               </div>
             </div>
           </div>
@@ -393,10 +351,12 @@ export default function CeteraLandingPage() {
         <div className="ov-container">
           <div style={{ maxWidth: 640, marginBottom: 52 }}>
             <PrdEyebrow>The Oceanview Difference</PrdEyebrow>
-            <h2 style={{ ...PS.h2, marginTop: 12 }}>Experience the Oceanview Difference.</h2>
+            <h2 style={{ ...PS.h2, marginTop: 12 }}>
+              Experience the Oceanview Difference.
+            </h2>
           </div>
           <div style={PS.cardsGrid} className="prd-cards-grid prd-cards-2col">
-            {DIFF_CARDS.map(c => <IconCard key={c.title} {...c} tint={true} />)}
+            {DIFF_CARDS.map(c => <IconCard key={c.title} {...c} tint={false} />)}
           </div>
         </div>
       </section>
@@ -419,9 +379,9 @@ export default function CeteraLandingPage() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 48 }} className="lpl-resources-grid">
             {[
-              { heading: 'Client Brochures', items: RESOURCES.brochures,   icon: FileText  },
-              { heading: 'Rate Sheets',      items: RESOURCES.rateSheets,  icon: BarChart2 },
-              { heading: 'Sales Tools',      items: RESOURCES.salesTools,  icon: Layers    },
+              { heading: 'Client Brochures', items: RESOURCES.brochures,  icon: FileText  },
+              { heading: 'Rate Sheets',      items: RESOURCES.rateSheets, icon: BarChart2 },
+              { heading: 'Sales Tools',      items: RESOURCES.salesTools, icon: Layers    },
             ].map(({ heading, items, icon: Icon }) => (
               <div key={heading}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
@@ -477,33 +437,42 @@ export default function CeteraLandingPage() {
         </div>
       </section>
 
-      {/* ══ Bottom: CTA + email signup ═════════════════════════════════ */}
+      {/* ══ Want More Information CTA ═══════════════════════════════════ */}
       <section style={PS.sectionWhite} className="ov-section">
         <div className="ov-container">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 48 }} className="lpl-bottom-row">
-            <div style={PS.ctaPanel}>
-              <PrdEyebrow>Get in Touch</PrdEyebrow>
+          <div style={PS.ctaPanel}>
+            <div style={PS.ctaLeft}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+                <div style={{ width: 18, height: 1, background: 'rgba(0,31,84,.4)', flexShrink: 0 }} />
+                <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: 'rgba(0,31,84,.65)' }}>Get in Touch</span>
+              </div>
               <h2 style={PS.ctaH2}>Want More Information?</h2>
               <p style={PS.ctaBody}>
                 Complete a general inquiry or reach our Cetera sales desk and a representative
                 will follow up with additional information.
               </p>
-              <div style={PS.ctaBtns}>
-                <PillMint onClick={() => { window.location.hash = 'contact' }}>Contact Us</PillMint>
-                <PillGhost onClick={() => { window.location.hash = 'sales-tools' }}>Browse Sales Tools</PillGhost>
-              </div>
+              <button
+                onClick={() => document.getElementById('footer-newsletter')?.scrollIntoView({ behavior: 'smooth' })}
+                style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 700, fontStyle: 'italic', fontSize: 15, color: '#001F54', background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left', textDecoration: 'underline', textDecorationColor: 'rgba(0,31,84,.3)', textUnderlineOffset: 3 }}
+                onMouseEnter={e => e.currentTarget.style.textDecorationColor = '#001F54'}
+                onMouseLeave={e => e.currentTarget.style.textDecorationColor = 'rgba(0,31,84,.3)'}
+              >
+                Want insights delivered to your inbox? Scroll down to subscribe. ↓
+              </button>
             </div>
-
-            <div style={{ background: '#fff', borderRadius: 20, padding: 'clamp(32px,5vw,52px)', border: '1px solid rgba(13,31,78,.08)', boxShadow: '0 2px 12px rgba(13,31,78,.04)' }}>
-              <div style={{ marginBottom: 28 }}>
-                <PrdEyebrow>Stay Connected</PrdEyebrow>
-                <h2 style={{ ...PS.h2, fontSize: 'clamp(20px,2.2vw,28px)', marginTop: 10, marginBottom: 10 }}>Join Our Email List</h2>
-                <p style={{ ...PS.body, fontSize: 14 }}>
-                  Stay connected with Oceanview for consumer-focused insights and news.{' '}
-                  <em style={{ color: '#828282' }}>Note: this list is not intended for agents.</em>
-                </p>
-              </div>
-              <EmailSignup />
+            <div style={PS.ctaBtns}>
+              <button
+                onClick={() => { window.location.hash = 'contact' }}
+                style={{ background: '#001F54', color: '#fff', border: 0, borderRadius: 200, padding: '16px 36px', fontFamily: 'var(--ov-ff-sans)', fontWeight: 700, fontSize: 14, cursor: 'pointer', whiteSpace: 'nowrap', transition: 'opacity .15s' }}
+                onMouseEnter={e => e.currentTarget.style.opacity = '.85'}
+                onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+              >Contact Us</button>
+              <button
+                onClick={() => { window.location.hash = 'sales-tools' }}
+                style={{ background: '#fff', color: '#001F54', border: '1.5px solid rgba(0,31,84,.15)', borderRadius: 200, padding: '16px 36px', fontFamily: 'var(--ov-ff-sans)', fontWeight: 700, fontSize: 14, cursor: 'pointer', whiteSpace: 'nowrap', transition: 'opacity .15s' }}
+                onMouseEnter={e => e.currentTarget.style.opacity = '.85'}
+                onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+              >Browse Sales Tools</button>
             </div>
           </div>
         </div>

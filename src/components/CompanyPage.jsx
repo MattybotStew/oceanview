@@ -1,5 +1,6 @@
-// CompanyPage.jsx — About / Company page
 import PageHero from './PageHero.jsx'
+import { PillNavy, TextLink } from './Buttons.jsx'
+import CTABanner from './CTABanner.jsx'
 
 const cmpS = {
   twoCol:      { display: "flex", gap: 80, alignItems: "center" },
@@ -16,18 +17,16 @@ const cmpS = {
   body: { fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "#6B7280", lineHeight: 1.65, margin: 0 },
   bodyLg: { fontFamily: "var(--ov-ff-sans)", fontSize: 17, color: "#4A5568", lineHeight: 1.6, margin: 0 },
 
-  bulletCard:      { background: "rgba(112,186,191,0.2)", borderRadius: 12, padding: "19px 24px 20px", display: "flex", flexDirection: "column" },
+  bulletCard:      { background: "#fff", border: "1px solid rgba(36,148,193,0.13)", borderRadius: 12, padding: "19px 24px 20px", display: "flex", flexDirection: "column" },
   bulletCardLabel: { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1", marginBottom: 12 },
   bulletItem:      { display: "flex", gap: 8, alignItems: "flex-start", paddingTop: 10, paddingBottom: 11, borderBottom: "1px solid rgba(36,148,193,0.1)" },
   bulletItemLast:  { display: "flex", gap: 8, alignItems: "flex-start", paddingTop: 10 },
   bulletText:      { fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "#6B7280", lineHeight: 1.65, margin: 0 },
 
-  textGrid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 50, alignItems: "start" },
+  textGrid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 50, alignItems: "stretch" },
   textCol:  { display: "flex", flexDirection: "column", gap: 34 },
 
-  btnRow:     { display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap" },
-  btnOutline: { padding: "12px 24px", borderRadius: 200, border: "1px solid #0D1F4E", background: "#fff", fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "#0D1F4E", cursor: "pointer" },
-  btnLink:    { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 15, color: "#1A3070", background: "none", border: "none", cursor: "pointer", padding: 0 },
+  btnRow:     { display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap" },
 };
 
 function CmpEyebrow({ children }) {
@@ -77,7 +76,7 @@ function ExperienceBulletCard() {
     { label: "Commitment to Your Peace of Mind", text: "Your financial well-being is our top priority. We strive to provide a seamless and reassuring experience as you plan for a secure future." },
   ];
   return (
-    <div style={cmpS.bulletCard}>
+    <div style={{ ...cmpS.bulletCard, background: "rgba(112,186,191,0.2)", border: "none" }}>
       {items.map((b, i) => (
         <div key={i} style={i === items.length - 1 ? cmpS.bulletItemLast : cmpS.bulletItem}>
           {CHECK}
@@ -169,7 +168,7 @@ export default function CompanyPage() {
                   <CmpEyebrow>{col.eyebrow}</CmpEyebrow>
                   <h3 style={cmpS.h3}>{col.heading}</h3>
                 </div>
-                <p style={cmpS.body}>{col.body}</p>
+                <p style={{ ...cmpS.body, flex: 1 }}>{col.body}</p>
                 <BulletCard label={col.cardLabel} bullets={col.bullets} />
               </div>
             ))}
@@ -200,8 +199,8 @@ export default function CompanyPage() {
                 their financial objectives through our annuity products.
               </p>
               <div style={cmpS.btnRow}>
-                <button style={cmpS.btnOutline}>More About Us</button>
-                <button style={cmpS.btnLink}>Read our 2024 Annual Report →</button>
+                <PillNavy>More About Us</PillNavy>
+                <TextLink>Read our 2024 Annual Report</TextLink>
               </div>
             </div>
           </div>
@@ -222,7 +221,7 @@ export default function CompanyPage() {
                 Rating from A.M. Best — recognition of our balance-sheet strength, operating
                 performance, and prudent enterprise risk management.
               </p>
-              <button style={cmpS.btnLink}>Read the latest A.M. Best report →</button>
+              <TextLink>Read the latest A.M. Best report</TextLink>
             </div>
             <img
               src="assets/ambest.png"
@@ -231,6 +230,20 @@ export default function CompanyPage() {
               className="ov-company-rating-img"
             />
           </div>
+        </div>
+      </section>
+
+      {/* ── CTA ──────────────────────────────────────────────────────────────── */}
+      <section className="ov-section" style={{ background: '#fff' }}>
+        <div className="ov-container">
+          <CTABanner
+            eyebrow="Get Started"
+            title="Retirement solutions backed by"
+            titleAccent="decades of strength."
+            body="Financial confidence you can trust — with the transparency and stability your clients deserve."
+            cta="Compare Products"
+            onClick={() => { window.location.hash = 'products' }}
+          />
         </div>
       </section>
     </main>

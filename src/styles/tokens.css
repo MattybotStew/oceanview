@@ -213,7 +213,7 @@
   --ov-container: 1600px;  /* Global max-width for containers AND heroes */
   --ov-gutter:    120px;
   --ov-gutter-sm: 16px;
-  --ov-header-h:  96px;
+  --ov-header-h:  72px;
   --ov-ticker-h:  32px;
 
   /* ---------- Section spacing ---------- */
@@ -279,8 +279,24 @@ html, body {
   background: var(--ov-bg);
   color: var(--ov-fg);
   font-family: var(--ov-ff-body);
+  font-size: var(--ov-fz-body);
+  line-height: var(--ov-lh-body);
   -webkit-font-smoothing: antialiased;
 }
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--ov-ff-display);
+  color: var(--ov-navy-900);
+  font-weight: 400;
+  line-height: var(--ov-lh-snug);
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+h1 { font-size: clamp(32px, 4vw, var(--ov-fz-h1)); }
+h2 { font-size: clamp(26px, 3vw, var(--ov-fz-h2)); }
+h3 { font-size: clamp(18px, 2vw, var(--ov-fz-h3)); }
+h4 { font-size: var(--ov-fz-h4); }
+h5 { font-size: var(--ov-fz-h5); }
+p  { font-family: var(--ov-ff-body); font-size: var(--ov-fz-body); line-height: var(--ov-lh-body); color: var(--ov-grey-600); margin: 0; }
 img { max-width: 100%; display: block; }
 button { font-family: inherit; cursor: pointer; }
 a { color: inherit; text-decoration: none; }
@@ -443,6 +459,11 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 800px) {
   .ov-rating-grid { flex-direction: column-reverse !important; gap: 40px !important; }
   .ov-rating-grid > :last-child { width: 100% !important; aspect-ratio: 4/3 !important; }
+}
+
+/* ─── Contact page ───────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .ct-form-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
 }
 
 /* ─── Company page ───────────────────────────────────────────── */

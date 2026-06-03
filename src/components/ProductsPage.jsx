@@ -1,7 +1,6 @@
 // ProductsPage.jsx — Products catalog (mobile-first)
 import { useState, useEffect, useRef } from 'react'
 import PageHero from './PageHero.jsx'
-import { PillMint, PillGhost } from './Buttons.jsx'
 import CTABanner from './CTABanner.jsx'
 
 const PS = {
@@ -32,24 +31,24 @@ const PS = {
   introImg:    { width: "100%", aspectRatio: "4/3", borderRadius: 20, objectFit: "cover", objectPosition: "center top", display: "block", flexShrink: 0 },
   introText:   { display: "flex", flexDirection: "column", gap: 22, flex: 1 },
 
-  eyebrowRow:  { display: "flex", alignItems: "center", gap: 6 },
+  eyebrowRow:  { display: "flex", alignItems: "center", gap: 6, marginBottom: 14 },
   eyebrowLine: { width: 18, height: 1, background: "#2494C1", flexShrink: 0 },
   eyebrow:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1" },
   h2:          { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(26px, 3vw, 40px)", color: "#0D1F4E", letterSpacing: "-0.025em", lineHeight: 1.12, margin: 0 },
   body:        { fontFamily: "var(--ov-ff-sans)", fontSize: 15, color: "#4A5568", lineHeight: 1.65, margin: 0 },
 
   // ── Key Features teal card ─────────────────────────────────────────────
-  kfCard:      { background: "rgba(112,186,191,.18)", borderRadius: 12, padding: "18px 24px 20px" },
+  kfCard:      { background: "#fff", borderRadius: 12, padding: "18px 24px 20px" },
   kfLabel:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1", marginBottom: 12 },
   kfItem:      { display: "flex", gap: 8, alignItems: "flex-start", padding: "9px 0", borderTop: "1px solid rgba(36,148,193,.12)" },
   kfText:      { fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "#4A5568", lineHeight: 1.55, margin: 0 },
 
   // ── Product cards grid (mobile: col) ───────────────────────────────────
   cardsGrid:   { display: "flex", flexDirection: "column", gap: 24 },
-  card:        { background: "#fff", border: "1px solid rgba(13,31,78,.08)", borderRadius: 16, padding: "28px 32px 32px", display: "flex", flexDirection: "column", gap: 18, boxShadow: "0 2px 12px rgba(13,31,78,.04)" },
-  cardEyebrow: { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1" },
-  cardH3:      { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(18px, 1.8vw, 22px)", color: "#0D1F4E", letterSpacing: "-0.015em", lineHeight: 1.2, margin: "4px 0 0" },
-  cardBody:    { fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "#4A5568", lineHeight: 1.65, margin: 0 },
+  card:        { background: "#fff", border: "1px solid rgba(13,31,78,.08)", borderRadius: 16, padding: "28px 32px 32px", display: "flex", flexDirection: "column", gap: 18, boxShadow: "0 2px 12px rgba(13,31,78,.04)", height: "100%", boxSizing: "border-box" },
+  cardEyebrow: { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1", marginBottom: 10 },
+  cardH3:      { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(18px, 1.8vw, 22px)", color: "#0D1F4E", letterSpacing: "-0.015em", lineHeight: 1.2, margin: 0 },
+  cardBody:    { fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "#4A5568", lineHeight: 1.65, margin: 0, flex: 1 },
   cardBullets: { background: "rgba(112,186,191,.15)", borderRadius: 10, padding: "14px 18px" },
   cbLabel:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1", marginBottom: 10 },
   cbItem:      { display: "flex", gap: 8, alignItems: "flex-start", padding: "8px 0", borderTop: "1px solid rgba(36,148,193,.10)" },
@@ -77,9 +76,9 @@ function PrdEyebrow({ children }) {
   );
 }
 
-function KeyFeaturesCard({ features }) {
+function KeyFeaturesCard({ features, teal }) {
   return (
-    <div style={PS.kfCard}>
+    <div style={{ ...PS.kfCard, background: teal ? "rgba(112,186,191,.18)" : "#fff" }}>
       <div style={PS.kfLabel}>Key Features</div>
       {features.map((f, i) => (
         <div key={i} style={PS.kfItem}>{CHECK}<p style={PS.kfText}>{f}</p></div>
@@ -196,27 +195,27 @@ const PRODUCTS = {
 };
 
 const CATEGORIES = [
-  { id: "fixed-annuities",  label: "Fixed Annuities",                  sub: "Predictable growth with guaranteed interest",                href: "#cat-fixed-annuities" },
-  { id: "fixed-with-flex",  label: "Fixed Annuities with Flexibility", sub: "Guaranteed today with future growth options",                href: "#cat-fixed-with-flex" },
-  { id: "fixed-indexed",    label: "Fixed Indexed Annuities",          sub: "Growth potential tied to market indexes with protection",    href: "#cat-fixed-indexed" },
+  { id: "fixed-annuities",  label: "Fixed Annuities",                  sub: "Predictable growth with guaranteed interest",                href: "#prd-cat-fixed-annuities" },
+  { id: "fixed-with-flex",  label: "Fixed Annuities with Flexibility", sub: "Guaranteed today with future growth options",                href: "#prd-cat-fixed-with-flex" },
+  { id: "fixed-indexed",    label: "Fixed Indexed Annuities",          sub: "Growth potential tied to market indexes with protection",    href: "#prd-cat-fixed-indexed" },
 ];
 
-// scroll-margin-top = header (96px) + nav (~148px) + breathing room (16px)
-const SCROLL_MARGIN = "260px";
+// scroll-margin-top = header (72px) + nav (~148px) + breathing room (16px)
+const SCROLL_MARGIN = "236px";
 
 const NAV_PRODUCTS = [
-  { label: "Harbourview MYGA",         href: "#harbourview-myga", cat: "fixed-annuities" },
-  { label: "Horizon MYGA",             href: "#horizon-myga",     cat: "fixed-annuities" },
-  { label: "Current Rate Fixed Annuity", href: "#current-rate",   cat: "fixed-with-flex" },
-  { label: "Harbourview FIA",          href: "#harbourview-fia",  cat: "fixed-indexed" },
-  { label: "CapLock",                  href: "#caplock",          cat: "fixed-indexed" },
-  { label: "Topsider",                 href: "#topsider",         cat: "fixed-indexed" },
+  { label: "Harbourview MYGA",           href: "#prd-harbourview-myga", cat: "fixed-annuities" },
+  { label: "Horizon MYGA",               href: "#prd-horizon-myga",     cat: "fixed-annuities" },
+  { label: "Current Rate Fixed Annuity", href: "#prd-current-rate",     cat: "fixed-with-flex" },
+  { label: "Harbourview FIA",            href: "#prd-harbourview-fia",  cat: "fixed-indexed" },
+  { label: "CapLock",                    href: "#prd-caplock",          cat: "fixed-indexed" },
+  { label: "Topsider",                   href: "#prd-topsider",         cat: "fixed-indexed" },
 ];
 
 // ── Page ────────────────────────────────────────────────────────────────────
 
 export default function ProductsPage() {
-  const [activeProduct, setActiveProduct] = useState("harbourview-myga")
+  const [activeProduct, setActiveProduct] = useState("prd-harbourview-myga")
   const activeCategory = NAV_PRODUCTS.find(p => p.href === `#${activeProduct}`)?.cat ?? "fixed-annuities"
 
   useEffect(() => {
@@ -247,7 +246,7 @@ export default function ProductsPage() {
 
       {/* ── Two-level sticky product nav (Figma 6940-103) ──────────── */}
       <nav style={PS.navOuter} aria-label="Products">
-        <div className="ov-container" style={{ padding: 0 }}>
+        <div className="ov-container">
 
           {/* Category row */}
           <div style={PS.catRow}>
@@ -288,7 +287,7 @@ export default function ProductsPage() {
       </nav>
 
       {/* ══ Section 1 — Fixed Annuities ════════════════════════════════ */}
-      <section id="cat-fixed-annuities" style={{ ...PS.sectionWhite, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
+      <section id="prd-cat-fixed-annuities" style={{ ...PS.sectionWhite, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
         <div className="ov-container">
 
           {/* Intro: text left, image right */}
@@ -301,21 +300,21 @@ export default function ProductsPage() {
               </div>
               <p style={PS.body}>Fixed annuities are designed for individuals seeking stability and certainty as part of their retirement strategy. These products provide a guaranteed interest rate for a defined period, offering predictable, tax-deferred growth without exposure to market fluctuations.</p>
               <p style={PS.body}>They are often used by those who value simplicity, consistency, and knowing what to expect over time.</p>
-              <KeyFeaturesCard features={CAT1_FEATURES}/>
+              <KeyFeaturesCard features={CAT1_FEATURES} teal/>
             </div>
           </div>
 
           {/* Product grid: 2 cards */}
           <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-2col">
-            <div id="harbourview-myga" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.harbourviewMYGA}/></div>
-            <div id="horizon-myga"     style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.horizonMYGA}/></div>
+            <div id="prd-harbourview-myga" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.harbourviewMYGA}/></div>
+            <div id="prd-horizon-myga"     style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.horizonMYGA}/></div>
           </div>
 
         </div>
       </section>
 
       {/* ══ Section 2 — Fixed Annuities with Flexibility ═══════════════ */}
-      <section id="cat-fixed-with-flex" style={{ ...PS.sectionTint, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
+      <section id="prd-cat-fixed-with-flex" style={{ ...PS.sectionTint, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
         <div className="ov-container">
 
           {/* Intro: image left, text right */}
@@ -332,7 +331,7 @@ export default function ProductsPage() {
           </div>
 
           {/* Single product card */}
-          <div id="current-rate" style={{ marginTop: 56, scrollMarginTop: SCROLL_MARGIN }}>
+          <div id="prd-current-rate" style={{ marginTop: 56, scrollMarginTop: SCROLL_MARGIN }}>
             <ProductCard {...PRODUCTS.currentRate}/>
           </div>
 
@@ -340,44 +339,33 @@ export default function ProductsPage() {
       </section>
 
       {/* ══ Section 3 — Fixed Indexed Annuities ════════════════════════ */}
-      <section id="cat-fixed-indexed" style={{ ...PS.sectionWhite, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
+      <section id="prd-cat-fixed-indexed" style={{ ...PS.sectionWhite, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
         <div className="ov-container">
 
-          {/* Intro: centered text, no image */}
-          <div style={{ maxWidth: 720 }}>
-            <PrdEyebrow>Fixed Indexed Annuities</PrdEyebrow>
-            <h2 style={{ ...PS.h2, marginTop: 12, marginBottom: 16 }}>Growth potential linked to market indexes with principal protection</h2>
-            <p style={PS.body}>Fixed indexed annuities are designed for individuals seeking growth potential tied to a market index — while maintaining protection of principal from market downturns. They are often used by those who value simplicity, consistency, and knowing what to expect over time.</p>
-            <div style={{ marginTop: 24 }}>
-              <KeyFeaturesCard features={CAT3_FEATURES}/>
+          {/* Intro: text left, image right */}
+          <div style={PS.introRow} className="prd-intro-row prd-intro-img-right">
+            <img src="assets/lighthouse.jpg" alt="Fixed indexed annuities" style={PS.introImg} className="prd-intro-img"/>
+            <div style={PS.introText}>
+              <div>
+                <PrdEyebrow>Fixed Indexed Annuities</PrdEyebrow>
+                <h2 style={PS.h2}>Growth potential linked to market indexes with principal protection</h2>
+              </div>
+              <p style={PS.body}>Fixed indexed annuities are designed for individuals seeking growth potential tied to a market index — while maintaining protection of principal from market downturns. They are often used by those who value simplicity, consistency, and knowing what to expect over time.</p>
+              <KeyFeaturesCard features={CAT3_FEATURES} teal/>
             </div>
           </div>
 
           {/* Product grid: 3 cards */}
           <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-3col">
-            <div id="harbourview-fia" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.harbourviewFIA}/></div>
-            <div id="caplock"         style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.capLock}/></div>
-            <div id="topsider"        style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.topsider}/></div>
+            <div id="prd-harbourview-fia" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.harbourviewFIA}/></div>
+            <div id="prd-caplock"         style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.capLock}/></div>
+            <div id="prd-topsider"        style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.topsider}/></div>
           </div>
 
         </div>
       </section>
 
-      {/* ══ CTA panel ══════════════════════════════════════════════════ */}
-      <section className="ov-section" style={{ background: "#fff" }}>
-        <div className="ov-container">
-          <div style={PS.ctaPanel}>
-            <h2 style={PS.ctaH2}>Not sure which product is right for you?</h2>
-            <p style={PS.ctaBody}>Talk to a financial professional or contact our team to find the solution that fits your retirement timeline, income goals, and risk comfort.</p>
-            <div style={PS.ctaBtns}>
-              <PillMint>Get Started</PillMint>
-              <PillGhost>Find a Professional</PillGhost>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══ CTABanner (alternative CTA style) ══════════════════════════ */}
+      {/* ══ CTABanner ══════════════════════════════════════════════════ */}
       <section className="ov-section" style={{ background: "var(--ov-surface-tint)" }}>
         <div className="ov-container">
           <CTABanner

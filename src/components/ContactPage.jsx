@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import PageHero from './PageHero.jsx'
 import { PillMint, PillNavy } from './Buttons.jsx'
 import {
   Phone, Mail, Printer, Building2, Clock, User,
@@ -9,6 +8,22 @@ import {
 
 // ── Styles ────────────────────────────────────────────────────────────────────
 const S = {
+  // ── Page header (replaces hero) ──────────────────────────────────────
+  pageHeaderInner: { display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 20 },
+  pageEyebrowRow:  { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 },
+  pageEyebrowLine: { width: 18, height: 1, background: '#2494C1', flexShrink: 0 },
+  pageEyebrow:     { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#2494C1' },
+  pageH1:          { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(36px,5vw,64px)', color: '#0D1F4E', letterSpacing: '-0.03em', lineHeight: 1.08, margin: 0 },
+  pageLede:        { fontFamily: 'var(--ov-ff-sans)', fontSize: 'clamp(15px,1.4vw,18px)', color: '#4A5568', lineHeight: 1.65, maxWidth: '54ch', margin: 0 },
+
+  // ── Sticky product-style tab nav ─────────────────────────────────────
+  ctNavOuter:    { background: '#fff', position: 'sticky', top: 'var(--ov-header-h)', zIndex: 50, boxShadow: '0 1px 0 #e8e5e5' },
+  ctTabRow:      { display: 'flex', borderBottom: '1px solid #e8e5e5', overflowX: 'auto', WebkitOverflowScrolling: 'touch' },
+  ctTab:         { flex: '1 0 0', minWidth: 140, height: 51, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 24px', borderTop: 'none', borderLeft: 'none', borderBottom: 'none', borderRight: '1px solid #e8e5e5', fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#001F54', background: 'none', whiteSpace: 'nowrap', cursor: 'pointer', transition: 'background .15s', letterSpacing: '.01em' },
+  ctTabActive:   { background: 'rgba(226,241,242,0.6)' },
+  ctTabInactive: { background: 'transparent' },
+
+  // ── Shared section ───────────────────────────────────────────────────
   sectionWhite: { background: '#fff' },
   sectionTint:  { background: 'var(--ov-surface-tint)' },
 
@@ -18,11 +33,6 @@ const S = {
   h2:           { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(26px,3vw,40px)', color: '#0D1F4E', letterSpacing: '-0.025em', lineHeight: 1.12, margin: 0 },
   h3:           { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(18px,1.8vw,22px)', color: '#0D1F4E', letterSpacing: '-0.015em', lineHeight: 1.2, margin: 0 },
   lede:         { fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: '#4A5568', lineHeight: 1.7, margin: 0 },
-
-  // ── Tab bar ──────────────────────────────────────────────────────────
-  tabBar:       { display: 'flex', borderBottom: '1px solid rgba(13,31,78,.10)', gap: 0, marginBottom: 40, overflowX: 'auto', WebkitOverflowScrolling: 'touch' },
-  tabBtn:       { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#4A5568', padding: '14px 22px', border: 'none', background: 'none', cursor: 'pointer', whiteSpace: 'nowrap', borderBottom: '2px solid transparent', transition: 'color .15s, border-color .15s', letterSpacing: '.01em' },
-  tabBtnActive: { color: '#0D1F4E', borderBottom: '2px solid #2494C1' },
 
   // ── Info cards ───────────────────────────────────────────────────────
   cardGrid:     { display: 'flex', flexDirection: 'column', gap: 16 },
@@ -48,8 +58,22 @@ const S = {
   bulletText:   { fontFamily: 'var(--ov-ff-sans)', fontSize: 13.5, color: '#4A5568', lineHeight: 1.55 },
   portalLink:   { display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'var(--ov-ff-sans)', fontWeight: 700, fontSize: 13, color: '#2494C1', background: 'none', border: 'none', cursor: 'pointer', padding: 0, textDecoration: 'none', marginTop: 4 },
 
-  // ── Form ─────────────────────────────────────────────────────────────
-  formWrap:     { background: '#fff', border: '1px solid rgba(13,31,78,.08)', borderRadius: 20, padding: 'clamp(32px,5vw,56px)', boxShadow: '0 4px 24px rgba(13,31,78,.06)' },
+  // ── Dark navy form section ───────────────────────────────────────────
+  formGrid:     { display: 'grid', gridTemplateColumns: '55fr 45fr', gap: 64, alignItems: 'center' },
+  formLeft:     { display: 'flex', flexDirection: 'column', gap: 28 },
+  formRight:    { minWidth: 0 },
+  darkEyebrowRow:  { display: 'flex', alignItems: 'center', gap: 6 },
+  darkEyebrowLine: { width: 18, height: 1, background: 'rgba(112,186,191,.5)', flexShrink: 0 },
+  darkEyebrow:     { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: '#70BABF' },
+  darkH2:          { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(28px,3.4vw,44px)', color: '#F2FCFF', letterSpacing: '-0.025em', lineHeight: 1.1, margin: 0 },
+  darkBody:        { fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: 'rgba(242,252,255,0.65)', lineHeight: 1.7, margin: 0 },
+  darkDetailRow:   { display: 'flex', flexDirection: 'row', gap: 40, flexWrap: 'wrap', marginTop: 4 },
+  darkDetailItem:  { display: 'flex', flexDirection: 'column', gap: 2 },
+  darkDetailLabel: { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#70BABF' },
+  darkDetailVal:   { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 15, color: '#F2FCFF' },
+
+  // ── Form card ────────────────────────────────────────────────────────
+  formWrap:     { background: '#fff', borderRadius: 20, padding: 'clamp(28px,3vw,40px)', boxShadow: '0 12px 64px rgba(0,0,0,.28)' },
   formTitle:    { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(22px,2.4vw,32px)', color: '#0D1F4E', letterSpacing: '-0.02em', lineHeight: 1.15, margin: 0 },
   stepIndicator:{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 28 },
   stepDot:      { width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--ov-ff-sans)', fontWeight: 700, fontSize: 12 },
@@ -432,7 +456,6 @@ function InquiryForm() {
 
   return (
     <div>
-      {/* Step indicator */}
       <div style={S.stepIndicator}>
         <StepDot n={1} active={step === 1} done={step > 1} />
         <div style={S.stepLine} />
@@ -616,60 +639,101 @@ const TABS = [
 export default function ContactPage() {
   const [activeTab, setActiveTab] = useState('contacts')
 
+  const scrollToForm = () => {
+    document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   return (
     <main>
-      <PageHero
-        image="assets/hero-couple.jpg"
-        eyebrow="Contact Us"
-        title="We're here to help."
-        subtitle="Reach our sales desk, customer service, or new business team — or find the tools you need below."
-      />
 
-      {/* ── Tabbed info section ─────────────────────────────────────────── */}
-      <section style={S.sectionWhite} className="ov-section">
+      {/* ── Page header ─────────────────────────────────────────────────── */}
+      <section style={{ background: '#fff', padding: 'clamp(72px,9vw,112px) 0 0' }}>
         <div className="ov-container">
-
-          {/* Tab bar */}
-          <nav style={S.tabBar} aria-label="Contact sections">
-            {TABS.map(t => (
-              <button
-                key={t.id}
-                style={{ ...S.tabBtn, ...(activeTab === t.id ? S.tabBtnActive : {}) }}
-                onClick={() => setActiveTab(t.id)}
-                onMouseEnter={e => { if (activeTab !== t.id) e.currentTarget.style.color = '#0D1F4E' }}
-                onMouseLeave={e => { if (activeTab !== t.id) e.currentTarget.style.color = '#4A5568' }}
-              >
-                {t.label}
-              </button>
-            ))}
-          </nav>
-
-          {/* Tab panels */}
-          {activeTab === 'contacts' && <KeyContactsPanel />}
-          {activeTab === 'payments' && <PaymentPanel />}
-          {activeTab === 'portals'  && <PortalsPanel />}
-          {activeTab === 'forms'    && <FormsPanel />}
-
-        </div>
-      </section>
-
-      {/* ── Inquiry form ────────────────────────────────────────────────── */}
-      <section style={S.sectionTint} className="ov-section">
-        <div className="ov-container">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 40 }}>
-            <Eyebrow>General Inquiry</Eyebrow>
-            <h2 style={S.h2}>Send us a message.</h2>
-            <p style={{ ...S.lede, maxWidth: '56ch' }}>
-              Not sure who to contact? Fill out the form below and we'll route your inquiry to the right team.
+          <div style={S.pageHeaderInner}>
+            <div style={S.pageEyebrowRow}>
+              <div style={S.pageEyebrowLine} />
+              <span style={S.pageEyebrow}>Contact Us</span>
+            </div>
+            <h1 style={S.pageH1}>We're here to help.</h1>
+            <p style={S.pageLede}>
+              Reach our sales desk, customer service, or new business team — or find the tools you need below.
             </p>
-          </div>
-          <div style={{ maxWidth: 640 }}>
-            <div style={S.formWrap}>
-              <InquiryForm />
+            <div style={{ marginTop: 8 }}>
+              <PillNavy onClick={scrollToForm}>Send us a message</PillNavy>
             </div>
           </div>
         </div>
       </section>
+
+      {/* ── Sticky product-style tab nav ────────────────────────────────── */}
+      <nav style={S.ctNavOuter} aria-label="Contact sections">
+        <div className="ov-container">
+          <div style={S.ctTabRow}>
+            {TABS.map(t => (
+              <button
+                key={t.id}
+                style={{ ...S.ctTab, ...(activeTab === t.id ? S.ctTabActive : S.ctTabInactive) }}
+                onClick={() => setActiveTab(t.id)}
+                onMouseEnter={e => { if (activeTab !== t.id) e.currentTarget.style.background = 'rgba(226,241,242,0.35)' }}
+                onMouseLeave={e => { if (activeTab !== t.id) e.currentTarget.style.background = 'transparent' }}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </nav>
+
+      {/* ── Tab content ─────────────────────────────────────────────────── */}
+      <section style={S.sectionWhite} className="ov-section">
+        <div className="ov-container">
+          {activeTab === 'contacts' && <KeyContactsPanel />}
+          {activeTab === 'payments' && <PaymentPanel />}
+          {activeTab === 'portals'  && <PortalsPanel />}
+          {activeTab === 'forms'    && <FormsPanel />}
+        </div>
+      </section>
+
+      {/* ── Inquiry form — dark navy ─────────────────────────────────────── */}
+      <section id="contact-form" style={{ background: '#001040' }} className="ov-section">
+        <div className="ov-container">
+          <div style={S.formGrid} className="ct-form-grid">
+
+            {/* Left — copy */}
+            <div style={S.formLeft}>
+              <div style={S.darkEyebrowRow}>
+                <div style={S.darkEyebrowLine} />
+                <span style={S.darkEyebrow}>General Inquiry</span>
+              </div>
+              <h2 style={S.darkH2}>Send us a message.</h2>
+              <p style={S.darkBody}>
+                Not sure who to contact? Fill out the form and we'll route your inquiry to the right team — typically within one business day.
+              </p>
+              <div style={S.darkDetailRow}>
+                {[
+                  { label: 'Sales Desk',        value: '1-833-656-7455' },
+                  { label: 'Customer Service',  value: '1-888-295-3815' },
+                  { label: 'New Business Fax',  value: '1-888-417-3702' },
+                ].map(d => (
+                  <div key={d.label} style={S.darkDetailItem}>
+                    <span style={S.darkDetailLabel}>{d.label}</span>
+                    <span style={S.darkDetailVal}>{d.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right — form card */}
+            <div style={S.formRight}>
+              <div style={S.formWrap}>
+                <InquiryForm />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
     </main>
   )
 }

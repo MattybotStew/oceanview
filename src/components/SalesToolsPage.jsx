@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import PageHero from './PageHero.jsx'
-import { PillMint, TextLink } from './Buttons.jsx'
+import { TextLink } from './Buttons.jsx'
+import CTABanner from './CTABanner.jsx'
 import {
   TrendingUp, BarChart2, FileText, Users, Shield,
   RefreshCw, LayoutList, Layers, Target, PieChart,
@@ -11,6 +11,13 @@ import {
 const S = {
   sectionWhite: { background: '#fff' },
   sectionTint:  { background: 'var(--ov-surface-tint)' },
+
+  pageHeaderInner: { display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 20 },
+  pageEyebrowRow:  { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 },
+  pageEyebrowLine: { width: 18, height: 1, background: '#2494C1', flexShrink: 0 },
+  pageEyebrow:     { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#2494C1' },
+  pageH1:          { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(36px,5vw,64px)', color: '#0D1F4E', letterSpacing: '-0.03em', lineHeight: 1.08, margin: 0 },
+  pageLede:        { fontFamily: 'var(--ov-ff-sans)', fontSize: 'clamp(15px,1.4vw,18px)', color: '#4A5568', lineHeight: 1.65, maxWidth: '54ch', margin: 0 },
 
   eyebrowRow:  { display: 'flex', alignItems: 'center', gap: 6 },
   eyebrowLine: { width: 18, height: 1, background: '#2494C1', flexShrink: 0 },
@@ -54,9 +61,6 @@ const S = {
   cardBody:    { fontFamily: 'var(--ov-ff-sans)', fontSize: 13.5, color: '#4A5568', lineHeight: 1.6, margin: 0, flexGrow: 1 },
   divider:     { height: 1, background: 'rgba(13,31,78,.07)' },
 
-  ctaPanel:    { background: 'var(--ov-surface-tint)', borderRadius: 20, padding: 'clamp(48px,6vw,72px) clamp(24px,5vw,56px)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 20 },
-  ctaH2:       { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(26px,3vw,40px)', color: '#0D1F4E', letterSpacing: '-0.025em', lineHeight: 1.12, margin: 0 },
-  ctaBody:     { fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: '#4A5568', lineHeight: 1.65, maxWidth: '52ch', margin: 0 },
 }
 
 // ── Sub-components ────────────────────────────────────────────────────────────
@@ -253,28 +257,28 @@ const FIA_TOOLS = [
 export default function SalesToolsPage() {
   return (
     <main>
-      <PageHero
-        image="assets/hero-beach-couple.jpg"
-        eyebrow="Sales Resources"
-        title="FIA & MYGA Sales Tools"
-        subtitle="Client-ready materials and advisor resources to support every annuity conversation."
-        ctaPrimary="Agent Portal"
-      />
+      {/* ── Page header ──────────────────────────────────────────────── */}
+      <section style={{ background: '#fff', padding: 'clamp(72px,9vw,112px) 0 0' }}>
+        <div className="ov-container">
+          <div style={S.pageHeaderInner}>
+            <div style={S.pageEyebrowRow}>
+              <div style={S.pageEyebrowLine} />
+              <span style={S.pageEyebrow}>Sales Resources</span>
+            </div>
+            <h1 style={S.pageH1}>FIA & MYGA Sales Tools</h1>
+            <p style={S.pageLede}>
+              Client-ready materials and advisor resources to support every annuity conversation.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* ── MYGA section ───────────────────────────────────────────────── */}
       <section style={S.sectionWhite} className="ov-section">
         <div className="ov-container">
-          <div style={S.sectionHead}>
-            <Eyebrow>Multi-Year Guaranteed Annuities</Eyebrow>
-            <h2 style={S.h2}>MYGA Sales Tools</h2>
-            <p style={S.lede}>
-              Resources designed to help advisors open MYGA conversations — from product
-              overviews and laddering strategies to client scenarios built around real goals.
-            </p>
-          </div>
           <div style={S.grid} className="prd-cards-grid prd-cards-3col">
             {MYGA_TOOLS.map((t) => (
-              <ResourceCard key={t.title} {...t} tint={false} />
+              <ResourceCard key={t.title} {...t} tint={true} />
             ))}
           </div>
         </div>
@@ -293,7 +297,7 @@ export default function SalesToolsPage() {
           </div>
           <div style={S.grid} className="prd-cards-grid prd-cards-3col">
             {FIA_TOOLS.map((t) => (
-              <ResourceCard key={t.title} {...t} tint={true} />
+              <ResourceCard key={t.title} {...t} tint={false} />
             ))}
           </div>
         </div>
@@ -302,16 +306,14 @@ export default function SalesToolsPage() {
       {/* ── CTA ────────────────────────────────────────────────────────── */}
       <section className="ov-section" style={{ background: '#fff' }}>
         <div className="ov-container">
-          <div style={S.ctaPanel}>
-            <h2 style={S.ctaH2}>Need additional support?</h2>
-            <p style={S.ctaBody}>
-              Our Sales & Marketing team is available to help you find the right materials
-              and support your client conversations. Reach us at 1-833-656-7455.
-            </p>
-            <PillMint onClick={() => { window.location.hash = 'agent-faqs' }}>
-              View Agent FAQs
-            </PillMint>
-          </div>
+          <CTABanner
+            eyebrow="Support"
+            title="Need additional"
+            titleAccent="support?"
+            body="Our Sales & Marketing team is available to help you find the right materials. Reach us at 1-833-656-7455."
+            cta="View Agent FAQs"
+            onClick={() => { window.location.hash = 'agent-faqs' }}
+          />
         </div>
       </section>
     </main>

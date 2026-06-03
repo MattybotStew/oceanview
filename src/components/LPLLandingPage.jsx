@@ -28,7 +28,7 @@ const PS = {
   introImg:    { width: '100%', aspectRatio: '4/3', borderRadius: 20, objectFit: 'cover', objectPosition: 'center top', display: 'block', flexShrink: 0 },
   introText:   { display: 'flex', flexDirection: 'column', gap: 22, flex: 1 },
 
-  kfCard:      { background: 'rgba(112,186,191,.18)', borderRadius: 12, padding: '18px 24px 20px' },
+  kfCard:      { background: '#fff', border: '1px solid rgba(36,148,193,.15)', borderRadius: 12, padding: '18px 24px 20px' },
   kfLabel:     { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#2494C1', marginBottom: 12 },
   kfItem:      { display: 'flex', gap: 8, alignItems: 'flex-start', padding: '9px 0', borderTop: '1px solid rgba(36,148,193,.12)' },
   kfText:      { fontFamily: 'var(--ov-ff-sans)', fontSize: 14, color: '#4A5568', lineHeight: 1.55, margin: 0 },
@@ -41,10 +41,11 @@ const PS = {
 
   iconTile:    { width: 48, height: 48, borderRadius: 10, background: '#fff', border: '1px solid rgba(13,31,78,.10)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
 
-  ctaPanel:    { background: 'var(--ov-surface-tint)', borderRadius: 20, padding: 'clamp(48px,6vw,72px) clamp(24px,5vw,56px)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 20 },
-  ctaH2:       { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(26px,3vw,40px)', color: '#0D1F4E', letterSpacing: '-0.025em', lineHeight: 1.12, margin: 0 },
-  ctaBody:     { fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: '#4A5568', lineHeight: 1.65, maxWidth: '52ch', margin: 0 },
-  ctaBtns:     { display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' },
+  ctaPanel:    { background: 'rgba(112,186,191,.18)', border: '1px solid rgba(36,148,193,.2)', borderRadius: 16, padding: 'clamp(36px,4vw,56px) clamp(32px,5vw,80px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 48, flexWrap: 'wrap' },
+  ctaLeft:     { display: 'flex', flexDirection: 'column', gap: 8, flex: '1 1 320px', minWidth: 0 },
+  ctaH2:       { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(26px,3vw,40px)', color: '#001F54', letterSpacing: '-0.025em', lineHeight: 1.12, margin: 0 },
+  ctaBody:     { fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: 'rgba(0,31,84,.72)', lineHeight: 1.65, maxWidth: '52ch', margin: 0, marginTop: 4 },
+  ctaBtns:     { display: 'flex', gap: 12, flexWrap: 'wrap', flexShrink: 0 },
 }
 
 const CHECK = (
@@ -100,9 +101,9 @@ function IconCard({ icon: Icon, eyebrow, title, body, tint }) {
 function ResourceCard({ label, title }) {
   return (
     <div
-      style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderRadius: 10, background: '#fff', border: '1px solid rgba(13,31,78,.08)', cursor: 'pointer', transition: 'border-color .15s, box-shadow .15s', gap: 16 }}
-      onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(36,148,193,.4)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(13,31,78,.07)' }}
-      onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(13,31,78,.08)'; e.currentTarget.style.boxShadow = '' }}
+      style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderRadius: 10, background: 'rgba(112,186,191,.18)', border: '1px solid rgba(36,148,193,.2)', cursor: 'pointer', transition: 'border-color .15s, box-shadow .15s', gap: 16 }}
+      onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(36,148,193,.5)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(13,31,78,.07)' }}
+      onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(36,148,193,.2)'; e.currentTarget.style.boxShadow = '' }}
     >
       <div>
         <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#2494C1', marginBottom: 3 }}>{label}</div>
@@ -309,7 +310,7 @@ export default function LPLLandingPage() {
                 'Multiple crediting strategy options',
                 'Tax-deferred accumulation',
               ]} />
-              <PillGhost onClick={() => { window.location.hash = 'products' }}>
+              <PillGhost onClick={() => { window.location.hash = 'products' }} style={{ alignSelf: 'flex-start' }}>
                 View Product Details →
               </PillGhost>
             </div>
@@ -338,7 +339,7 @@ export default function LPLLandingPage() {
                 'Tax-deferred accumulation',
                 'Lifetime income options available',
               ]} />
-              <PillGhost onClick={() => { window.location.hash = 'products' }}>
+              <PillGhost onClick={() => { window.location.hash = 'products' }} style={{ alignSelf: 'flex-start' }}>
                 Learn More About MYGAs →
               </PillGhost>
             </div>
@@ -388,7 +389,7 @@ export default function LPLLandingPage() {
           </div>
           <div style={PS.cardsGrid} className="prd-cards-grid prd-cards-2col">
             {DIFF_CARDS.map((c) => (
-              <IconCard key={c.title} {...c} tint={true} />
+              <IconCard key={c.title} {...c} tint={false} />
             ))}
           </div>
         </div>
@@ -438,37 +439,42 @@ export default function LPLLandingPage() {
       </section>
 
       {/* ══ Email list signup ══════════════════════════════════════════ */}
-      <section style={PS.sectionTint} className="ov-section">
+      <section style={PS.sectionWhite} className="ov-section">
         <div className="ov-container">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 48 }} className="lpl-bottom-row">
-
-            {/* Want more info CTA */}
-            <div style={PS.ctaPanel}>
-              <PrdEyebrow>Get in Touch</PrdEyebrow>
+          <div style={PS.ctaPanel}>
+            <div style={PS.ctaLeft}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+                <div style={{ width: 18, height: 1, background: 'rgba(0,31,84,.4)', flexShrink: 0 }} />
+                <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: 'rgba(0,31,84,.65)' }}>Get in Touch</span>
+              </div>
               <h2 style={PS.ctaH2}>Want More Information?</h2>
               <p style={PS.ctaBody}>
                 Complete a general inquiry or reach our sales team directly and one of our
                 committed sales representatives will follow up with additional information.
               </p>
-              <div style={PS.ctaBtns}>
-                <PillMint onClick={() => { window.location.hash = 'contact' }}>Contact Us</PillMint>
-                <PillGhost onClick={() => { window.location.hash = 'sales-tools' }}>Browse Sales Tools</PillGhost>
-              </div>
+              <button
+                onClick={() => document.getElementById('footer-newsletter')?.scrollIntoView({ behavior: 'smooth' })}
+                style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 700, fontStyle: 'italic', fontSize: 15, color: '#001F54', background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left', textDecoration: 'underline', textDecorationColor: 'rgba(0,31,84,.3)', textUnderlineOffset: 3 }}
+                onMouseEnter={e => e.currentTarget.style.textDecorationColor = '#001F54'}
+                onMouseLeave={e => e.currentTarget.style.textDecorationColor = 'rgba(0,31,84,.3)'}
+              >
+                Want insights delivered to your inbox? Scroll down to subscribe. ↓
+              </button>
             </div>
-
-            {/* Email signup */}
-            <div style={{ background: '#fff', borderRadius: 20, padding: 'clamp(32px,5vw,52px)', border: '1px solid rgba(13,31,78,.08)', boxShadow: '0 2px 12px rgba(13,31,78,.04)' }}>
-              <div style={{ marginBottom: 28 }}>
-                <PrdEyebrow>Stay Connected</PrdEyebrow>
-                <h2 style={{ ...PS.h2, fontSize: 'clamp(20px,2.2vw,28px)', marginTop: 10, marginBottom: 10 }}>Join Our Email List</h2>
-                <p style={{ ...PS.body, fontSize: 14 }}>
-                  Stay connected with Oceanview for consumer-focused insights and news.
-                  <em style={{ color: '#828282' }}> Note: this list is not intended for agents.</em>
-                </p>
-              </div>
-              <EmailSignup />
+            <div style={PS.ctaBtns}>
+              <button
+                onClick={() => { window.location.hash = 'contact' }}
+                style={{ background: '#001F54', color: '#fff', border: 0, borderRadius: 200, padding: '16px 36px', fontFamily: 'var(--ov-ff-sans)', fontWeight: 700, fontSize: 14, cursor: 'pointer', whiteSpace: 'nowrap', transition: 'opacity .15s' }}
+                onMouseEnter={e => e.currentTarget.style.opacity = '.85'}
+                onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+              >Contact Us</button>
+              <button
+                onClick={() => { window.location.hash = 'sales-tools' }}
+                style={{ background: '#fff', color: '#001F54', border: '1.5px solid rgba(0,31,84,.15)', borderRadius: 200, padding: '16px 36px', fontFamily: 'var(--ov-ff-sans)', fontWeight: 700, fontSize: 14, cursor: 'pointer', whiteSpace: 'nowrap', transition: 'opacity .15s' }}
+                onMouseEnter={e => e.currentTarget.style.opacity = '.85'}
+                onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+              >Browse Sales Tools</button>
             </div>
-
           </div>
         </div>
       </section>

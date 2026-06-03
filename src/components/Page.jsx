@@ -7,7 +7,6 @@ import Highlights from './Highlights.jsx'
 import ProductsCard from './ProductsCard.jsx'
 import AboutBlock from './AboutBlock.jsx'
 import RatingBlock from './RatingBlock.jsx'
-import CTAPanel from './CTAPanel.jsx'
 import Footer from './Footer.jsx'
 import FAQPage from './FAQPage.jsx'
 import StubPage from './StubPage.jsx'
@@ -66,6 +65,13 @@ const ROUTE_TO_NAV = {
   "professionals": "Professionals",
 };
 
+const PAGE_ROUTES = new Set([
+  "", "home", "products", "about", "client-resources", "insights", "faq",
+  "blog", "leadership", "professionals", "sales-tools", "agent-faqs",
+  "contact", "lpl-landing", "cetera-landing",
+  ...Object.keys(STUB_ROUTES),
+]);
+
 function HomePage({ goto }) {
   return (
     <main>
@@ -86,7 +92,9 @@ export default function Page() {
 
   useEffect(() => {
     const onHash = () => {
-      setRoute(getRoute());
+      const newRoute = getRoute();
+      if (!PAGE_ROUTES.has(newRoute)) return; // in-page anchor — let browser scroll natively
+      setRoute(newRoute);
       window.scrollTo({ top: 0, behavior: "instant" });
     };
     window.addEventListener("hashchange", onHash);
@@ -140,7 +148,6 @@ export default function Page() {
         <Header active={ROUTE_TO_NAV[route] || ""} onNav={goto} />
       </div>
       {renderPage()}
-      <CTAPanel />
       <Footer />
     </>
   );

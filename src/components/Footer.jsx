@@ -95,10 +95,9 @@ export default function Footer() {
       <div className="ov-container">
 
         {/* Email signup */}
-        <div style={footerStyles.signup} className="ov-footer-signup">
+        <div id="footer-newsletter" style={footerStyles.signup} className="ov-footer-signup">
           <div style={footerStyles.signupCopy}>
-            <span style={footerStyles.signupEyebrow}>Stay in the know</span>
-            <h2 style={footerStyles.signupTitle}>Smart insights, delivered.</h2>
+            <h2 style={{ ...footerStyles.signupTitle, fontWeight: 700 }}>Sign up for our newsletter.</h2>
             <p style={footerStyles.signupSub}>
               Product updates, market commentary, and planning ideas from the Oceanview team.
             </p>
