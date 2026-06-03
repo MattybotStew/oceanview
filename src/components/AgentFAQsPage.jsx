@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import PageHero from './PageHero.jsx'
-import { PillMint, PillNavy } from './Buttons.jsx'
+import CTABanner from './CTABanner.jsx'
 import { ChevronDown } from 'lucide-react'
 
 // ── Styles ────────────────────────────────────────────────────────────────────
@@ -37,10 +37,6 @@ const S = {
   contactVal:  { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 20, color: '#0D1F4E', letterSpacing: '-0.01em' },
   contactSub:  { fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: '#4A5568' },
 
-  ctaPanel:    { background: 'var(--ov-surface-tint)', borderRadius: 20, padding: 'clamp(48px,6vw,72px) clamp(24px,5vw,56px)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 20 },
-  ctaH2:       { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(26px,3vw,40px)', color: '#0D1F4E', letterSpacing: '-0.025em', lineHeight: 1.12, margin: 0 },
-  ctaBody:     { fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: '#4A5568', lineHeight: 1.65, maxWidth: '52ch', margin: 0 },
-  ctaBtns:     { display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' },
 }
 
 // ── FAQ data ──────────────────────────────────────────────────────────────────
@@ -262,21 +258,14 @@ export default function AgentFAQsPage() {
       {/* ── CTA ────────────────────────────────────────────────────────── */}
       <section className="ov-section" style={{ background: '#fff' }}>
         <div className="ov-container">
-          <div style={S.ctaPanel}>
-            <h2 style={S.ctaH2}>Ready to get to work?</h2>
-            <p style={S.ctaBody}>
-              Access your Agent Portal to manage clients, submit applications, and
-              download commission statements — all in one place.
-            </p>
-            <div style={S.ctaBtns}>
-              <PillMint onClick={() => window.open('https://professionals.oceanview.mccamish.com/agentportal#/login', '_blank')}>
-                Agent Portal
-              </PillMint>
-              <PillNavy onClick={() => { window.location.hash = 'sales-tools' }}>
-                Sales Tools
-              </PillNavy>
-            </div>
-          </div>
+          <CTABanner
+            eyebrow="Agent Portal"
+            title="Ready to get"
+            titleAccent="to work?"
+            body="Manage clients, submit applications, and download commission statements — all in one place."
+            cta="Agent Portal"
+            onClick={() => window.open('https://professionals.oceanview.mccamish.com/agentportal#/login', '_blank')}
+          />
         </div>
       </section>
     </main>

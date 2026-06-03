@@ -1,5 +1,5 @@
-// InsightsPage.jsx — Insights & series page
 import PageHero from './PageHero.jsx'
+import CTABanner from './CTABanner.jsx'
 
 const insightsStyles = {
   body: { background: "var(--ov-bg)", padding: "80px 0" },
@@ -60,7 +60,7 @@ export default function InsightsPage() {
   return (
     <main>
       <PageHero image="assets/older-couple-1.png" eyebrow="Insights" title="Ideas for a more secure retirement." />
-      <section style={insightsStyles.body}>
+      <section className="ov-section" style={{ background: '#fff' }}>
         <div className="ov-container">
           <div style={insightsStyles.grid}>
             {SERIES.map(s => (
@@ -76,6 +76,19 @@ export default function InsightsPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="ov-section" style={{ background: 'var(--ov-surface-tint)' }}>
+        <div className="ov-container">
+          <CTABanner
+            eyebrow="Protect Your Clients"
+            title="Retirement confidence starts"
+            titleAccent="with the right strategy."
+            body="Discover how Oceanview's annuity products help clients secure predictable income with principal protection."
+            cta="Compare Products"
+            onClick={() => { window.location.hash = 'products' }}
+          />
         </div>
       </section>
     </main>

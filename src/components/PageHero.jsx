@@ -18,7 +18,7 @@ export default function PageHero({ image, eyebrow, title, subtitle, ctaPrimary, 
           <HeroShaper />
           <div className="ov-hero-content">
             {eyebrow && (
-              <div style={{ fontFamily: "var(--ov-ff-eyebrow)", fontWeight: 600, fontSize: 13, letterSpacing: ".12em", textTransform: "uppercase", color: "rgba(255,255,255,.72)" }}>
+              <div style={{ display: 'inline-flex', alignSelf: 'flex-start', background: 'var(--ov-navy-900)', borderRadius: 200, padding: '6px 16px', fontFamily: 'var(--ov-ff-eyebrow)', fontWeight: 600, fontSize: 11, letterSpacing: '.12em', textTransform: 'uppercase', color: '#F2FCFF' }}>
                 {eyebrow}
               </div>
             )}

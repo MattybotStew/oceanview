@@ -1,6 +1,6 @@
-// LeadershipPage.jsx — Executive Leadership team page matching Figma design specs
 import PageHero from './PageHero.jsx'
 import RatingBlock from './RatingBlock.jsx'
+import CTABanner from './CTABanner.jsx'
 
 const leadS = {
   introSection: { padding: "100px 0 60px" },
@@ -65,9 +65,11 @@ export default function LeadershipPage() {
     <div style={{ background: "#fff" }}>
       {/* 1. HERO SECTION */}
       <PageHero
+        image="assets/hero-beach-couple.jpg"
         eyebrow="Leadership"
-        title="Helping Americans build retirement confidence — one decision at a time."
-        image="assets/leadership-hero.jpg"
+        title="The people behind the promise."
+        subtitle="The experienced team driving every product decision, rating, and promise we make to our policyholders."
+        ctaPrimary="Board Of Directors"
       />
 
       {/* 2. INTRO SECTION */}
@@ -106,6 +108,20 @@ export default function LeadershipPage() {
 
       {/* 4. A.M. BEST FINANCIAL RATING BLOCK */}
       <RatingBlock />
+
+      {/* 5. CTA */}
+      <section className="ov-section" style={{ background: 'var(--ov-surface-tint)' }}>
+        <div className="ov-container">
+          <CTABanner
+            eyebrow="Partner With Us"
+            title="Decades of expertise behind"
+            titleAccent="every decision."
+            body="Our leadership's commitment to conservative growth and rigorous risk management protects every policyholder we serve."
+            cta="Compare Products"
+            onClick={() => { window.location.hash = 'products' }}
+          />
+        </div>
+      </section>
     </div>
   );
 }

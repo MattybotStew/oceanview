@@ -41,7 +41,6 @@ const heroStyles = {
     position: "relative",
     overflow: "hidden",
     width: "100%",
-    height: "clamp(500px, 60vh, 800px)",
     zIndex: 1,
     borderRadius: 32,
   },
