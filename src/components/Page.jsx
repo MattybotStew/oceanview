@@ -147,7 +147,9 @@ export default function Page() {
         </div>
         <Header active={ROUTE_TO_NAV[route] || ""} onNav={goto} />
       </div>
-      {renderPage()}
+      <div id="main-content" tabIndex={-1} style={{ outline: "none" }}>
+        {renderPage()}
+      </div>
       <Footer />
     </>
   );

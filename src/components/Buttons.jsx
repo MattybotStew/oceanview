@@ -25,11 +25,11 @@ const buttonStyles = {
   },
 };
 
-export function PillMint({ children, hero, onClick, style }) {
+export function PillMint({ children, hero, onClick, style, type = "button" }) {
   const base = hero ? buttonStyles.baseHero : buttonStyles.baseSm;
   const isWhite = style?.background === "#fff";
   return (
-    <button onClick={onClick} style={{ ...base, background: "var(--ov-teal-400)", color: "var(--ov-navy-1000)", ...style }}
+    <button type={type} onClick={onClick} style={{ ...base, background: "var(--ov-teal-400)", color: "var(--ov-navy-1000)", ...style }}
       onMouseEnter={(e) => {
         const b = e.currentTarget;
         b.style.transform = "translateY(-2px)";
@@ -54,10 +54,10 @@ export function PillMint({ children, hero, onClick, style }) {
   );
 }
 
-export function PillNavy({ children, hero, onClick, style }) {
+export function PillNavy({ children, hero, onClick, style, type = "button" }) {
   const base = hero ? buttonStyles.baseHero : buttonStyles.baseSm;
   return (
-    <button onClick={onClick} style={{ ...base, background: "var(--ov-navy-500)", color: "#F2FCFF", ...style }}
+    <button type={type} onClick={onClick} style={{ ...base, background: "var(--ov-navy-500)", color: "#F2FCFF", ...style }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = "translateY(-2px)";
         e.currentTarget.style.boxShadow = "0 8px 32px rgba(255,255,255,0.45)";

@@ -59,7 +59,7 @@ export default function RatingBlock() {
             <img
               style={ratingStyles.photo}
               src="assets/ratingMain.png"
-              alt="Couple walking together"
+              alt="A.M. Best 'A' Excellent financial strength rating badge"
             />
           </div>
         </div>

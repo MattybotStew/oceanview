@@ -314,16 +314,30 @@ function TabbedContent({ tab, onClose }) {
   );
 }
 
-function TabbedDropdown({ config, onClose }) {
+function TabbedDropdown({ config, onClose, onEscape }) {
   const [activeIdx, setActiveIdx] = useState(0);
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Escape') { e.preventDefault(); onEscape?.(); return; }
+    // ↑/↓ navigate sidebar tab buttons
+    const sideEl = e.currentTarget.querySelector('[data-sidebar]');
+    if (!sideEl) return;
+    const btns = [...sideEl.querySelectorAll('button')];
+    const idx  = btns.indexOf(document.activeElement);
+    if (idx === -1) return;
+    if (e.key === 'ArrowDown') { e.preventDefault(); btns[Math.min(idx + 1, btns.length - 1)]?.focus(); }
+    if (e.key === 'ArrowUp')   { e.preventDefault(); btns[Math.max(idx - 1, 0)]?.focus(); }
+  };
+
   return (
-    <div style={S.dropPanel}>
-      <div style={S.sidebar}>
+    <div style={S.dropPanel} onKeyDown={handleKeyDown} tabIndex={-1}>
+      <div style={S.sidebar} data-sidebar>
         {config.tabs.map((t, i) => {
           const active = i === activeIdx;
           return (
             <button key={t.label} style={{ ...S.sideBtn, background: active ? "#fff" : "none" }}
               onMouseEnter={() => setActiveIdx(i)}
+              onFocus={() => setActiveIdx(i)}
               onClick={() => {
                 if (t.cta && t.cta.href) {
                   window.location.hash = t.cta.href.replace("#", "");
@@ -344,9 +358,18 @@ function TabbedDropdown({ config, onClose }) {
   );
 }
 
-function SimpleDropdown({ config, onClose }) {
+function SimpleDropdown({ config, onClose, onEscape }) {
+  const handleKeyDown = (e) => {
+    if (e.key === 'Escape') { e.preventDefault(); onEscape?.(); return; }
+    const links = [...e.currentTarget.querySelectorAll('a')];
+    const idx   = links.indexOf(document.activeElement);
+    if (idx === -1) return;
+    if (e.key === 'ArrowDown') { e.preventDefault(); links[Math.min(idx + 1, links.length - 1)]?.focus(); }
+    if (e.key === 'ArrowUp')   { e.preventDefault(); links[Math.max(idx - 1, 0)]?.focus(); }
+  };
+
   return (
-    <div style={{ ...S.dropPanel, minWidth: 420 }}>
+    <div style={{ ...S.dropPanel, minWidth: 420 }} onKeyDown={handleKeyDown} tabIndex={-1}>
       <div style={{ padding: 30, display: "flex", flexDirection: "column", gap: 24, width: "100%" }}>
         {config.links.map((link, i) => (
           <Fragment key={link.label}>
@@ -360,35 +383,87 @@ function SimpleDropdown({ config, onClose }) {
 }
 
 function NavItem({ name, config, onNav, active }) {
-  const [open, setOpen] = useState(false);
-  const timer = useRef(null);
-  const hasDropdown = !!config;
-  const keepOpen  = () => { clearTimeout(timer.current); setOpen(true); };
-  const schedClose= () => { timer.current = setTimeout(() => setOpen(false), 200); };
+  const [open, setOpen]           = useState(false);
+  const [focusPanel, setFocusPanel] = useState(false);
+  const timer           = useRef(null);
+  const triggerRef      = useRef(null);
+  const panelRef        = useRef(null);
+  const hasDropdown     = !!config;
+  const keepOpen        = () => { clearTimeout(timer.current); setOpen(true); };
+  const schedClose      = () => { timer.current = setTimeout(() => setOpen(false), 200); };
+  const closeAndRefocus = () => { setOpen(false); triggerRef.current?.focus(); };
+
+  // After ArrowDown opens the panel, focus its first interactive element
+  useEffect(() => {
+    if (open && focusPanel) {
+      const first = panelRef.current?.querySelector('button, a[href]');
+      first?.focus();
+      setFocusPanel(false);
+    }
+  }, [open, focusPanel]);
+
+  const handleTriggerKeyDown = (e) => {
+    switch (e.key) {
+      case 'ArrowDown':
+        if (hasDropdown) {
+          e.preventDefault();
+          if (!open) { setOpen(true); setFocusPanel(true); }
+        }
+        break;
+      case 'ArrowUp':
+        if (hasDropdown && open) { e.preventDefault(); closeAndRefocus(); }
+        break;
+      case 'Escape':
+        if (open) { e.preventDefault(); closeAndRefocus(); }
+        break;
+      case 'ArrowRight':
+      case 'ArrowLeft': {
+        e.preventDefault();
+        const group = triggerRef.current?.closest('.ov-nav-group');
+        const items = [...(group?.querySelectorAll('button.ov-nav-btn, a.ov-nav-btn, a.ov-aud-chip') ?? [])];
+        const i = items.indexOf(triggerRef.current);
+        if (i === -1) break;
+        const next = (i + (e.key === 'ArrowRight' ? 1 : -1) + items.length) % items.length;
+        items[next]?.focus();
+        break;
+      }
+    }
+  };
 
   if (!hasDropdown) {
     return (
-      <button className="ov-nav-btn" style={S.navBtn} onClick={() => onNav && onNav(name)}
+      <a ref={triggerRef} className="ov-nav-btn" href={`#${name.toLowerCase()}`}
+        style={{ ...S.navBtn, textDecoration: "none" }}
+        onClick={(e) => { e.preventDefault(); onNav && onNav(name); }}
         onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
-        onMouseLeave={e => e.currentTarget.style.background = "none"}>
+        onMouseLeave={e => e.currentTarget.style.background = "none"}
+        onFocus={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
+        onBlur={e => e.currentTarget.style.background = "none"}
+        onKeyDown={handleTriggerKeyDown}>
         {name}
-      </button>
+      </a>
     );
   }
 
   return (
     <div style={{ position: "relative" }}>
-      <button className="ov-nav-btn" style={{ ...S.navBtn, background: open ? "rgba(255,255,255,0.1)" : "none", borderBottom: active === name ? "2px solid #71BABF" : "2px solid transparent" }}
-        onMouseEnter={keepOpen} onMouseLeave={schedClose} onClick={() => { onNav && onNav(name); setOpen(false); }}>
+      <button ref={triggerRef} className="ov-nav-btn"
+        style={{ ...S.navBtn, background: open ? "rgba(255,255,255,0.1)" : "none", borderBottom: active === name ? "2px solid #71BABF" : "2px solid transparent" }}
+        aria-haspopup="true"
+        aria-expanded={open}
+        onMouseEnter={keepOpen} onMouseLeave={schedClose}
+        onClick={() => { onNav && onNav(name); setOpen(false); }}
+        onKeyDown={handleTriggerKeyDown}>
         {name}
         <Chevron direction={open ? "up" : "down"} color="#FFF"/>
       </button>
       {open && (
-        <div style={{ position: "absolute", top: "100%", paddingTop: 12, zIndex: 200, left: "50%", transform: "translateX(-50%)" }}
+        <div ref={panelRef}
+          style={{ position: "absolute", top: "100%", paddingTop: 12, zIndex: 200, left: "50%", transform: "translateX(-50%)" }}
           onMouseEnter={keepOpen} onMouseLeave={schedClose}>
           {config.type === "tabbed"
-            ? <TabbedDropdown config={config} onClose={() => setOpen(false)}/>
-            : <SimpleDropdown config={config} onClose={() => setOpen(false)}/>}
+            ? <TabbedDropdown config={config} onClose={() => setOpen(false)} onEscape={closeAndRefocus}/>
+            : <SimpleDropdown config={config} onClose={() => setOpen(false)} onEscape={closeAndRefocus}/>}
         </div>
       )}
     </div>
@@ -522,7 +597,9 @@ export default function Header({ active = "Home", onNav }) {
   const toggleItem  = name => setMobileExpanded(prev => prev === name ? null : name);
 
   return (
-    <header style={{ position: "relative", zIndex: 100 }}>
+    <>
+    <a href="#main-content" className="ov-skip-link">Skip to main content</a>
+    <header style={{ position: "sticky", top: 0, zIndex: 100 }}>
       <div style={S.bar}>
         <div style={S.inner}>
           <div onClick={() => onNav && onNav("Home")} style={{ cursor: "pointer" }}>
@@ -530,23 +607,28 @@ export default function Header({ active = "Home", onNav }) {
           </div>
 
           {/* Desktop nav — hidden on mobile via .ov-desktop-nav CSS class */}
-          <div className="ov-desktop-nav ov-nav-group" style={S.navGroup}>
+          <nav className="ov-desktop-nav ov-nav-group" style={S.navGroup} aria-label="Main navigation">
             {NAV_ITEMS.map(n => (
               <NavItem key={n} name={n} config={NAV_DROPDOWNS[n] || null} onNav={onNav} active={active}/>
             ))}
             {AUD_ITEMS.map(a => (
-              <button key={a} className="ov-aud-chip" style={S.audChip} onClick={() => onNav && onNav(a)}
+              <a key={a} className="ov-aud-chip" href={`#${a.toLowerCase()}`} style={{ ...S.audChip, textDecoration: "none" }}
+                onClick={(e) => { e.preventDefault(); onNav && onNav(a); }}
                 onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.2)"}
-                onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}>
+                onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
+                onFocus={e => e.currentTarget.style.background = "rgba(255,255,255,0.2)"}
+                onBlur={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}>
                 {a}
-              </button>
+              </a>
             ))}
-          </div>
+          </nav>
 
           {/* Hamburger — shown on mobile via .ov-hamburger CSS class */}
           <button className="ov-hamburger" onClick={() => setMobileOpen(true)}
             style={{ background: "none", border: "none", cursor: "pointer", padding: 8 }}
-            aria-label="Open menu">
+            aria-label="Open menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav-drawer">
             <svg width="24" height="18" viewBox="0 0 24 18" fill="none">
               <rect width="24" height="2" rx="1" fill="#fff"/>
               <rect y="8" width="24" height="2" rx="1" fill="#fff"/>
@@ -565,7 +647,7 @@ export default function Header({ active = "Home", onNav }) {
       }}/>
 
       {/* Drawer */}
-      <div style={{
+      <div id="mobile-nav-drawer" style={{
         position: "fixed", top: 0, right: 0, bottom: 0,
         width: "min(320px, 88vw)",
         background: "#fff",
@@ -581,7 +663,7 @@ export default function Header({ active = "Home", onNav }) {
             <Logo dark/>
           </div>
           <button onClick={closeMobile} aria-label="Close menu"
-            style={{ background: "none", border: "none", cursor: "pointer", padding: 8 }}>
+            style={{ background: "none", border: "none", cursor: "pointer", padding: 8, minWidth: 44, minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
               <path d="M3 3L17 17M17 3L3 17" stroke="#233D7C" strokeWidth="2" strokeLinecap="round"/>
             </svg>
@@ -608,13 +690,15 @@ export default function Header({ active = "Home", onNav }) {
         {/* CTA pills */}
         <div style={{ padding: "16px 20px 24px", borderTop: "1px solid rgba(13,31,78,0.08)", display: "flex", flexDirection: "column", gap: 10, flexShrink: 0 }}>
           {AUD_ITEMS.map(a => (
-            <button key={a} onClick={() => { onNav && onNav(a); closeMobile(); }}
-              style={{ display: "block", width: "100%", padding: "14px 20px", background: "#F0EEE9", border: "none", borderRadius: 8, cursor: "pointer", fontFamily: "var(--ov-ff-sans)", fontSize: 13, fontWeight: 600, color: "var(--ov-navy-900)", letterSpacing: "0.08em", textTransform: "uppercase", textAlign: "center" }}>
+            <a key={a} href={`#${a.toLowerCase()}`}
+              onClick={(e) => { e.preventDefault(); onNav && onNav(a); closeMobile(); }}
+              style={{ display: "block", width: "100%", padding: "14px 20px", background: "#F0EEE9", borderRadius: 8, fontFamily: "var(--ov-ff-sans)", fontSize: 13, fontWeight: 600, color: "var(--ov-navy-900)", letterSpacing: "0.08em", textTransform: "uppercase", textAlign: "center", textDecoration: "none" }}>
               {a}
-            </button>
+            </a>
           ))}
         </div>
       </div>
     </header>
+    </>
   );
 }

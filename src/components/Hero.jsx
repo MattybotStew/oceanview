@@ -118,8 +118,8 @@ const heroStyles = {
     borderRadius: 4,
   },
   arrowBtn: {
-    width: 30.6,
-    height: 30.6,
+    width: 44,
+    height: 44,
     borderRadius: "50%",
     background: "#233D7C",
     border: "none",
@@ -186,26 +186,37 @@ export default function Hero({ onPrimary, onSecondary }) {
 
   const slide = heroSlides[currentSlide];
 
-  const bgStyle = {
-    position: "absolute",
-    inset: 0,
-    backgroundImage: `url(${slide.image})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    transition: "background-image 0.5s ease-in-out",
-    zIndex: 0,
-  };
-
   return (
     <div className="ov-hero-wrapper" style={heroStyles.wrapper}>
       <section
         className="ov-hero-section"
         style={heroStyles.section}
+        aria-roledescription="carousel"
+        aria-label="Featured announcements"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
+        {/* Screen-reader live region: announces slide title on each change */}
+        <div aria-live="polite" aria-atomic="true" style={{
+          position: "absolute", width: 1, height: 1, padding: 0,
+          margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)",
+          whiteSpace: "nowrap", border: 0,
+        }}>
+          {`Slide ${currentSlide + 1} of ${heroSlides.length}: ${slide.title}`}
+        </div>
         <div className="ov-hero-card" style={heroStyles.card}>
-          <div className="ov-hero-bg" style={bgStyle} />
+          {heroSlides.map((s, idx) => (
+            <div key={idx} className="ov-hero-bg" style={{
+              position: "absolute",
+              inset: 0,
+              backgroundImage: `url(${s.image})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              opacity: idx === currentSlide ? 1 : 0,
+              transition: "opacity 0.6s ease-in-out",
+              zIndex: 0,
+            }} />
+          ))}
           <div style={heroStyles.scrim} className="ov-hero-scrim" />
           <div style={heroStyles.noise} />
           <div className="ov-hero-content" style={heroStyles.content}>
@@ -238,8 +249,10 @@ export default function Hero({ onPrimary, onSecondary }) {
             <button
               key={idx}
               onClick={() => handleDot(idx)}
-              style={idx === currentSlide ? { ...heroStyles.dot, ...heroStyles.dotActive } : heroStyles.dot}
+              className="ov-hero-dot"
+              style={idx === currentSlide ? { ...heroStyles.dot, ...heroStyles.dotActive, position: "relative" } : { ...heroStyles.dot, position: "relative" }}
               aria-label={`Go to slide ${idx + 1}`}
+              aria-current={idx === currentSlide ? "true" : undefined}
             />
           ))}
           <button onClick={handleNext} style={heroStyles.arrowBtn} aria-label="Next slide">

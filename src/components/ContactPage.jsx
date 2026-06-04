@@ -17,7 +17,7 @@ const S = {
   pageLede:        { fontFamily: 'var(--ov-ff-sans)', fontSize: 'clamp(15px,1.4vw,18px)', color: '#4A5568', lineHeight: 1.65, maxWidth: '54ch', margin: 0 },
 
   // ── Sticky product-style tab nav ─────────────────────────────────────
-  ctNavOuter:    { background: '#fff', position: 'sticky', top: 'var(--ov-header-h)', zIndex: 50, boxShadow: '0 1px 0 #e8e5e5' },
+  ctNavOuter:    { background: '#fff', position: 'sticky', top: 'var(--ov-header-h, 72px)', zIndex: 50, boxShadow: '0 1px 0 #e8e5e5' },
   ctTabRow:      { display: 'flex', borderBottom: '1px solid #e8e5e5', overflowX: 'auto', WebkitOverflowScrolling: 'touch' },
   ctTab:         { flex: '1 0 0', minWidth: 140, height: 51, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 24px', borderTop: 'none', borderLeft: 'none', borderBottom: 'none', borderRight: '1px solid #e8e5e5', fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#001F54', background: 'none', whiteSpace: 'nowrap', cursor: 'pointer', transition: 'background .15s', letterSpacing: '.01em' },
   ctTabActive:   { background: 'rgba(226,241,242,0.6)' },
@@ -82,9 +82,9 @@ const S = {
   fieldGroup:   { display: 'flex', flexDirection: 'column', gap: 20 },
   field:        { display: 'flex', flexDirection: 'column', gap: 6 },
   label:        { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 12, letterSpacing: '.06em', textTransform: 'uppercase', color: '#4A5568' },
-  input:        { fontFamily: 'var(--ov-ff-sans)', fontSize: 14.5, color: '#0D1F4E', border: '1px solid rgba(13,31,78,.15)', borderRadius: 10, padding: '13px 16px', outline: 'none', width: '100%', boxSizing: 'border-box', transition: 'border-color .15s, box-shadow .15s', background: '#fff' },
-  select:       { fontFamily: 'var(--ov-ff-sans)', fontSize: 14.5, color: '#0D1F4E', border: '1px solid rgba(13,31,78,.15)', borderRadius: 10, padding: '13px 16px', outline: 'none', width: '100%', boxSizing: 'border-box', background: '#fff', cursor: 'pointer', appearance: 'none', WebkitAppearance: 'none', backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%234A5568' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 14px center' },
-  textarea:     { fontFamily: 'var(--ov-ff-sans)', fontSize: 14.5, color: '#0D1F4E', border: '1px solid rgba(13,31,78,.15)', borderRadius: 10, padding: '13px 16px', outline: 'none', width: '100%', boxSizing: 'border-box', transition: 'border-color .15s, box-shadow .15s', resize: 'vertical', minHeight: 120 },
+  input:        { fontFamily: 'var(--ov-ff-sans)', fontSize: 16, color: '#0D1F4E', border: '1px solid rgba(13,31,78,.15)', borderRadius: 10, padding: '13px 16px', outline: 'none', width: '100%', boxSizing: 'border-box', transition: 'border-color .15s, box-shadow .15s', background: '#fff' },
+  select:       { fontFamily: 'var(--ov-ff-sans)', fontSize: 16, color: '#0D1F4E', border: '1px solid rgba(13,31,78,.15)', borderRadius: 10, padding: '13px 16px', outline: 'none', width: '100%', boxSizing: 'border-box', background: '#fff', cursor: 'pointer', appearance: 'none', WebkitAppearance: 'none', backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%234A5568' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 14px center' },
+  textarea:     { fontFamily: 'var(--ov-ff-sans)', fontSize: 16, color: '#0D1F4E', border: '1px solid rgba(13,31,78,.15)', borderRadius: 10, padding: '13px 16px', outline: 'none', width: '100%', boxSizing: 'border-box', transition: 'border-color .15s, box-shadow .15s', resize: 'vertical', minHeight: 120 },
   inlineNote:   { background: 'rgba(36,148,193,.08)', border: '1px solid rgba(36,148,193,.2)', borderRadius: 10, padding: '14px 18px', fontFamily: 'var(--ov-ff-sans)', fontSize: 14, color: '#0D1F4E', lineHeight: 1.6 },
   checkRow:     { display: 'flex', gap: 12, alignItems: 'flex-start' },
   checkLabel:   { fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: '#4A5568', lineHeight: 1.55 },
@@ -665,13 +665,18 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── Sticky product-style tab nav ────────────────────────────────── */}
-      <nav style={S.ctNavOuter} aria-label="Contact sections">
+      {/* ── Sticky tab nav ──────────────────────────────────────────────── */}
+      <div style={S.ctNavOuter}>
         <div className="ov-container">
-          <div style={S.ctTabRow}>
+          <div role="tablist" aria-label="Contact sections" style={S.ctTabRow}>
             {TABS.map(t => (
               <button
                 key={t.id}
+                role="tab"
+                id={`tab-${t.id}`}
+                aria-selected={activeTab === t.id}
+                aria-controls={`tabpanel-${t.id}`}
+                className="ov-contact-tab"
                 style={{ ...S.ctTab, ...(activeTab === t.id ? S.ctTabActive : S.ctTabInactive) }}
                 onClick={() => setActiveTab(t.id)}
                 onMouseEnter={e => { if (activeTab !== t.id) e.currentTarget.style.background = 'rgba(226,241,242,0.35)' }}
@@ -682,10 +687,17 @@ export default function ContactPage() {
             ))}
           </div>
         </div>
-      </nav>
+      </div>
 
       {/* ── Tab content ─────────────────────────────────────────────────── */}
-      <section style={S.sectionWhite} className="ov-section">
+      <section
+        role="tabpanel"
+        id={`tabpanel-${activeTab}`}
+        aria-labelledby={`tab-${activeTab}`}
+        tabIndex={0}
+        style={{ ...S.sectionWhite, outline: 'none' }}
+        className="ov-section"
+      >
         <div className="ov-container">
           {activeTab === 'contacts' && <KeyContactsPanel />}
           {activeTab === 'payments' && <PaymentPanel />}

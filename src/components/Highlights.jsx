@@ -81,11 +81,12 @@ export default function Highlights() {
     <section style={highlightStyles.section} className="ov-section">
       <div className="ov-container">
         <h2 style={highlightStyles.heading}>
-          Oceanview Life &amp; Annuity<br />Company Highlights
+          Oceanview Life &amp; Annuity{' '}
+          <span style={{ display: 'block' }}>Company Highlights</span>
         </h2>
         <div style={highlightStyles.layout} className="ov-highlights-grid">
           <div style={highlightStyles.photoWrap}>
-            <img style={highlightStyles.photo} src="assets/family.png" alt="" />
+            <img style={highlightStyles.photo} src="assets/family.png" alt="A family enjoying time together, representing retirement security" />
           </div>
           <div style={highlightStyles.cards}>
             {HIGHLIGHTS.map(({ title, body }) => (
