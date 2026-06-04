@@ -1,5 +1,5 @@
 // PageHero.jsx — Inner-page hero: same card, height, and content positioning as homepage Hero
-import { PillMint, PillNavy } from './Buttons.jsx'
+import { PillWhite, PillNavy } from './Buttons.jsx'
 import HeroShaper from './HeroShaper.jsx'
 
 export default function PageHero({ image, eyebrow, title, subtitle, ctaPrimary, onPrimary, ctaSecondary, onSecondary }) {
@@ -32,7 +32,7 @@ export default function PageHero({ image, eyebrow, title, subtitle, ctaPrimary, 
             )}
             {(ctaPrimary || ctaSecondary) && (
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                {ctaPrimary  && <PillMint hero onClick={onPrimary}  style={{ background: "#fff", color: "var(--ov-navy-900)" }}>{ctaPrimary}</PillMint>}
+                {ctaPrimary  && <PillWhite hero onClick={onPrimary}>{ctaPrimary}</PillWhite>}
                 {ctaSecondary && <PillNavy hero onClick={onSecondary}>{ctaSecondary}</PillNavy>}
               </div>
             )}

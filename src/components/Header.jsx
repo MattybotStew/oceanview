@@ -89,7 +89,6 @@ const S = {
     display: "flex",
     alignItems: "center",
     width: "100%",
-    borderBottom: "1px solid rgba(255,255,255,0.1)",
   },
   inner: {
     display: "flex",
@@ -430,15 +429,17 @@ function NavItem({ name, config, onNav, active }) {
     }
   };
 
+  const isActive = active === name;
+
   if (!hasDropdown) {
     return (
       <a ref={triggerRef} className="ov-nav-btn" href={`#${name.toLowerCase()}`}
-        style={{ ...S.navBtn, textDecoration: "none" }}
+        style={{ ...S.navBtn, textDecoration: "none", background: isActive ? "rgba(255,255,255,0.1)" : "none" }}
         onClick={(e) => { e.preventDefault(); onNav && onNav(name); }}
         onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
-        onMouseLeave={e => e.currentTarget.style.background = "none"}
+        onMouseLeave={e => e.currentTarget.style.background = isActive ? "rgba(255,255,255,0.1)" : "none"}
         onFocus={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
-        onBlur={e => e.currentTarget.style.background = "none"}
+        onBlur={e => e.currentTarget.style.background = isActive ? "rgba(255,255,255,0.1)" : "none"}
         onKeyDown={handleTriggerKeyDown}>
         {name}
       </a>
@@ -448,7 +449,7 @@ function NavItem({ name, config, onNav, active }) {
   return (
     <div style={{ position: "relative" }}>
       <button ref={triggerRef} className="ov-nav-btn"
-        style={{ ...S.navBtn, background: open ? "rgba(255,255,255,0.1)" : "none", borderBottom: active === name ? "2px solid #71BABF" : "2px solid transparent" }}
+        style={{ ...S.navBtn, background: (open || isActive) ? "rgba(255,255,255,0.1)" : "none" }}
         aria-haspopup="true"
         aria-expanded={open}
         onMouseEnter={keepOpen} onMouseLeave={schedClose}

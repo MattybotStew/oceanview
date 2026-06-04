@@ -245,8 +245,7 @@ export default function LPLLandingPage() {
                 <PillMint hero onClick={() => document.getElementById('lpl-products')?.scrollIntoView({ behavior: 'smooth' })}>
                   Explore Products
                 </PillMint>
-                <PillGhost onClick={() => document.getElementById('lpl-resources')?.scrollIntoView({ behavior: 'smooth' })}
-                  style={{ background: 'rgba(255,255,255,.12)', color: '#fff', borderColor: 'rgba(255,255,255,.3)', backdropFilter: 'blur(4px)' }}>
+                <PillGhost light onClick={() => document.getElementById('lpl-resources')?.scrollIntoView({ behavior: 'smooth' })}>
                   Download Resources
                 </PillGhost>
               </div>

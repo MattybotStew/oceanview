@@ -192,9 +192,8 @@ export default function CeteraLandingPage() {
                 <PillMint hero onClick={() => document.getElementById('cetera-products')?.scrollIntoView({ behavior: 'smooth' })}>
                   Explore Products
                 </PillMint>
-                <PillGhost
+                <PillGhost light
                   onClick={() => document.getElementById('cetera-resources')?.scrollIntoView({ behavior: 'smooth' })}
-                  style={{ background: 'rgba(255,255,255,.12)', color: '#fff', borderColor: 'rgba(255,255,255,.3)', backdropFilter: 'blur(4px)' }}
                 >
                   Download Resources
                 </PillGhost>

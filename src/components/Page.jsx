@@ -7,6 +7,7 @@ import Highlights from './Highlights.jsx'
 import ProductsCard from './ProductsCard.jsx'
 import AboutBlock from './AboutBlock.jsx'
 import RatingBlock from './RatingBlock.jsx'
+import CTAPanel from './CTAPanel.jsx'
 import Footer from './Footer.jsx'
 import FAQPage from './FAQPage.jsx'
 import StubPage from './StubPage.jsx'
@@ -80,6 +81,7 @@ function HomePage({ goto }) {
       <ProductsCard />
       <AboutBlock />
       <RatingBlock />
+      <CTAPanel />
     </main>
   );
 }

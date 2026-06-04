@@ -468,6 +468,99 @@ a { color: inherit; text-decoration: none; }
   left: 16px;
 }
 
+/* ─── Button system ─────────────────────────────────────────────── */
+.ov-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1.5px solid transparent;   /* keeps all sizes identical across variants */
+  border-radius: 200px;
+  box-sizing: border-box;
+  font-family: var(--ov-ff-sans);
+  font-weight: 600;
+  letter-spacing: .02em;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .18s ease, box-shadow .18s ease, background .15s ease,
+              color .15s ease, border-color .15s ease, opacity .15s ease;
+}
+.ov-btn--sm { padding: 12px 28px; font-size: 14px; }
+.ov-btn--lg { padding: 20px 40px; font-size: 15px; }
+
+/* mint — primary CTA (teal on any bg) */
+.ov-btn--mint { background: var(--ov-cta-primary-bg); color: var(--ov-cta-primary-fg); }
+.ov-btn--mint:hover  { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(107,186,191,.45); }
+
+/* navy — secondary CTA on light backgrounds */
+.ov-btn--navy { background: var(--ov-cta-secondary-bg); color: var(--ov-cta-secondary-fg); }
+.ov-btn--navy:hover  { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(35,61,124,.35); }
+
+/* white — primary CTA on dark / image backgrounds */
+.ov-btn--white { background: #fff; color: var(--ov-navy-900); }
+.ov-btn--white:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,255,255,.5); }
+
+/* ghost — outlined on light backgrounds */
+.ov-btn--ghost { background: transparent; color: var(--ov-navy-900); border-color: var(--ov-navy-900); }
+.ov-btn--ghost:hover {
+  background: var(--ov-navy-900);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(13,31,78,.2);
+}
+
+/* ghost-light — outlined on dark / image backgrounds */
+.ov-btn--ghost-light {
+  background: rgba(255,255,255,.10);
+  color: #fff;
+  border-color: rgba(255,255,255,.35);
+  backdrop-filter: blur(4px);
+}
+.ov-btn--ghost-light:hover {
+  background: rgba(255,255,255,.20);
+  border-color: rgba(255,255,255,.65);
+  transform: translateY(-2px);
+}
+
+/* shared focus ring */
+.ov-btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* disabled */
+.ov-btn:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* text link */
+.ov-text-link {
+  font-family: var(--ov-ff-body);
+  font-weight: 600;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color .15s ease;
+}
+.ov-text-link-arrow {
+  font-family: var(--ov-ff-sans);
+  letter-spacing: -.01em;
+  display: inline-block;
+  transition: transform .18s ease;
+}
+.ov-text-link:hover .ov-text-link-arrow,
+.ov-text-link:focus-visible .ov-text-link-arrow { transform: translateX(4px); }
+.ov-text-link:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 2px; }
+
 /* ─── Mobile nav toggle ─────────────────────────────────────────── */
 .ov-hamburger   { display: none; min-width: 44px; min-height: 44px; }
 .ov-desktop-nav { display: flex; }

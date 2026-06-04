@@ -1,6 +1,6 @@
 // Hero.jsx — Rounded card hero with slider, dots underneath, auto-scroll
 import { useState, useEffect, useRef } from 'react'
-import { PillMint, PillNavy } from './Buttons.jsx'
+import { PillWhite, PillNavy } from './Buttons.jsx'
 
 function HeroShaper({ fill = "#ffffff" }) {
   return (
@@ -227,9 +227,9 @@ export default function Hero({ onPrimary, onSecondary }) {
               {slide.subtitle}
             </p>
             <div style={heroStyles.ctas}>
-              <PillMint hero onClick={onPrimary} style={{ background: "#fff", color: "var(--ov-navy-900)" }}>
+              <PillWhite hero onClick={onPrimary}>
                 {slide.ctaPrimary}
-              </PillMint>
+              </PillWhite>
               <PillNavy hero onClick={onSecondary}>
                 {slide.ctaSecondary}
               </PillNavy>

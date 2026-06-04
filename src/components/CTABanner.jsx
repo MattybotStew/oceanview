@@ -1,5 +1,6 @@
 // CTABanner — horizontal dark-navy banner CTA (Figma: 2026-Oceanview-Design / node 7394-10428)
 // Usage: <CTABanner eyebrow="Product Name" title="Heading line one" titleAccent="italic accent" body="…" cta="Button" onClick={fn} />
+import { PillMint } from './Buttons.jsx'
 
 const S = {
   wrap: {
@@ -61,21 +62,6 @@ const S = {
     maxWidth: '48ch',
     marginTop: 4,
   },
-  btn: {
-    flexShrink: 0,
-    background: '#70BABF',
-    color: '#001F54',
-    border: 0,
-    borderRadius: 200,
-    padding: '18px 44px',
-    fontFamily: 'var(--ov-ff-sans)',
-    fontWeight: 800,
-    fontSize: 14.2,
-    cursor: 'pointer',
-    whiteSpace: 'nowrap',
-    transition: 'transform .18s ease, box-shadow .18s ease, opacity .15s ease',
-    letterSpacing: '.005em',
-  },
 }
 
 export default function CTABanner({ eyebrow, title, titleAccent, body, cta = 'Get Started', onClick }) {
@@ -94,20 +80,7 @@ export default function CTABanner({ eyebrow, title, titleAccent, body, cta = 'Ge
         </h2>
         {body && <p style={S.body}>{body}</p>}
       </div>
-      <button
-        style={S.btn}
-        onClick={onClick}
-        onMouseEnter={e => {
-          e.currentTarget.style.transform = 'translateY(-2px)'
-          e.currentTarget.style.boxShadow = '0 12px 32px rgba(112,186,191,.35)'
-        }}
-        onMouseLeave={e => {
-          e.currentTarget.style.transform = ''
-          e.currentTarget.style.boxShadow = ''
-        }}
-      >
-        {cta}
-      </button>
+      <PillMint hero onClick={onClick} style={{ flexShrink: 0 }}>{cta}</PillMint>
     </div>
   )
 }
