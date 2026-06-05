@@ -34,9 +34,6 @@ function SlideEyebrow({ children }) {
 
 const heroStyles = {
   wrapper: {
-    maxWidth: "var(--ov-container, 1600px)",
-    margin: "0 auto",
-    padding: "0 20px",
     marginBottom: 40,
   },
   section: {
