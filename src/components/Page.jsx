@@ -6,7 +6,7 @@ import Hero from './Hero.jsx'
 import Highlights from './Highlights.jsx'
 import ProductsCard from './ProductsCard.jsx'
 import AboutBlock from './AboutBlock.jsx'
-import RatingBlock from './RatingBlock.jsx'
+import StatsStrip from './StatsStrip.jsx'
 import CTAPanel from './CTAPanel.jsx'
 import Footer from './Footer.jsx'
 import FAQPage from './FAQPage.jsx'
@@ -22,10 +22,10 @@ import AgentFAQsPage from './AgentFAQsPage.jsx'
 import ContactPage from './ContactPage.jsx'
 import LPLLandingPage from './LPLLandingPage.jsx'
 import CeteraLandingPage from './CeteraLandingPage.jsx'
+import BlogPage from './BlogPage.jsx'
 
 const STUB_ROUTES = {
   // Top-level nav
-  "blog":             { title: "Blog",                            eyebrow: "Latest from Oceanview"       },
   "individuals":      { title: "For Individuals",                 eyebrow: "Personal Planning"           },
   // About sub-pages
   "our-story":        { title: "Our Story",                       eyebrow: "Since 1987"                  },
@@ -63,7 +63,8 @@ const ROUTE_TO_NAV = {
   "about": "About", "products": "Products",
   "client-resources": "Client Resources", "insights": "Insights",
   "faq": "FAQ", "blog": "Blog", "leadership": "About",
-  "professionals": "Professionals",
+  "professionals": "Professionals", "sales-tools": "Professionals",
+  "agent-faqs": "Professionals", "lpl-landing": "Professionals", "cetera-landing": "Professionals",
 };
 
 const PAGE_ROUTES = new Set([
@@ -76,11 +77,11 @@ const PAGE_ROUTES = new Set([
 function HomePage({ goto }) {
   return (
     <main>
-      <Hero onPrimary={() => goto("faq")} onSecondary={() => goto("products")} />
+      <Hero onPrimary={() => goto("products")} onSecondary={() => goto("contact")} />
       <Highlights />
+      <StatsStrip />
       <ProductsCard />
       <AboutBlock />
-      <RatingBlock />
       <CTAPanel />
     </main>
   );
@@ -129,6 +130,7 @@ export default function Page() {
       case "sales-tools":       return <SalesToolsPage />;
       case "agent-faqs":        return <AgentFAQsPage />;
       case "contact":           return <ContactPage />;
+      case "blog":               return <BlogPage />;
       case "lpl-landing":        return <LPLLandingPage />;
       case "cetera-landing":     return <CeteraLandingPage />;
       case "faq":               return <FAQPage />;

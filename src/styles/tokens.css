@@ -597,16 +597,66 @@ a { color: inherit; text-decoration: none; }
   .ov-footer-form-row input { flex: 1 1 100% !important; }
 }
 
-/* ─── About ──────────────────────────────────────────────────── */
+/* ─── About (merged with rating) ────────────────────────────── */
 @media (max-width: 800px) {
   .ov-about-grid { flex-direction: column !important; gap: 40px !important; }
   .ov-about-grid > :first-child { width: 100% !important; aspect-ratio: 4/3 !important; }
 }
 
-/* ─── Rating ─────────────────────────────────────────────────── */
-@media (max-width: 800px) {
-  .ov-rating-grid { flex-direction: column-reverse !important; gap: 40px !important; }
-  .ov-rating-grid > :last-child { width: 100% !important; aspect-ratio: 4/3 !important; }
+/* ─── LPL / Cetera landing pages ────────────────────────────── */
+@media (max-width: 860px) { .lpl-pillars-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+@media (max-width: 480px) { .lpl-pillars-grid { grid-template-columns: 1fr !important; } }
+.lpl-case-img { display: block; }
+@media (max-width: 720px) { .lpl-case-study { flex-direction: column !important; } .lpl-case-img { width: 100% !important; height: 220px; } }
+@media (min-width: 600px) { .lpl-res-2col, .lpl-res-3col { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; } }
+@media (min-width: 960px) { .lpl-res-3col { grid-template-columns: repeat(3, 1fr) !important; } }
+
+/* ─── Sales Tools ────────────────────────────────────────────── */
+.ov-tool-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(13,31,78,.10) !important; }
+@media (max-width: 860px) { .ov-tools-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+@media (max-width: 540px) { .ov-tools-grid { grid-template-columns: 1fr !important; } }
+
+/* ─── Professionals ──────────────────────────────────────────── */
+.ov-portal-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(13,31,78,.10) !important; }
+@media (max-width: 900px) { .ov-prof-why-grid { flex-direction: column !important; gap: 48px !important; } .ov-prof-why-grid > :first-child { flex: none !important; width: 100% !important; } }
+@media (max-width: 860px) { .ov-portal-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+@media (max-width: 540px) { .ov-portal-grid { grid-template-columns: 1fr !important; } }
+
+/* ─── Blog ───────────────────────────────────────────────────── */
+.ov-blog-card:hover > div { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(13,31,78,.10) !important; }
+.ov-blog-card:hover .ov-blog-img { transform: scale(1.04); }
+.ov-blog-card:hover .ov-blog-arrow { transform: translateX(4px); }
+.ov-blog-featured:hover .ov-blog-feat-photo { transform: scale(1.03); }
+.ov-blog-featured:hover .ov-blog-feat-arrow { transform: translateX(4px); }
+@media (max-width: 900px) { .ov-blog-feat-inner { flex-direction: column !important; gap: 40px !important; } .ov-blog-feat-img { width: 100% !important; } }
+@media (max-width: 860px) { .ov-blog-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+@media (max-width: 540px) { .ov-blog-grid { grid-template-columns: 1fr !important; } }
+
+/* ─── Insights ───────────────────────────────────────────────── */
+.ov-insight-card:hover > div { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(13,31,78,.10) !important; }
+.ov-insight-card:hover .ov-insight-img { transform: scale(1.04); }
+.ov-insight-card:hover .ov-insight-arrow { transform: translateX(4px); }
+@media (max-width: 900px) { .ov-insight-featured { flex-direction: column !important; gap: 40px !important; } .ov-insight-feat-img { width: 100% !important; } }
+@media (max-width: 860px) { .ov-insights-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+@media (max-width: 540px) { .ov-insights-grid { grid-template-columns: 1fr !important; } }
+
+/* ─── Client Resources ───────────────────────────────────────── */
+.ov-resource-card:hover > div { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(13,31,78,.10) !important; }
+.ov-resource-card:hover .ov-resource-arrow { transform: translateX(4px); }
+@media (max-width: 860px) { .ov-resources-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+@media (max-width: 540px) { .ov-resources-grid { grid-template-columns: 1fr !important; } }
+
+/* ─── Stats strip ────────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .ov-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .ov-stats-grid > *:nth-child(odd) { border-left: none !important; }
+  .ov-stats-grid > *:nth-child(3),
+  .ov-stats-grid > *:nth-child(4) { border-top: 1px solid rgba(255,255,255,.08); }
+}
+@media (max-width: 480px) {
+  .ov-stats-grid { grid-template-columns: 1fr !important; }
+  .ov-stats-grid > * { border-left: none !important; border-top: 1px solid rgba(255,255,255,.08) !important; padding: 32px 24px !important; }
+  .ov-stats-grid > :first-child { border-top: none !important; }
 }
 
 /* ─── Contact page ───────────────────────────────────────────── */
@@ -616,15 +666,14 @@ a { color: inherit; text-decoration: none; }
 
 /* ─── Company page ───────────────────────────────────────────── */
 @media (max-width: 900px) {
-  .ov-company-exp-grid,
   .ov-company-about-grid { flex-direction: column !important; gap: 40px !important; }
-  .ov-company-exp-img,
   .ov-company-about-img  { width: 100% !important; height: auto !important; aspect-ratio: 4/3 !important; }
-
-  .ov-company-rating-grid { flex-direction: column-reverse !important; gap: 40px !important; }
-  .ov-company-rating-img  { width: 100% !important; height: auto !important; aspect-ratio: 4/3 !important; }
-
-  .ov-company-myga-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+}
+@media (max-width: 900px) {
+  .ov-company-pillars-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 540px) {
+  .ov-company-pillars-grid { grid-template-columns: 1fr !important; }
 }
 
 /* ─── Highlights ────────────────────────────────────────────── */

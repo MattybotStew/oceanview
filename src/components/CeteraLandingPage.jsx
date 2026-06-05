@@ -170,7 +170,7 @@ export default function CeteraLandingPage() {
     <main>
 
       {/* ══ Hero ════════════════════════════════════════════════════════ */}
-      <div className="ov-hero-wrapper" style={{ marginBottom: 0 }}>
+      <div className="ov-hero-wrapper" style={{ marginBottom: 40 }}>
         <section style={{ paddingTop: 20, paddingBottom: 0 }}>
           <div className="ov-hero-card" style={{ background: 'var(--ov-navy-1000)', minHeight: 520 }}>
             <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(assets/hero-couple.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }} />

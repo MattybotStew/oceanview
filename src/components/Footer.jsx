@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 const footerStyles = {
   wrap: {
-    background: "var(--ov-navy-1000)",
+    background: "#001233",
     color: "rgba(255,255,255,.72)",
     padding: "56px 0 28px",
   },

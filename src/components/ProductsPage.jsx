@@ -1,64 +1,59 @@
-// ProductsPage.jsx — Products catalog (mobile-first)
-import { useState, useEffect, useRef } from 'react'
+// ProductsPage.jsx — Products catalog
+import { useState, useEffect } from 'react'
 import PageHero from './PageHero.jsx'
 import CTABanner from './CTABanner.jsx'
+import { TextLink } from './Buttons.jsx'
 
 const PS = {
-  // ── Two-level sticky nav (Figma 6940-103) ─────────────────────────────
-  // top: 96px = --ov-header-h so it sticks below the sticky header
-  navOuter:   { background: "#fff", position: "sticky", top: "var(--ov-header-h)", zIndex: 50, boxShadow: "0 1px 0 #e8e5e5" },
+  // ── Two-level sticky nav ───────────────────────────────────────────────────
+  navOuter:     { background: "#fff", position: "sticky", top: "var(--ov-header-h, 72px)", zIndex: 50, boxShadow: "0 1px 0 #e8e5e5" },
+  catRow:       { display: "flex", overflowX: "auto", WebkitOverflowScrolling: "touch" },
+  catTab:       { flex: "1 0 0", minWidth: 160, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, padding: "14px 12px 15px", textDecoration: "none", transition: "border-color .15s" },
+  catTabActive: { borderBottom: "3px solid #2494C1", paddingBottom: 19 },
+  catTabInact:  { borderBottom: "1px solid #e8e5e5" },
+  catLabel:     { fontFamily: "var(--ov-ff-display)", fontWeight: 800, fontSize: "clamp(11px,1vw,13px)", letterSpacing: ".04em", textTransform: "uppercase", color: "#233D7C", textAlign: "center", lineHeight: 1.1, whiteSpace: "nowrap" },
+  catSub:       { fontFamily: "var(--ov-ff-sans)", fontWeight: 400, fontSize: "clamp(11px,.9vw,13px)", color: "rgba(51,51,51,0.7)", textAlign: "center", lineHeight: 1.2, whiteSpace: "nowrap" },
+  prdRow:       { display: "flex", borderBottom: "1px solid #e8e5e5", overflowX: "auto", WebkitOverflowScrolling: "touch" },
+  prdTab:       { flex: "1 0 0", minWidth: 100, height: 51, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 24px", borderRight: "1px solid #e8e5e5", fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "#001F54", textDecoration: "none", whiteSpace: "nowrap", transition: "background .15s" },
+  prdTabActive: { background: "rgba(226,241,242,0.6)" },
+  prdTabInact:  { background: "transparent" },
 
-  // Category row (top)
-  catRow:     { display: "flex", overflowX: "auto", WebkitOverflowScrolling: "touch" },
-  catTab:     { flex: "1 0 0", minWidth: 160, display: "flex", flexDirection: "column", alignItems: "center", gap: 13, padding: "16px 12px 17px", textDecoration: "none", transition: "border-color .15s" },
-  catTabActive:{ borderBottom: "3px solid #2494C1", paddingBottom: 19 },
-  catTabInactive:{ borderBottom: "1px solid #e8e5e5" },
-  catLabel:   { fontFamily: "var(--ov-ff-display)", fontWeight: 800, fontSize: "clamp(11px,1vw,13px)", letterSpacing: ".04em", textTransform: "uppercase", color: "#233D7C", textAlign: "center", lineHeight: 1.1, whiteSpace: "nowrap" },
-  catSub:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 400, fontSize: "clamp(11px,.9vw,13px)", color: "rgba(51,51,51,0.8)", textAlign: "center", lineHeight: "28.8px", whiteSpace: "nowrap" },
-
-  // Product row (bottom)
-  prdRow:     { display: "flex", borderBottom: "1px solid #e8e5e5", overflowX: "auto", WebkitOverflowScrolling: "touch" },
-  prdTab:     { flex: "1 0 0", minWidth: 100, height: 51, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 24px", borderRight: "1px solid #e8e5e5", fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "#001F54", textDecoration: "none", whiteSpace: "nowrap", textTransform: "capitalize", transition: "background .15s" },
-  prdTabActive:{ background: "rgba(226,241,242,0.6)" },
-  prdTabInactive:{ background: "transparent" },
-
-  // ── Section shell ──────────────────────────────────────────────────────
+  // ── Shared section styles ──────────────────────────────────────────────────
   sectionWhite: { background: "#fff" },
   sectionTint:  { background: "var(--ov-surface-tint)" },
+  sectionDark:  { background: "var(--ov-navy-1000)" },
 
-  // ── Category intro row (mobile: col) ───────────────────────────────────
-  introRow:    { display: "flex", flexDirection: "column", gap: 32, alignItems: "flex-start" },
-  introImg:    { width: "100%", aspectRatio: "4/3", borderRadius: 20, objectFit: "cover", objectPosition: "center top", display: "block", flexShrink: 0 },
-  introText:   { display: "flex", flexDirection: "column", gap: 22, flex: 1 },
+  // ── Intro row ──────────────────────────────────────────────────────────────
+  introRow:  { display: "flex", flexDirection: "column", gap: 32, alignItems: "flex-start" },
+  introImg:  { width: "100%", aspectRatio: "4/3", borderRadius: 20, objectFit: "cover", objectPosition: "center top", display: "block", flexShrink: 0 },
+  introText: { display: "flex", flexDirection: "column", gap: 20, flex: 1 },
 
-  eyebrowRow:  { display: "flex", alignItems: "center", gap: 6, marginBottom: 14 },
+  // Eyebrow — light and dark versions
+  eyebrowRow:  { display: "flex", alignItems: "center", gap: 8, marginBottom: 12 },
   eyebrowLine: { width: 18, height: 1, background: "#2494C1", flexShrink: 0 },
-  eyebrow:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1" },
-  h2:          { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(26px, 3vw, 40px)", color: "#0D1F4E", letterSpacing: "-0.025em", lineHeight: 1.12, margin: 0 },
-  body:        { fontFamily: "var(--ov-ff-sans)", fontSize: 15, color: "#4A5568", lineHeight: 1.65, margin: 0 },
+  eyebrow:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.4px", textTransform: "uppercase", color: "#2494C1" },
+  eyebrowLineLight: { width: 18, height: 1, background: "rgba(112,186,191,.6)", flexShrink: 0 },
+  eyebrowLight:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.4px", textTransform: "uppercase", color: "#70BABF" },
 
-  // ── Key Features teal card ─────────────────────────────────────────────
-  kfCard:      { background: "#fff", borderRadius: 12, padding: "18px 24px 20px" },
-  kfLabel:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1", marginBottom: 12 },
-  kfItem:      { display: "flex", gap: 8, alignItems: "flex-start", padding: "9px 0", borderTop: "1px solid rgba(36,148,193,.12)" },
-  kfText:      { fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "#4A5568", lineHeight: 1.55, margin: 0 },
+  h2:      { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(26px, 3vw, 40px)", color: "#0D1F4E", letterSpacing: "-0.025em", lineHeight: 1.12, margin: 0 },
+  h2Dark:  { color: "#F2FCFF" },
+  body:    { fontFamily: "var(--ov-ff-sans)", fontSize: 15, color: "#4A5568", lineHeight: 1.65, margin: 0 },
+  bodyDark:{ fontFamily: "var(--ov-ff-sans)", fontSize: 15, color: "rgba(242,252,255,.65)", lineHeight: 1.65, margin: 0 },
 
-  // ── Product cards grid (mobile: col) ───────────────────────────────────
+  // ── Product cards ──────────────────────────────────────────────────────────
   cardsGrid:   { display: "flex", flexDirection: "column", gap: 24 },
-  card:        { background: "#fff", border: "1px solid rgba(13,31,78,.08)", borderRadius: 16, padding: "28px 32px 32px", display: "flex", flexDirection: "column", gap: 18, boxShadow: "0 2px 12px rgba(13,31,78,.04)", height: "100%", boxSizing: "border-box" },
-  cardEyebrow: { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1", marginBottom: 10 },
+  card:        { background: "#fff", border: "1px solid rgba(13,31,78,.08)", borderRadius: 16, padding: "28px 32px 32px", display: "flex", flexDirection: "column", gap: 16, boxShadow: "0 2px 12px rgba(13,31,78,.04)", height: "100%", boxSizing: "border-box" },
+  cardHeader:  { display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, flexWrap: "wrap" },
+  cardEyebrow: { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1", marginBottom: 8 },
   cardH3:      { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(18px, 1.8vw, 22px)", color: "#0D1F4E", letterSpacing: "-0.015em", lineHeight: 1.2, margin: 0 },
   cardBody:    { fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "#4A5568", lineHeight: 1.65, margin: 0, flex: 1 },
-  cardBullets: { background: "rgba(112,186,191,.15)", borderRadius: 10, padding: "14px 18px" },
+  rateBadge:   { background: "var(--ov-surface-tint)", border: "1px solid rgba(36,148,193,.2)", borderRadius: 8, padding: "8px 14px", flexShrink: 0, textAlign: "right" },
+  rateBadgeVal:{ fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: 22, color: "var(--ov-teal-600)", lineHeight: 1 },
+  rateBadgeLbl:{ fontFamily: "var(--ov-ff-sans)", fontSize: 11, color: "#4A5568", marginTop: 3, whiteSpace: "nowrap" },
+  cardBullets: { background: "rgba(112,186,191,.12)", borderRadius: 10, padding: "14px 18px" },
   cbLabel:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1", marginBottom: 10 },
-  cbItem:      { display: "flex", gap: 8, alignItems: "flex-start", padding: "8px 0", borderTop: "1px solid rgba(36,148,193,.10)" },
+  cbItem:      { display: "flex", gap: 8, alignItems: "flex-start", padding: "7px 0", borderTop: "1px solid rgba(36,148,193,.10)" },
   cbText:      { fontFamily: "var(--ov-ff-sans)", fontSize: 13, color: "#4A5568", lineHeight: 1.5, margin: 0 },
-
-  // ── Bottom CTA ─────────────────────────────────────────────────────────
-  ctaPanel:    { background: "var(--ov-surface-tint)", borderRadius: 20, padding: "clamp(48px,6vw,72px) clamp(24px,5vw,56px)", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 20 },
-  ctaH2:       { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(26px,3vw,40px)", color: "#0D1F4E", letterSpacing: "-0.025em", lineHeight: 1.12, margin: 0 },
-  ctaBody:     { fontFamily: "var(--ov-ff-sans)", fontSize: 15, color: "#4A5568", lineHeight: 1.65, maxWidth: "52ch", margin: 0 },
-  ctaBtns:     { display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" },
 };
 
 const CHECK = (
@@ -67,32 +62,46 @@ const CHECK = (
   </svg>
 );
 
-function PrdEyebrow({ children }) {
+function Eyebrow({ light, children }) {
   return (
     <div style={PS.eyebrowRow}>
-      <div style={PS.eyebrowLine}/>
-      <span style={PS.eyebrow}>{children}</span>
+      <div style={light ? PS.eyebrowLineLight : PS.eyebrowLine} />
+      <span style={light ? PS.eyebrowLight : PS.eyebrow}>{children}</span>
     </div>
   );
 }
 
-function KeyFeaturesCard({ features, teal }) {
+// Clean inline feature list — replaces the card-within-a-card
+function FeatureList({ features, dark }) {
   return (
-    <div style={{ ...PS.kfCard, background: teal ? "rgba(112,186,191,.18)" : "#fff" }}>
-      <div style={PS.kfLabel}>Key Features</div>
+    <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
       {features.map((f, i) => (
-        <div key={i} style={PS.kfItem}>{CHECK}<p style={PS.kfText}>{f}</p></div>
+        <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", padding: "10px 0", borderTop: i > 0 ? `1px solid ${dark ? "rgba(255,255,255,.08)" : "rgba(36,148,193,.12)"}` : "none" }}>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ flexShrink: 0, marginTop: 2 }}>
+            <circle cx="7" cy="7" r="6.5" stroke={dark ? "#70BABF" : "#2494C1"} strokeOpacity={dark ? "0.5" : "0.3"}/>
+            <path d="M4.5 7L6.5 9L9.5 5" stroke={dark ? "#70BABF" : "#2494C1"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          <span style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 14, lineHeight: 1.6, color: dark ? "rgba(242,252,255,.72)" : "#4A5568" }}>{f}</span>
+        </div>
       ))}
     </div>
   );
 }
 
-function ProductCard({ eyebrow, heading, body, bullets }) {
+function ProductCard({ eyebrow, heading, body, bullets, rate, rateTerm }) {
   return (
     <div style={PS.card}>
-      <div>
-        <div style={PS.cardEyebrow}>{eyebrow}</div>
-        <h3 style={PS.cardH3}>{heading}</h3>
+      <div style={PS.cardHeader}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={PS.cardEyebrow}>{eyebrow}</div>
+          <h3 style={PS.cardH3}>{heading}</h3>
+        </div>
+        {rate && (
+          <div style={PS.rateBadge}>
+            <div style={PS.rateBadgeVal}>{rate}</div>
+            <div style={PS.rateBadgeLbl}>{rateTerm}</div>
+          </div>
+        )}
       </div>
       <p style={PS.cardBody}>{body}</p>
       <div style={PS.cardBullets}>
@@ -101,107 +110,75 @@ function ProductCard({ eyebrow, heading, body, bullets }) {
           <div key={i} style={PS.cbItem}>{CHECK}<p style={PS.cbText}>{b}</p></div>
         ))}
       </div>
+      <TextLink style={{ marginTop: "auto", paddingTop: 8, fontSize: 13 }}>View current rates</TextLink>
     </div>
   );
 }
 
-// ── Data ────────────────────────────────────────────────────────────────────
+// ── Data ─────────────────────────────────────────────────────────────────────
 
 const CAT1_FEATURES = [
-  "Guaranteed interest rate for a set term",
-  "Predictable, tax-deferred accumulation",
-  "Straightforward structure, clear outcomes",
+  "Guaranteed interest rate locked in for the full term",
+  "Predictable, tax-deferred accumulation with no market exposure",
+  "Straightforward structure — know exactly what to expect",
 ];
-
 const CAT2_FEATURES = [
-  "Guaranteed interest during the initial period",
-  "Built-in flexibility for future growth options",
-  "Designed for changing retirement needs",
+  "Guaranteed interest during the initial crediting period",
+  "Built-in flexibility to adjust your approach as goals evolve",
+  "Clear, defined structure with options for the future",
 ];
-
 const CAT3_FEATURES = [
-  "Guaranteed interest rate for a set term",
-  "Predictable, tax-deferred accumulation",
-  "Straightforward structure, clear outcomes",
+  "Interest credits linked to a market index — no direct investment",
+  "Zero-percent floor protects principal from market downturns",
+  "Multiple crediting strategies to match different risk profiles",
 ];
 
 const PRODUCTS = {
   harbourviewMYGA: {
-    eyebrow: "Harbourview MYGA",
+    eyebrow: "Harbourview MYGA", rate: "5.20%", rateTerm: "5-Year Guaranteed",
     heading: "Guaranteed interest with straightforward accumulation",
     body: "A fixed annuity designed for individuals seeking predictable growth through a guaranteed interest rate over a defined period — with no exposure to market volatility.",
-    bullets: [
-      "Value predictable growth with a guaranteed interest rate",
-      "Prefer a simple, clearly defined accumulation approach",
-      "Are seeking stability as part of a broader retirement strategy",
-      "Want to limit exposure to market-related variability",
-    ],
+    bullets: ["Value predictable growth with a guaranteed interest rate", "Prefer a simple, clearly defined accumulation approach", "Are seeking stability as part of a broader retirement strategy", "Want to limit exposure to market-related variability"],
   },
   horizonMYGA: {
-    eyebrow: "Horizon MYGA",
+    eyebrow: "Horizon MYGA", rate: "5.10%", rateTerm: "7-Year Guaranteed",
     heading: "A clear path to predictable, guaranteed growth",
     body: "Provides guaranteed interest for a set term, offering stable and predictable growth without exposure to market fluctuations — suited for those who want simplicity and certainty.",
-    bullets: [
-      "Are looking for straightforward, guaranteed growth over a set term",
-      "Prioritize clarity and consistency in their retirement planning",
-      "Prefer a fixed interest structure with clearly defined outcomes",
-      "Want an easy-to-understand accumulation solution",
-    ],
+    bullets: ["Are looking for straightforward, guaranteed growth over a set term", "Prioritize clarity and consistency in their retirement planning", "Prefer a fixed interest structure with clearly defined outcomes", "Want an easy-to-understand accumulation solution"],
   },
   currentRate: {
-    eyebrow: "Current Rate Fixed Annuity",
+    eyebrow: "Current Rate Fixed Annuity", rate: "4.95%", rateTerm: "3-Year Initial Rate",
     heading: "Guaranteed growth today with flexibility for the future",
     body: "Begins with a guaranteed interest rate, providing predictable growth during the initial period — with options to adjust your approach as retirement goals evolve.",
-    bullets: [
-      "Want guaranteed interest during an initial period",
-      "May want flexibility to adjust their growth approach in the future",
-      "Prefer starting with a fixed strategy while keeping options open",
-      "Are planning for retirement in an evolving market environment",
-    ],
+    bullets: ["Want guaranteed interest during an initial period", "May want flexibility to adjust their growth approach in the future", "Prefer starting with a fixed strategy while keeping options open", "Are planning for retirement in an evolving market environment"],
   },
   harbourviewFIA: {
-    eyebrow: "Harbourview FIA",
+    eyebrow: "Harbourview FIA", rate: "9.5%", rateTerm: "S&P 500 Index Cap",
     heading: "Balanced growth potential with principal protection",
     body: "Offers the opportunity for interest credits based on the performance of a market index, while providing protection of principal from market downturns.",
-    bullets: [
-      "Are seeking growth potential linked to a market index",
-      "Value protection of principal from market downturns",
-      "Prefer a balanced, long-term accumulation approach",
-      "Want multiple crediting options within a structured framework",
-    ],
+    bullets: ["Are seeking growth potential linked to a market index", "Value protection of principal from market downturns", "Prefer a balanced, long-term accumulation approach", "Want multiple crediting options within a structured framework"],
   },
   capLock: {
-    eyebrow: "CapLock",
+    eyebrow: "CapLock", rate: "11.0%", rateTerm: "Index Cap (Bonus)",
     heading: "Defined growth parameters with clarity and structure",
     body: "A fixed indexed annuity designed to provide index-linked interest credits within clearly defined limits — transparency around how interest may be credited.",
-    bullets: [
-      "Prefer clearly defined growth parameters",
-      "Value transparency around how interest may be credited",
-      "Are comfortable with structured limits in exchange for clarity",
-      "Want a disciplined approach to indexed growth potential",
-    ],
+    bullets: ["Prefer clearly defined growth parameters", "Value transparency around how interest may be credited", "Are comfortable with structured limits in exchange for clarity", "Want a disciplined approach to indexed growth potential"],
   },
   topsider: {
-    eyebrow: "Topsider",
+    eyebrow: "Topsider", rate: null, rateTerm: null,
     heading: "Upside-focused growth potential with built-in protection",
     body: "Designed to emphasize upside potential through index-linked interest crediting — for those focused on accumulation within a structured, protected framework.",
-    bullets: [
-      "Are focused on upside growth potential within a protected structure",
-      "Understand that indexed strategies operate within defined limits",
-      "Are comfortable with variability in interest credits year to year",
-      "Want an accumulation-focused indexed annuity option",
-    ],
+    bullets: ["Are focused on upside growth potential within a protected structure", "Understand that indexed strategies operate within defined limits", "Are comfortable with variability in interest credits year to year", "Want an accumulation-focused indexed annuity option"],
   },
 };
 
 const CATEGORIES = [
-  { id: "fixed-annuities",  label: "Fixed Annuities",                  sub: "Predictable growth with guaranteed interest",                href: "#prd-cat-fixed-annuities" },
-  { id: "fixed-with-flex",  label: "Fixed Annuities with Flexibility", sub: "Guaranteed today with future growth options",                href: "#prd-cat-fixed-with-flex" },
-  { id: "fixed-indexed",    label: "Fixed Indexed Annuities",          sub: "Growth potential tied to market indexes with protection",    href: "#prd-cat-fixed-indexed" },
+  { id: "fixed-annuities", label: "Fixed Annuities",                  sub: "Predictable growth · guaranteed interest",             href: "#prd-cat-fixed-annuities" },
+  { id: "fixed-with-flex", label: "Fixed Annuities with Flexibility", sub: "Guaranteed today · future growth options",              href: "#prd-cat-fixed-with-flex" },
+  { id: "fixed-indexed",   label: "Fixed Indexed Annuities",          sub: "Index-linked growth · principal protected",             href: "#prd-cat-fixed-indexed" },
 ];
 
-// scroll-margin-top = header (72px) + nav (~148px) + breathing room (16px)
-const SCROLL_MARGIN = "236px";
+const SCROLL_MARGIN = "240px";
 
 const NAV_PRODUCTS = [
   { label: "Harbourview MYGA",           href: "#prd-harbourview-myga", cat: "fixed-annuities" },
@@ -212,169 +189,140 @@ const NAV_PRODUCTS = [
   { label: "Topsider",                   href: "#prd-topsider",         cat: "fixed-indexed" },
 ];
 
-// ── Page ────────────────────────────────────────────────────────────────────
-
+// ── Page ─────────────────────────────────────────────────────────────────────
 export default function ProductsPage() {
-  const [activeProduct, setActiveProduct] = useState("prd-harbourview-myga")
-  const activeCategory = NAV_PRODUCTS.find(p => p.href === `#${activeProduct}`)?.cat ?? "fixed-annuities"
+  const [activeProduct, setActiveProduct] = useState("prd-harbourview-myga");
+  const activeCategory = NAV_PRODUCTS.find(p => p.href === `#${activeProduct}`)?.cat ?? "fixed-annuities";
 
   useEffect(() => {
-    // Watch product cards to track the active product tab
-    const productIds = NAV_PRODUCTS.map(p => p.href.slice(1))
-    const observers = productIds.map(id => {
-      const el = document.getElementById(id)
-      if (!el) return null
+    const ids = NAV_PRODUCTS.map(p => p.href.slice(1));
+    const observers = ids.map(id => {
+      const el = document.getElementById(id);
+      if (!el) return null;
       const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveProduct(id) },
+        ([entry]) => { if (entry.isIntersecting) setActiveProduct(id); },
         { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
-      )
-      obs.observe(el)
-      return obs
-    })
-    return () => observers.forEach(o => o?.disconnect())
-  }, [])
+      );
+      obs.observe(el);
+      return obs;
+    });
+    return () => observers.forEach(o => o?.disconnect());
+  }, []);
 
   return (
     <main>
       <PageHero
         image="assets/hero-beach-couple.jpg"
         eyebrow="Our Products"
-        title="Retirement solutions designed for clarity and confidence."
+        title="Retirement solutions designed for"
+        titleAccent="clarity and confidence."
         subtitle="Guaranteed interest, flexible options, and growth potential — with principal protection at every step."
         ctaPrimary="Compare Products"
       />
 
-      {/* ── Two-level sticky product nav (Figma 6940-103) ──────────── */}
+      {/* ── Two-level sticky nav ─────────────────────────────────────────── */}
       <nav style={PS.navOuter} aria-label="Products">
         <div className="ov-container">
-
-          {/* Category row */}
           <div style={PS.catRow}>
             {CATEGORIES.map(cat => {
-              const isActive = cat.id === activeCategory
+              const isActive = cat.id === activeCategory;
               return (
-                <a
-                  key={cat.id}
-                  href={cat.href}
-                  style={{ ...PS.catTab, ...(isActive ? PS.catTabActive : PS.catTabInactive) }}
-                >
+                <a key={cat.id} href={cat.href} style={{ ...PS.catTab, ...(isActive ? PS.catTabActive : PS.catTabInact) }}>
                   <span style={PS.catLabel}>{cat.label}</span>
                   <span style={PS.catSub}>{cat.sub}</span>
                 </a>
-              )
+              );
             })}
           </div>
-
-          {/* Product row */}
           <div style={PS.prdRow}>
             {NAV_PRODUCTS.map(p => {
-              const isActive = `#${activeProduct}` === p.href
+              const isActive = `#${activeProduct}` === p.href;
               return (
-                <a
-                  key={p.href}
-                  href={p.href}
-                  style={{ ...PS.prdTab, ...(isActive ? PS.prdTabActive : PS.prdTabInactive) }}
-                  onMouseEnter={e => { if (!isActive) e.currentTarget.style.background = "rgba(226,241,242,0.35)" }}
-                  onMouseLeave={e => { if (!isActive) e.currentTarget.style.background = "transparent" }}
+                <a key={p.href} href={p.href}
+                  style={{ ...PS.prdTab, ...(isActive ? PS.prdTabActive : PS.prdTabInact) }}
+                  onMouseEnter={e => { if (!isActive) e.currentTarget.style.background = "rgba(226,241,242,0.35)"; }}
+                  onMouseLeave={e => { if (!isActive) e.currentTarget.style.background = "transparent"; }}
                 >
                   {p.label}
                 </a>
-              )
+              );
             })}
           </div>
-
         </div>
       </nav>
 
-      {/* ══ Section 1 — Fixed Annuities ════════════════════════════════ */}
+      {/* ══ 1 — Fixed Annuities (white) ══════════════════════════════════ */}
       <section id="prd-cat-fixed-annuities" style={{ ...PS.sectionWhite, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
         <div className="ov-container">
-
-          {/* Intro: text left, image right */}
           <div style={PS.introRow} className="prd-intro-row prd-intro-img-right">
-            <img src="assets/family.png" alt="Couple planning retirement" style={PS.introImg} className="prd-intro-img"/>
+            <img src="assets/family.png" alt="Family planning retirement" style={PS.introImg} className="prd-intro-img"/>
             <div style={PS.introText}>
               <div>
-                <PrdEyebrow>Fixed Annuities</PrdEyebrow>
-                <h2 style={PS.h2}>Predictable growth with guaranteed interest</h2>
+                <Eyebrow>Fixed Annuities</Eyebrow>
+                <h2 style={PS.h2}>Predictable growth with <em style={{ fontStyle: "italic", color: "#2494C1" }}>guaranteed interest</em></h2>
               </div>
-              <p style={PS.body}>Fixed annuities are designed for individuals seeking stability and certainty as part of their retirement strategy. These products provide a guaranteed interest rate for a defined period, offering predictable, tax-deferred growth without exposure to market fluctuations.</p>
-              <p style={PS.body}>They are often used by those who value simplicity, consistency, and knowing what to expect over time.</p>
-              <KeyFeaturesCard features={CAT1_FEATURES} teal/>
+              <p style={PS.body}>Fixed annuities provide a guaranteed interest rate for a defined period, offering predictable, tax-deferred growth with no exposure to market fluctuations. Built for those who value simplicity and knowing exactly what to expect.</p>
+              <FeatureList features={CAT1_FEATURES} />
             </div>
           </div>
-
-          {/* Product grid: 2 cards */}
           <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-2col">
             <div id="prd-harbourview-myga" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.harbourviewMYGA}/></div>
             <div id="prd-horizon-myga"     style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.horizonMYGA}/></div>
           </div>
-
         </div>
       </section>
 
-      {/* ══ Section 2 — Fixed Annuities with Flexibility ═══════════════ */}
-      <section id="prd-cat-fixed-with-flex" style={{ ...PS.sectionTint, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
+      {/* ══ 2 — Fixed Annuities with Flexibility (dark navy) ════════════ */}
+      <section id="prd-cat-fixed-with-flex" style={{ ...PS.sectionDark, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
         <div className="ov-container">
-
-          {/* Intro: image left, text right */}
-          <div style={PS.introRow} className="prd-intro-row prd-intro-img-left">
-            <img src="assets/older-couple-1.png" alt="Couple with flexibility in retirement" style={PS.introImg} className="prd-intro-img"/>
+          <div style={{ ...PS.introRow, alignItems: "stretch" }} className="prd-intro-row">
             <div style={PS.introText}>
               <div>
-                <PrdEyebrow>Fixed Annuities with Flexibility</PrdEyebrow>
-                <h2 style={PS.h2}>Guaranteed growth today with the ability to adapt tomorrow</h2>
+                <Eyebrow light>Fixed Annuities with Flexibility</Eyebrow>
+                <h2 style={{ ...PS.h2, ...PS.h2Dark }}>Guaranteed growth today, <em style={{ fontStyle: "italic", color: "#70BABF" }}>with room to adapt.</em></h2>
               </div>
-              <p style={PS.body}>Designed for individuals who want guaranteed interest now while preserving the option to adjust their growth approach down the road.</p>
-              <KeyFeaturesCard features={CAT2_FEATURES}/>
+              <p style={PS.bodyDark}>Designed for individuals who want guaranteed interest now while preserving the option to adjust their growth approach as retirement goals evolve.</p>
+              <FeatureList features={CAT2_FEATURES} dark />
+            </div>
+            <div id="prd-current-rate" style={{ flex: 1, scrollMarginTop: SCROLL_MARGIN }} className="prd-intro-img">
+              <ProductCard {...PRODUCTS.currentRate}/>
             </div>
           </div>
-
-          {/* Single product card */}
-          <div id="prd-current-rate" style={{ marginTop: 56, scrollMarginTop: SCROLL_MARGIN }}>
-            <ProductCard {...PRODUCTS.currentRate}/>
-          </div>
-
         </div>
       </section>
 
-      {/* ══ Section 3 — Fixed Indexed Annuities ════════════════════════ */}
-      <section id="prd-cat-fixed-indexed" style={{ ...PS.sectionWhite, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
+      {/* ══ 3 — Fixed Indexed Annuities (tint) ══════════════════════════ */}
+      <section id="prd-cat-fixed-indexed" style={{ ...PS.sectionTint, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
         <div className="ov-container">
-
-          {/* Intro: text left, image right */}
           <div style={PS.introRow} className="prd-intro-row prd-intro-img-right">
             <img src="assets/lighthouse.jpg" alt="Fixed indexed annuities" style={PS.introImg} className="prd-intro-img"/>
             <div style={PS.introText}>
               <div>
-                <PrdEyebrow>Fixed Indexed Annuities</PrdEyebrow>
-                <h2 style={PS.h2}>Growth potential linked to market indexes with principal protection</h2>
+                <Eyebrow>Fixed Indexed Annuities</Eyebrow>
+                <h2 style={PS.h2}>Growth potential linked to market indexes, <em style={{ fontStyle: "italic", color: "#2494C1" }}>principal protected.</em></h2>
               </div>
-              <p style={PS.body}>Fixed indexed annuities are designed for individuals seeking growth potential tied to a market index — while maintaining protection of principal from market downturns. They are often used by those who value simplicity, consistency, and knowing what to expect over time.</p>
-              <KeyFeaturesCard features={CAT3_FEATURES} teal/>
+              <p style={PS.body}>Fixed indexed annuities credit interest based on the performance of a market index — while a zero-percent floor ensures your clients never lose principal to market downturns.</p>
+              <FeatureList features={CAT3_FEATURES} />
             </div>
           </div>
-
-          {/* Product grid: 3 cards */}
           <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-3col">
             <div id="prd-harbourview-fia" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.harbourviewFIA}/></div>
             <div id="prd-caplock"         style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.capLock}/></div>
             <div id="prd-topsider"        style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.topsider}/></div>
           </div>
-
         </div>
       </section>
 
-      {/* ══ CTABanner ══════════════════════════════════════════════════ */}
-      <section className="ov-section" style={{ background: "var(--ov-surface-tint)" }}>
+      {/* ══ CTA ══════════════════════════════════════════════════════════ */}
+      <section className="ov-section" style={{ background: "#fff" }}>
         <div className="ov-container">
           <CTABanner
-            eyebrow="Harbourview FIA"
-            title="Ready to explore"
-            titleAccent="the Harbourview FIA?"
-            body="Talk to a financial professional or contact our team to find the strategy that fits your retirement goals."
-            cta="Get Started"
-            onClick={() => { window.location.hash = 'contact' }}
+            eyebrow="Get Started"
+            title="Find the right annuity"
+            titleAccent="for your clients."
+            body="Our team can help you match the right product to your client's retirement timeline, risk profile, and income goals."
+            cta="Contact Sales"
+            onClick={() => { window.location.hash = 'contact'; }}
           />
         </div>
       </section>

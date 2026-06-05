@@ -79,6 +79,17 @@ const NAV_DROPDOWNS = {
       { label: "White Papers",           href: "#white-papers"    },
     ],
   },
+  Professionals: {
+    type: "simple",
+    dropAlign: "right",
+    links: [
+      { label: "For Professionals",  href: "#professionals", desc: "Sales tools, agent portal, and advisor resources." },
+      { label: "LPL Financial",      href: "#lpl-landing",   desc: "Dedicated resources and products for LPL advisors." },
+      { label: "Cetera",             href: "#cetera-landing",desc: "Dedicated resources and products for Cetera advisors." },
+      { label: "Sales Tools",        href: "#sales-tools",   desc: "FIA & MYGA materials and client-ready collateral." },
+      { label: "Agent FAQs",         href: "#agent-faqs",    desc: "Common questions on contracting and new business." },
+    ],
+  },
 };
 
 // ─── STYLES ───────────────────────────────────────────────────────────────────
@@ -582,8 +593,8 @@ export function Logo({ dark = false }) {
 }
 
 // ─── HEADER ───────────────────────────────────────────────────────────────────
-const NAV_ITEMS = ["About", "Products", "Client Resources", "Insights", "Blog"];
-const AUD_ITEMS = ["Individuals", "Professionals"];
+const NAV_ITEMS = ["About", "Products", "Client Resources", "Insights", "Blog", "Professionals"];
+const AUD_ITEMS = ["Individuals"];
 
 export default function Header({ active = "Home", onNav }) {
   const [mobileOpen, setMobileOpen] = useState(false);

@@ -67,7 +67,7 @@ export default function LeadershipPage() {
       <PageHero
         image="assets/hero-beach-couple.jpg"
         eyebrow="Leadership"
-        title="The people behind the promise."
+        title="The people behind" titleAccent="the promise."
         subtitle="The experienced team driving every product decision, rating, and promise we make to our policyholders."
         ctaPrimary="Board Of Directors"
       />

@@ -212,7 +212,7 @@ export default function AgentFAQsPage() {
       <PageHero
         image="assets/lighthouse.jpg"
         eyebrow="For Professionals"
-        title="Agent FAQs"
+        title="Agent" titleAccent="FAQs."
         subtitle="Answers to the most common questions about contracting, commissions, products, and new business."
       />
 

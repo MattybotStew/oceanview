@@ -1,6 +1,6 @@
-// Hero.jsx — Rounded card hero with slider, dots underneath, auto-scroll
+// Hero.jsx — Rounded card hero with slider
 import { useState, useEffect, useRef } from 'react'
-import { PillWhite, PillNavy } from './Buttons.jsx'
+import { PillMint, PillGhost } from './Buttons.jsx'
 
 function HeroShaper({ fill = "#ffffff" }) {
   return (
@@ -17,6 +17,17 @@ function HeroShaper({ fill = "#ffffff" }) {
       <svg viewBox="0 0 400 60" preserveAspectRatio="none" width="100%" height="60" style={{ display: "block" }}>
         <path fill={fill} d="M0 60 Q200 0 400 60 Z"/>
       </svg>
+    </div>
+  );
+}
+
+function SlideEyebrow({ children }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+      <div style={{ width: 18, height: 1, background: 'rgba(112,186,191,.65)', flexShrink: 0 }} />
+      <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: '#70BABF' }}>
+        {children}
+      </span>
     </div>
   );
 }
@@ -47,7 +58,7 @@ const heroStyles = {
   scrim: {
     position: "absolute",
     inset: 0,
-    background: "linear-gradient(85deg, rgba(0,0,0,0.80) 2.63%, rgba(102,102,102,0.00) 65.98%)",
+    background: "linear-gradient(85deg, rgba(0,0,0,.82) 0%, rgba(0,31,84,.4) 60%, transparent 100%)",
     zIndex: 1,
   },
   noise: {
@@ -56,7 +67,7 @@ const heroStyles = {
     backgroundImage: `url("assets/Noise.png")`,
     backgroundRepeat: "repeat",
     backgroundSize: "200px",
-    opacity: 0.8,
+    opacity: 0.6,
     pointerEvents: "none",
     zIndex: 1,
   },
@@ -72,18 +83,16 @@ const heroStyles = {
     lineHeight: 1.1,
     color: "#F2FCFF",
     margin: 0,
-    marginBottom: 16,
     textShadow: "0 2px 4px rgba(0,0,0,0.3)",
   },
-  subtitle: {
+  body: {
     fontFamily: "var(--ov-ff-sans)",
-    fontWeight: 600,
-    fontSize: "clamp(14px, 4vw, 20px)",
-    lineHeight: 1.4,
-    color: "#F2FCFF",
+    fontWeight: 400,
+    fontSize: "clamp(14px, 1.4vw, 17px)",
+    lineHeight: 1.6,
+    color: "rgba(242,252,255,.82)",
     margin: 0,
-    marginBottom: 32,
-    textShadow: "0 2px 4px rgba(0,0,0,0.3)",
+    maxWidth: "46ch",
   },
   ctas: {
     display: "flex",
@@ -134,29 +143,37 @@ const heroStyles = {
 
 const heroSlides = [
   {
-    title: "Plan today for the tomorrow you deserve",
-    subtitle: "Smart annuity solutions built for long-term financial confidence and flexibility.",
+    eyebrow: "Retirement Solutions",
+    titleLines: ["Plan today for", "the tomorrow"],
+    titleAccent: "you deserve.",
+    body: "Smart annuity solutions built for long-term financial confidence and flexibility.",
     image: "assets/hero-couple.jpg",
     ctaPrimary: "View Products",
     ctaSecondary: "Contact Us",
   },
   {
-    title: "Secure your retirement with confidence",
-    subtitle: "Fixed and fixed-indexed annuities designed for long-term financial stability.",
+    eyebrow: "Fixed Indexed Annuities",
+    titleLines: ["Secure your"],
+    titleAccent: "retirement with confidence.",
+    body: "Fixed and fixed-indexed annuities designed for long-term financial stability.",
     image: "assets/two.jpg",
     ctaPrimary: "Explore Annuities",
     ctaSecondary: "Learn More",
   },
   {
-    title: "Growth potential, principal protected",
-    subtitle: "Participate in market gains without the risk of losing your initial investment.",
+    eyebrow: "Principal Protection",
+    titleLines: ["Growth potential,"],
+    titleAccent: "principal protected.",
+    body: "Participate in market gains without the risk of losing your initial investment.",
     image: "assets/three.jpg",
     ctaPrimary: "View Products",
     ctaSecondary: "Contact Us",
   },
   {
-    title: "Your legacy starts today",
-    subtitle: "Flexible options to build wealth and pass it on to those you love.",
+    eyebrow: "Legacy Planning",
+    titleLines: ["Your legacy"],
+    titleAccent: "starts today.",
+    body: "Flexible options to build wealth and pass it on to those you love.",
     image: "assets/four.jpg",
     ctaPrimary: "Get Started",
     ctaSecondary: "Learn More",
@@ -196,14 +213,14 @@ export default function Hero({ onPrimary, onSecondary }) {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        {/* Screen-reader live region: announces slide title on each change */}
         <div aria-live="polite" aria-atomic="true" style={{
           position: "absolute", width: 1, height: 1, padding: 0,
           margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)",
           whiteSpace: "nowrap", border: 0,
         }}>
-          {`Slide ${currentSlide + 1} of ${heroSlides.length}: ${slide.title}`}
+          {`Slide ${currentSlide + 1} of ${heroSlides.length}: ${slide.titleLines.join(' ')} ${slide.titleAccent}`}
         </div>
+
         <div className="ov-hero-card" style={heroStyles.card}>
           {heroSlides.map((s, idx) => (
             <div key={idx} className="ov-hero-bg" style={{
@@ -219,20 +236,19 @@ export default function Hero({ onPrimary, onSecondary }) {
           ))}
           <div style={heroStyles.scrim} className="ov-hero-scrim" />
           <div style={heroStyles.noise} />
+
           <div className="ov-hero-content" style={heroStyles.content}>
+            <SlideEyebrow>{slide.eyebrow}</SlideEyebrow>
             <h1 className="ov-hero-title" style={heroStyles.h1}>
-              {slide.title}
+              {slide.titleLines.map((line, i) => (
+                <span key={i}>{line}<br /></span>
+              ))}
+              <em style={{ fontStyle: 'italic', color: '#70BABF' }}>{slide.titleAccent}</em>
             </h1>
-            <p className="ov-hero-subtitle" style={heroStyles.subtitle}>
-              {slide.subtitle}
-            </p>
+            <p style={heroStyles.body}>{slide.body}</p>
             <div style={heroStyles.ctas}>
-              <PillWhite hero onClick={onPrimary}>
-                {slide.ctaPrimary}
-              </PillWhite>
-              <PillNavy hero onClick={onSecondary}>
-                {slide.ctaSecondary}
-              </PillNavy>
+              <PillMint hero onClick={onPrimary}>{slide.ctaPrimary}</PillMint>
+              <PillGhost light hero onClick={onSecondary}>{slide.ctaSecondary}</PillGhost>
             </div>
           </div>
 

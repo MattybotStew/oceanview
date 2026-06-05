@@ -37,7 +37,7 @@ export default function FAQPage() {
   const [open, setOpen] = useState(0);
   return (
     <main>
-      <PageHero image="assets/faq-hero.jpg" eyebrow="Frequently Asked" title="Answers to common questions." />
+      <PageHero image="assets/faq-hero.jpg" eyebrow="Frequently Asked" title="Answers to" titleAccent="common questions." />
       <section style={faqStyles.body}>
         <div className="ov-container">
           <div style={faqStyles.list}>
