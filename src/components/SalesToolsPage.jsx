@@ -1,4 +1,3 @@
-import PageHero from './PageHero.jsx'
 import { TextLink } from './Buttons.jsx'
 import CTABanner from './CTABanner.jsx'
 import {
@@ -93,13 +92,20 @@ export default function SalesToolsPage() {
     <main>
 
       {/* 1 ── Hero ──────────────────────────────────────────────────────────── */}
-      <PageHero
-        image="assets/lighthouse.jpg"
-        eyebrow="Sales Resources"
-        title="FIA & MYGA"
-        titleAccent="Sales Tools."
-        subtitle="Client-ready materials and advisor resources to support every annuity conversation."
-      />
+      <section style={{ background: '#fff', padding: '80px 0 64px', textAlign: 'center' }}>
+        <div className="ov-container">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 20 }}>
+            <div style={{ width: 18, height: 1, background: '#2494C1', flexShrink: 0 }} />
+            <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: '#2494C1' }}>Sales Resources</span>
+          </div>
+          <h1 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(32px, 4.5vw, 62px)', letterSpacing: '-0.025em', lineHeight: 1.08, color: '#0D1F4E', margin: '0 auto 24px', maxWidth: '18ch' }}>
+            FIA & MYGA Sales Tools
+          </h1>
+          <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 'clamp(15px, 1.4vw, 17px)', lineHeight: 1.65, color: '#4A5568', margin: '0 auto', maxWidth: '52ch' }}>
+            Client-ready materials and advisor resources to support every annuity conversation.
+          </p>
+        </div>
+      </section>
 
       {/* 2 ── MYGA tools ────────────────────────────────────────────────────── */}
       <section style={{ background: '#fff' }} className="ov-section">

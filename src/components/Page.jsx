@@ -30,30 +30,30 @@ import HorizonMYGAPage from './HorizonMYGAPage.jsx'
 import CurrentRateFIAPage from './CurrentRateFIAPage.jsx'
 import CapLockFIAPage from './CapLockFIAPage.jsx'
 import TopsiderFIAPage from './TopsiderFIAPage.jsx'
+import BoardPage from './BoardPage.jsx'
+import NewsroomPage from './NewsroomPage.jsx'
+import WhitePapersPage from './WhitePapersPage.jsx'
+import CaseStudiesPage from './CaseStudiesPage.jsx'
+import RetirementRiskPage from './RetirementRiskPage.jsx'
+import LifeEventsPage from './LifeEventsPage.jsx'
+import DownloadsPage from './DownloadsPage.jsx'
 
 const STUB_ROUTES = {
   // Top-level nav
   "individuals":      { title: "For Individuals",                 eyebrow: "Personal Planning"           },
   // About sub-pages
   "our-story":        { title: "Our Story",                       eyebrow: "Since 1987"                  },
-  "board":            { title: "Board of Directors",              eyebrow: "Governance"                  },
-  "newsroom":         { title: "Newsroom",                        eyebrow: "Latest Updates"              },
-  "careers":          { title: "Careers",                         eyebrow: "Join Us"                     },
+  // "board" and "newsroom" handled as real pages below
   // Products — FIA (fia-harbourview, harbourview-myga, sky-harbourview, caplock have real pages)
   "sp500":            { title: "S&P 500 Crediting Strategy",      eyebrow: "Fixed Indexed Annuity"       },
   "nasdaq":           { title: "Nasdaq-100 Crediting Strategy",   eyebrow: "Fixed Indexed Annuity"       },
   "russell":          { title: "Russell 2000 Crediting Strategy", eyebrow: "Fixed Indexed Annuity"       },
   "fixed-interest":   { title: "Fixed Interest Strategy",         eyebrow: "Fixed Indexed Annuity"       },
   // Client Resources sub-pages
-  "case-studies":     { title: "Case Studies",                    eyebrow: "Client Resources"            },
-  "downloads":        { title: "Downloads",                       eyebrow: "Client Resources"            },
   "glossary":         { title: "Glossary",                        eyebrow: "Client Resources"            },
   "rates":            { title: "Rates",                           eyebrow: "Client Resources"            },
   "compare":          { title: "How Oceanview MYGAs Compare",     eyebrow: "Client Resources"            },
-  // Insights sub-pages
-  "retirement-risk":  { title: "Retirement Risk Series",          eyebrow: "Insights"                    },
-  "life-events":      { title: "Life Events Series",              eyebrow: "Insights"                    },
-  "white-papers":     { title: "White Papers",                    eyebrow: "Insights"                    },
+  // Insights sub-pages — retirement-risk and life-events are real pages
   // Professionals sub-pages
   "agent-portal":     { title: "Agent Portal",                    eyebrow: "For Professionals"            },
   "state-approval":   { title: "State Approval Chart",            eyebrow: "For Professionals"            },
@@ -64,14 +64,19 @@ const STUB_ROUTES = {
 const ROUTE_TO_NAV = {
   "about": "About", "products": "Products",
   "client-resources": "Client Resources", "insights": "Insights",
-  "faq": "FAQ", "blog": "Blog", "leadership": "About",
+  "faq": "FAQ", "blog": "Blog", "leadership": "About", "board": "About", "newsroom": "About",
+  "white-papers": "Insights", "case-studies": "Client Resources",
+  "retirement-risk": "Insights", "life-events": "Insights",
+  "downloads": "Client Resources",
   "professionals": "Professionals", "sales-tools": "Professionals",
   "agent-faqs": "Professionals", "lpl-landing": "Professionals", "cetera-landing": "Professionals",
 };
 
 const PAGE_ROUTES = new Set([
   "", "home", "products", "about", "client-resources", "insights", "faq",
-  "blog", "leadership", "professionals", "sales-tools", "agent-faqs",
+  "blog", "leadership", "board", "newsroom", "white-papers", "case-studies",
+  "retirement-risk", "life-events", "downloads",
+  "professionals", "sales-tools", "agent-faqs",
   "contact", "lpl-landing", "cetera-landing",
   // product pages — canonical routes
   "harbourview-myga", "horizon-myga", "sky-harbourview-myga",
@@ -96,7 +101,7 @@ function HomePage({ goto }) {
 }
 
 export default function Page() {
-  const getRoute = () => (window.location.hash.replace("#", "") || "home").toLowerCase();
+  const getRoute = () => ((window.location.hash.replace("#", "").split("?")[0]) || "home").toLowerCase();
 
   const [route, setRoute] = useState(getRoute);
   const [scrolled, setScrolled] = useState(false);
@@ -142,6 +147,13 @@ export default function Page() {
       case "fia-harbourview":       return <HarbourviewFIAPage />;       // legacy alias
       case "caplock":               return <CapLockFIAPage />;
       case "topsider":              return <TopsiderFIAPage />;
+      case "board":              return <BoardPage />;
+      case "newsroom":           return <NewsroomPage />;
+      case "white-papers":       return <WhitePapersPage />;
+      case "case-studies":       return <CaseStudiesPage />;
+      case "retirement-risk":    return <RetirementRiskPage />;
+      case "life-events":        return <LifeEventsPage />;
+      case "downloads":          return <DownloadsPage />;
       case "about":             return <CompanyPage />;
       case "client-resources":  return <ClientResourcesPage />;
       case "insights":          return <InsightsPage />;

@@ -27,7 +27,7 @@ const NAV_DROPDOWNS = {
       { label: "Leadership",          eyebrow: "OUR PEOPLE",       heading: "Experienced leadership",        body: "Our executive team brings decades of insurance and financial services expertise to guide Oceanview's vision.", cta: { label: "Meet the team",   href: "#leadership" } },
       { label: "Board of Directors",  eyebrow: "GOVERNANCE",       heading: "Independent oversight",         body: "Deep expertise in finance, risk management, and regulatory compliance ensures sound decision-making at every level.", cta: { label: "View the board",  href: "#board"      } },
       { label: "Newsroom",            eyebrow: "LATEST UPDATES",   heading: "News & announcements",          body: "Press releases, media coverage, and company milestones — all in one place.", cta: { label: "Visit newsroom",  href: "#newsroom"   } },
-      { label: "Careers",             eyebrow: "JOIN US",          heading: "Build your future here",        body: "Join a team of talented professionals dedicated to helping Americans achieve financial security in retirement.", cta: { label: "See open roles",  href: "#careers"    } },
+      { label: "Careers",             eyebrow: "JOIN US",          heading: "Build your future here",        body: "Join a team of talented professionals dedicated to helping Americans achieve financial security in retirement.", cta: { label: "See open roles",  href: "https://careers.bayview.com/oceanview", external: true } },
     ],
   },
   Products: {
@@ -70,11 +70,11 @@ const NAV_DROPDOWNS = {
     type: "simple",
     dropAlign: "right",
     links: [
-      { label: "Case Studies",               href: "#case-studies" },
-      { label: "Downloads",                  href: "#downloads"    },
-      { label: "Glossary",                   href: "#glossary"     },
-      { label: "Rates",                      href: "#rates"        },
-      { label: "How Oceanview MYGAs Compare",href: "#compare"      },
+      { label: "Case Studies",               href: "#case-studies"                    },
+      { label: "Downloads",                  href: "#downloads"                       },
+      { label: "Rates",                      href: "#client-resources?tab=Rates"      },
+      { label: "How Oceanview MYGAs Compare",href: "#client-resources?tab=Comparisons"},
+      { label: "Glossary",                   href: "#client-resources?tab=Glossary"   },
     ],
   },
   Insights: {
@@ -161,7 +161,7 @@ const S = {
     display: "flex",
   },
   sidebar: {
-    width: 220,
+    width: 260,
     flexShrink: 0,
     background: "#F0EEE9",
     borderRight: "1px solid rgba(13,31,78,0.12)",
@@ -197,6 +197,7 @@ const S = {
     lineHeight: "21px",
     flex: 1,
     minWidth: 0,
+    whiteSpace: "nowrap",
   },
   content: {
     flex: 1,
@@ -317,7 +318,7 @@ function TabbedContent({ tab, onClose }) {
           </Fragment>
         ))}
       </div>
-      {tab.cta && <a href={tab.cta.href} onClick={onClose} style={S.ctaLink}>{tab.cta.label} →</a>}
+      {tab.cta && <a href={tab.cta.href} onClick={onClose} style={S.ctaLink} {...(tab.cta.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{tab.cta.label} →</a>}
     </div>
   );
 }
@@ -348,8 +349,12 @@ function TabbedDropdown({ config, onClose, onEscape }) {
               onFocus={() => setActiveIdx(i)}
               onClick={() => {
                 if (t.cta && t.cta.href) {
-                  window.location.hash = t.cta.href.replace("#", "");
-                  window.scrollTo({ top: 0, behavior: "instant" });
+                  if (t.cta.external) {
+                    window.open(t.cta.href, "_blank", "noopener,noreferrer");
+                  } else {
+                    window.location.hash = t.cta.href.replace("#", "");
+                    window.scrollTo({ top: 0, behavior: "instant" });
+                  }
                   onClose();
                 }
               }}>
@@ -512,7 +517,7 @@ function MobileNavContent({ config, onClose }) {
       return (
         <div style={{ paddingBottom: 8 }}>
           {config.tabs.map(tab => (
-            <a key={tab.label} href={tab.cta ? tab.cta.href : "#"} onClick={onClose} style={itemStyle}>
+            <a key={tab.label} href={tab.cta ? tab.cta.href : "#"} onClick={onClose} style={itemStyle} {...(tab.cta?.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
               {tab.label}
             </a>
           ))}

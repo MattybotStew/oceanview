@@ -1,4 +1,3 @@
-import PageHero from './PageHero.jsx'
 import { TextLink, PillMint, PillGhost } from './Buttons.jsx'
 import CTABanner from './CTABanner.jsx'
 import {
@@ -96,17 +95,20 @@ export default function ProfessionalsPage() {
     <main>
 
       {/* 1 ── Hero ──────────────────────────────────────────────────────────── */}
-      <PageHero
-        image="assets/hero-beach-couple.jpg"
-        eyebrow="For Professionals"
-        title="Built for the advisors"
-        titleAccent="who count on us."
-        subtitle="Competitive rates, simple products, and a team dedicated to supporting every advisor relationship."
-        ctaPrimary="View Products"
-        onPrimary={() => { window.location.hash = 'products' }}
-        ctaSecondary="Contact Sales"
-        onSecondary={() => { window.location.hash = 'contact' }}
-      />
+      <section style={{ background: '#fff', padding: '80px 0 64px', textAlign: 'center' }}>
+        <div className="ov-container">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 20 }}>
+            <div style={{ width: 18, height: 1, background: '#2494C1', flexShrink: 0 }} />
+            <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: '#2494C1' }}>For Professionals</span>
+          </div>
+          <h1 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(32px, 4.5vw, 62px)', letterSpacing: '-0.025em', lineHeight: 1.08, color: '#0D1F4E', margin: '0 auto 24px', maxWidth: '18ch' }}>
+            Tools and support built for financial advisors.
+          </h1>
+          <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 'clamp(15px, 1.4vw, 17px)', lineHeight: 1.65, color: '#4A5568', margin: '0 auto', maxWidth: '52ch' }}>
+            Everything you need to serve your clients — from sales resources to account management.
+          </p>
+        </div>
+      </section>
 
       {/* 2 ── Why Oceanview ─────────────────────────────────────────────────── */}
       <section style={{ background: '#fff' }} className="ov-section">

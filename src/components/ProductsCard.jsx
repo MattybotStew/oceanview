@@ -1,6 +1,7 @@
 // ProductsCard.jsx — Tabbed product card (MYGAs / FIAs) — dark navy treatment
 import { useState } from 'react'
 import { PillMint, TextLink } from './Buttons.jsx'
+import TabBar from './TabBar.jsx'
 
 const S = {
   section: { background: "var(--ov-navy-1000)" },
@@ -114,18 +115,12 @@ export default function ProductsCard() {
             </div>
           </div>
           <div style={{ ...S.card, flex: 1 }} className="ov-products-card">
-            <div style={S.tabs} className="ov-products-tabs">
-              {[["myga", "MYGAs"], ["fia", "FIAs"]].map(([k, l]) => (
-                <button
-                  key={k}
-                  className={`ov-products-tab${tab === k ? " ov-products-tab-active" : ""}`}
-                  style={{ ...S.tab, ...(tab === k ? S.tabActive : {}) }}
-                  onClick={() => setTab(k)}
-                >
-                  {l}
-                </button>
-              ))}
-            </div>
+            <TabBar
+              tabs={["MYGAs", "FIAs"]}
+              active={tab === "myga" ? "MYGAs" : "FIAs"}
+              onChange={l => setTab(l === "MYGAs" ? "myga" : "fia")}
+              style={{ marginBottom: 22 }}
+            />
             <div style={S.cardTitle} className="ov-products-card-title">{data.title}</div>
             <p style={S.cardSub} className="ov-products-card-sub">{data.sub}</p>
             {data.items.map((it) => (
