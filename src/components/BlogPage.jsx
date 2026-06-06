@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import PageHero from './PageHero.jsx'
 import { TextLink } from './Buttons.jsx'
+import CTABanner from './CTABanner.jsx'
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
@@ -83,7 +83,7 @@ const POSTS = [
 const CATEGORIES = ["All", "Company News", "Product Updates", "Education", "Market Commentary", "Rates"];
 
 const CAT_COLORS = {
-  "Company News":      { bg: "rgba(35,61,124,.08)",   color: "#233D7C" },
+  "Company News":      { bg: "rgba(13,31,78,.70)",     color: "#fff" },
   "Product Updates":   { bg: "rgba(36,148,193,.10)",  color: "#1A7FAA" },
   "Education":         { bg: "rgba(42,124,79,.10)",   color: "#1E6B42" },
   "Market Commentary": { bg: "rgba(193,92,44,.10)",   color: "#A04A1A" },
@@ -139,14 +139,6 @@ export default function BlogPage() {
 
   return (
     <main>
-      <PageHero
-        image="assets/hero-beach-couple.jpg"
-        eyebrow="Latest from Oceanview"
-        title="News, insights, and"
-        titleAccent="industry perspective."
-        subtitle="Company updates, product news, and commentary on the retirement income landscape."
-      />
-
       {/* ── Featured post ─────────────────────────────────────────────────── */}
       <section style={{ background: "var(--ov-navy-1000)" }} className="ov-section">
         <div className="ov-container">
@@ -155,7 +147,7 @@ export default function BlogPage() {
               <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 18 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   <CategoryPill label={FEATURED.category} />
-                  <span style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 12, color: "rgba(242,252,255,.45)" }}>{FEATURED.date}</span>
+                  <span style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 12, color: "rgba(242,252,255,.72)" }}>{FEATURED.date}</span>
                 </div>
                 <h2 style={{ fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(24px, 2.8vw, 40px)", color: "#F2FCFF", letterSpacing: "-0.025em", lineHeight: 1.1, margin: 0 }}>
                   {FEATURED.title}
@@ -210,6 +202,19 @@ export default function BlogPage() {
             </p>
           )}
 
+        </div>
+      </section>
+
+      <section className="ov-section" style={{ background: '#fff' }}>
+        <div className="ov-container">
+          <CTABanner
+            eyebrow="Put It Into Practice"
+            title="Find the right annuity"
+            titleAccent="for your clients."
+            body="Competitive guaranteed rates, principal protection, and a dedicated service team — backed by an A (Excellent) A.M. Best rating."
+            cta="Explore Products"
+            onClick={() => { window.location.hash = 'products'; }}
+          />
         </div>
       </section>
     </main>

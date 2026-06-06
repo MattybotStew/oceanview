@@ -174,8 +174,8 @@ const PRODUCTS = {
 
 const CATEGORIES = [
   { id: "fixed-annuities", label: "Fixed Annuities",                  sub: "Predictable growth · guaranteed interest",             href: "#prd-cat-fixed-annuities" },
-  { id: "fixed-with-flex", label: "Fixed Annuities with Flexibility", sub: "Guaranteed today · future growth options",              href: "#prd-cat-fixed-with-flex" },
-  { id: "fixed-indexed",   label: "Fixed Indexed Annuities",          sub: "Index-linked growth · principal protected",             href: "#prd-cat-fixed-indexed" },
+  { id: "fixed-with-flex", label: "Fixed Annuities with Flexibility", sub: "Guaranteed today · growth potential",                   href: "#prd-cat-fixed-with-flex" },
+  { id: "fixed-indexed",   label: "Fixed Indexed Annuities",          sub: "CapLock · Topsider",                                    href: "#prd-cat-fixed-indexed" },
 ];
 
 const SCROLL_MARGIN = "240px";
@@ -184,7 +184,7 @@ const NAV_PRODUCTS = [
   { label: "Harbourview MYGA",           href: "#prd-harbourview-myga", cat: "fixed-annuities" },
   { label: "Horizon MYGA",               href: "#prd-horizon-myga",     cat: "fixed-annuities" },
   { label: "Current Rate Fixed Annuity", href: "#prd-current-rate",     cat: "fixed-with-flex" },
-  { label: "Harbourview FIA",            href: "#prd-harbourview-fia",  cat: "fixed-indexed" },
+  { label: "Harbourview FIA",            href: "#prd-harbourview-fia",  cat: "fixed-with-flex" },
   { label: "CapLock",                    href: "#prd-caplock",          cat: "fixed-indexed" },
   { label: "Topsider",                   href: "#prd-topsider",         cat: "fixed-indexed" },
 ];
@@ -275,18 +275,20 @@ export default function ProductsPage() {
       {/* ══ 2 — Fixed Annuities with Flexibility (dark navy) ════════════ */}
       <section id="prd-cat-fixed-with-flex" style={{ ...PS.sectionDark, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
         <div className="ov-container">
-          <div style={{ ...PS.introRow, alignItems: "stretch" }} className="prd-intro-row">
+          <div style={PS.introRow} className="prd-intro-row prd-intro-img-left">
+            <img src="assets/older-couple-1.png" alt="Couple planning retirement with flexibility" style={PS.introImg} className="prd-intro-img"/>
             <div style={PS.introText}>
               <div>
                 <Eyebrow light>Fixed Annuities with Flexibility</Eyebrow>
                 <h2 style={{ ...PS.h2, ...PS.h2Dark }}>Guaranteed growth today, <em style={{ fontStyle: "italic", color: "#70BABF" }}>with room to adapt.</em></h2>
               </div>
-              <p style={PS.bodyDark}>Designed for individuals who want guaranteed interest now while preserving the option to adjust their growth approach as retirement goals evolve.</p>
+              <p style={PS.bodyDark}>Guaranteed interest with the ability to pursue additional growth — whether through a flexible fixed rate structure or index-linked crediting with principal protection.</p>
               <FeatureList features={CAT2_FEATURES} dark />
             </div>
-            <div id="prd-current-rate" style={{ flex: 1, scrollMarginTop: SCROLL_MARGIN }} className="prd-intro-img">
-              <ProductCard {...PRODUCTS.currentRate}/>
-            </div>
+          </div>
+          <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-2col">
+            <div id="prd-current-rate"    style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.currentRate}/></div>
+            <div id="prd-harbourview-fia" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.harbourviewFIA}/></div>
           </div>
         </div>
       </section>
@@ -305,10 +307,9 @@ export default function ProductsPage() {
               <FeatureList features={CAT3_FEATURES} />
             </div>
           </div>
-          <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-3col">
-            <div id="prd-harbourview-fia" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.harbourviewFIA}/></div>
-            <div id="prd-caplock"         style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.capLock}/></div>
-            <div id="prd-topsider"        style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.topsider}/></div>
+          <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-2col">
+            <div id="prd-caplock"   style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.capLock}/></div>
+            <div id="prd-topsider" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.topsider}/></div>
           </div>
         </div>
       </section>

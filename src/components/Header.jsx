@@ -49,7 +49,7 @@ const NAV_DROPDOWNS = {
         heading: "Fixed Indexed Annuity",
         body: "Asset protection against market volatility with growth potential from market gains.",
         links: [
-          { label: "Harbourview",                  href: "#fia-harbourview" },
+          { label: "Harbourview FIA",               href: "#fia-harbourview", desc: "Balanced growth potential with principal protection and multiple crediting strategies." },
           { label: "S&P 500 Crediting Strategy",   href: "#sp500"          },
           { label: "Nasdaq-100 Crediting Strategy",href: "#nasdaq"         },
           { label: "Russell 2000 Crediting Strategy",href:"#russell"       },
@@ -77,17 +77,6 @@ const NAV_DROPDOWNS = {
       { label: "Retirement Risk Series", href: "#retirement-risk" },
       { label: "Life Events Series",     href: "#life-events"     },
       { label: "White Papers",           href: "#white-papers"    },
-    ],
-  },
-  Professionals: {
-    type: "simple",
-    dropAlign: "right",
-    links: [
-      { label: "For Professionals",  href: "#professionals", desc: "Sales tools, agent portal, and advisor resources." },
-      { label: "LPL Financial",      href: "#lpl-landing",   desc: "Dedicated resources and products for LPL advisors." },
-      { label: "Cetera",             href: "#cetera-landing",desc: "Dedicated resources and products for Cetera advisors." },
-      { label: "Sales Tools",        href: "#sales-tools",   desc: "FIA & MYGA materials and client-ready collateral." },
-      { label: "Agent FAQs",         href: "#agent-faqs",    desc: "Common questions on contracting and new business." },
     ],
   },
 };
@@ -593,8 +582,8 @@ export function Logo({ dark = false }) {
 }
 
 // ─── HEADER ───────────────────────────────────────────────────────────────────
-const NAV_ITEMS = ["About", "Products", "Client Resources", "Insights", "Blog", "Professionals"];
-const AUD_ITEMS = ["Individuals"];
+const NAV_ITEMS = ["About", "Products", "Client Resources", "Insights", "Blog"];
+const AUD_ITEMS = ["Individuals", "Professionals"];
 
 export default function Header({ active = "Home", onNav }) {
   const [mobileOpen, setMobileOpen] = useState(false);

@@ -23,6 +23,7 @@ import ContactPage from './ContactPage.jsx'
 import LPLLandingPage from './LPLLandingPage.jsx'
 import CeteraLandingPage from './CeteraLandingPage.jsx'
 import BlogPage from './BlogPage.jsx'
+import HarbourviewFIAPage from './HarbourviewFIAPage.jsx'
 
 const STUB_ROUTES = {
   // Top-level nav
@@ -35,8 +36,7 @@ const STUB_ROUTES = {
   // Products — MYGA
   "harbourview":      { title: "Harbourview MYGA",                eyebrow: "Multi-Year Guaranteed Annuity" },
   "sky-harbourview":  { title: "Sky Harbourview MYGA",            eyebrow: "Multi-Year Guaranteed Annuity" },
-  // Products — FIA
-  "fia-harbourview":  { title: "Harbourview FIA",                 eyebrow: "Fixed Indexed Annuity"       },
+  // Products — FIA (fia-harbourview now has a real page, handled in switch below)
   "sp500":            { title: "S&P 500 Crediting Strategy",      eyebrow: "Fixed Indexed Annuity"       },
   "nasdaq":           { title: "Nasdaq-100 Crediting Strategy",   eyebrow: "Fixed Indexed Annuity"       },
   "russell":          { title: "Russell 2000 Crediting Strategy", eyebrow: "Fixed Indexed Annuity"       },
@@ -70,7 +70,7 @@ const ROUTE_TO_NAV = {
 const PAGE_ROUTES = new Set([
   "", "home", "products", "about", "client-resources", "insights", "faq",
   "blog", "leadership", "professionals", "sales-tools", "agent-faqs",
-  "contact", "lpl-landing", "cetera-landing",
+  "contact", "lpl-landing", "cetera-landing", "fia-harbourview",
   ...Object.keys(STUB_ROUTES),
 ]);
 
@@ -123,6 +123,7 @@ export default function Page() {
     }
     switch (route) {
       case "products":          return <ProductsPage />;
+      case "fia-harbourview":   return <HarbourviewFIAPage />;
       case "about":             return <CompanyPage />;
       case "client-resources":  return <ClientResourcesPage />;
       case "insights":          return <InsightsPage />;

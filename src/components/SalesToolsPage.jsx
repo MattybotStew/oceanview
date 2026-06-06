@@ -43,7 +43,7 @@ function ResourceCard({ icon: Icon, tag, title, body, dark }) {
       boxSizing: 'border-box',
       transition: 'transform .18s ease, box-shadow .18s ease',
     }} className="ov-tool-card">
-      <div style={{ width: 40, height: 40, borderRadius: 9, background: 'var(--ov-surface-tint)', border: '1px solid rgba(36,148,193,.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+      <div style={{ width: 44, height: 44, borderRadius: 10, background: 'var(--ov-surface-tint)', border: '1px solid rgba(36,148,193,.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
         <Icon size={18} color="#2494C1" strokeWidth={1.75} />
       </div>
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 6 }}>

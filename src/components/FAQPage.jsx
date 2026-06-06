@@ -1,6 +1,7 @@
 // FAQPage.jsx — FAQ page with hero + accordion list
 import { useState } from 'react'
 import PageHero from './PageHero.jsx'
+import CTABanner from './CTABanner.jsx'
 
 const faqStyles = {
   body:    { background: "var(--ov-bg)", padding: "80px 0 32px" },
@@ -51,6 +52,19 @@ export default function FAQPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="ov-section" style={{ background: '#fff' }}>
+        <div className="ov-container">
+          <CTABanner
+            eyebrow="Still Have Questions?"
+            title="Talk to our"
+            titleAccent="team directly."
+            body="Our client services and sales teams are available to answer any questions about our products, rates, or the application process."
+            cta="Contact Us"
+            onClick={() => { window.location.hash = 'contact'; }}
+          />
         </div>
       </section>
     </main>
