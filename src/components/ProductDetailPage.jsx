@@ -36,9 +36,9 @@ function SectionHead({ eyebrow, heading, sub }) {
   )
 }
 
-function CheckItem({ title, body, last }) {
+function CheckItem({ title, body, first }) {
   return (
-    <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start', padding: '16px 0', borderTop: last ? 'none' : '1px solid rgba(13,31,78,.07)', borderBottom: '1px solid rgba(13,31,78,.07)' }}>
+    <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start', padding: '14px 0', borderTop: first ? 'none' : '1px solid rgba(13,31,78,.07)' }}>
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ flexShrink: 0, marginTop: 1 }}>
         <circle cx="7" cy="7" r="6.5" stroke="#2494C1" strokeOpacity="0.35"/>
         <path d="M4.5 7L6.5 9L9.5 5" stroke="#2494C1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -79,6 +79,35 @@ function StrategyRow({ name, term, last }) {
   )
 }
 
+function SurrenderScheduleTable({ terms, rows }) {
+  const colW = 110
+  return (
+    <div style={{ ...S.card, overflow: 'hidden' }}>
+      {/* Header row */}
+      <div style={{ display: 'grid', gridTemplateColumns: `60px ${terms.map(() => `${colW}px`).join(' ')}`, background: 'var(--ov-navy-1000)', padding: '0 24px' }}>
+        <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '1px', textTransform: 'uppercase', color: 'rgba(242,252,255,.45)', padding: '14px 0' }}>Year</div>
+        {terms.map(t => (
+          <div key={t} style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '1px', textTransform: 'uppercase', color: 'rgba(242,252,255,.75)', padding: '14px 0', textAlign: 'center' }}>{t}</div>
+        ))}
+      </div>
+      {/* Data rows */}
+      {rows.map((row, ri) => (
+        <div key={row.year} style={{ display: 'grid', gridTemplateColumns: `60px ${terms.map(() => `${colW}px`).join(' ')}`, padding: '0 24px', borderTop: ri === 0 ? 'none' : '1px solid rgba(13,31,78,.07)', background: ri % 2 === 0 ? '#fff' : 'rgba(13,31,78,.015)' }}>
+          <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#6B7280', padding: '13px 0', display: 'flex', alignItems: 'center' }}>{row.year}</div>
+          {row.charges.map((c, ci) => (
+            <div key={ci} style={{ padding: '13px 0', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {c
+                ? <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 14, color: '#0D1F4E', background: 'rgba(36,148,193,.08)', borderRadius: 6, padding: '4px 12px' }}>{c}</span>
+                : <span style={{ color: 'rgba(13,31,78,.18)', fontSize: 16, lineHeight: 1 }}>—</span>
+              }
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 function DefinitionItem({ title, body, last }) {
   return (
     <div style={{ padding: '16px 0', borderBottom: last ? 'none' : '1px solid rgba(13,31,78,.07)' }}>
@@ -90,7 +119,7 @@ function DefinitionItem({ title, body, last }) {
 
 function DownloadRow({ title, sub }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24, padding: '20px 24px', background: '#fff', border: '1px solid rgba(13,31,78,.09)', borderRadius: 10, marginTop: 16 }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24, padding: '20px 24px', background: '#F0F9FC', border: '1px solid rgba(13,31,78,.09)', borderRadius: 10, marginTop: 16 }}>
       <div>
         <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 14, color: '#0D1F4E', marginBottom: 3 }}>{title}</div>
         {sub && <div style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 12, color: '#6B7280' }}>{sub}</div>}
@@ -111,6 +140,7 @@ const NAV_SECTIONS = [
   { id: 'contract-provides',   label: 'What your contract provides' },
   { id: 'crediting-strategies',label: 'Choose your growth approach' },
   { id: 'key-terms',           label: 'Key terms and specifications' },
+  { id: 'surrender-schedule',  label: 'Surrender charge schedule' },
   { id: 'riders',              label: 'Built-in benefit provisions' },
   { id: 'surrender-options',   label: 'End of surrender charge period' },
   { id: 'income-options',      label: 'Income payment options' },
@@ -118,8 +148,8 @@ const NAV_SECTIONS = [
 
 function Sidebar({ active, onNav }) {
   return (
-    <aside style={{ width: 300, flexShrink: 0 }}>
-      <div style={{ position: 'sticky', top: 'calc(var(--ov-header-h, 72px) + 24px)', display: 'flex', flexDirection: 'column', gap: 0 }}>
+    <aside style={{ width: 300, flexShrink: 0, position: 'sticky', top: 'calc(var(--ov-header-h, 72px) + 24px)', alignSelf: 'flex-start' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
         <nav style={{ marginBottom: 24 }}>
           {NAV_SECTIONS.map(s => {
             const isActive = active === s.id
@@ -129,11 +159,11 @@ function Sidebar({ active, onNav }) {
                 onClick={() => onNav(s.id)}
                 style={{
                   display: 'block', width: '100%', textAlign: 'left',
-                  background: isActive ? 'rgba(36,148,193,.07)' : 'none',
-                  border: 'none', borderLeft: `2px solid ${isActive ? '#2494C1' : 'rgba(13,31,78,.10)'}`,
-                  padding: '12px 16px', cursor: 'pointer',
+                  background: isActive ? 'rgba(36,148,193,.08)' : 'none',
+                  border: 'none', borderLeft: `3px solid ${isActive ? '#2494C1' : 'rgba(13,31,78,.10)'}`,
+                  padding: '11px 16px', cursor: 'pointer',
                   fontFamily: 'var(--ov-ff-sans)', fontWeight: isActive ? 600 : 400,
-                  fontSize: 13, color: isActive ? '#2494C1' : '#4A5568',
+                  fontSize: 13, color: isActive ? '#0D1F4E' : '#6B7280',
                   lineHeight: 1.45, transition: 'all .15s ease',
                 }}
               >
@@ -155,7 +185,7 @@ function Sidebar({ active, onNav }) {
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 export default function ProductDetailPage({ product }) {
-  const [activeTab, setActiveTab]       = useState(0)
+  const [activeTab, setActiveTab]         = useState(0)
   const [activeSection, setActiveSection] = useState('contract-provides')
 
   useEffect(() => {
@@ -178,13 +208,13 @@ export default function ProductDetailPage({ product }) {
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const { stats, contractProvides, creditingStrategies, keyTerms, riders, surrenderOptions, incomeOptions, cta } = product
+  const { stats, contractProvides, creditingStrategies, keyTerms, surrenderSchedule, riders, surrenderOptions, incomeOptions, cta } = product
 
   return (
     <main>
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <div className="ov-hero-wrapper" style={{ marginBottom: 0 }}>
+      <div className="ov-hero-wrapper" style={{ marginBottom: 40 }}>
         <section style={{ paddingTop: 20, paddingBottom: 0 }}>
           <div className="ov-hero-card" style={{ background: 'var(--ov-navy-1000)' }}>
             <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${product.image})`, backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }} />
@@ -192,8 +222,8 @@ export default function ProductDetailPage({ product }) {
             <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(assets/Noise.png)', backgroundRepeat: 'repeat', backgroundSize: '200px', opacity: 0.6, pointerEvents: 'none', zIndex: 2 }} />
             <HeroShaper />
             <div className="ov-hero-content" style={{ zIndex: 3 }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,.12)', border: '1px solid rgba(255,255,255,.22)', borderRadius: 200, padding: '6px 14px', backdropFilter: 'blur(4px)', marginBottom: 4 }}>
-                <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#F2FCFF' }}>{product.category}</span>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,.12)', border: '1px solid rgba(255,255,255,.22)', borderRadius: 200, padding: '5px 12px', backdropFilter: 'blur(4px)', marginBottom: 4, alignSelf: 'flex-start' }}>
+                <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#F2FCFF', whiteSpace: 'nowrap' }}>{product.categoryShort || product.category}</span>
               </div>
               <h1 className="ov-hero-title" style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(28px,5.5vw,64px)', color: '#F2FCFF', letterSpacing: '-0.03em', lineHeight: 1.05, margin: 0 }}>
                 {product.name}
@@ -201,21 +231,32 @@ export default function ProductDetailPage({ product }) {
               <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 'clamp(14px,1.4vw,17px)', color: 'rgba(242,252,255,.72)', lineHeight: 1.65, margin: 0, maxWidth: '52ch' }}>
                 {product.tagline}
               </p>
-              <PillMint hero onClick={() => scrollTo('crediting-strategies')}>{product.heroCtaLabel || 'Explore Strategies'}</PillMint>
+              <PillMint hero onClick={() => scrollTo('crediting-strategies')} style={{ alignSelf: 'flex-start' }}>{product.heroCtaLabel || 'Explore Strategies'}</PillMint>
             </div>
           </div>
         </section>
       </div>
 
-      {/* ── Stats bar ─────────────────────────────────────────────────────── */}
-      <div style={{ background: '#fff', borderBottom: '1px solid rgba(13,31,78,.08)' }}>
+      {/* ── Stats bar ─────────────────────────────────────────────────── */}
+      <div style={{ background: '#fff', padding: '12px 0' }}>
         <div className="ov-container">
-          <div style={{ display: 'flex', padding: '28px 0' }} className="pdt-stats-row">
+          <div style={{ background: 'var(--ov-navy-1000)', borderRadius: 16, padding: '0 32px', display: 'flex' }} className="pdt-stats-row">
             {stats.map((s, i) => (
-              <div key={s.label} style={{ flex: 1, paddingLeft: i > 0 ? 32 : 0, borderLeft: i > 0 ? '1px solid rgba(13,31,78,.10)' : 'none', marginLeft: i > 0 ? 32 : 0 }}>
-                <div style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(20px,2.2vw,30px)', color: '#0D1F4E', letterSpacing: '-0.02em', lineHeight: 1 }}>{s.value}</div>
-                <div style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 11, fontWeight: 600, letterSpacing: '0.8px', textTransform: 'uppercase', color: '#6B7280', marginTop: 6 }}>{s.label}</div>
-              </div>
+              <button
+                key={s.label}
+                onClick={() => s.sectionId && scrollTo(s.sectionId)}
+                style={{
+                  flex: 1, padding: '18px 0', paddingLeft: i > 0 ? 28 : 0,
+                  borderLeft: i > 0 ? '1px solid rgba(255,255,255,.08)' : 'none',
+                  marginLeft: i > 0 ? 28 : 0,
+                  background: 'none', border: 'none',
+                  cursor: s.sectionId ? 'pointer' : 'default',
+                  textAlign: 'left',
+                }}
+              >
+                <div style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 800, fontSize: 'clamp(16px,1.8vw,24px)', color: '#70BABF', letterSpacing: '-0.02em', lineHeight: 1 }}>{s.value}</div>
+                <div style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 10, fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', color: 'rgba(242,252,255,.55)', marginTop: 5 }}>{s.label}</div>
+              </button>
             ))}
           </div>
         </div>
@@ -231,15 +272,13 @@ export default function ProductDetailPage({ product }) {
             <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 72 }}>
 
               {/* 1 — What your contract provides */}
-              <section id="pdt-contract-provides" style={{ scrollMarginTop: 100 }}>
+              <section id="pdt-contract-provides" style={{ scrollMarginTop: 160 }}>
                 <SectionHead {...contractProvides} />
                 <div style={{ ...S.card }}>
-                  <div style={{ ...S.cardInner, paddingBottom: 0 }}>
-                    <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#2494C1', marginBottom: 4 }}>Key Features</div>
-                  </div>
-                  <div style={{ padding: '0 28px 8px' }}>
+                  <div style={{ ...S.cardInner, paddingBottom: 8 }}>
+                    <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#2494C1', marginBottom: 12 }}>Key Features</div>
                     {contractProvides.items.map((item, i) => (
-                      <CheckItem key={item.title} {...item} last={i === contractProvides.items.length - 1} />
+                      <CheckItem key={item.title} {...item} first={i === 0} />
                     ))}
                   </div>
                 </div>
@@ -247,7 +286,7 @@ export default function ProductDetailPage({ product }) {
               </section>
 
               {/* 2 — Choose your growth approach */}
-              <section id="pdt-crediting-strategies" style={{ scrollMarginTop: 100 }}>
+              <section id="pdt-crediting-strategies" style={{ scrollMarginTop: 160 }}>
                 <SectionHead {...creditingStrategies} />
 
                 {/* Index tabs */}
@@ -274,7 +313,7 @@ export default function ProductDetailPage({ product }) {
               </section>
 
               {/* 3 — Key terms */}
-              <section id="pdt-key-terms" style={{ scrollMarginTop: 100 }}>
+              <section id="pdt-key-terms" style={{ scrollMarginTop: 160 }}>
                 <SectionHead {...keyTerms} />
                 <div style={S.card}>
                   <div style={{ padding: '8px 28px' }}>
@@ -286,8 +325,17 @@ export default function ProductDetailPage({ product }) {
                 {keyTerms.download && <DownloadRow {...keyTerms.download} />}
               </section>
 
-              {/* 4 — Riders */}
-              <section id="pdt-riders" style={{ scrollMarginTop: 100 }}>
+              {/* 4 — Surrender charge schedule */}
+              {surrenderSchedule && (
+                <section id="pdt-surrender-schedule" style={{ scrollMarginTop: 160 }}>
+                  <SectionHead {...surrenderSchedule} />
+                  <SurrenderScheduleTable terms={surrenderSchedule.terms} rows={surrenderSchedule.rows} />
+                  {surrenderSchedule.footnote && <p style={S.footnote}>{surrenderSchedule.footnote}</p>}
+                </section>
+              )}
+
+              {/* 5 — Riders */}
+              <section id="pdt-riders" style={{ scrollMarginTop: 160 }}>
                 <SectionHead {...riders} />
                 <div style={S.card}>
                   <div style={{ padding: '8px 28px' }}>
@@ -299,8 +347,8 @@ export default function ProductDetailPage({ product }) {
                 {riders.footnote && <p style={S.footnote}>{riders.footnote}</p>}
               </section>
 
-              {/* 5 — Surrender options */}
-              <section id="pdt-surrender-options" style={{ scrollMarginTop: 100 }}>
+              {/* 6 — Surrender options */}
+              <section id="pdt-surrender-options" style={{ scrollMarginTop: 160 }}>
                 <SectionHead {...surrenderOptions} />
                 <div style={S.card}>
                   <div style={{ padding: '8px 28px' }}>
@@ -312,8 +360,8 @@ export default function ProductDetailPage({ product }) {
                 {surrenderOptions.footnote && <p style={S.footnote}>{surrenderOptions.footnote}</p>}
               </section>
 
-              {/* 6 — Income options */}
-              <section id="pdt-income-options" style={{ scrollMarginTop: 100 }}>
+              {/* 7 — Income options */}
+              <section id="pdt-income-options" style={{ scrollMarginTop: 160 }}>
                 <SectionHead {...incomeOptions} />
                 <div style={S.card}>
                   <div style={{ padding: '8px 28px' }}>

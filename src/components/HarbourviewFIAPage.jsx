@@ -2,16 +2,17 @@ import ProductDetailPage from './ProductDetailPage.jsx'
 
 const PRODUCT = {
   category: "Fixed Indexed Annuity",
+  categoryShort: "Fixed Indexed",
   name: "Harbourview Fixed Indexed Annuity",
   tagline: "Balanced growth potential linked to market indexes, with 100% principal protection against market downturns. Multiple crediting strategies designed for long-term accumulation.",
   image: "assets/hero-beach-couple.jpg",
-  heroCtaLabel: "Explore Crediting Strategies",
+  heroCtaLabel: "View Strategies",
 
   stats: [
-    { value: "$20K",        label: "Min. Premium" },
-    { value: "4",           label: "Index Strategies" },
-    { value: "10%",         label: "Free Withdrawal/Yr" },
-    { value: "3–10",        label: "Term Options (Yrs)" },
+    { value: "$20K",          label: "Min. Premium",        sectionId: 'key-terms' },
+    { value: "4",             label: "Index Strategies",    sectionId: 'crediting-strategies' },
+    { value: "10%",           label: "Free Withdrawal/Yr",  sectionId: 'key-terms' },
+    { value: "3–10",          label: "Term Options (Yrs)",  sectionId: 'key-terms' },
     { value: "A (Excellent)", label: "A.M. Best Rating" },
   ],
 
@@ -87,6 +88,26 @@ const PRODUCT = {
       { label: "Market Value Adjustment",  value: "A positive or negative adjustment based on the interest rate environment at time of withdrawal. Applies to withdrawals exceeding the 10% free withdrawal before end of the initial guarantee period. Does not apply to death benefit, 10% free withdrawals, or annuitization." },
     ],
     download: { title: "Download Full Spec Sheet", sub: "Complete contract specifications and state availability" },
+  },
+
+  surrenderSchedule: {
+    eyebrow: "Surrender Charges",
+    heading: "Surrender charge schedule",
+    sub: "Surrender charges apply to withdrawals exceeding the annual 10% free withdrawal allowance. Charges decrease each year and end at the close of the selected term.",
+    terms: ["3-Year", "5-Year", "7-Year", "10-Year"],
+    rows: [
+      { year: 1,  charges: ["8%",  "9%",  "9%",  "10%"] },
+      { year: 2,  charges: ["7%",  "8%",  "8%",  "9%"]  },
+      { year: 3,  charges: ["6%",  "7%",  "7%",  "8%"]  },
+      { year: 4,  charges: [null,  "6%",  "6%",  "7%"]  },
+      { year: 5,  charges: [null,  "5%",  "5%",  "6%"]  },
+      { year: 6,  charges: [null,  null,  "4%",  "5%"]  },
+      { year: 7,  charges: [null,  null,  "3%",  "4%"]  },
+      { year: 8,  charges: [null,  null,  null,  "3%"]  },
+      { year: 9,  charges: [null,  null,  null,  "2%"]  },
+      { year: 10, charges: [null,  null,  null,  "1%"]  },
+    ],
+    footnote: "*Surrender charges apply to amounts withdrawn beyond the 10% free withdrawal allowance. A Market Value Adjustment (MVA) may also apply to excess withdrawals.",
   },
 
   riders: {
