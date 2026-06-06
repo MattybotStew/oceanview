@@ -281,9 +281,11 @@ function SimpleLink({ link, onClose }) {
   return (
     <a href={link.href} onClick={onClose} style={{
       display: "flex", alignItems: "center", justifyContent: "space-between",
+      gap: 32,
       fontFamily: "var(--ov-ff-sans)", fontWeight: 500, fontSize: 15,
       color: hov ? "#1976A0" : "#1A3070", lineHeight: "21px",
       textDecoration: "none", cursor: "pointer",
+      whiteSpace: "nowrap",
       transition: "color 0.2s ease",
     }}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
@@ -368,8 +370,8 @@ function SimpleDropdown({ config, onClose, onEscape }) {
   };
 
   return (
-    <div style={{ ...S.dropPanel, minWidth: 420 }} onKeyDown={handleKeyDown} tabIndex={-1}>
-      <div style={{ padding: 30, display: "flex", flexDirection: "column", gap: 24, width: "100%" }}>
+    <div style={{ ...S.dropPanel }} onKeyDown={handleKeyDown} tabIndex={-1}>
+      <div style={{ padding: 30, display: "flex", flexDirection: "column", gap: 24 }}>
         {config.links.map((link, i) => (
           <Fragment key={link.label}>
             {i > 0 && <div style={S.divider}/>}
