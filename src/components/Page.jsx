@@ -24,6 +24,9 @@ import LPLLandingPage from './LPLLandingPage.jsx'
 import CeteraLandingPage from './CeteraLandingPage.jsx'
 import BlogPage from './BlogPage.jsx'
 import HarbourviewFIAPage from './HarbourviewFIAPage.jsx'
+import HarbourviewMYGAPage from './HarbourviewMYGAPage.jsx'
+import SkyHarbourviewMYGAPage from './SkyHarbourviewMYGAPage.jsx'
+import CapLockFIAPage from './CapLockFIAPage.jsx'
 
 const STUB_ROUTES = {
   // Top-level nav
@@ -33,15 +36,11 @@ const STUB_ROUTES = {
   "board":            { title: "Board of Directors",              eyebrow: "Governance"                  },
   "newsroom":         { title: "Newsroom",                        eyebrow: "Latest Updates"              },
   "careers":          { title: "Careers",                         eyebrow: "Join Us"                     },
-  // Products — MYGA
-  "harbourview":      { title: "Harbourview MYGA",                eyebrow: "Multi-Year Guaranteed Annuity" },
-  "sky-harbourview":  { title: "Sky Harbourview MYGA",            eyebrow: "Multi-Year Guaranteed Annuity" },
-  // Products — FIA (fia-harbourview now has a real page, handled in switch below)
+  // Products — FIA (fia-harbourview, harbourview-myga, sky-harbourview, caplock have real pages)
   "sp500":            { title: "S&P 500 Crediting Strategy",      eyebrow: "Fixed Indexed Annuity"       },
   "nasdaq":           { title: "Nasdaq-100 Crediting Strategy",   eyebrow: "Fixed Indexed Annuity"       },
   "russell":          { title: "Russell 2000 Crediting Strategy", eyebrow: "Fixed Indexed Annuity"       },
   "fixed-interest":   { title: "Fixed Interest Strategy",         eyebrow: "Fixed Indexed Annuity"       },
-  "caplock":          { title: "Oceanview CapLock",               eyebrow: "Fixed Indexed Annuity"       },
   // Client Resources sub-pages
   "case-studies":     { title: "Case Studies",                    eyebrow: "Client Resources"            },
   "downloads":        { title: "Downloads",                       eyebrow: "Client Resources"            },
@@ -70,7 +69,8 @@ const ROUTE_TO_NAV = {
 const PAGE_ROUTES = new Set([
   "", "home", "products", "about", "client-resources", "insights", "faq",
   "blog", "leadership", "professionals", "sales-tools", "agent-faqs",
-  "contact", "lpl-landing", "cetera-landing", "fia-harbourview",
+  "contact", "lpl-landing", "cetera-landing",
+  "fia-harbourview", "harbourview", "sky-harbourview", "caplock",
   ...Object.keys(STUB_ROUTES),
 ]);
 
@@ -124,6 +124,9 @@ export default function Page() {
     switch (route) {
       case "products":          return <ProductsPage />;
       case "fia-harbourview":   return <HarbourviewFIAPage />;
+      case "harbourview":       return <HarbourviewMYGAPage />;
+      case "sky-harbourview":   return <SkyHarbourviewMYGAPage />;
+      case "caplock":           return <CapLockFIAPage />;
       case "about":             return <CompanyPage />;
       case "client-resources":  return <ClientResourcesPage />;
       case "insights":          return <InsightsPage />;

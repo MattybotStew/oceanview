@@ -62,10 +62,11 @@ function TermRow({ label, value, first }) {
 
 function StrategyRow({ name, term, last }) {
   const termColors = {
-    '1-Year Term':   { bg: 'rgba(36,148,193,.08)',  color: '#1A7FAA' },
-    '2-Year Term':   { bg: 'rgba(36,148,193,.08)',  color: '#1A7FAA' },
-    'Risk-Controlled':{ bg: 'rgba(112,186,191,.15)', color: '#1A8B8F' },
-    'Annual':        { bg: 'rgba(36,148,193,.08)',  color: '#1A7FAA' },
+    '1-Year Term':    { bg: 'rgba(36,148,193,.08)',   color: '#1A7FAA' },
+    '2-Year Term':    { bg: 'rgba(36,148,193,.08)',   color: '#1A7FAA' },
+    'Risk-Controlled':{ bg: 'rgba(112,186,191,.15)',  color: '#1A8B8F' },
+    'Annual':         { bg: 'rgba(36,148,193,.08)',   color: '#1A7FAA' },
+    'Guaranteed Cap': { bg: 'rgba(225,196,59,.15)',   color: '#8B6F00' },
   }
   const tc = termColors[term] || { bg: 'rgba(13,31,78,.06)', color: '#4A5568' }
   return (
@@ -135,23 +136,55 @@ function DownloadRow({ title, sub }) {
   )
 }
 
+// ── Rate Guarantee (MYGA) ─────────────────────────────────────────────────────
+function RateGuaranteeSection({ rateGuarantee }) {
+  return (
+    <>
+      <SectionHead {...rateGuarantee} />
+      <div style={{ ...S.card }}>
+        <div style={{ ...S.cardInner }}>
+          {rateGuarantee.points.map((pt, i) => (
+            <div key={i} style={{ display: 'flex', gap: 14, alignItems: 'flex-start', padding: '12px 0', borderTop: i === 0 ? 'none' : '1px solid rgba(13,31,78,.07)' }}>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ flexShrink: 0, marginTop: 2 }}>
+                <circle cx="7" cy="7" r="6.5" stroke="#2494C1" strokeOpacity="0.35"/>
+                <path d="M4.5 7L6.5 9L9.5 5" stroke="#2494C1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <p style={{ ...S.itemBody, margin: 0 }}>{pt}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      {rateGuarantee.rateNote && (
+        <div style={{ marginTop: 16, padding: '16px 20px', background: 'rgba(36,148,193,.06)', border: '1px solid rgba(36,148,193,.15)', borderRadius: 10, display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 1 }}>
+            <circle cx="8" cy="8" r="7" stroke="#2494C1" strokeOpacity="0.5"/>
+            <path d="M8 5v4M8 11v.5" stroke="#2494C1" strokeWidth="1.5" strokeLinecap="round"/>
+          </svg>
+          <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: '#1A7FAA', lineHeight: 1.6, margin: 0 }}>{rateGuarantee.rateNote}</p>
+        </div>
+      )}
+    </>
+  )
+}
+
 // ── Sidebar ───────────────────────────────────────────────────────────────────
-const NAV_SECTIONS = [
-  { id: 'contract-provides',   label: 'What your contract provides' },
-  { id: 'crediting-strategies',label: 'Choose your growth approach' },
-  { id: 'key-terms',           label: 'Key terms and specifications' },
-  { id: 'surrender-schedule',  label: 'Surrender charge schedule' },
-  { id: 'riders',              label: 'Built-in benefit provisions' },
-  { id: 'surrender-options',   label: 'End of surrender charge period' },
-  { id: 'income-options',      label: 'Income payment options' },
+const ALL_NAV_SECTIONS = [
+  { id: 'contract-provides',   label: 'What your contract provides', key: 'contractProvides'    },
+  { id: 'rate-guarantee',      label: 'Guaranteed rate details',     key: 'rateGuarantee'       },
+  { id: 'crediting-strategies',label: 'Choose your growth approach', key: 'creditingStrategies' },
+  { id: 'key-terms',           label: 'Key terms and specifications', key: 'keyTerms'            },
+  { id: 'surrender-schedule',  label: 'Surrender charge schedule',   key: 'surrenderSchedule'   },
+  { id: 'riders',              label: 'Built-in benefit provisions',  key: 'riders'              },
+  { id: 'surrender-options',   label: 'End of surrender charge period', key: 'surrenderOptions' },
+  { id: 'income-options',      label: 'Income payment options',       key: 'incomeOptions'       },
 ]
 
-function Sidebar({ active, onNav }) {
+function Sidebar({ navSections, active, onNav }) {
   return (
     <aside style={{ width: 300, flexShrink: 0, position: 'sticky', top: 'calc(var(--ov-header-h, 72px) + 24px)', alignSelf: 'flex-start' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
         <nav style={{ marginBottom: 24 }}>
-          {NAV_SECTIONS.map(s => {
+          {navSections.map(s => {
             const isActive = active === s.id
             return (
               <button
@@ -185,11 +218,13 @@ function Sidebar({ active, onNav }) {
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 export default function ProductDetailPage({ product }) {
+  const navSections = ALL_NAV_SECTIONS.filter(s => !!product[s.key])
+
   const [activeTab, setActiveTab]         = useState(0)
   const [activeSection, setActiveSection] = useState('contract-provides')
 
   useEffect(() => {
-    const ids = NAV_SECTIONS.map(s => s.id)
+    const ids = navSections.map(s => s.id)
     const observers = ids.map(id => {
       const el = document.getElementById(`pdt-${id}`)
       if (!el) return null
@@ -208,7 +243,7 @@ export default function ProductDetailPage({ product }) {
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const { stats, contractProvides, creditingStrategies, keyTerms, surrenderSchedule, riders, surrenderOptions, incomeOptions, cta } = product
+  const { stats, contractProvides, rateGuarantee, creditingStrategies, keyTerms, surrenderSchedule, riders, surrenderOptions, incomeOptions, cta } = product
 
   return (
     <main>
@@ -267,7 +302,7 @@ export default function ProductDetailPage({ product }) {
         <div className="ov-container">
           <div style={{ display: 'flex', gap: 64, alignItems: 'flex-start' }} className="pdt-layout">
 
-            <Sidebar active={activeSection} onNav={scrollTo} />
+            <Sidebar navSections={navSections} active={activeSection} onNav={scrollTo} />
 
             <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 72 }}>
 
@@ -285,8 +320,15 @@ export default function ProductDetailPage({ product }) {
                 {contractProvides.download && <DownloadRow {...contractProvides.download} />}
               </section>
 
-              {/* 2 — Choose your growth approach */}
-              <section id="pdt-crediting-strategies" style={{ scrollMarginTop: 160 }}>
+              {/* 2 — Guaranteed rate (MYGAs) */}
+              {rateGuarantee && (
+                <section id="pdt-rate-guarantee" style={{ scrollMarginTop: 160 }}>
+                  <RateGuaranteeSection rateGuarantee={rateGuarantee} />
+                </section>
+              )}
+
+              {/* 3 — Choose your growth approach (FIAs) */}
+              {creditingStrategies && <section id="pdt-crediting-strategies" style={{ scrollMarginTop: 160 }}>
                 <SectionHead {...creditingStrategies} />
 
                 {/* Index tabs */}
@@ -310,9 +352,9 @@ export default function ProductDetailPage({ product }) {
                     <StrategyRow key={s.name} {...s} last={i === creditingStrategies.tabs[activeTab].strategies.length - 1} />
                   ))}
                 </div>
-              </section>
+              </section>}
 
-              {/* 3 — Key terms */}
+              {/* 4 — Key terms */}
               <section id="pdt-key-terms" style={{ scrollMarginTop: 160 }}>
                 <SectionHead {...keyTerms} />
                 <div style={S.card}>
