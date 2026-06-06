@@ -23,7 +23,7 @@ const NAV_DROPDOWNS = {
   About: {
     type: "tabbed",
     tabs: [
-      { label: "Our Story",          eyebrow: "SINCE 1987",       heading: "A legacy built on trust",       body: "Founded with a simple mission — make retirement planning accessible and clear for every American family.", tags: ["30+ Years","A-Rated","Family-Owned"], cta: { label: "Read our story",  href: "#our-story"  } },
+      { label: "Our Story",          eyebrow: "SINCE 1987",       heading: "A legacy built on trust",       body: "Founded with a simple mission — make retirement planning accessible and clear for every American family.", tags: ["Since 1987","A-Rated","Family-Owned"], cta: { label: "Read our story",  href: "#our-story"  } },
       { label: "Leadership",          eyebrow: "OUR PEOPLE",       heading: "Experienced leadership",        body: "Our executive team brings decades of insurance and financial services expertise to guide Oceanview's vision.", cta: { label: "Meet the team",   href: "#leadership" } },
       { label: "Board of Directors",  eyebrow: "GOVERNANCE",       heading: "Independent oversight",         body: "Deep expertise in finance, risk management, and regulatory compliance ensures sound decision-making at every level.", cta: { label: "View the board",  href: "#board"      } },
       { label: "Newsroom",            eyebrow: "LATEST UPDATES",   heading: "News & announcements",          body: "Press releases, media coverage, and company milestones — all in one place.", cta: { label: "Visit newsroom",  href: "#newsroom"   } },
