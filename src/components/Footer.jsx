@@ -85,10 +85,34 @@ const footerStyles = {
 export default function Footer() {
   const [submitted, setSubmitted] = useState(false);
   const cols = [
-    ["Products",   ["Harbourview MYGA", "Horizon MYGA", "Current Rate Fixed Annuity", "Harbourview FIA", "CapLock", "Topsider"]],
-    ["Company",    ["Our Story", "Leadership", "Board of Directors", "Newsroom","Careers"]],
-    ["Client Resources",  ["Case Studies", "Downloads", "Glossary", "Rates", "How Oceanview MYGAs Compare"]],
-    ["Insights",   ["Retirement Risk Series", "Life Events Series", "White Papers", "Contact"]],
+    ["Products", [
+      { label: "Harbourview MYGA",           href: "#harbourview-myga"     },
+      { label: "Horizon MYGA",               href: "#horizon-myga"         },
+      { label: "Current Rate Fixed Annuity", href: "#current-rate-fia"     },
+      { label: "Harbourview FIA",            href: "#harbourview-fia"       },
+      { label: "CapLock",                    href: "#caplock"               },
+      { label: "Topsider",                   href: "#topsider"              },
+    ]],
+    ["Company", [
+      { label: "Our Story",          href: "#our-story"    },
+      { label: "Leadership",         href: "#leadership"   },
+      { label: "Board of Directors", href: "#board"        },
+      { label: "Newsroom",           href: "#newsroom"     },
+      { label: "Careers",            href: "#careers"      },
+    ]],
+    ["Client Resources", [
+      { label: "Case Studies",               href: "#case-studies" },
+      { label: "Downloads",                  href: "#downloads"    },
+      { label: "Glossary",                   href: "#glossary"     },
+      { label: "Rates",                      href: "#rates"        },
+      { label: "How Oceanview MYGAs Compare",href: "#compare"      },
+    ]],
+    ["Insights", [
+      { label: "Retirement Risk Series", href: "#retirement-risk" },
+      { label: "Life Events Series",     href: "#life-events"     },
+      { label: "White Papers",           href: "#white-papers"    },
+      { label: "Contact",                href: "#contact"         },
+    ]],
   ];
   return (
     <footer style={footerStyles.wrap}>
@@ -162,14 +186,14 @@ export default function Footer() {
             <div key={t}>
               <div style={footerStyles.colTitle}>{t}</div>
               <ul style={footerStyles.ul}>
-                {items.map((i) => (
-                  <li key={i}>
+                {items.map((item) => (
+                  <li key={item.label}>
                     <a
-                      href={`#${i.toLowerCase().replace(/\s+/g, '-')}`}
+                      href={item.href}
                       style={{ ...footerStyles.li, textDecoration: 'none', display: 'block' }}
                       onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
                       onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,.7)")}
-                    >{i}</a>
+                    >{item.label}</a>
                   </li>
                 ))}
               </ul>

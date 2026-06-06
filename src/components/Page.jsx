@@ -26,7 +26,10 @@ import BlogPage from './BlogPage.jsx'
 import HarbourviewFIAPage from './HarbourviewFIAPage.jsx'
 import HarbourviewMYGAPage from './HarbourviewMYGAPage.jsx'
 import SkyHarbourviewMYGAPage from './SkyHarbourviewMYGAPage.jsx'
+import HorizonMYGAPage from './HorizonMYGAPage.jsx'
+import CurrentRateFIAPage from './CurrentRateFIAPage.jsx'
 import CapLockFIAPage from './CapLockFIAPage.jsx'
+import TopsiderFIAPage from './TopsiderFIAPage.jsx'
 
 const STUB_ROUTES = {
   // Top-level nav
@@ -70,7 +73,12 @@ const PAGE_ROUTES = new Set([
   "", "home", "products", "about", "client-resources", "insights", "faq",
   "blog", "leadership", "professionals", "sales-tools", "agent-faqs",
   "contact", "lpl-landing", "cetera-landing",
-  "fia-harbourview", "harbourview", "sky-harbourview", "caplock",
+  // product pages — canonical routes
+  "harbourview-myga", "horizon-myga", "sky-harbourview-myga",
+  "current-rate-fia", "harbourview-fia",
+  "caplock", "topsider",
+  // legacy aliases kept for any existing links
+  "harbourview", "sky-harbourview", "fia-harbourview",
   ...Object.keys(STUB_ROUTES),
 ]);
 
@@ -123,10 +131,17 @@ export default function Page() {
     }
     switch (route) {
       case "products":          return <ProductsPage />;
-      case "fia-harbourview":   return <HarbourviewFIAPage />;
-      case "harbourview":       return <HarbourviewMYGAPage />;
-      case "sky-harbourview":   return <SkyHarbourviewMYGAPage />;
-      case "caplock":           return <CapLockFIAPage />;
+      // product detail pages
+      case "harbourview-myga":      return <HarbourviewMYGAPage />;
+      case "harbourview":           return <HarbourviewMYGAPage />;       // legacy alias
+      case "horizon-myga":          return <HorizonMYGAPage />;
+      case "sky-harbourview-myga":  return <SkyHarbourviewMYGAPage />;
+      case "sky-harbourview":       return <SkyHarbourviewMYGAPage />;   // legacy alias
+      case "current-rate-fia":      return <CurrentRateFIAPage />;
+      case "harbourview-fia":       return <HarbourviewFIAPage />;
+      case "fia-harbourview":       return <HarbourviewFIAPage />;       // legacy alias
+      case "caplock":               return <CapLockFIAPage />;
+      case "topsider":              return <TopsiderFIAPage />;
       case "about":             return <CompanyPage />;
       case "client-resources":  return <ClientResourcesPage />;
       case "insights":          return <InsightsPage />;

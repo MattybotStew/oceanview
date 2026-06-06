@@ -88,7 +88,7 @@ function FeatureList({ features, dark }) {
   );
 }
 
-function ProductCard({ eyebrow, heading, body, bullets, rate, rateTerm }) {
+function ProductCard({ eyebrow, heading, body, bullets, rate, rateTerm, href }) {
   return (
     <div style={PS.card}>
       <div style={PS.cardHeader}>
@@ -110,7 +110,7 @@ function ProductCard({ eyebrow, heading, body, bullets, rate, rateTerm }) {
           <div key={i} style={PS.cbItem}>{CHECK}<p style={PS.cbText}>{b}</p></div>
         ))}
       </div>
-      <TextLink style={{ marginTop: "auto", paddingTop: 8, fontSize: 13 }}>View current rates</TextLink>
+      {href && <TextLink style={{ marginTop: "auto", paddingTop: 8, fontSize: 13 }} onClick={() => { window.location.hash = href.replace('#',''); window.scrollTo({top:0,behavior:'instant'}); }}>Learn more</TextLink>}
     </div>
   );
 }
@@ -135,36 +135,42 @@ const CAT3_FEATURES = [
 
 const PRODUCTS = {
   harbourviewMYGA: {
+    href: "#harbourview-myga",
     eyebrow: "Harbourview MYGA", rate: "5.20%", rateTerm: "5-Year Guaranteed",
     heading: "Guaranteed interest with straightforward accumulation",
     body: "A fixed annuity designed for individuals seeking predictable growth through a guaranteed interest rate over a defined period — with no exposure to market volatility.",
     bullets: ["Value predictable growth with a guaranteed interest rate", "Prefer a simple, clearly defined accumulation approach", "Are seeking stability as part of a broader retirement strategy", "Want to limit exposure to market-related variability"],
   },
   horizonMYGA: {
+    href: "#horizon-myga",
     eyebrow: "Horizon MYGA", rate: "5.10%", rateTerm: "7-Year Guaranteed",
     heading: "A clear path to predictable, guaranteed growth",
     body: "Provides guaranteed interest for a set term, offering stable and predictable growth without exposure to market fluctuations — suited for those who want simplicity and certainty.",
     bullets: ["Are looking for straightforward, guaranteed growth over a set term", "Prioritize clarity and consistency in their retirement planning", "Prefer a fixed interest structure with clearly defined outcomes", "Want an easy-to-understand accumulation solution"],
   },
   currentRate: {
+    href: "#current-rate-fia",
     eyebrow: "Current Rate Fixed Annuity", rate: "4.95%", rateTerm: "3-Year Initial Rate",
     heading: "Guaranteed growth today with flexibility for the future",
     body: "Begins with a guaranteed interest rate, providing predictable growth during the initial period — with options to adjust your approach as retirement goals evolve.",
     bullets: ["Want guaranteed interest during an initial period", "May want flexibility to adjust their growth approach in the future", "Prefer starting with a fixed strategy while keeping options open", "Are planning for retirement in an evolving market environment"],
   },
   harbourviewFIA: {
+    href: "#harbourview-fia",
     eyebrow: "Harbourview FIA", rate: "9.5%", rateTerm: "S&P 500 Index Cap",
     heading: "Balanced growth potential with principal protection",
     body: "Offers the opportunity for interest credits based on the performance of a market index, while providing protection of principal from market downturns.",
     bullets: ["Are seeking growth potential linked to a market index", "Value protection of principal from market downturns", "Prefer a balanced, long-term accumulation approach", "Want multiple crediting options within a structured framework"],
   },
   capLock: {
+    href: "#caplock",
     eyebrow: "CapLock", rate: "11.0%", rateTerm: "Index Cap (Bonus)",
     heading: "Defined growth parameters with clarity and structure",
     body: "A fixed indexed annuity designed to provide index-linked interest credits within clearly defined limits — transparency around how interest may be credited.",
     bullets: ["Prefer clearly defined growth parameters", "Value transparency around how interest may be credited", "Are comfortable with structured limits in exchange for clarity", "Want a disciplined approach to indexed growth potential"],
   },
   topsider: {
+    href: "#topsider",
     eyebrow: "Topsider", rate: null, rateTerm: null,
     heading: "Upside-focused growth potential with built-in protection",
     body: "Designed to emphasize upside potential through index-linked interest crediting — for those focused on accumulation within a structured, protected framework.",
