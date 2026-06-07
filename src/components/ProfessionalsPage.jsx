@@ -56,7 +56,7 @@ const PORTALS = [
   { Icon: BookOpen,        eyebrow: 'Agent FAQs',         title: 'Frequently Asked Questions',   body: 'Answers to common questions about contracting, commissions, suitability, and new business.',           route: 'agent-faqs' },
   { Icon: Download,        eyebrow: 'Forms & Documents',  title: 'Downloads',                    body: 'Service forms, annuity packages, claims documents, and other key materials for immediate download.',   route: 'downloads' },
   { Icon: Map,             eyebrow: 'Product Availability', title: 'State Approval Chart',       body: 'Check which Oceanview annuity products are approved for sale in each state.',                          route: 'state-approval' },
-  { Icon: Layers,          eyebrow: 'Client Materials',   title: 'Product Brochures',            body: 'Print-ready and digital brochures for every Oceanview annuity — designed to leave with your clients.', route: 'product-brochures' },
+  { Icon: Layers,          eyebrow: 'Client Materials',   title: 'Product Brochures',            body: 'Print-ready and digital brochures for every Oceanview annuity — designed to leave with your clients.', route: 'downloads' },
 ]
 
 function PortalCard({ Icon, eyebrow, title, body, route }) {

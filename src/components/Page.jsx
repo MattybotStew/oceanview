@@ -7,7 +7,7 @@ import Highlights from './Highlights.jsx'
 import ProductsCard from './ProductsCard.jsx'
 import AboutBlock from './AboutBlock.jsx'
 import StatsStrip from './StatsStrip.jsx'
-import CTAPanel from './CTAPanel.jsx'
+import CTABanner from './CTABanner.jsx'
 import Footer from './Footer.jsx'
 import FAQPage from './FAQPage.jsx'
 import StubPage from './StubPage.jsx'
@@ -37,27 +37,21 @@ import CaseStudiesPage from './CaseStudiesPage.jsx'
 import RetirementRiskPage from './RetirementRiskPage.jsx'
 import LifeEventsPage from './LifeEventsPage.jsx'
 import DownloadsPage from './DownloadsPage.jsx'
+import OurStoryPage from './OurStoryPage.jsx'
+import IndividualsPage from './IndividualsPage.jsx'
+import StateApprovalPage from './StateApprovalPage.jsx'
+import DisclaimersPage from './DisclaimersPage.jsx'
+import PrivacyPage from './PrivacyPage.jsx'
+import TermsPage from './TermsPage.jsx'
 
 const STUB_ROUTES = {
   // Top-level nav
-  "individuals":      { title: "For Individuals",                 eyebrow: "Personal Planning"           },
   // About sub-pages
-  "our-story":        { title: "Our Story",                       eyebrow: "Since 1987"                  },
   // "board" and "newsroom" handled as real pages below
-  // Products — FIA (fia-harbourview, harbourview-myga, sky-harbourview, caplock have real pages)
-  "sp500":            { title: "S&P 500 Crediting Strategy",      eyebrow: "Fixed Indexed Annuity"       },
-  "nasdaq":           { title: "Nasdaq-100 Crediting Strategy",   eyebrow: "Fixed Indexed Annuity"       },
-  "russell":          { title: "Russell 2000 Crediting Strategy", eyebrow: "Fixed Indexed Annuity"       },
-  "fixed-interest":   { title: "Fixed Interest Strategy",         eyebrow: "Fixed Indexed Annuity"       },
-  // Client Resources sub-pages
-  "glossary":         { title: "Glossary",                        eyebrow: "Client Resources"            },
-  "rates":            { title: "Rates",                           eyebrow: "Client Resources"            },
-  "compare":          { title: "How Oceanview MYGAs Compare",     eyebrow: "Client Resources"            },
   // Insights sub-pages — retirement-risk and life-events are real pages
   // Professionals sub-pages
   "agent-portal":     { title: "Agent Portal",                    eyebrow: "For Professionals"            },
-  "state-approval":   { title: "State Approval Chart",            eyebrow: "For Professionals"            },
-  "product-brochures":{ title: "Product Brochures",               eyebrow: "For Professionals"            },
+  "accessibility":    { title: "Accessibility Statement",          eyebrow: "Legal"                        },
   // agent-faqs and sales-tools are real pages — handled in switch below
 };
 
@@ -67,7 +61,9 @@ const ROUTE_TO_NAV = {
   "faq": "FAQ", "blog": "Blog", "leadership": "About", "board": "About", "newsroom": "About",
   "white-papers": "Insights", "case-studies": "Client Resources",
   "retirement-risk": "Insights", "life-events": "Insights",
-  "downloads": "Client Resources",
+  "downloads": "Client Resources", "our-story": "About", "individuals": "",
+  "state-approval": "Professionals",
+  "disclaimers": "", "privacy": "", "terms": "", "accessibility": "",
   "professionals": "Professionals", "sales-tools": "Professionals",
   "agent-faqs": "Professionals", "lpl-landing": "Professionals", "cetera-landing": "Professionals",
 };
@@ -75,9 +71,10 @@ const ROUTE_TO_NAV = {
 const PAGE_ROUTES = new Set([
   "", "home", "products", "about", "client-resources", "insights", "faq",
   "blog", "leadership", "board", "newsroom", "white-papers", "case-studies",
-  "retirement-risk", "life-events", "downloads",
+  "retirement-risk", "life-events", "downloads", "our-story", "individuals", "state-approval",
   "professionals", "sales-tools", "agent-faqs",
   "contact", "lpl-landing", "cetera-landing",
+  "disclaimers", "privacy", "terms",
   // product pages — canonical routes
   "harbourview-myga", "horizon-myga", "sky-harbourview-myga",
   "current-rate-fia", "harbourview-fia",
@@ -95,7 +92,18 @@ function HomePage({ goto }) {
       <StatsStrip />
       <ProductsCard />
       <AboutBlock />
-      <CTAPanel />
+      <section className="ov-section" style={{ background: "#fff" }}>
+        <div className="ov-container">
+          <CTABanner
+            eyebrow="Get Started"
+            title="Protect your retirement"
+            titleAccent="with confidence."
+            body="Competitive guaranteed rates, principal protection, and a dedicated service team — backed by an A (Excellent) A.M. Best rating."
+            cta="Explore Products"
+            onClick={() => { window.location.hash = 'products'; }}
+          />
+        </div>
+      </section>
     </main>
   );
 }
@@ -154,6 +162,12 @@ export default function Page() {
       case "retirement-risk":    return <RetirementRiskPage />;
       case "life-events":        return <LifeEventsPage />;
       case "downloads":          return <DownloadsPage />;
+      case "our-story":          return <OurStoryPage />;
+      case "individuals":        return <IndividualsPage />;
+      case "state-approval":     return <StateApprovalPage />;
+      case "disclaimers":        return <DisclaimersPage />;
+      case "privacy":            return <PrivacyPage />;
+      case "terms":              return <TermsPage />;
       case "about":             return <CompanyPage />;
       case "client-resources":  return <ClientResourcesPage />;
       case "insights":          return <InsightsPage />;
