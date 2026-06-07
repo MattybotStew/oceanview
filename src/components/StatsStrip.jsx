@@ -26,7 +26,7 @@ export default function StatsStrip() {
               <div style={{
                 fontFamily: "var(--ov-ff-display)",
                 fontWeight: 800,
-                fontSize: "clamp(28px, 3.2vw, 48px)",
+                fontSize: "clamp(22px, 2.4vw, 34px)",
                 lineHeight: 1,
                 color: "#70BABF",
                 letterSpacing: "-0.02em",
