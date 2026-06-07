@@ -613,16 +613,76 @@ a { color: inherit; text-decoration: none; }
 
 /* ─── Product Detail Page ────────────────────────────────────── */
 @media (max-width: 900px) {
-  .pdt-layout { flex-direction: column !important; }
-  .pdt-layout > aside { width: 100% !important; }
+  .pdt-layout { flex-direction: column !important; align-items: stretch !important; }
+
+  /* Aside becomes a sticky horizontal pill bar */
+  .pdt-layout > aside {
+    width: 100% !important;
+    position: sticky !important;
+    top: var(--ov-header-h, 72px) !important;
+    z-index: 20 !important;
+    background: #fff !important;
+    box-shadow: 0 1px 0 rgba(13,31,78,.08) !important;
+    align-self: auto !important;
+  }
   .pdt-layout > aside > div { position: static !important; }
+
+  /* Hide the dark CTA card — bottom-of-page CTA covers this */
+  .pdt-sidebar-cta { display: none !important; }
+
+  /* Nav: horizontal scrolling row of pills */
+  .pdt-sidebar-nav {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    gap: 8px !important;
+    padding: 12px 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .pdt-sidebar-nav::-webkit-scrollbar { display: none !important; }
+
+  /* Each pill button */
+  .pdt-sidebar-nav-btn {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    white-space: nowrap !important;
+    border-radius: 200px !important;
+    border-left: none !important;
+    padding: 8px 16px !important;
+    font-size: 12px !important;
+    background: rgba(13,31,78,.05) !important;
+    color: #6B7280 !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+  }
+  .pdt-sidebar-nav-btn--active {
+    background: rgba(36,148,193,.12) !important;
+    color: #1A7FAA !important;
+    font-weight: 600 !important;
+    border-left: none !important;
+  }
 }
 @media (max-width: 600px) {
-  .pdt-stats-row { flex-wrap: wrap !important; gap: 0 !important; }
-  .pdt-stats-row > div { flex: 1 1 45% !important; padding: 16px 0 !important; margin: 0 !important; border-left: none !important; border-top: 1px solid rgba(13,31,78,.08) !important; }
-  .pdt-stats-row > div:nth-child(odd) { padding-right: 16px !important; }
-  .pdt-stats-row > div:first-child { border-top: none !important; }
-  .pdt-stats-row > div:nth-child(2) { border-top: none !important; }
+  .pdt-stats-row { flex-wrap: wrap !important; gap: 0 !important; padding: 0 20px !important; }
+  .pdt-stats-row > button { flex: 1 1 45% !important; padding: 16px 0 !important; margin: 0 !important; border-left: none !important; border-top: 1px solid rgba(255,255,255,.08) !important; }
+  .pdt-stats-row > button:nth-child(odd) { padding-right: 12px !important; }
+  .pdt-stats-row > button:nth-child(even) { padding-left: 12px !important; border-left: 1px solid rgba(255,255,255,.08) !important; }
+  .pdt-stats-row > button:first-child { border-top: none !important; }
+  .pdt-stats-row > button:nth-child(2) { border-top: none !important; }
+}
+
+/* Term rows: stack label above value on small screens */
+@media (max-width: 480px) {
+  .pdt-term-row { flex-direction: column !important; gap: 2px !important; }
+  .pdt-term-label { width: auto !important; padding-bottom: 0 !important; }
+}
+
+/* Strategy tabs: scroll horizontally when tabs are too tight */
+@media (max-width: 540px) {
+  .pdt-strategy-tabs { overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; border-radius: 10px 10px 0 0 !important; }
+  .pdt-strategy-tabs button { flex: 0 0 auto !important; min-width: 100px !important; }
 }
 
 /* ─── Sales Tools ────────────────────────────────────────────── */

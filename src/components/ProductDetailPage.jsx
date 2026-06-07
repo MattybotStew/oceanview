@@ -53,8 +53,8 @@ function CheckItem({ title, body, first }) {
 
 function TermRow({ label, value, first }) {
   return (
-    <div style={{ display: 'flex', gap: 24, borderTop: first ? 'none' : '1px solid rgba(13,31,78,.07)', alignItems: 'flex-start' }}>
-      <div style={S.termLabel}>{label}</div>
+    <div className="pdt-term-row" style={{ display: 'flex', gap: 24, borderTop: first ? 'none' : '1px solid rgba(13,31,78,.07)', alignItems: 'flex-start' }}>
+      <div className="pdt-term-label" style={S.termLabel}>{label}</div>
       <div style={S.termValue}>{value}</div>
     </div>
   )
@@ -83,28 +83,30 @@ function StrategyRow({ name, term, last }) {
 function SurrenderScheduleTable({ terms, rows }) {
   const colW = 110
   return (
-    <div style={{ ...S.card, overflow: 'hidden' }}>
-      {/* Header row */}
-      <div style={{ display: 'grid', gridTemplateColumns: `60px ${terms.map(() => `${colW}px`).join(' ')}`, background: 'var(--ov-navy-1000)', padding: '0 24px' }}>
-        <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '1px', textTransform: 'uppercase', color: 'rgba(242,252,255,.45)', padding: '14px 0' }}>Year</div>
-        {terms.map(t => (
-          <div key={t} style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '1px', textTransform: 'uppercase', color: 'rgba(242,252,255,.75)', padding: '14px 0', textAlign: 'center' }}>{t}</div>
-        ))}
-      </div>
-      {/* Data rows */}
-      {rows.map((row, ri) => (
-        <div key={row.year} style={{ display: 'grid', gridTemplateColumns: `60px ${terms.map(() => `${colW}px`).join(' ')}`, padding: '0 24px', borderTop: ri === 0 ? 'none' : '1px solid rgba(13,31,78,.07)', background: ri % 2 === 0 ? '#fff' : 'rgba(13,31,78,.015)' }}>
-          <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#6B7280', padding: '13px 0', display: 'flex', alignItems: 'center' }}>{row.year}</div>
-          {row.charges.map((c, ci) => (
-            <div key={ci} style={{ padding: '13px 0', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              {c
-                ? <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 14, color: '#0D1F4E', background: 'rgba(36,148,193,.08)', borderRadius: 6, padding: '4px 12px' }}>{c}</span>
-                : <span style={{ color: 'rgba(13,31,78,.18)', fontSize: 16, lineHeight: 1 }}>—</span>
-              }
-            </div>
+    <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', width: '100%', borderRadius: 12, border: '1px solid rgba(13,31,78,.09)' }}>
+      <div style={{ minWidth: `${60 + terms.length * colW + 48}px` }}>
+        {/* Header row */}
+        <div style={{ display: 'grid', gridTemplateColumns: `60px ${terms.map(() => `${colW}px`).join(' ')}`, background: 'var(--ov-navy-1000)', padding: '0 24px', borderRadius: '12px 12px 0 0' }}>
+          <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '1px', textTransform: 'uppercase', color: 'rgba(242,252,255,.45)', padding: '14px 0' }}>Year</div>
+          {terms.map(t => (
+            <div key={t} style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '1px', textTransform: 'uppercase', color: 'rgba(242,252,255,.75)', padding: '14px 0', textAlign: 'center' }}>{t}</div>
           ))}
         </div>
-      ))}
+        {/* Data rows */}
+        {rows.map((row, ri) => (
+          <div key={row.year} style={{ display: 'grid', gridTemplateColumns: `60px ${terms.map(() => `${colW}px`).join(' ')}`, padding: '0 24px', borderTop: ri === 0 ? 'none' : '1px solid rgba(13,31,78,.07)', background: ri % 2 === 0 ? '#fff' : 'rgba(13,31,78,.015)' }}>
+            <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#6B7280', padding: '13px 0', display: 'flex', alignItems: 'center' }}>{row.year}</div>
+            {row.charges.map((c, ci) => (
+              <div key={ci} style={{ padding: '13px 0', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {c
+                  ? <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 14, color: '#0D1F4E', background: 'rgba(36,148,193,.08)', borderRadius: 6, padding: '4px 12px' }}>{c}</span>
+                  : <span style={{ color: 'rgba(13,31,78,.18)', fontSize: 16, lineHeight: 1 }}>—</span>
+                }
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
@@ -120,7 +122,7 @@ function DefinitionItem({ title, body, last }) {
 
 function DownloadRow({ title, sub }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24, padding: '20px 24px', background: '#F0F9FC', border: '1px solid rgba(13,31,78,.09)', borderRadius: 10, marginTop: 16 }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16, padding: '20px 24px', background: '#F0F9FC', border: '1px solid rgba(13,31,78,.09)', borderRadius: 10, marginTop: 16 }}>
       <div>
         <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 14, color: '#0D1F4E', marginBottom: 3 }}>{title}</div>
         {sub && <div style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 12, color: '#6B7280' }}>{sub}</div>}
@@ -183,13 +185,14 @@ function Sidebar({ navSections, active, onNav }) {
   return (
     <aside style={{ width: 300, flexShrink: 0, position: 'sticky', top: 'calc(var(--ov-header-h, 72px) + 24px)', alignSelf: 'flex-start' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-        <nav style={{ marginBottom: 24 }}>
+        <nav className="pdt-sidebar-nav" style={{ marginBottom: 24 }}>
           {navSections.map(s => {
             const isActive = active === s.id
             return (
               <button
                 key={s.id}
                 onClick={() => onNav(s.id)}
+                className={`pdt-sidebar-nav-btn${isActive ? ' pdt-sidebar-nav-btn--active' : ''}`}
                 style={{
                   display: 'block', width: '100%', textAlign: 'left',
                   background: isActive ? 'rgba(36,148,193,.08)' : 'none',
@@ -205,7 +208,7 @@ function Sidebar({ navSections, active, onNav }) {
             )
           })}
         </nav>
-        <div style={{ background: 'var(--ov-navy-1000)', borderRadius: 12, padding: '28px 24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div className="pdt-sidebar-cta" style={{ background: 'var(--ov-navy-1000)', borderRadius: 12, padding: '28px 24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
           <p style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 18, color: '#F2FCFF', letterSpacing: '-0.01em', lineHeight: 1.3, margin: 0 }}>
             Ready to learn more? Our team can walk you through the right strategy.
           </p>
@@ -256,7 +259,7 @@ export default function ProductDetailPage({ product }) {
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(85deg, rgba(0,0,0,.82) 0%, rgba(0,31,84,.4) 60%, transparent 100%)', zIndex: 1 }} />
             <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(assets/Noise.png)', backgroundRepeat: 'repeat', backgroundSize: '200px', opacity: 0.6, pointerEvents: 'none', zIndex: 2 }} />
             <HeroShaper />
-            <div className="ov-hero-content" style={{ zIndex: 3 }}>
+            <div className="ov-hero-content" style={{ zIndex: 11 }}>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,.12)', border: '1px solid rgba(255,255,255,.22)', borderRadius: 200, padding: '5px 12px', backdropFilter: 'blur(4px)', marginBottom: 4, alignSelf: 'flex-start' }}>
                 <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#F2FCFF', whiteSpace: 'nowrap' }}>{product.categoryShort || product.category}</span>
               </div>
@@ -332,7 +335,7 @@ export default function ProductDetailPage({ product }) {
                 <SectionHead {...creditingStrategies} />
 
                 {/* Index tabs */}
-                <div style={{ display: 'flex', background: '#fff', border: '1px solid rgba(13,31,78,.09)', borderRadius: '10px 10px 0 0', overflow: 'hidden', marginBottom: 0 }}>
+                <div className="pdt-strategy-tabs" style={{ display: 'flex', background: '#fff', border: '1px solid rgba(13,31,78,.09)', borderRadius: '10px 10px 0 0', overflow: 'hidden', marginBottom: 0 }}>
                   {creditingStrategies.tabs.map((tab, i) => (
                     <button
                       key={tab.label}
