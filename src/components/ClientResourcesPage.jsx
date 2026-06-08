@@ -3,26 +3,15 @@ import TabBar from './TabBar.jsx'
 import CTABanner from './CTABanner.jsx'
 import { TextLink } from './Buttons.jsx'
 import { Download } from 'lucide-react'
+import { Eyebrow } from './common.jsx'
 
 const TABS = ["Rates", "Applications", "Comparisons", "Glossary"];
 
 const S = {
   section:     { padding: "60px 0 80px" },
-  eyebrowRow:  { display: "flex", alignItems: "center", gap: 8, marginBottom: 14 },
-  eyebrowLine: { width: 18, height: 1, background: "#2494C1", flexShrink: 0 },
-  eyebrow:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.4px", textTransform: "uppercase", color: "#2494C1" },
   h2:          { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(24px, 2.8vw, 36px)", color: "#0D1F4E", letterSpacing: "-0.02em", lineHeight: 1.2, margin: "0 0 12px" },
   body:        { fontFamily: "var(--ov-ff-sans)", fontSize: 15, color: "#4A5568", lineHeight: 1.65, margin: "0 0 12px" },
 };
-
-function Eyebrow({ children }) {
-  return (
-    <div style={S.eyebrowRow}>
-      <div style={S.eyebrowLine} />
-      <span style={S.eyebrow}>{children}</span>
-    </div>
-  );
-}
 
 // ── RATES ─────────────────────────────────────────────────────────────────────
 const RATE_BANDS = [

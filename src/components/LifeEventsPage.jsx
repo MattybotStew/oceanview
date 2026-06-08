@@ -1,28 +1,15 @@
 import { PillMint, PillGhost } from './Buttons.jsx'
 import { Clock, BarChart2, Gift, Briefcase } from 'lucide-react'
 import CTABanner from './CTABanner.jsx'
+import { Eyebrow } from './common.jsx'
 
 const S = {
-  eyebrowRow:      { display: 'flex', alignItems: 'center', gap: 8 },
-  eyebrowLine:     { width: 18, height: 1, background: '#2494C1', flexShrink: 0 },
-  eyebrow:         { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: '#2494C1' },
-  eyebrowLineLight:{ width: 18, height: 1, background: 'rgba(112,186,191,.6)', flexShrink: 0 },
-  eyebrowLight:    { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: '#70BABF' },
   h2:              { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(26px,3vw,40px)', color: '#0D1F4E', letterSpacing: '-0.025em', lineHeight: 1.12, margin: 0 },
   h2Light:         { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(26px,3vw,40px)', color: '#F2FCFF', letterSpacing: '-0.025em', lineHeight: 1.12, margin: 0 },
   accent:          { fontStyle: 'italic', color: '#70BABF' },
   body:            { fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: '#4A5568', lineHeight: 1.7, margin: 0 },
   bodyDark:        { fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: 'rgba(242,252,255,.65)', lineHeight: 1.7, margin: 0 },
   iconTile:        { width: 44, height: 44, borderRadius: 10, background: 'rgba(36,148,193,.12)', border: '1px solid rgba(36,148,193,.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
-}
-
-function Eyebrow({ light, children }) {
-  return (
-    <div style={{ ...S.eyebrowRow, marginBottom: 14 }}>
-      <div style={light ? S.eyebrowLineLight : S.eyebrowLine} />
-      <span style={light ? S.eyebrowLight : S.eyebrow}>{children}</span>
-    </div>
-  )
 }
 
 function FeatureList({ features, dark }) {

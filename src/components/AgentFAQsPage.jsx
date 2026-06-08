@@ -2,15 +2,12 @@ import { useState } from 'react'
 import PageHero from './PageHero.jsx'
 import CTABanner from './CTABanner.jsx'
 import { ChevronDown } from 'lucide-react'
+import { Eyebrow } from './common.jsx'
 
 // ── Styles ────────────────────────────────────────────────────────────────────
 const S = {
   sectionWhite: { background: '#fff' },
   sectionTint:  { background: 'var(--ov-surface-tint)' },
-
-  eyebrowRow:  { display: 'flex', alignItems: 'center', gap: 6 },
-  eyebrowLine: { width: 18, height: 1, background: '#2494C1', flexShrink: 0 },
-  eyebrow:     { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#2494C1' },
 
   introWrap:   { display: 'flex', flexDirection: 'column', gap: 12, maxWidth: '64ch', marginBottom: 56 },
   h2:          { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(26px,3vw,40px)', color: '#0D1F4E', letterSpacing: '-0.025em', lineHeight: 1.12, margin: 0 },
@@ -142,15 +139,6 @@ const CONTACTS = [
 ]
 
 // ── Components ────────────────────────────────────────────────────────────────
-function Eyebrow({ children }) {
-  return (
-    <div style={S.eyebrowRow}>
-      <div style={S.eyebrowLine} />
-      <span style={S.eyebrow}>{children}</span>
-    </div>
-  )
-}
-
 function FAQCategory({ title, items }) {
   const [open, setOpen] = useState(false)
   const [openItems, setOpenItems] = useState({})

@@ -1,17 +1,11 @@
 import PageHero from './PageHero.jsx'
 import { PillGhost, PillMint, TextLink } from './Buttons.jsx'
 import CTABanner from './CTABanner.jsx'
+import { Eyebrow } from './common.jsx'
 import { ShieldCheck, TrendingUp, Lock, Users, Globe, Zap } from 'lucide-react'
 
 // ── Shared styles ─────────────────────────────────────────────────────────────
 const S = {
-  // Eyebrow
-  eyebrowRow:  { display: "flex", alignItems: "center", gap: 8, marginBottom: 16 },
-  eyebrowLine: { width: 18, height: 1, background: "#2494C1", flexShrink: 0 },
-  eyebrow:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.4px", textTransform: "uppercase", color: "#2494C1" },
-  eyebrowLight:{ fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.4px", textTransform: "uppercase", color: "#70BABF" },
-  eyebrowLineLight: { width: 18, height: 1, background: "rgba(112,186,191,.6)", flexShrink: 0 },
-
   // Typography
   h2:     { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(30px, 3.6vw, 48px)", lineHeight: 1.12, letterSpacing: "-0.025em", margin: "0 0 20px" },
   h2Dark: { color: "#F2FCFF" },
@@ -24,15 +18,6 @@ const S = {
   twoCol: { display: "flex", gap: 80, alignItems: "center" },
   btnRow: { display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap", marginTop: 32 },
 };
-
-function Eyebrow({ light, children }) {
-  return (
-    <div style={S.eyebrowRow}>
-      <div style={light ? S.eyebrowLineLight : S.eyebrowLine} />
-      <span style={light ? S.eyebrowLight : S.eyebrow}>{children}</span>
-    </div>
-  );
-}
 
 // ── Why Oceanview — differentiator cards ──────────────────────────────────────
 const PILLARS = [

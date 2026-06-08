@@ -1,6 +1,5 @@
-import PageHero from './PageHero.jsx'
 import CTABanner from './CTABanner.jsx'
-import { PillMint, PillGhost, TextLink } from './Buttons.jsx'
+import { PillMint, PillGhost } from './Buttons.jsx'
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
@@ -125,14 +124,6 @@ function ArticleCard({ eyebrow, title, desc, img, href, readTime }) {
 export default function InsightsPage() {
   return (
     <main>
-      <PageHero
-        image="assets/older-couple-1.png"
-        eyebrow="Insights"
-        title="Ideas for a"
-        titleAccent="more secure retirement."
-        subtitle="Research, analysis, and practical guidance for advisors helping clients plan for the long term."
-      />
-
       {/* ── Featured ──────────────────────────────────────────────────────── */}
       <section style={{ background: "var(--ov-navy-1000)" }} className="ov-section">
         <div className="ov-container">

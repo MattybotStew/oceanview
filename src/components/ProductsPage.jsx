@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import PageHero from './PageHero.jsx'
 import CTABanner from './CTABanner.jsx'
 import { TextLink } from './Buttons.jsx'
+import { Eyebrow } from './common.jsx'
 
 const PS = {
   // ── Two-level sticky nav ───────────────────────────────────────────────────
@@ -27,13 +28,6 @@ const PS = {
   introRow:  { display: "flex", flexDirection: "column", gap: 32, alignItems: "flex-start" },
   introImg:  { width: "100%", aspectRatio: "4/3", borderRadius: 20, objectFit: "cover", objectPosition: "center top", display: "block", flexShrink: 0 },
   introText: { display: "flex", flexDirection: "column", gap: 20, flex: 1 },
-
-  // Eyebrow — light and dark versions
-  eyebrowRow:  { display: "flex", alignItems: "center", gap: 8, marginBottom: 12 },
-  eyebrowLine: { width: 18, height: 1, background: "#2494C1", flexShrink: 0 },
-  eyebrow:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.4px", textTransform: "uppercase", color: "#2494C1" },
-  eyebrowLineLight: { width: 18, height: 1, background: "rgba(112,186,191,.6)", flexShrink: 0 },
-  eyebrowLight:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.4px", textTransform: "uppercase", color: "#70BABF" },
 
   h2:      { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(26px, 3vw, 40px)", color: "#0D1F4E", letterSpacing: "-0.025em", lineHeight: 1.12, margin: 0 },
   h2Dark:  { color: "#F2FCFF" },
@@ -61,15 +55,6 @@ const CHECK = (
     <path d="M1 4.5L3 6.5L7 2.5" stroke="#2494C1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
-
-function Eyebrow({ light, children }) {
-  return (
-    <div style={PS.eyebrowRow}>
-      <div style={light ? PS.eyebrowLineLight : PS.eyebrowLine} />
-      <span style={light ? PS.eyebrowLight : PS.eyebrow}>{children}</span>
-    </div>
-  );
-}
 
 // Clean inline feature list — replaces the card-within-a-card
 function FeatureList({ features, dark }) {

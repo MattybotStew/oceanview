@@ -1,6 +1,6 @@
-export default function HeroShaper() {
+export default function HeroShaper({ fill = "#ffffff" }) {
   return (
-    <div style={{
+    <div className="ov-hero-shaper" style={{
       position: 'absolute',
       bottom: 0,
       left: '50%',
@@ -11,7 +11,7 @@ export default function HeroShaper() {
       pointerEvents: 'none',
     }}>
       <svg viewBox="0 0 400 60" preserveAspectRatio="none" width="100%" height="60" style={{ display: 'block' }}>
-        <path fill="#ffffff" d="M0 60 Q200 0 400 60 Z" />
+        <path fill={fill} d="M0 60 Q200 0 400 60 Z" />
       </svg>
     </div>
   )

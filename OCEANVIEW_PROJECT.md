@@ -27,13 +27,13 @@
 
 | Concern | Solution |
 |---|---|
-| UI Framework | React 18.3.1 (UMD build via unpkg CDN) |
-| JSX Transform | Babel Standalone 7.29.0 (in-browser compilation) |
-| Styling | Inline JS style objects + a single global `tokens.css` |
-| Build step | None — plain HTML served as static files |
-| Routing | In-memory state in `Page.jsx` (no URL changes) |
+| UI Framework | React 18.3.1 |
+| Build tool | Vite 6.3.5 with `@vitejs/plugin-react` |
+| Styling | Inline JS style objects + `src/styles/tokens.css` |
+| Routing | Hash-based in-memory state in `Page.jsx` (no URL changes) |
+| Deployment | GitHub Pages via `gh-pages` |
 
-No bundler, no npm, no framework CLI. Every `.jsx` file is loaded as `type="text/babel"` via `<script>` tags in `index.html`. Components are registered on `window` so later scripts can reference earlier ones.
+Components use ES module `import`/`export`. Vite compiles JSX and bundles the app. `index.html` loads `/src/main.jsx` as a module entry point.
 
 ---
 
@@ -41,91 +41,80 @@ No bundler, no npm, no framework CLI. Every `.jsx` file is loaded as `type="text
 
 ```
 oceanview/
-├── index.html                     # App shell — loads CDN scripts + all JSX
+├── index.html                     # App shell — loads /src/main.jsx as ES module
+├── package.json                   # Dependencies + scripts (dev, build, preview, deploy)
+├── vite.config.js                 # Vite config with React plugin, base: '/oceanview/'
 │
-├── css/
-│   └── tokens.css                 # All CSS custom properties + global resets + responsive helpers
+├── src/
+│   ├── main.jsx                   # Entry point — ReactDOM.createRoot renders <Page />
+│   ├── styles/
+│   │   └── tokens.css             # All CSS custom properties + global resets + responsive helpers
+│   ├── fonts/                     # PP Editorial New + PP Mori (.otf files, 14 weights)
+│   └── components/
+│       ├── Page.jsx               # Top-level hash router
+│       ├── Header.jsx             # Sticky nav bar — desktop mega-dropdown + mobile drawer
+│       ├── Footer.jsx             # Dark navy footer with email signup, links, legal
+│       ├── TickerBar.jsx          # Scrolling market data ticker (hides on scroll)
+│       ├── Hero.jsx               # Full-bleed image card with auto-advancing slide carousel
+│       ├── HeroShaper.jsx         # SVG arc at bottom of hero cards
+│       ├── PageHero.jsx           # Inner-page hero card (shared across ~6 pages)
+│       ├── Buttons.jsx            # PillMint, PillNavy, PillGhost, TextLink primitives
+│       ├── CTABanner.jsx          # Inline CTA band (eyebrow + heading + body + button)
+│       ├── CTAPanel.jsx           # Soft-tint "Get Started" call-to-action band
+│       ├── TabBar.jsx             # Accessible tab bar with keyboard navigation
+│       ├── Highlights.jsx         # Three highlight cards beside a photo
+│       ├── ProductsCard.jsx       # Split layout with tabbed MYGA/FIA rate card
+│       ├── AboutBlock.jsx         # Split photo + text about the company
+│       ├── RatingBlock.jsx        # A.M. Best "A" rating display
+│       ├── StatsStrip.jsx         # Stats/metrics row
+│       ├── WaveShaper.jsx         # SVG wave divider
+│       ├── [Page components]      # ~35 page-level components (FAQPage, BlogPage, etc.)
+│       └── [Product pages]        # ProductsPage, ProductDetailPage, 7 product wrappers
 │
-├── components/
-│   ├── Buttons.jsx                # PillMint, PillNavy, PillGhost, TextLink primitives
-│   ├── Header.jsx                 # Sticky nav bar — desktop mega-dropdown + mobile drawer
-│   ├── TickerBar.jsx              # Scrolling market data ticker (hides on scroll)
-│   ├── Hero.jsx                   # Full-bleed image card with auto-advancing slide carousel
-│   ├── Highlights.jsx             # Three highlight cards beside a photo
-│   ├── ProductsCard.jsx           # Split layout with tabbed MYGA/FIA rate card
-│   ├── AboutBlock.jsx             # Split photo + text about the company
-│   ├── RatingBlock.jsx            # A.M. Best "A" rating display
-│   ├── CTAPanel.jsx               # Soft-tint "Get Started" call-to-action band
-│   ├── Footer.jsx                 # Dark navy footer with email signup, links, legal
-│   ├── FAQPage.jsx                # FAQ page with hero image + accordion list
-│   └── Page.jsx                   # Top-level router — composes Home and FAQ views
+├── public/
+│   ├── sitemap.xml
+│   ├── plugins/                   # Situ Design plugin assets
+│   └── assets/
+│       ├── oceanview-logo-white.png
+│       ├── Noise.png
+│       ├── hero-couple.jpg
+│       ├── two.jpg / three.jpg / four.jpg
+│       ├── faq-hero.jpg
+│       ├── family.png / couple-walking.png
+│       └── ambest.png / ambest-rating.png
 │
-├── assets/
-│   ├── oceanview-logo-white.png   # Brand logo (white, used on dark backgrounds)
-│   ├── wave-emblem.svg            # Wave icon / emblem
-│   ├── hero-shaper.svg            # (legacy) SVG arc shape — replaced inline
-│   ├── icon-arrow.svg             # Arrow icon
-│   ├── Noise.png                  # Grain/noise texture overlay (200px tile, 80% opacity)
-│   ├── hero-couple.jpg            # Hero slide 1 — couple portrait
-│   ├── two.jpg                    # Hero slide 2
-│   ├── three.jpg                  # Hero slide 3
-│   ├── four.jpg                   # Hero slide 4
-│   ├── faq-hero.jpg               # FAQ page hero image
-│   ├── family.png                 # Highlights section photo
-│   ├── couple-walking.png         # AboutBlock photo
-│   ├── older-couple-1.png         # Unused / available
-│   ├── hero-beach-couple.jpg      # Unused / available
-│   ├── hero-couple.jpg            # Hero carousel
-│   ├── hero-overlay.jpg           # Unused / available
-│   ├── lighthouse.jpg             # Unused / available
-│   ├── ambest.png                 # A.M. Best logo
-│   ├── ambest-rating.png          # A.M. Best rating graphic
-│   └── AdobeStock_1231908414@0.3x.jpg  # Stock photo (available)
-│
-└── fonts/
-    ├── PPEditorialNew-Ultralight.otf
-    ├── PPEditorialNew-UltralightItalic.otf
-    ├── PPEditorialNew-Regular.otf
-    ├── PPEditorialNew-Italic.otf
-    ├── PPEditorialNew-Ultrabold.otf
-    ├── PPEditorialNew-UltraboldItalic.otf
-    ├── PPMori-Extralight.otf
-    ├── PPMori-ExtralightItalic.otf
-    ├── PPMori-Regular.otf
-    ├── PPMori-Italic.otf
-    ├── PPMori-Semibold.otf
-    ├── PPMori-SemiboldItalic.otf
-    ├── PPMori-Black.otf
-    └── PPMori-BlackItalic.otf
+└── .github/workflows/
+    └── deploy.yml                 # GitHub Pages deploy on push to main
 ```
 
 ---
 
 ## 3. Architecture
 
+### Build & dev
+
+- **`npm run dev`** — starts Vite dev server with HMR
+- **`npm run build`** — produces static output in `dist/`
+- **`npm run deploy`** — builds and publishes to GitHub Pages
+
 ### Boot sequence
 
-1. `index.html` loads React, ReactDOM, and Babel from unpkg CDN (with SRI hashes).
-2. Each `.jsx` is loaded as `type="text/babel"` — Babel compiles in-browser at runtime.
-3. Load order matches dependency order. Each file ends with `Object.assign(window, { ComponentName })` to expose it globally.
-4. The final inline `<script type="text/babel">` calls `ReactDOM.createRoot` and renders `<Page />`.
+1. Vite compiles `src/main.jsx` (and all its ES module imports) into bundled JS.
+2. `index.html` loads the bundle via `<script type="module" src="/src/main.jsx">`.
+3. `main.jsx` imports `tokens.css`, imports `<Page />`, and calls `ReactDOM.createRoot`.
 
-### Global registration pattern
+### Module system
+
+All components use standard ES module `import`/`export`:
 
 ```js
-// Every component file ends with:
-Object.assign(window, { Hero, HeroShaper });
+// src/components/Hero.jsx
+import { PillMint, PillGhost } from './Buttons.jsx'
+import HeroShaper from './HeroShaper.jsx'
+export default function Hero() { ... }
 ```
 
-This allows `Page.jsx` and `FAQPage.jsx` to reference `<Hero />`, `<CTAPanel />` etc. without any import statements.
-
-### Version cache busting
-
-Each script tag carries a manual `?v=N` query string:
-```html
-<script type="text/babel" src="components/Hero.jsx?v=13"></script>
-```
-Increment the version number to force browsers to re-fetch after edits.
+No global `window` registration. Vite handles JSX compilation, dependency resolution, and cache busting via content hashes in output filenames.
 
 ---
 
@@ -355,7 +344,7 @@ Ends with `<CTAPanel />`.
 
 ## 6. Design Tokens
 
-All tokens are CSS custom properties defined in `css/tokens.css` on `:root`.
+All tokens are CSS custom properties defined in `src/styles/tokens.css` on `:root`.
 
 ### Spacing scale
 
@@ -409,7 +398,7 @@ The `.ov-container` class applies `max-width: 1300px`, `margin: 0 auto`, and `pa
 
 ### Font families
 
-Two proprietary brand fonts are loaded via `@font-face` from `/fonts/`:
+Two proprietary brand fonts are loaded via `@font-face` from `src/fonts/`:
 
 **PP Editorial New** — display serif, used for all headings, hero text, and decorative titles.
 - Weights loaded: 200 (Ultralight), 400 (Regular), 800 (Ultrabold) — each with italic variant
@@ -579,7 +568,7 @@ The cream surface (`#F0EEE9`) is used as the header dropdown sidebar background 
 
 ## 9. Button System
 
-All buttons are defined in `components/Buttons.jsx` and registered globally.
+All buttons are defined in `src/components/Buttons.jsx` and exported as named ES module exports.
 
 ### Variants
 
@@ -620,7 +609,7 @@ The hero size is used inside the `Hero` component; default size everywhere else.
 
 ## 10. Responsive Breakpoints
 
-All breakpoint rules are in `css/tokens.css`.
+All breakpoint rules are in `src/styles/tokens.css`.
 
 ### Container
 

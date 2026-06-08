@@ -5,6 +5,7 @@ import {
   CreditCard, ArrowRightLeft, Globe, BookOpen,
   ExternalLink, ChevronRight, Check,
 } from 'lucide-react'
+import { Eyebrow } from './common.jsx'
 
 // ── Styles ────────────────────────────────────────────────────────────────────
 const S = {
@@ -27,9 +28,6 @@ const S = {
   sectionWhite: { background: '#fff' },
   sectionTint:  { background: 'var(--ov-surface-tint)' },
 
-  eyebrowRow:   { display: 'flex', alignItems: 'center', gap: 6 },
-  eyebrowLine:  { width: 18, height: 1, background: '#2494C1', flexShrink: 0 },
-  eyebrow:      { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#2494C1' },
   h2:           { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(26px,3vw,40px)', color: '#0D1F4E', letterSpacing: '-0.025em', lineHeight: 1.12, margin: 0 },
   h3:           { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(18px,1.8vw,22px)', color: '#0D1F4E', letterSpacing: '-0.015em', lineHeight: 1.2, margin: 0 },
   lede:         { fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: '#4A5568', lineHeight: 1.7, margin: 0 },
@@ -104,15 +102,6 @@ const TICK = (
 )
 
 // ── Sub-components ────────────────────────────────────────────────────────────
-function Eyebrow({ children }) {
-  return (
-    <div style={S.eyebrowRow}>
-      <div style={S.eyebrowLine} />
-      <span style={S.eyebrow}>{children}</span>
-    </div>
-  )
-}
-
 function ContactCard({ icon: Icon, tag, title, body, details, tint, action }) {
   const cs = tint ? S.cardTint : S.card
   const ts = tint ? S.iconTileTint : S.iconTile
