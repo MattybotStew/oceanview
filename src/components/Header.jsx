@@ -70,11 +70,10 @@ const NAV_DROPDOWNS = {
     type: "simple",
     dropAlign: "right",
     links: [
-      { label: "Case Studies",               href: "#case-studies"                    },
-      { label: "Downloads",                  href: "#downloads"                       },
-      { label: "Rates",                      href: "#client-resources?tab=Rates"      },
-      { label: "How Oceanview MYGAs Compare",href: "#client-resources?tab=Comparisons"},
-      { label: "Glossary",                   href: "#client-resources?tab=Glossary"   },
+      { label: "Case Studies",     href: "#case-studies"     },
+      { label: "Downloads",        href: "#downloads"        },
+      { label: "FAQ",              href: "#faq"              },
+      { label: "Contact",          href: "#contact"          },
     ],
   },
   Insights: {
@@ -467,7 +466,7 @@ function NavItem({ name, config, onNav, active }) {
         aria-haspopup="true"
         aria-expanded={open}
         onMouseEnter={keepOpen} onMouseLeave={schedClose}
-        onClick={() => { onNav && onNav(name); setOpen(false); }}
+        onClick={() => setOpen(o => !o)}
         onKeyDown={handleTriggerKeyDown}>
         {name}
         <Chevron direction={open ? "up" : "down"} color="#FFF"/>
@@ -617,7 +616,12 @@ export default function Header({ active = "Home", onNav }) {
     <header style={{ position: "sticky", top: 0, zIndex: 100 }}>
       <div style={S.bar}>
         <div style={S.inner}>
-          <div onClick={() => onNav && onNav("Home")} style={{ cursor: "pointer" }}>
+          <div
+            role="link" tabIndex={0}
+            onClick={() => onNav && onNav("Home")}
+            onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onNav && onNav("Home") } }}
+            style={{ cursor: "pointer" }}
+          >
             <Logo/>
           </div>
 

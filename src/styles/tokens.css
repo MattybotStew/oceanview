@@ -113,7 +113,7 @@
   --ov-grey-900: #212529;
   --ov-grey-800: #333333;
   --ov-grey-700: #2B3A4F;
-  --ov-grey-600: #4A5568;
+  --ov-grey-600: #374151; /* was #4A5568 — bumped for AA contrast (7.2:1 on white) */
   --ov-grey-500: #6B7280;
   --ov-grey-400: #828282;
   --ov-grey-300: #DADADA;
@@ -269,6 +269,12 @@
 .ov-link:hover { color: var(--ov-teal-700); text-decoration: underline; }
 
 .ov-on-dark { color: var(--ov-fg-on-dark); }
+
+/* Screen-reader-only utility */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
 
 /* ============================================================
    PAGE DEFAULTS
@@ -492,14 +498,17 @@ a { color: inherit; text-decoration: none; }
 /* mint — primary CTA (teal on any bg) */
 .ov-btn--mint { background: var(--ov-cta-primary-bg); color: var(--ov-cta-primary-fg); }
 .ov-btn--mint:hover  { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(107,186,191,.45); }
+.ov-btn--mint:active { transform: translateY(0); box-shadow: var(--ov-shadow-press); }
 
 /* navy — secondary CTA on light backgrounds */
 .ov-btn--navy { background: var(--ov-cta-secondary-bg); color: var(--ov-cta-secondary-fg); }
 .ov-btn--navy:hover  { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(35,61,124,.35); }
+.ov-btn--navy:active { transform: translateY(0); box-shadow: var(--ov-shadow-press); }
 
 /* white — primary CTA on dark / image backgrounds */
 .ov-btn--white { background: #fff; color: var(--ov-navy-900); }
 .ov-btn--white:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,255,255,.5); }
+.ov-btn--white:active { transform: translateY(0); box-shadow: inset 0 1px 0 rgba(0,0,0,.12); }
 
 /* ghost — outlined on light backgrounds */
 .ov-btn--ghost { background: transparent; color: var(--ov-navy-900); border-color: var(--ov-navy-900); }
@@ -509,6 +518,7 @@ a { color: inherit; text-decoration: none; }
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(13,31,78,.2);
 }
+.ov-btn--ghost:active { transform: translateY(0); box-shadow: var(--ov-shadow-press); }
 
 /* ghost-light — outlined on dark / image backgrounds */
 .ov-btn--ghost-light {
@@ -522,6 +532,7 @@ a { color: inherit; text-decoration: none; }
   border-color: rgba(255,255,255,.65);
   transform: translateY(-2px);
 }
+.ov-btn--ghost-light:active { transform: translateY(0); box-shadow: inset 0 1px 0 rgba(255,255,255,.15); }
 
 /* shared focus ring */
 .ov-btn:focus-visible {
@@ -868,9 +879,19 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ov-ticker-track {
-    animation: none;
-  }
+  .ov-ticker-track { animation: none; }
+  .ov-btn { transition: none; }
+  .ov-btn:hover { transform: none; }
+  .ov-btn:active { transform: none; }
+  .ov-text-link .ov-text-link-arrow { transition: none; }
+  .ov-text-link:hover .ov-text-link-arrow { transform: none; }
+  .ov-blog-card:hover > div,
+  .ov-insight-card:hover > div,
+  .ov-resource-card:hover > div,
+  .ov-tool-card:hover { transform: none; box-shadow: none; }
+  .ov-blog-card:hover .ov-blog-img,
+  .ov-blog-featured:hover .ov-blog-feat-photo,
+  .ov-insight-card:hover .ov-insight-img { transform: none; }
 }
 
 /* Mobile ticker adjustments */

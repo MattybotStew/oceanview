@@ -44,11 +44,21 @@ export default function FAQPage() {
           <div style={faqStyles.list}>
             {FAQS.map(([q, a], i) => (
               <div key={q} style={faqStyles.item}>
-                <button style={faqStyles.q} onClick={() => setOpen(open === i ? -1 : i)}>
+                <button
+                  style={faqStyles.q}
+                  onClick={() => setOpen(open === i ? -1 : i)}
+                  aria-expanded={open === i}
+                  aria-controls={`faq-panel-${i}`}
+                  id={`faq-btn-${i}`}
+                >
                   <span>{q}</span>
-                  <span style={faqStyles.tog}>{open === i ? "−" : "+"}</span>
+                  <span style={faqStyles.tog} aria-hidden="true">{open === i ? "−" : "+"}</span>
                 </button>
-                {open === i && <div style={faqStyles.a}>{a}</div>}
+                {open === i && (
+                  <div style={faqStyles.a} id={`faq-panel-${i}`} role="region" aria-labelledby={`faq-btn-${i}`}>
+                    {a}
+                  </div>
+                )}
               </div>
             ))}
           </div>

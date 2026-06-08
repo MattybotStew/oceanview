@@ -103,9 +103,13 @@ function CaseCard({ category, client, product, title, desc, highlight, tags }) {
           ))}
         </div>
         <div style={{ marginTop: "auto", paddingTop: 8 }}>
-          <span style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "var(--ov-navy-600)", display: "inline-flex", alignItems: "center", gap: 5, cursor: "pointer" }} className="ov-blog-arrow">
+          <button
+            onClick={() => window.location.hash = 'case-studies'}
+            style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "var(--ov-navy-600)", display: "inline-flex", alignItems: "center", gap: 5, cursor: "pointer", background: "none", border: 0, padding: 0 }}
+            className="ov-blog-arrow"
+          >
             Read Case Study →
-          </span>
+          </button>
         </div>
       </div>
     </div>

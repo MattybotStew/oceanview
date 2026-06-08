@@ -129,9 +129,9 @@ function Article({ category, title, date, body, hasDownload }) {
       <h2 style={S.articleTitle}>{title}</h2>
       <p style={S.articleBody}>{body}</p>
       <div style={S.btnRow}>
-        <button style={S.readMore}>Read more</button>
+        <button style={S.readMore} onClick={() => window.location.hash = 'newsroom'}>Read more</button>
         {hasDownload && (
-          <button style={S.download}>Download Rate Sheet (PDF)</button>
+          <button style={S.download} onClick={() => window.location.hash = 'downloads'}>Download Rate Sheet (PDF)</button>
         )}
       </div>
     </div>

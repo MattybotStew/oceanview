@@ -131,6 +131,36 @@ export default function Page() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Dynamic page title
+  useEffect(() => {
+    const titles = {
+      "": "Oceanview Life and Annuity",
+      "home": "Oceanview Life and Annuity",
+      "products": "Products — Oceanview",
+      "about": "About — Oceanview",
+      "client-resources": "Client Resources — Oceanview",
+      "insights": "Insights — Oceanview",
+      "faq": "FAQ — Oceanview",
+      "blog": "Blog — Oceanview",
+      "leadership": "Leadership — Oceanview",
+      "board": "Board of Directors — Oceanview",
+      "newsroom": "Newsroom — Oceanview",
+      "white-papers": "White Papers — Oceanview",
+      "case-studies": "Case Studies — Oceanview",
+      "retirement-risk": "Retirement Risk — Oceanview",
+      "life-events": "Life Events — Oceanview",
+      "downloads": "Downloads — Oceanview",
+      "our-story": "Our Story — Oceanview",
+      "individuals": "Individuals — Oceanview",
+      "professionals": "Professionals — Oceanview",
+      "contact": "Contact — Oceanview",
+      "disclaimers": "Disclaimers — Oceanview",
+      "privacy": "Privacy Notice — Oceanview",
+      "terms": "Terms of Use — Oceanview",
+    };
+    document.title = titles[route] || "Oceanview Life and Annuity";
+  }, [route]);
+
   const goto = (r) => {
     const slug = (r === "Home" || r === "home") ? "" : r.toLowerCase().replace(/\s+/g, "-");
     window.location.hash = slug;

@@ -13,7 +13,7 @@ export default function TickerBar() {
   const allItems = [...tickerData, ...tickerData];
 
   return (
-    <div className="ov-ticker">
+    <div className="ov-ticker" role="marquee" aria-label="Market data: S&P 500, NASDAQ, Russell 2000, 10 Year Treasury, VIX">
       <div className="ov-ticker-track">
         {allItems.map((item, idx) => (
           <div key={idx} className="ov-ticker-item">

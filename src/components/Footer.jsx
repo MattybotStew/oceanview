@@ -98,14 +98,13 @@ export default function Footer() {
       { label: "Leadership",         href: "#leadership"   },
       { label: "Board of Directors", href: "#board"        },
       { label: "Newsroom",           href: "#newsroom"     },
-      { label: "Careers",            href: "#careers"      },
+      { label: "FAQ",                href: "#faq"          },
     ]],
     ["Client Resources", [
-      { label: "Case Studies",               href: "#case-studies" },
-      { label: "Downloads",                  href: "#downloads"    },
-      { label: "Glossary",                   href: "#glossary"     },
-      { label: "Rates",                      href: "#rates"        },
-      { label: "How Oceanview MYGAs Compare",href: "#compare"      },
+      { label: "Case Studies",               href: "#case-studies"     },
+      { label: "Downloads",                  href: "#downloads"        },
+      { label: "Client Resources",           href: "#client-resources" },
+      { label: "Contact",                    href: "#contact"          },
     ]],
     ["Insights", [
       { label: "Retirement Risk Series", href: "#retirement-risk" },
@@ -128,7 +127,9 @@ export default function Footer() {
           </div>
           <form style={footerStyles.form} onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>
             <div style={footerStyles.formRow} className="ov-footer-form-row">
+              <label htmlFor="footer-first-name" className="sr-only">First name</label>
               <input style={footerStyles.input} name="firstName" id="footer-first-name" autoComplete="given-name" placeholder="First name" required />
+              <label htmlFor="footer-email" className="sr-only">Email address</label>
               <input style={footerStyles.input} name="email" id="footer-email" type="email" autoComplete="email" placeholder="Email address" required />
               <button type="submit" style={footerStyles.submit}
                 onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}

@@ -117,9 +117,13 @@ function PaperCard({ category, date, title, desc, pages }) {
         </p>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 4 }}>
           <span style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 12, color: "var(--ov-grey-500)" }}>{pages} pages</span>
-          <span style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "var(--ov-navy-600)", display: "inline-flex", alignItems: "center", gap: 5, cursor: "pointer" }} className="ov-blog-arrow">
+          <button
+            onClick={() => window.location.hash = 'downloads'}
+            style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "var(--ov-navy-600)", display: "inline-flex", alignItems: "center", gap: 5, cursor: "pointer", background: "none", border: 0, padding: 0 }}
+            className="ov-blog-arrow"
+          >
             Download PDF →
-          </span>
+          </button>
         </div>
       </div>
     </div>
