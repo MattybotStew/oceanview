@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PageHero from './PageHero.jsx'
 import CTABanner from './CTABanner.jsx'
 
 const S = {
@@ -94,20 +95,14 @@ function BoardCard({ name, bio }) {
 export default function BoardPage() {
   return (
     <div style={{ background: "#fff" }}>
-      <section style={{ background: '#fff', padding: '80px 0 64px', textAlign: 'center' }}>
-        <div className="ov-container">
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 20 }}>
-            <div style={{ width: 18, height: 1, background: '#2494C1', flexShrink: 0 }} />
-            <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: '#2494C1' }}>Board of Directors</span>
-          </div>
-          <h1 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(32px, 4.5vw, 62px)', letterSpacing: '-0.025em', lineHeight: 1.08, color: '#0D1F4E', margin: '0 auto 24px', maxWidth: '20ch' }}>
-            Independent oversight. Proven expertise.
-          </h1>
-          <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 'clamp(15px, 1.4vw, 17px)', lineHeight: 1.65, color: '#4A5568', margin: '0 auto', maxWidth: '52ch' }}>
-            Our independent Board brings together decades of financial services expertise to provide rigorous governance and strategic oversight of Oceanview Life and Annuity Company.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        image="assets/lighthouse.jpg"
+        eyebrow="Board of Directors"
+        title="Independent oversight. Proven expertise."
+        subtitle="Our independent Board brings together decades of financial services expertise to provide rigorous governance and strategic oversight of Oceanview Life and Annuity Company."
+        ctaPrimary="Leadership"
+        onPrimary={() => { window.location.hash = 'leadership'; }}
+      />
 
       <section style={S.section}>
         <div className="ov-container">

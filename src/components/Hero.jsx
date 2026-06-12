@@ -247,7 +247,7 @@ export default function Hero({ onPrimary, onSecondary }) {
               className="ov-hero-dot"
               style={idx === currentSlide ? { ...heroStyles.dot, ...heroStyles.dotActive, position: "relative" } : { ...heroStyles.dot, position: "relative" }}
               aria-label={`Go to slide ${idx + 1}`}
-              aria-current={idx === currentSlide ? "true" : undefined}
+              aria-current={idx === currentSlide ? "slide" : undefined}
             />
           ))}
           <button onClick={handleNext} style={heroStyles.arrowBtn} aria-label="Next slide">

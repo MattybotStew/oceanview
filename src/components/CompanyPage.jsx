@@ -1,96 +1,79 @@
 import PageHero from './PageHero.jsx'
-import { PillGhost, PillMint, TextLink } from './Buttons.jsx'
 import CTABanner from './CTABanner.jsx'
+import { PillGhost, PillNavy, TextLink } from './Buttons.jsx'
 import { Eyebrow } from './common.jsx'
-import { ShieldCheck, TrendingUp, Lock, Users, Globe, Zap } from 'lucide-react'
 
-// ── Shared styles ─────────────────────────────────────────────────────────────
 const S = {
-  // Typography
-  h2:     { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(30px, 3.6vw, 48px)", lineHeight: 1.12, letterSpacing: "-0.025em", margin: "0 0 20px" },
-  h2Dark: { color: "#F2FCFF" },
-  h2Light:{ color: "#0D1F4E" },
-  accent: { fontStyle: "italic", color: "#70BABF" },
-  body:   { fontFamily: "var(--ov-ff-sans)", fontSize: 16.5, lineHeight: 1.7, color: "#4A5568", margin: 0 },
-  bodyDark:{ fontFamily: "var(--ov-ff-sans)", fontSize: 16.5, lineHeight: 1.7, color: "rgba(242,252,255,.65)", margin: 0 },
-
-  // Layout
-  twoCol: { display: "flex", gap: 80, alignItems: "center" },
-  btnRow: { display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap", marginTop: 32 },
+  h2: {
+    fontFamily: "var(--ov-ff-display)", fontWeight: 400,
+    fontSize: "clamp(32px, 3.2vw, 42px)", lineHeight: 1.2,
+    letterSpacing: "-0.027em", color: "#233d7c", margin: 0,
+  },
+  h3: {
+    fontFamily: "var(--ov-ff-display)", fontWeight: 600,
+    fontSize: 26, lineHeight: 1.2, color: "#0d1f4e", margin: 0,
+  },
+  accent: { fontStyle: "italic", color: "#70babf" },
+  body: {
+    fontFamily: "var(--ov-ff-sans)", fontSize: 14, lineHeight: 1.65,
+    color: "#6b7280", margin: 0,
+  },
+  bodyLg: {
+    fontFamily: "var(--ov-ff-sans)", fontSize: 17, lineHeight: 1.6,
+    color: "#4a5568", margin: 0,
+  },
+  checkCard: {
+    background: "rgba(112,186,191,0.2)",
+    borderRadius: 12,
+    padding: "19px 24px 20px",
+    display: "flex", flexDirection: "column", gap: 12,
+  },
+  checkCardLabel: {
+    fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10,
+    letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494c1",
+  },
 };
 
-// ── Why Oceanview — differentiator cards ──────────────────────────────────────
-const PILLARS = [
-  {
-    Icon: ShieldCheck,
-    title: "Financial Strength",
-    body: "An A (Excellent) rating from A.M. Best — recognition of our balance-sheet strength and prudent risk management.",
-  },
-  {
-    Icon: TrendingUp,
-    title: "Competitive Rates",
-    body: "Consistently among the industry's most competitive guaranteed rates on both MYGA and FIA products.",
-  },
-  {
-    Icon: Lock,
-    title: "Principal Protection",
-    body: "A zero-percent floor on indexed strategies means your clients can pursue growth without risking their principal.",
-  },
-  {
-    Icon: Zap,
-    title: "Simplicity by Design",
-    body: "No hidden clauses, no unnecessary complexity. Products built to be understood, explained, and trusted.",
-  },
-  {
-    Icon: Users,
-    title: "Advisor-First Service",
-    body: "A dedicated team built around the advisor relationship — from new business to in-force policy support.",
-  },
-  {
-    Icon: Globe,
-    title: "Nationwide Reach",
-    body: "Licensed in all 50 states and distributed through a broad network of agents, advisors, and broker-dealers.",
-  },
-];
-
-function PillarCard({ Icon, title, body }) {
+function CheckItem({ last, children }) {
   return (
     <div style={{
-      background: "rgba(255,255,255,.05)",
-      border: "1px solid rgba(255,255,255,.08)",
-      borderRadius: 16,
-      padding: "32px 28px",
-      display: "flex",
-      flexDirection: "column",
-      gap: 16,
+      display: "flex", alignItems: "flex-start", gap: 8,
+      borderBottom: last ? "none" : "1px solid rgba(36,148,193,0.1)",
+      padding: last ? "10px 0 0" : "10px 0 11px",
     }}>
-      <div style={{
-        width: 44, height: 44, borderRadius: 10,
-        background: "rgba(112,186,191,.15)",
-        border: "1px solid rgba(112,186,191,.25)",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        flexShrink: 0,
-      }}>
-        <Icon size={20} color="#70BABF" strokeWidth={1.75} />
-      </div>
-      <div>
-        <div style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 15, color: "#F2FCFF", marginBottom: 8 }}>
-          {title}
-        </div>
-        <p style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 14, lineHeight: 1.65, color: "rgba(242,252,255,.55)", margin: 0 }}>
-          {body}
-        </p>
-      </div>
+      <svg width="8" height="9" viewBox="0 0 8 9" fill="none" style={{ flexShrink: 0, marginTop: 7 }}>
+        <path d="M1 4.5L3.2 6.5L7 2.5" stroke="#2494c1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+      <p style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 14, lineHeight: 1.65, color: "#6b7280", margin: 0 }}>
+        {children}
+      </p>
     </div>
   );
 }
 
-// ── Page ──────────────────────────────────────────────────────────────────────
+function CheckItemBold({ last, label, body }) {
+  return (
+    <div style={{
+      display: "flex", alignItems: "flex-start", gap: 8,
+      borderBottom: last ? "none" : "1px solid rgba(36,148,193,0.1)",
+      padding: last ? "10px 0 0" : "10px 0 11px",
+    }}>
+      <svg width="8" height="9" viewBox="0 0 8 9" fill="none" style={{ flexShrink: 0, marginTop: 7 }}>
+        <path d="M1 4.5L3.2 6.5L7 2.5" stroke="#2494c1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+      <p style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 14, lineHeight: 1.65, color: "#6b7280", margin: 0 }}>
+        <strong style={{ fontWeight: 600, color: "#4a5568" }}>{label} </strong>
+        {body}
+      </p>
+    </div>
+  );
+}
+
 export default function CompanyPage() {
   return (
     <main>
 
-      {/* 1 ── Hero ──────────────────────────────────────────────────────────── */}
+      {/* 1 — Hero */}
       <PageHero
         image="assets/AdobeStock_1231908414@0.3x.jpg"
         eyebrow="Since 1987"
@@ -98,39 +81,155 @@ export default function CompanyPage() {
         titleAccent="clarity and confidence."
         subtitle="Guaranteed interest, flexible options, and growth potential — with principal protection at every step."
         ctaPrimary="Compare Products"
+        onPrimary={() => { window.location.hash = 'products'; }}
       />
 
-      {/* 2 ── Company story ─────────────────────────────────────────────────── */}
-      <section style={{ background: "#fff" }} className="ov-section">
+      {/* 2 — Experience the Difference */}
+      <section style={{ background: "#fff", paddingTop: 80, paddingBottom: 60 }}>
         <div className="ov-container">
-          <div style={S.twoCol} className="ov-company-about-grid">
-            <img
-              src="assets/couple-walking.png"
-              alt="Couple walking together"
-              style={{ width: 440, height: 520, borderRadius: 24, objectFit: "cover", flexShrink: 0, display: "block" }}
-              className="ov-company-about-img"
-            />
-            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 24 }}>
-              <div>
-                <Eyebrow>Who We Are</Eyebrow>
-                <h2 style={{ ...S.h2, ...S.h2Light }}>
-                  A singular focus on{" "}
-                  <em style={S.accent}>retirement security.</em>
+          <div style={{ display: "flex", gap: 80, alignItems: "flex-start" }} className="ov-about-diff-grid">
+            {/* Left content */}
+            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 40 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
+                <Eyebrow style={{ marginBottom: 0 }}>Who We Are</Eyebrow>
+                <h2 style={S.h2}>
+                  Experience{" "}
+                  <em style={S.accent}>the difference</em>
                 </h2>
               </div>
               <p style={S.body}>
-                Founded in 1987, Oceanview Life and Annuity Company was built around a single
-                purpose: providing policyholders with reliable, transparent retirement savings
-                products they can count on for life.
+                At Oceanview Life and Annuity Company, we go beyond traditional retirement savings
+                by offering a uniquely straightforward and trustworthy approach. Here's what sets
+                us apart:
               </p>
+              <div style={S.checkCard}>
+                <span style={S.checkCardLabel}>Why Oceanview</span>
+                <CheckItemBold
+                  label="Financial Strength You Can Trust:"
+                  body={`Our "A" (Excellent) rating from A.M. Best showcases our solid financial foundation, providing you with confidence that your retirement savings are in stable hands.`}
+                />
+                <CheckItemBold
+                  label="Simplicity and Transparency:"
+                  body="We design our annuity products without unnecessary complexities or hidden clauses. This clarity lets you understand your investments fully and make decisions with ease."
+                />
+                <CheckItemBold
+                  label="Competitive Rates for Maximum Growth:"
+                  body="Our annuities offer some of the industry's most competitive rates, aiming to enhance the growth potential of your retirement savings."
+                />
+                <CheckItemBold
+                  label="Personalized Solutions Tailored to You:"
+                  body="We recognize that everyone's retirement journey is unique. By collaborating with financial professionals, we tailor our solutions to meet your specific needs."
+                />
+                <CheckItemBold
+                  last
+                  label="Commitment to Your Peace of Mind:"
+                  body="Your financial well-being is our top priority. We strive to provide a seamless and reassuring experience as you plan for a secure future."
+                />
+              </div>
               <p style={S.body}>
-                We partner exclusively with financial professionals — agents, advisors, banks,
-                and broker-dealers — who share our commitment to helping clients achieve
-                genuine financial security in retirement. Every product we design, every
-                rate we set, and every service decision we make reflects that mission.
+                Experience the difference of partnering with a company that values simplicity,
+                strength, and personalized service. Choose Oceanview and take confident steps
+                toward a financially secure retirement.
               </p>
-              <div style={S.btnRow}>
-                <PillGhost>Meet Our Leadership</PillGhost>
+            </div>
+            {/* Right photo */}
+            <div style={{
+              width: 480, height: 480, borderRadius: 16, overflow: "hidden",
+              flexShrink: 0, alignSelf: "flex-start",
+            }} className="ov-about-diff-photo">
+              <img
+                src="assets/older-couple-1.png"
+                alt="Happy retired couple planning their financial future"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3 — Our Mission & Our Approach (two feature columns) */}
+      <section style={{ background: "#fff", paddingTop: 20, paddingBottom: 60 }}>
+        <div className="ov-container">
+          <div style={{ display: "flex", gap: 50, alignItems: "flex-start" }} className="ov-about-features-grid">
+            {/* Left column */}
+            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 34 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                <span style={S.checkCardLabel}>Our Mission</span>
+                <h3 style={S.h3}>A singular focus on retirement security</h3>
+              </div>
+              <p style={S.body}>
+                Founded in 1987, Oceanview was built around a single purpose: providing
+                policyholders with reliable, transparent retirement savings products they can count
+                on for life. We partner exclusively with financial professionals who share our
+                commitment to helping clients achieve genuine security in retirement.
+              </p>
+              <div style={S.checkCard}>
+                <span style={S.checkCardLabel}>We believe in</span>
+                <CheckItem>Products designed without hidden clauses or unnecessary complexity</CheckItem>
+                <CheckItem>Rates that consistently rank among the most competitive in the industry</CheckItem>
+                <CheckItem>A zero-percent floor on indexed strategies — no principal at risk</CheckItem>
+                <CheckItem last>Licensed in all 50 states with a nationwide network of trusted advisors</CheckItem>
+              </div>
+            </div>
+            {/* Right column */}
+            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 34 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                <span style={S.checkCardLabel}>Our Approach</span>
+                <h3 style={S.h3}>Built on the advisor relationship</h3>
+              </div>
+              <p style={S.body}>
+                We work exclusively through independent agents, advisors, banks, and broker-dealers.
+                This means every product decision, every service investment, and every rate we set
+                is designed to support the professionals who help clients plan for retirement —
+                and the clients who depend on them.
+              </p>
+              <div style={S.checkCard}>
+                <span style={S.checkCardLabel}>Our advisors receive</span>
+                <CheckItem>A dedicated new business team from application to issuance</CheckItem>
+                <CheckItem>In-force policy support throughout the client relationship</CheckItem>
+                <CheckItem>Clear, straightforward product education and materials</CheckItem>
+                <CheckItem last>A service team built around quick, reliable answers</CheckItem>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4 — Our Story: photo left, content right */}
+      <section style={{ background: "#fff", padding: "80px 0" }}>
+        <div className="ov-container">
+          <div style={{ display: "flex", gap: 80, alignItems: "center" }} className="ov-about-story-grid">
+            {/* Photo */}
+            <div style={{
+              width: 420, height: 420, borderRadius: 24, overflow: "hidden",
+              flexShrink: 0,
+            }} className="ov-about-story-photo">
+              <img
+                src="assets/couple-walking.png"
+                alt="Couple walking together"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            </div>
+            {/* Content */}
+            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 43 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
+                <Eyebrow style={{ marginBottom: 0 }}>Since 1987</Eyebrow>
+                <h2 style={S.h2}>
+                  A trusted partner for{" "}
+                  <em style={S.accent}>retirement security</em>
+                </h2>
+              </div>
+              <p style={S.bodyLg}>
+                Oceanview Life and Annuity Company stands as a reliable source of top-tier fixed
+                and fixed-indexed annuity offerings. Our paramount objective is to offer a sense
+                of security and financial stability to both our agents, who recommend our annuities
+                to their clients, and our policyholders as they strive to achieve their financial
+                objectives through our annuity products.
+              </p>
+              <div style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap" }}>
+                <PillGhost onClick={() => { window.location.hash = 'leadership'; }}>
+                  Meet Our Leadership
+                </PillGhost>
                 <TextLink>Read our 2024 Annual Report</TextLink>
               </div>
             </div>
@@ -138,81 +237,51 @@ export default function CompanyPage() {
         </div>
       </section>
 
-      {/* 3 ── Why Oceanview — dark navy, 3×2 card grid ─────────────────────── */}
-      <section style={{ background: "var(--ov-navy-1000)" }} className="ov-section">
+      {/* 5 — AM Best: content left, photo right */}
+      <section style={{ background: "#fff", padding: "80px 0" }}>
         <div className="ov-container">
-          <div style={{ marginBottom: 52 }}>
-            <Eyebrow light>Why Oceanview</Eyebrow>
-            <h2 style={{ ...S.h2, ...S.h2Dark, maxWidth: "22ch" }}>
-              Built differently,{" "}
-              <em style={S.accent}>for a reason.</em>
-            </h2>
-            <p style={{ ...S.bodyDark, maxWidth: "54ch" }}>
-              We focus exclusively on fixed annuity solutions — so every product decision
-              reflects a singular commitment to the retirement market.
-            </p>
-          </div>
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 16,
-          }} className="ov-company-pillars-grid">
-            {PILLARS.map((p) => <PillarCard key={p.title} {...p} />)}
-          </div>
-        </div>
-      </section>
-
-      {/* 4 ── A.M. Best — bold centered accent ──────────────────────────────── */}
-      <section style={{ background: "var(--ov-surface-tint)", overflow: "hidden", position: "relative" }} className="ov-section">
-        {/* Watermark "A" */}
-        <div aria-hidden="true" style={{
-          position: "absolute",
-          right: "-2%",
-          top: "50%",
-          transform: "translateY(-50%)",
-          fontFamily: "var(--ov-ff-display)",
-          fontWeight: 800,
-          fontSize: "clamp(280px, 30vw, 480px)",
-          lineHeight: 1,
-          color: "rgba(36,148,193,.07)",
-          pointerEvents: "none",
-          userSelect: "none",
-          letterSpacing: "-0.05em",
-        }}>A</div>
-
-        <div className="ov-container" style={{ position: "relative", zIndex: 1 }}>
-          <div style={{ maxWidth: 640 }}>
-            <Eyebrow>Financial Strength</Eyebrow>
-            <h2 style={{ ...S.h2, ...S.h2Light }}>
-              Rated{" "}
-              <em style={{ ...S.accent, color: "#2494C1" }}>"A" Excellent</em>
-              {" "}by A.M. Best.
-            </h2>
-            <p style={{ ...S.body, marginBottom: 28 }}>
-              Oceanview holds an A (Excellent) Financial Strength Rating from A.M. Best —
-              the insurance industry's leading independent rating authority. This recognition
-              reflects our balance-sheet strength, consistent operating performance, and
-              prudent enterprise risk management.
-            </p>
-            <p style={{ ...S.body, marginBottom: 36 }}>
-              For your clients, it means one thing: the company behind their annuity has the
-              financial foundation to honor every commitment it makes.
-            </p>
-            <TextLink>Read the latest A.M. Best report</TextLink>
+          <div style={{ display: "flex", gap: 80, alignItems: "center" }} className="ov-about-ambest-grid">
+            {/* Content */}
+            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 39 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
+                <Eyebrow style={{ marginBottom: 0 }}>Financial Strength</Eyebrow>
+                <h2 style={S.h2}>
+                  Rated{" "}
+                  <em style={{ ...S.accent, color: "#2494c1" }}>"A" Excellent</em>
+                  {" "}by A.M. Best
+                </h2>
+              </div>
+              <p style={S.bodyLg}>
+                Oceanview Life and Annuity Company holds an A (Excellent) Financial Strength
+                Rating from A.M. Best — recognition of our balance-sheet strength, operating
+                performance, and prudent enterprise risk management.
+              </p>
+              <TextLink>Read the latest A.M. Best report</TextLink>
+            </div>
+            {/* Photo */}
+            <div style={{
+              width: 420, height: 420, borderRadius: 24, overflow: "hidden",
+              flexShrink: 0,
+            }} className="ov-about-ambest-photo">
+              <img
+                src="assets/hero-beach-couple.jpg"
+                alt="Couple on the beach"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 5 ── CTA ───────────────────────────────────────────────────────────── */}
-      <section className="ov-section" style={{ background: "#fff" }}>
+      {/* 6 — CTA banner (standard dark navy style) */}
+      <section style={{ background: "#fff", padding: "80px 0" }}>
         <div className="ov-container">
           <CTABanner
             eyebrow="Get Started"
-            title="Retirement solutions backed by"
-            titleAccent="decades of strength."
-            body="Financial confidence you can trust — with the transparency and stability your clients deserve."
-            cta="Compare Products"
-            onClick={() => { window.location.hash = 'products'; }}
+            title="Not sure which product is right for you?"
+            body="Talk to a financial professional or contact our team to find the solution that fits your retirement goals."
+            cta="Get Started"
+            onClick={() => { window.location.hash = 'contact'; }}
           />
         </div>
       </section>

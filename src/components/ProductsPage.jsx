@@ -205,9 +205,9 @@ export default function ProductsPage() {
       <PageHero
         image="assets/hero-beach-couple.jpg"
         eyebrow="Our Products"
-        title="Retirement solutions designed for"
-        titleAccent="clarity and confidence."
-        subtitle="Guaranteed interest, flexible options, and growth potential — with principal protection at every step."
+        title="Annuities designed to"
+        titleAccent="protect and grow your savings."
+        subtitle="Explore our full lineup of fixed and fixed-indexed annuities — principal protection guaranteed, competitive rates, and zero market risk."
         ctaPrimary="Compare Products"
       />
 

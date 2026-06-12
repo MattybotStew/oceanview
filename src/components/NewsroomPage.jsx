@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import PageHero from './PageHero.jsx'
 import CTABanner from './CTABanner.jsx'
 import TabBar from './TabBar.jsx'
 
@@ -158,20 +159,12 @@ export default function NewsroomPage() {
 
   return (
     <div style={{ background: "#fff" }}>
-      <section style={{ background: '#fff', padding: '80px 0 64px', textAlign: 'center' }}>
-        <div className="ov-container">
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 20 }}>
-            <div style={{ width: 18, height: 1, background: '#2494C1', flexShrink: 0 }} />
-            <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: '#2494C1' }}>Newsroom</span>
-          </div>
-          <h1 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(32px, 4.5vw, 62px)', letterSpacing: '-0.025em', lineHeight: 1.08, color: '#0D1F4E', margin: '0 auto 24px', maxWidth: '20ch' }}>
-            News Room
-          </h1>
-          <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 'clamp(15px, 1.4vw, 17px)', lineHeight: 1.65, color: '#4A5568', margin: '0 auto', maxWidth: '52ch' }}>
-            The latest rate updates, press releases, compliance guidance, and product announcements from Oceanview Life and Annuity Company.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        image="assets/hero-overlay.jpg"
+        eyebrow="Newsroom"
+        title="News Room"
+        subtitle="The latest rate updates, press releases, compliance guidance, and product announcements from Oceanview Life and Annuity Company."
+      />
 
       <div style={S.filterBar}>
         <div className="ov-container">

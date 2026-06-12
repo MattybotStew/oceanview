@@ -72,7 +72,7 @@ const HIGHLIGHTS = [
   },
   {
     title: "Bringing Retirement Savings to You",
-    body: "Oceanview's retirement savings products are offered and distributed nationally through a network of agents, advisors, banks, and broker-dealers. Talk to your financial professional or call our Sales Team today for more information!",
+    body: "Oceanview's retirement savings products are offered and distributed nationally through a network of agents, advisors, banks, and broker-dealers. Talk to your financial professional or call our Sales Team today for more information.",
   },
 ];
 

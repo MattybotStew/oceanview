@@ -3,8 +3,6 @@
    Colors and Type
    ============================================================ */
 
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Open+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap");
-
 /* PP Editorial New — proprietary brand display serif */
 @font-face {
   font-family: "PP Editorial New";
@@ -100,6 +98,7 @@
   /* ---------- Brand: Secondary ---------- */
   --ov-golden-sun:    #E1C43B;
   --ov-sunset-orange: #A84124;
+  --ov-footer-bg:     #001233;
 
   /* ---------- Surfaces ---------- */
   --ov-surface-0:      #FFFFFF;
@@ -749,7 +748,7 @@ a { color: inherit; text-decoration: none; }
   .ct-form-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
 }
 
-/* ─── Company page ───────────────────────────────────────────── */
+/* ─── Company / About page ───────────────────────────────────── */
 @media (max-width: 900px) {
   .ov-company-about-grid { flex-direction: column !important; gap: 40px !important; }
   .ov-company-about-img  { width: 100% !important; height: auto !important; aspect-ratio: 4/3 !important; }
@@ -759,6 +758,19 @@ a { color: inherit; text-decoration: none; }
 }
 @media (max-width: 540px) {
   .ov-company-pillars-grid { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 960px) {
+  .ov-about-diff-grid    { flex-direction: column !important; gap: 48px !important; }
+  .ov-about-diff-photo   { width: 100% !important; height: 320px !important; }
+  .ov-about-features-grid { flex-direction: column !important; gap: 48px !important; }
+  .ov-about-story-grid   { flex-direction: column !important; gap: 40px !important; }
+  .ov-about-story-photo  { width: 100% !important; height: 280px !important; }
+  .ov-about-ambest-grid  { flex-direction: column !important; gap: 40px !important; }
+  .ov-about-ambest-photo { width: 100% !important; height: 280px !important; }
+  .ov-about-cta-card     { padding: 60px 40px !important; }
+}
+@media (max-width: 540px) {
+  .ov-about-cta-card     { padding: 48px 24px !important; }
 }
 
 /* ─── Highlights ────────────────────────────────────────────── */
@@ -913,4 +925,10 @@ a { color: inherit; text-decoration: none; }
 }
 @media (min-width: 1100px) {
   .lpl-res-3col { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+}
+
+/* ── Dropdown navigation animation ──────────────────────────── */
+@keyframes ov-dropdown-in {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0); }
 }

@@ -1,4 +1,4 @@
-export default function HeroShaper({ fill = "#ffffff" }) {
+export default function HeroShaper({ fill = "var(--ov-bg, #ffffff)" }) {
   return (
     <div className="ov-hero-shaper" style={{
       position: 'absolute',

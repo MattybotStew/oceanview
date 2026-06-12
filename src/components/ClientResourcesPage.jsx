@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
+import PageHero from './PageHero.jsx'
 import TabBar from './TabBar.jsx'
 import CTABanner from './CTABanner.jsx'
 import { TextLink } from './Buttons.jsx'
@@ -381,21 +382,13 @@ export default function ClientResourcesPage() {
 
   return (
     <main>
-      {/* Hero */}
-      <section style={{ background: "#fff", padding: "80px 0 64px", textAlign: "center" }}>
-        <div className="ov-container">
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 20 }}>
-            <div style={{ width: 18, height: 1, background: "#2494C1", flexShrink: 0 }} />
-            <span style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.4px", textTransform: "uppercase", color: "#2494C1" }}>Client Resources</span>
-          </div>
-          <h1 style={{ fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(32px, 4.5vw, 62px)", letterSpacing: "-0.025em", lineHeight: 1.08, color: "#0D1F4E", margin: "0 auto 24px", maxWidth: "22ch" }}>
-            Client Resources
-          </h1>
-          <p style={{ fontFamily: "var(--ov-ff-sans)", fontSize: "clamp(15px, 1.4vw, 17px)", lineHeight: 1.65, color: "#4A5568", margin: "0 auto", maxWidth: "52ch" }}>
-            Current rates, state application packages, product comparisons, and a full annuity glossary — everything you need to serve clients efficiently.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        image="assets/AdobeStock_1231908414@0.3x.jpg"
+        eyebrow="Client Resources"
+        title="Everything you need"
+        titleAccent="to serve clients well."
+        subtitle="Current rates, state application packages, product comparisons, and a full annuity glossary — all in one place."
+      />
 
       {/* Sticky tab bar */}
       <div style={{ background: "#fff", position: "sticky", top: 72, zIndex: 10, borderBottom: "1px solid rgba(13,31,78,.06)" }}>

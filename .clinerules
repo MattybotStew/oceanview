@@ -1,0 +1,207 @@
+# Oceanview — Cline Project Rules
+# Read this before touching any file.
+
+---
+
+## Who else is working on this codebase
+
+**Claude Code** is the primary coding agent on this project. This `.clinerules` file is kept
+up-to-date by Claude Code so Cline always knows the current state of work.
+
+---
+
+## Tech stack (do not change these without asking)
+
+- React 18 + Vite 6 — JSX, ES modules, no TypeScript
+- Routing: hash-based state in `src/components/Page.jsx` — no react-router, no URL changes
+- Styling: **inline JS style objects** + `src/styles/tokens.css` — NO Tailwind, NO CSS modules
+- All CSS custom properties live in `tokens.css` — use them (`var(--ov-navy-900)`, etc.)
+- Build: `npm run build` → `dist/`  |  Dev: `npm run dev`
+- Deploy: GitHub Pages via `.github/workflows/deploy.yml`
+
+---
+
+## File conventions
+
+### Adding a new page
+1. Create `src/components/MyPage.jsx`
+2. Import it in `src/components/Page.jsx`
+3. Add the route slug to `PAGE_ROUTES` set
+4. Add a `case "my-page":` to the `renderPage()` switch
+5. Add a page title to the `titles` map
+
+### Styling rules
+- Use inline `style={{}}` objects for component-specific styles
+- Define a top-level `const S = { ... }` object with shared style fragments
+- Use `className` only for responsive breakpoint helpers (e.g. `ov-about-grid`)
+- Responsive classes live in `src/styles/tokens.css` under labeled sections
+- Never use `!important` except inside media query overrides in `tokens.css`
+
+### Component patterns
+- `Eyebrow` from `./common.jsx` — renders the blue-dash + uppercase label
+- `PillMint` / `PillNavy` / `PillGhost` / `TextLink` from `./Buttons.jsx`
+- `PageHero` — takes `image`, `eyebrow`, `title`, `titleAccent`, `subtitle`, `ctaPrimary`, `onPrimary`
+- `CTABanner` — inline CTA band (eyebrow + heading + body + button)
+- `CTAPanel` — soft-tint "Get Started" band
+
+### Design tokens (key ones)
+```
+Fonts:    var(--ov-ff-display)   PP Editorial New (headings)
+          var(--ov-ff-sans)      PP Mori (body/UI)
+Navy:     #001F54  #0D1F4E  #1A3070  #233D7C
+Teal:     #70BABF  #2494C1  rgba(112,186,191,0.2)  ← teal card bg
+Grey:     #4A5568  #6B7280
+Surface:  #F1FBFF  (ov-surface-tint)
+```
+
+---
+
+## Pages & routing — current status
+
+| Route hash   | Component             | Status      |
+|--------------|-----------------------|-------------|
+| (home)       | HomePage in Page.jsx  | ✅ Complete  |
+| #about       | CompanyPage.jsx       | ✅ Complete  |
+| #our-story   | OurStoryPage.jsx      | ✅ Complete  |
+| #leadership  | LeadershipPage.jsx    | ✅ Complete  |
+| #board       | BoardPage.jsx         | ✅ Complete  |
+| #newsroom    | NewsroomPage.jsx      | ✅ Complete  |
+| #products    | ProductsPage.jsx      | ✅ Complete  |
+| #harbourview-myga | HarbourviewMYGAPage.jsx | ✅ |
+| #horizon-myga | HorizonMYGAPage.jsx  | ✅ Complete  |
+| #sky-harbourview-myga | SkyHarbourviewMYGAPage.jsx | ✅ |
+| #current-rate-fia | CurrentRateFIAPage.jsx | ✅ |
+| #harbourview-fia | HarbourviewFIAPage.jsx | ✅ |
+| #caplock     | CapLockFIAPage.jsx    | ✅ Complete  |
+| #topsider    | TopsiderFIAPage.jsx   | ✅ Complete  |
+| #client-resources | ClientResourcesPage.jsx | ✅ |
+| #insights    | InsightsPage.jsx      | ✅ Complete  |
+| #retirement-risk | RetirementRiskPage.jsx | ✅ |
+| #life-events | LifeEventsPage.jsx    | ✅ Complete  |
+| #white-papers | WhitePapersPage.jsx  | ✅ Complete  |
+| #case-studies | CaseStudiesPage.jsx  | ✅ Complete  |
+| #downloads   | DownloadsPage.jsx     | ✅ Complete  |
+| #professionals | ProfessionalsPage.jsx | ✅ Complete |
+| #sales-tools | SalesToolsPage.jsx    | ✅ Complete  |
+| #agent-faqs  | AgentFAQsPage.jsx     | ✅ Complete  |
+| #faq         | FAQPage.jsx           | ✅ Complete  |
+| #blog        | BlogPage.jsx          | ✅ Complete  |
+| #contact     | ContactPage.jsx       | ✅ Complete  |
+| #individuals | IndividualsPage.jsx   | ✅ Complete  |
+| #lpl-landing | LPLLandingPage.jsx    | ✅ Complete  |
+| #cetera-landing | CeteraLandingPage.jsx | ✅ Complete |
+| #state-approval | StateApprovalPage.jsx | ✅ Complete |
+| #disclaimers | DisclaimersPage.jsx   | ✅ Complete  |
+| #privacy     | PrivacyPage.jsx       | ✅ Complete  |
+| #terms       | TermsPage.jsx         | ✅ Complete  |
+| #agent-portal | StubPage              | stub only   |
+| #accessibility | StubPage            | stub only   |
+
+---
+
+## What Cline did most recently (June 12 2026)
+
+### Token + accessibility cleanup across global components
+
+- **Footer.jsx** — replaced hardcoded `#001233` bg with `var(--ov-footer-bg)` (defined in tokens.css line 101)
+- **Header.jsx** — `maxWidth: 1400` → `var(--ov-container)` (1600px); dropdown panel heading font → `--ov-ff-display`; "About" nav item changed from `<button>` to `<a>` that navigates directly to `#about` on click (both desktop and mobile)
+- **Hero.jsx** — `aria-current="true"` → `aria-current="slide"` (correct ARIA semantics for carousels)
+- **HeroShaper.jsx** — `fill="#ffffff"` default → `fill="var(--ov-bg, #ffffff)"` for theme safety
+- **Highlights.jsx** — removed trailing `!` from last highlight body copy
+- **package.json** — added `gh-pages@^6.3.0` devDep + `"deploy": "npm run build && gh-pages -d dist"` script
+- **tokens.css** — WCAG AA contrast fixes: `--ov-grey-600` bumped `#4A5568→#374151` (7.2:1 on white); `--ov-danger` `#FF0000→#CC0000` (5.87:1); `--ov-link` now uses `--ov-teal-700` (darker) instead of `--ov-teal-600`
+
+---
+
+## What Claude Code did most recently (June 12 2026)
+
+### Hero audit & fixes — replaced wrong header styles on 5 pages
+
+After a full Figma deep-dive (nodes: Leadership `7326-1671`, Board `7326-2209`, Newsroom `7391-1326`, Client Resources `7326-3981`, Products `6932-106`), identified and fixed 5 pages using the wrong hero pattern:
+
+- **LeadershipPage.jsx** — replaced plain centered white `<section>` hero with `<PageHero image="assets/hero-couple.jpg" eyebrow="Leadership" ...>` + CTA "Board of Directors"
+- **BoardPage.jsx** — replaced plain centered white `<section>` hero with `<PageHero image="assets/lighthouse.jpg" eyebrow="Board of Directors" ...>` + CTA "Leadership"
+- **NewsroomPage.jsx** — replaced plain centered white `<section>` hero with `<PageHero image="assets/hero-overlay.jpg" eyebrow="Newsroom" ...>`
+- **ClientResourcesPage.jsx** — replaced plain centered white `<section>` hero with `<PageHero image="assets/AdobeStock_1231908414@0.3x.jpg" eyebrow="Client Resources" ...>`; improved copy: "Everything you need / to serve clients well."
+- **ProductsPage.jsx** — had `PageHero` already but with About-page copy; fixed to Products-specific: "Annuities designed to / protect and grow your savings."
+
+All four pages also received `import PageHero from './PageHero.jsx'` where missing.
+
+**Build status:** `npm run build` passes clean ✅
+
+---
+
+### About page (`#about`) — CompanyPage.jsx — REBUILT FROM FIGMA
+
+**Figma source:** `node-id=7391-6795` in file `fe7PYQtVJ2pNZ1VR6lznWz`
+
+**Old structure (replaced):**
+- PageHero → Company story (2-col) → "Why Oceanview" navy 3×2 pillar grid → AM Best watermark section → CTABanner
+
+**New structure (matches Figma):**
+1. `PageHero` — ocean image, "Retirement solutions designed for clarity and confidence"
+2. **"Experience the Difference"** — 2-col: left has eyebrow/h2/body/teal checklist card (5 bold-label bullet points)/closing body; right is 480×480 photo (`older-couple-1.png`, rounded 16px)
+3. **"Our Mission & Our Approach"** — equal 2-col: each has eyebrow label, 26px heading, body, teal checklist card with 4 items
+4. **"Our Story"** — photo left (`couple-walking.png`, 420×420, rounded 24px), content right (eyebrow "Since 1987", h2, company narrative, "Meet Our Leadership" ghost pill + "Read our 2024 Annual Report" text link)
+5. **AM Best** — content left (eyebrow "Financial Strength", h2 with `#2494c1` italic accent, body, text link); photo right (`hero-beach-couple.jpg`, 420×420, rounded 24px)
+6. **CTA card** — teal `rgba(112,186,191,0.2)` rounded card, centered, "Not sure which product is right for you?", navy "Get Started" pill button → navigates to `#contact`
+
+**New CSS classes added to `tokens.css`** (responsive via `@media (max-width: 960px)`):
+- `.ov-about-diff-grid` — section 2 flex row
+- `.ov-about-diff-photo` — section 2 right photo
+- `.ov-about-features-grid` — section 3 two-col
+- `.ov-about-story-grid` — section 4 two-col
+- `.ov-about-story-photo` — section 4 photo
+- `.ov-about-ambest-grid` — section 5 two-col
+- `.ov-about-ambest-photo` — section 5 photo
+- `.ov-about-cta-card` — section 6 card
+
+**Build status:** `npm run build` passes clean ✅
+
+---
+
+## Images available in `public/assets/`
+
+```
+AdobeStock_1231908414@0.3x.jpg  ← hero background (ocean)
+Noise.png                        ← grain overlay texture
+ambest-rating.png / ambest.png  ← A.M. Best logo assets
+couple-walking.png               ← couple walking (story section)
+family.png                       ← family photo (highlights)
+faq-hero.jpg                     ← FAQ page hero
+four.jpg / three.jpg / two.jpg  ← hero carousel slides
+hero-beach-couple.jpg            ← beach couple (used in AM Best section)
+hero-couple.jpg / hero-overlay.jpg ← hero alternatives
+lighthouse.jpg                   ← lighthouse photo
+older-couple-1.png               ← older couple (about page experience section)
+ratingMain.png                   ← rating display image
+icon-arrow.svg / hero-shaper.svg / wave-emblem.svg ← SVG assets
+oceanview-logo-white.png         ← logo
+```
+
+---
+
+## Things NOT to do
+
+- Do not install Tailwind CSS or any CSS framework
+- Do not add TypeScript or change file extensions to `.tsx`
+- Do not use react-router or change the hash routing approach
+- Do not modify `package.json` dependencies without asking
+- Do not create standalone CSS files per component — all responsive overrides go in `tokens.css`
+- Do not use `document.title` directly in components — page titles are set in `Page.jsx`'s useEffect
+- Do not change the `base` path in `vite.config.js` (it's `/oceanview/` for GitHub Pages)
+- Do not add comments explaining what the code does — only add comments for non-obvious WHY
+
+---
+
+## Figma source file
+
+All designs come from: `https://www.figma.com/design/fe7PYQtVJ2pNZ1VR6lznWz/2026-Oceanview-Design`
+
+Key node IDs (as node-id URL param format):
+- Home: `7278-2672`
+- About: `7391-6795`
+- Our Story: (within About file)
+- Leadership: `7326-1671`
+- Board of Directors: `7326-2209`
+- Newsroom: `7391-1326`

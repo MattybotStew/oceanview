@@ -1,3 +1,4 @@
+import PageHero from './PageHero.jsx'
 import RatingBlock from './RatingBlock.jsx'
 import CTABanner from './CTABanner.jsx'
 
@@ -92,21 +93,14 @@ const executiveTeam = [
 export default function LeadershipPage() {
   return (
     <div style={{ background: "#fff" }}>
-      {/* 1. HERO SECTION */}
-      <section style={{ background: '#fff', padding: '80px 0 64px', textAlign: 'center' }}>
-        <div className="ov-container">
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 20 }}>
-            <div style={{ width: 18, height: 1, background: '#2494C1', flexShrink: 0 }} />
-            <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: '#2494C1' }}>Leadership</span>
-          </div>
-          <h1 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(32px, 4.5vw, 62px)', letterSpacing: '-0.025em', lineHeight: 1.08, color: '#0D1F4E', margin: '0 auto 24px', maxWidth: '20ch' }}>
-            The people behind the promise.
-          </h1>
-          <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 'clamp(15px, 1.4vw, 17px)', lineHeight: 1.65, color: '#4A5568', margin: '0 auto', maxWidth: '52ch' }}>
-            The experienced team driving every product decision, rating, and promise we make to our policyholders.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        image="assets/hero-couple.jpg"
+        eyebrow="Leadership"
+        title="The people behind the promise."
+        subtitle="The experienced team driving every product decision, rating, and promise we make to our policyholders."
+        ctaPrimary="Board of Directors"
+        onPrimary={() => { window.location.hash = 'board'; }}
+      />
 
       {/* 2. INTRO SECTION */}
       <section style={leadS.introSection}>

@@ -101,7 +101,7 @@ const S = {
     alignItems: "center",
     justifyContent: "space-between",
     width: "100%",
-    maxWidth: 1400,
+    maxWidth: "var(--ov-container)",
     margin: "0 auto",
     padding: "0 20px",
   },
@@ -215,7 +215,7 @@ const S = {
     textTransform: "uppercase",
   },
   panelHeading: {
-    fontFamily: "var(--ov-ff-serif)",
+    fontFamily: "var(--ov-ff-display)",
     fontWeight: 600,
     fontSize: 22,
     color: "var(--ov-navy-900)",
@@ -459,21 +459,34 @@ function NavItem({ name, config, onNav, active }) {
     );
   }
 
+  const isAbout = name === "About";
+
   return (
     <div style={{ position: "relative" }}>
-      <button ref={triggerRef} className="ov-nav-btn"
-        style={{ ...S.navBtn, background: (open || isActive) ? "rgba(255,255,255,0.1)" : "none" }}
+      <a ref={triggerRef} className="ov-nav-btn"
+        href={isAbout ? "#about" : undefined}
+        style={{ ...S.navBtn, textDecoration: "none", background: (open || isActive) ? "rgba(255,255,255,0.1)" : "none", cursor: "pointer" }}
         aria-haspopup="true"
         aria-expanded={open}
         onMouseEnter={keepOpen} onMouseLeave={schedClose}
-        onClick={() => setOpen(o => !o)}
+        onClick={(e) => {
+          if (isAbout) {
+            e.preventDefault();
+            onNav && onNav("About");
+          }
+          setOpen(o => !o);
+        }}
         onKeyDown={handleTriggerKeyDown}>
         {name}
         <Chevron direction={open ? "up" : "down"} color="#FFF"/>
-      </button>
+      </a>
       {open && (
         <div ref={panelRef}
-          style={{ position: "absolute", top: "100%", paddingTop: 12, zIndex: 200, left: "50%", transform: "translateX(-50%)" }}
+          style={{
+            position: "absolute", top: "100%", paddingTop: 12, zIndex: 200,
+            left: "50%", transform: "translateX(-50%)",
+            animation: "ov-dropdown-in 0.2s ease both",
+          }}
           onMouseEnter={keepOpen} onMouseLeave={schedClose}>
           {config.type === "tabbed"
             ? <TabbedDropdown config={config} onClose={() => setOpen(false)} onEscape={closeAndRefocus}/>
@@ -563,13 +576,22 @@ function MobileNavItem({ name, config, expanded, onToggle, onClose, onNav }) {
     textAlign: "left",
   };
 
+  const isAbout = name === "About";
+
   if (!config) {
     return <button style={rowStyle} onClick={() => { onNav && onNav(name); onClose(); }}>{name}</button>;
   }
 
   return (
     <div>
-      <button style={rowStyle} onClick={onToggle}>
+      <button style={rowStyle} onClick={(e) => {
+        if (isAbout) {
+          onNav && onNav("About");
+          onClose();
+        } else {
+          onToggle();
+        }
+      }}>
         <span>{name}</span>
         <Chevron direction={expanded ? "up" : "down"} color="#233D7C" size={16}/>
       </button>
