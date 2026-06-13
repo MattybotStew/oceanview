@@ -43,6 +43,7 @@ import StateApprovalPage from './StateApprovalPage.jsx'
 import DisclaimersPage from './DisclaimersPage.jsx'
 import PrivacyPage from './PrivacyPage.jsx'
 import TermsPage from './TermsPage.jsx'
+import AccessibilityPage from './AccessibilityPage.jsx'
 
 const STUB_ROUTES = {
   // Top-level nav
@@ -51,7 +52,6 @@ const STUB_ROUTES = {
   // Insights sub-pages — retirement-risk and life-events are real pages
   // Professionals sub-pages
   "agent-portal":     { title: "Agent Portal",                    eyebrow: "For Professionals"            },
-  "accessibility":    { title: "Accessibility Statement",          eyebrow: "Legal"                        },
   // agent-faqs and sales-tools are real pages — handled in switch below
 };
 
@@ -198,6 +198,7 @@ export default function Page() {
       case "disclaimers":        return <DisclaimersPage />;
       case "privacy":            return <PrivacyPage />;
       case "terms":              return <TermsPage />;
+      case "accessibility":      return <AccessibilityPage />;
       case "about":             return <CompanyPage />;
       case "client-resources":  return <ClientResourcesPage />;
       case "insights":          return <InsightsPage />;

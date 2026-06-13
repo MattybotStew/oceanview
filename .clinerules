@@ -94,8 +94,8 @@ Surface:  #F1FBFF  (ov-surface-tint)
 | #disclaimers | DisclaimersPage.jsx   | ✅ Complete  |
 | #privacy     | PrivacyPage.jsx       | ✅ Complete  |
 | #terms       | TermsPage.jsx         | ✅ Complete  |
-| #agent-portal | StubPage              | stub only   |
-| #accessibility | StubPage            | stub only   |
+| #agent-portal | StubPage              | stub only (external link) |
+| #accessibility | AccessibilityPage.jsx | ✅ Complete  |
 
 ---
 
@@ -112,6 +112,15 @@ Surface:  #F1FBFF  (ov-surface-tint)
 - Each hero image gets a focal point as `"X% Y%"` (horizontal vertical) — a CSS `background-position` value
 - The percentage is relative to the container, so the same value works at every viewport width
 - Desktop shows full scene; mobile crops toward the focal point keeping the subject in frame
+
+---
+
+## What Claude Code did most recently (June 13 2026)
+
+### Accessibility page — built from live site content
+
+- **AccessibilityPage.jsx** — created new page with two sections: "Our Commitment" (WCAG 2.0 AA) and "Accessibility Questions" (email info@oceanviewlife.com). Uses `LegalPage` shell same as Disclaimers/Privacy/Terms.
+- **Page.jsx** — imported `AccessibilityPage`, added `case "accessibility"` to switch, removed `"accessibility"` from `STUB_ROUTES` (was blocking the switch).
 
 ---
 
