@@ -456,35 +456,33 @@ function ScrollNav({ active }) {
 
   return (
     <div style={{ background: "#fff", position: "sticky", top: HEADER_H, zIndex: 10, borderBottom: "1px solid rgba(13,31,78,.10)" }}>
-      <div className="ov-container">
-        <div style={{ display: "flex", justifyContent: "flex-start", gap: 6, overflowX: "auto", scrollbarWidth: "none" }}>
-          {NAV_ITEMS.map(({ id, label }) => {
-            const isActive = active === id;
-            return (
-              <button
-                key={id}
-                onClick={() => scrollTo(id)}
-                style={{
-                  flex: "0 0 auto",
-                  padding: "12px 20px",
-                  border: 0,
-                  background: "none",
-                  fontFamily: "var(--ov-ff-sans)",
-                  fontWeight: 600,
-                  fontSize: 14,
-                  letterSpacing: ".08em",
-                  textTransform: "uppercase",
-                  color: isActive ? "var(--ov-navy-900)" : "var(--ov-grey-600)",
-                  cursor: "pointer",
-                  borderBottom: `2px solid ${isActive ? "var(--ov-teal-600)" : "transparent"}`,
-                  marginBottom: -1,
-                  whiteSpace: "nowrap",
-                  transition: "color .15s ease",
-                }}
-              >{label}</button>
-            );
-          })}
-        </div>
+      <div style={{ maxWidth: "var(--ov-container)", margin: "0 auto", padding: "0 var(--ov-gutter)", display: "flex", alignItems: "stretch", gap: 6, overflowX: "auto", scrollbarWidth: "none" }}>
+        {NAV_ITEMS.map(({ id, label }) => {
+          const isActive = active === id;
+          return (
+            <button
+              key={id}
+              onClick={() => scrollTo(id)}
+              style={{
+                flex: "0 0 auto",
+                padding: "12px 20px",
+                border: 0,
+                background: "none",
+                fontFamily: "var(--ov-ff-sans)",
+                fontWeight: 600,
+                fontSize: 14,
+                letterSpacing: ".08em",
+                textTransform: "uppercase",
+                color: isActive ? "var(--ov-navy-900)" : "var(--ov-grey-600)",
+                cursor: "pointer",
+                borderBottom: `2px solid ${isActive ? "var(--ov-teal-600)" : "transparent"}`,
+                marginBottom: -1,
+                whiteSpace: "nowrap",
+                transition: "color .15s ease",
+              }}
+            >{label}</button>
+          );
+        })}
       </div>
     </div>
   );
