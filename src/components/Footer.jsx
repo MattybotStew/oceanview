@@ -101,10 +101,12 @@ export default function Footer() {
       { label: "FAQ",                href: "#faq"          },
     ]],
     ["Client Resources", [
-      { label: "Case Studies",               href: "#case-studies"     },
-      { label: "Downloads",                  href: "#downloads"        },
-      { label: "Client Resources",           href: "#client-resources" },
-      { label: "Contact",                    href: "#contact"          },
+      { label: "Case Studies",               href: "#client-resources?tab=case-studies" },
+      { label: "Downloads",                  href: "#client-resources?tab=downloads"    },
+      { label: "Rates",                      href: "#client-resources?tab=rates"        },
+      { label: "Comparisons",                href: "#client-resources?tab=comparisons"  },
+      { label: "Glossary",                   href: "#client-resources?tab=glossary"     },
+      { label: "Contact",                    href: "#contact"                           },
     ]],
     ["Insights", [
       { label: "Retirement Risk Series", href: "#retirement-risk" },

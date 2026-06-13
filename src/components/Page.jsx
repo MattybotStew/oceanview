@@ -200,7 +200,10 @@ export default function Page() {
       case "terms":              return <TermsPage />;
       case "accessibility":      return <AccessibilityPage />;
       case "about":             return <CompanyPage />;
-      case "client-resources":  return <ClientResourcesPage />;
+      case "client-resources":  {
+        const tabParam = window.location.hash.includes('?tab=') ? window.location.hash.split('?tab=')[1]?.split('&')[0] : null;
+        return <ClientResourcesPage tab={tabParam} />;
+      }
       case "insights":          return <InsightsPage />;
       case "professionals":     return <ProfessionalsPage />;
       case "sales-tools":       return <SalesToolsPage />;

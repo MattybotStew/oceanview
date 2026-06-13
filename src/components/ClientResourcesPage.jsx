@@ -522,8 +522,11 @@ const SECTION_BG = {
   'case-studies': "#fff",
 };
 
-export default function ClientResourcesPage() {
-  const [activeSection, setActiveSection] = useState('downloads');
+export default function ClientResourcesPage({ tab }) {
+  const initialTab = NAV_ITEMS.find(n => n.id === tab) ? tab : 'downloads';
+  const [activeSection, setActiveSection] = useState(initialTab);
+
+  const didScrollTo = useRef(false);
 
   useEffect(() => {
     const observers = NAV_ITEMS.map(({ id }) => {
@@ -538,6 +541,18 @@ export default function ClientResourcesPage() {
     });
     return () => observers.forEach(o => o?.disconnect());
   }, []);
+
+  useEffect(() => {
+    if (!tab || didScrollTo.current) return;
+    const el = document.getElementById(tab);
+    if (el) {
+      didScrollTo.current = true;
+      const top = el.getBoundingClientRect().top + window.scrollY - HEADER_H - NAV_H;
+      requestAnimationFrame(() => {
+        window.scrollTo({ top, behavior: 'instant' });
+      });
+    }
+  }, [tab]);
 
   return (
     <main>
