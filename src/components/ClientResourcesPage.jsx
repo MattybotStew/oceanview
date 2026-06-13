@@ -457,7 +457,7 @@ function ScrollNav({ active }) {
   return (
     <div style={{ background: "#fff", position: "sticky", top: HEADER_H, zIndex: 10, borderBottom: "1px solid rgba(13,31,78,.10)" }}>
       <div className="ov-container">
-        <div style={{ display: "flex", gap: 6, overflowX: "auto", scrollbarWidth: "none", width: "fit-content" }}>
+        <div style={{ display: "flex", justifyContent: "flex-start", gap: 6, overflowX: "auto", scrollbarWidth: "none" }}>
           {NAV_ITEMS.map(({ id, label }) => {
             const isActive = active === id;
             return (
@@ -465,6 +465,7 @@ function ScrollNav({ active }) {
                 key={id}
                 onClick={() => scrollTo(id)}
                 style={{
+                  flex: "0 0 auto",
                   padding: "12px 20px",
                   border: 0,
                   background: "none",
