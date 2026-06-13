@@ -74,7 +74,7 @@ const PAGE_ROUTES = new Set([
   "retirement-risk", "life-events", "downloads", "our-story", "individuals", "state-approval",
   "professionals", "sales-tools", "agent-faqs",
   "contact", "lpl-landing", "cetera-landing",
-  "disclaimers", "privacy", "terms",
+  "disclaimers", "privacy", "terms", "accessibility",
   // product pages — canonical routes
   "harbourview-myga", "horizon-myga", "sky-harbourview-myga",
   "current-rate-fia", "harbourview-fia",
@@ -157,6 +157,7 @@ export default function Page() {
       "disclaimers": "Disclaimers — Oceanview",
       "privacy": "Privacy Notice — Oceanview",
       "terms": "Terms of Use — Oceanview",
+      "accessibility": "Accessibility — Oceanview",
     };
     document.title = titles[route] || "Oceanview Life and Annuity";
   }, [route]);
