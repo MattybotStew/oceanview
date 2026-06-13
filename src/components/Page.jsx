@@ -44,6 +44,7 @@ import DisclaimersPage from './DisclaimersPage.jsx'
 import PrivacyPage from './PrivacyPage.jsx'
 import TermsPage from './TermsPage.jsx'
 import AccessibilityPage from './AccessibilityPage.jsx'
+import AgentPortalPage from './AgentPortalPage.jsx'
 
 const STUB_ROUTES = {
   // Top-level nav
@@ -51,7 +52,6 @@ const STUB_ROUTES = {
   // "board" and "newsroom" handled as real pages below
   // Insights sub-pages — retirement-risk and life-events are real pages
   // Professionals sub-pages
-  "agent-portal":     { title: "Agent Portal",                    eyebrow: "For Professionals"            },
   // agent-faqs and sales-tools are real pages — handled in switch below
 };
 
@@ -74,7 +74,7 @@ const PAGE_ROUTES = new Set([
   "retirement-risk", "life-events", "downloads", "our-story", "individuals", "state-approval",
   "professionals", "sales-tools", "agent-faqs",
   "contact", "lpl-landing", "cetera-landing",
-  "disclaimers", "privacy", "terms", "accessibility",
+  "disclaimers", "privacy", "terms", "accessibility", "agent-portal",
   // product pages — canonical routes
   "harbourview-myga", "horizon-myga", "sky-harbourview-myga",
   "current-rate-fia", "harbourview-fia",
@@ -131,7 +131,7 @@ export default function Page() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Dynamic page title
+  // Dynamic page title + meta description
   useEffect(() => {
     const titles = {
       "": "Oceanview Life and Annuity",
@@ -158,8 +158,34 @@ export default function Page() {
       "privacy": "Privacy Notice — Oceanview",
       "terms": "Terms of Use — Oceanview",
       "accessibility": "Accessibility — Oceanview",
+      "agent-portal":  "Agent Portal — Oceanview",
+    };
+    const descriptions = {
+      "": "Oceanview Life and Annuity offers fixed and fixed-indexed annuities designed to protect and grow your retirement savings. A-rated by A.M. Best.",
+      "home": "Oceanview Life and Annuity offers fixed and fixed-indexed annuities designed to protect and grow your retirement savings. A-rated by A.M. Best.",
+      "products": "Explore Oceanview's full lineup of fixed and fixed-indexed annuities — guaranteed growth, principal protection, and flexible income options.",
+      "about": "Learn about Oceanview Life and Annuity Company — our mission, history since 1987, A.M. Best A rating, and commitment to retirement security.",
+      "client-resources": "Resources for Oceanview policyholders — case studies, downloads, rates, comparisons, glossary, and more.",
+      "insights": "Retirement planning insights, research, and educational content from Oceanview Life and Annuity.",
+      "faq": "Frequently asked questions about Oceanview annuities, products, account management, and company information.",
+      "blog": "Articles and perspectives on retirement planning, annuities, and financial security from Oceanview.",
+      "leadership": "Meet Oceanview's executive leadership team — decades of experience in insurance and financial services.",
+      "board": "Oceanview's board of directors brings deep expertise in finance, risk management, and regulatory compliance.",
+      "newsroom": "Press releases, media coverage, and company announcements from Oceanview Life and Annuity.",
+      "professionals": "Tools, resources, and support for financial professionals and insurance agents working with Oceanview.",
+      "contact": "Get in touch with Oceanview Life and Annuity — customer service, agent support, and general inquiries.",
+      "individuals": "Retirement solutions for individuals — explore how Oceanview annuities can protect and grow your savings.",
+      "accessibility": "Oceanview Life and Annuity is committed to making OceanviewLife.com accessible to everyone, in line with WCAG 2.0 AA standards.",
+      "agent-portal": "Secure login for licensed Oceanview agents — manage client accounts, submit new business, and access sales tools.",
     };
     document.title = titles[route] || "Oceanview Life and Annuity";
+    let meta = document.querySelector('meta[name="description"]');
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = 'description';
+      document.head.appendChild(meta);
+    }
+    meta.content = descriptions[route] || "Oceanview Life and Annuity Company — fixed and fixed-indexed annuities for retirement security. A-rated by A.M. Best.";
   }, [route]);
 
   const goto = (r) => {
@@ -200,6 +226,7 @@ export default function Page() {
       case "privacy":            return <PrivacyPage />;
       case "terms":              return <TermsPage />;
       case "accessibility":      return <AccessibilityPage />;
+      case "agent-portal":       return <AgentPortalPage />;
       case "about":             return <CompanyPage />;
       case "client-resources":  {
         const tabParam = window.location.hash.includes('?tab=') ? window.location.hash.split('?tab=')[1]?.split('&')[0] : null;

@@ -94,7 +94,7 @@ Surface:  #F1FBFF  (ov-surface-tint)
 | #disclaimers | DisclaimersPage.jsx   | ✅ Complete  |
 | #privacy     | PrivacyPage.jsx       | ✅ Complete  |
 | #terms       | TermsPage.jsx         | ✅ Complete  |
-| #agent-portal | StubPage              | stub only (external link) |
+| #agent-portal | AgentPortalPage.jsx   | ✅ Complete  |
 | #accessibility | AccessibilityPage.jsx | ✅ Complete  |
 
 ---
@@ -116,6 +116,14 @@ Surface:  #F1FBFF  (ov-surface-tint)
 ---
 
 ## What Claude Code did most recently (June 13 2026)
+
+### Agent portal page + meta descriptions + full wiring
+
+- **AgentPortalPage.jsx** — created login gateway page: PageHero (lighthouse image), centered login card with lock icon + "Log In to Agent Portal" CTA (URL: `https://portal.oceanviewlife.com`), help text with email + phone, 3 feature cards (Client Accounts, New Business, Sales Materials).
+- **Page.jsx** — removed `agent-portal` from `STUB_ROUTES`, imported `AgentPortalPage`, added `case "agent-portal"` to switch, added to `PAGE_ROUTES` and `titles` map.
+- **Page.jsx (meta descriptions)** — added per-page `<meta name="description">` updates in the title `useEffect`. Covers home, products, about, client-resources, insights, faq, blog, leadership, board, newsroom, professionals, contact, individuals, accessibility, agent-portal.
+
+---
 
 ### Accessibility page — built and polished
 
