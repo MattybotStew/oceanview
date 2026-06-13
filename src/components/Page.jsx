@@ -45,6 +45,7 @@ import PrivacyPage from './PrivacyPage.jsx'
 import TermsPage from './TermsPage.jsx'
 import AccessibilityPage from './AccessibilityPage.jsx'
 import AgentPortalPage from './AgentPortalPage.jsx'
+import DesignPage from './DesignPage.jsx'
 
 const STUB_ROUTES = {
   // Top-level nav
@@ -63,7 +64,7 @@ const ROUTE_TO_NAV = {
   "retirement-risk": "Insights", "life-events": "Insights",
   "downloads": "Client Resources", "our-story": "About", "individuals": "",
   "state-approval": "Professionals",
-  "disclaimers": "", "privacy": "", "terms": "", "accessibility": "",
+  "disclaimers": "", "privacy": "", "terms": "", "accessibility": "", "design": "",
   "professionals": "Professionals", "sales-tools": "Professionals",
   "agent-faqs": "Professionals", "lpl-landing": "Professionals", "cetera-landing": "Professionals",
 };
@@ -74,7 +75,7 @@ const PAGE_ROUTES = new Set([
   "retirement-risk", "life-events", "downloads", "our-story", "individuals", "state-approval",
   "professionals", "sales-tools", "agent-faqs",
   "contact", "lpl-landing", "cetera-landing",
-  "disclaimers", "privacy", "terms", "accessibility", "agent-portal",
+  "disclaimers", "privacy", "terms", "accessibility", "agent-portal", "design",
   // product pages — canonical routes
   "harbourview-myga", "horizon-myga", "sky-harbourview-myga",
   "current-rate-fia", "harbourview-fia",
@@ -159,6 +160,7 @@ export default function Page() {
       "terms": "Terms of Use — Oceanview",
       "accessibility": "Accessibility — Oceanview",
       "agent-portal":  "Agent Portal — Oceanview",
+      "design": "Design System — Oceanview",
     };
     const descriptions = {
       "": "Oceanview Life and Annuity offers fixed and fixed-indexed annuities designed to protect and grow your retirement savings. A-rated by A.M. Best.",
@@ -177,6 +179,7 @@ export default function Page() {
       "individuals": "Retirement solutions for individuals — explore how Oceanview annuities can protect and grow your savings.",
       "accessibility": "Oceanview Life and Annuity is committed to making OceanviewLife.com accessible to everyone, in line with WCAG 2.0 AA standards.",
       "agent-portal": "Secure login for licensed Oceanview agents — manage client accounts, submit new business, and access sales tools.",
+      "design": "Oceanview Design System — complete reference for colors, typography, buttons, links, shadows, pills, forms, layout, and component patterns.",
     };
     document.title = titles[route] || "Oceanview Life and Annuity";
     let meta = document.querySelector('meta[name="description"]');
@@ -227,6 +230,7 @@ export default function Page() {
       case "terms":              return <TermsPage />;
       case "accessibility":      return <AccessibilityPage />;
       case "agent-portal":       return <AgentPortalPage />;
+      case "design":             return <DesignPage />;
       case "about":             return <CompanyPage />;
       case "client-resources":  {
         const tabParam = window.location.hash.includes('?tab=') ? window.location.hash.split('?tab=')[1]?.split('&')[0] : null;
