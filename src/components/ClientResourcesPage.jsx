@@ -455,9 +455,9 @@ function ScrollNav({ active }) {
   };
 
   return (
-    <div style={{ background: "#fff", position: "sticky", top: HEADER_H, zIndex: 10, borderBottom: "1px solid rgba(13,31,78,.06)" }}>
+    <div style={{ background: "#fff", position: "sticky", top: HEADER_H, zIndex: 10, borderBottom: "1px solid rgba(13,31,78,.10)" }}>
       <div className="ov-container">
-        <div style={{ display: "flex", gap: 0, overflowX: "auto", scrollbarWidth: "none" }}>
+        <div style={{ display: "flex", gap: 6, overflowX: "auto", scrollbarWidth: "none", width: "fit-content" }}>
           {NAV_ITEMS.map(({ id, label }) => {
             const isActive = active === id;
             return (
@@ -465,12 +465,20 @@ function ScrollNav({ active }) {
                 key={id}
                 onClick={() => scrollTo(id)}
                 style={{
-                  fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13,
-                  padding: "0 18px", height: NAV_H, background: "none", border: "none",
-                  borderBottom: isActive ? "2px solid #2494C1" : "2px solid transparent",
-                  color: isActive ? "#2494C1" : "#4A5568",
-                  cursor: "pointer", whiteSpace: "nowrap", flexShrink: 0,
-                  transition: "color .15s, border-color .15s",
+                  padding: "12px 20px",
+                  border: 0,
+                  background: "none",
+                  fontFamily: "var(--ov-ff-sans)",
+                  fontWeight: 600,
+                  fontSize: 14,
+                  letterSpacing: ".08em",
+                  textTransform: "uppercase",
+                  color: isActive ? "var(--ov-navy-900)" : "var(--ov-grey-600)",
+                  cursor: "pointer",
+                  borderBottom: `2px solid ${isActive ? "var(--ov-teal-600)" : "transparent"}`,
+                  marginBottom: -1,
+                  whiteSpace: "nowrap",
+                  transition: "color .15s ease",
                 }}
               >{label}</button>
             );
