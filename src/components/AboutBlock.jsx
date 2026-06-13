@@ -84,12 +84,12 @@ export default function AboutBlock() {
                 <div style={S.ratingLabel}>A.M. Best Rating: A (Excellent)</div>
                 <div style={S.ratingDetail}>Financial Strength Rating — recognition of balance-sheet strength and prudent risk management</div>
               </div>
-              <TextLink style={{ flexShrink: 0, fontSize: 13 }}>Read report</TextLink>
+              <TextLink style={{ flexShrink: 0, fontSize: 13 }} onClick={() => { window.location.hash = 'about' }}>Read report</TextLink>
             </div>
 
             <div style={S.ctas}>
-              <PillGhost>More About Us</PillGhost>
-              <TextLink>Read our 2024 Annual Report</TextLink>
+              <PillGhost onClick={() => { window.location.hash = 'about' }}>More About Us</PillGhost>
+              <TextLink onClick={() => { window.location.hash = 'about' }}>Read our 2024 Annual Report</TextLink>
             </div>
           </div>
         </div>

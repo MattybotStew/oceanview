@@ -99,7 +99,7 @@ function CaseCard({ category, client, product, title, desc, highlight, tags }) {
         {/* Tags */}
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 4 }}>
           {tags.map(tag => (
-            <span key={tag} style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 11, fontWeight: 500, color: "var(--ov-grey-600)", background: "rgba(13,31,78,.05)", borderRadius: 4, padding: "3px 8px" }}>{tag}</span>
+            <span key={tag} style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 11, fontWeight: 600, color: "var(--ov-grey-600)", background: "rgba(13,31,78,.05)", borderRadius: 4, padding: "3px 8px" }}>{tag}</span>
           ))}
         </div>
         <div style={{ marginTop: "auto", paddingTop: 8 }}>

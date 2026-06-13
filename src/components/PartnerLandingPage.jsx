@@ -145,7 +145,7 @@ export default function PartnerLandingPage({ data }) {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                     <Eyebrow light>{p.eyebrow}</Eyebrow>
                     {p.comingSoon && (
-                      <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 700, fontSize: 10, letterSpacing: '.1em', textTransform: 'uppercase', color: '#fff', background: '#2494C1', borderRadius: 100, padding: '3px 10px' }}>Coming Soon</span>
+                      <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '.1em', textTransform: 'uppercase', color: '#fff', background: '#2494C1', borderRadius: 100, padding: '3px 10px' }}>Coming Soon</span>
                     )}
                   </div>
                   <h2 style={S.h2Light}>{p.name}</h2>
@@ -231,7 +231,7 @@ export default function PartnerLandingPage({ data }) {
                   <div style={{ ...S.iconTile, width: 36, height: 36, borderRadius: 8 }}>
                     <Icon size={17} color="#2494C1" strokeWidth={1.75} />
                   </div>
-                  <h3 style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 700, fontSize: 12, letterSpacing: '.08em', textTransform: 'uppercase', color: '#0D1F4E', margin: 0 }}>{heading}</h3>
+                  <h3 style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 12, letterSpacing: '.08em', textTransform: 'uppercase', color: '#0D1F4E', margin: 0 }}>{heading}</h3>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }} className={`lpl-res-list lpl-res-${items.length > 2 ? '3col' : '2col'}`}>
                   {items.map(r => <ResourceCard key={r.title} {...r} />)}

@@ -5,7 +5,7 @@ import { Eyebrow } from './common.jsx'
 // ── Shared styles ─────────────────────────────────────────────────────────────
 const S = {
   h2:          { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(24px,2.8vw,36px)', color: '#0D1F4E', letterSpacing: '-0.02em', lineHeight: 1.2, margin: '0 0 10px' },
-  groupLabel:  { fontFamily: 'var(--ov-ff-sans)', fontWeight: 700, fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: '#0D1F4E' },
+  groupLabel:  { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: '#0D1F4E' },
   body:        { fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: '#4A5568', lineHeight: 1.65, margin: 0 },
 }
 
@@ -51,7 +51,7 @@ function ProductGroup({ name, tag, items }) {
 function FormGroup({ heading, forms }) {
   return (
     <div>
-      <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 700, fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: '#6B7280', marginBottom: 10, paddingBottom: 10, borderBottom: '1px solid rgba(13,31,78,.08)' }}>
+      <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: '#6B7280', marginBottom: 10, paddingBottom: 10, borderBottom: '1px solid rgba(13,31,78,.08)' }}>
         {heading}
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>

@@ -60,7 +60,7 @@ function Timeline() {
           <div key={i} style={{ position: 'relative' }}>
             {/* Dot */}
             <div style={{ position: 'absolute', left: -36, top: 6, width: 9, height: 9, borderRadius: '50%', background: '#2494C1', border: '2px solid #fff', boxShadow: '0 0 0 3px rgba(36,148,193,.2)' }} />
-            <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 700, fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: '#2494C1', marginBottom: 8 }}>{m.year}</div>
+            <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: '#2494C1', marginBottom: 8 }}>{m.year}</div>
             <h3 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(18px,1.8vw,24px)', color: '#0D1F4E', letterSpacing: '-0.015em', lineHeight: 1.2, margin: '0 0 10px' }}>{m.heading}</h3>
             <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: '#4A5568', lineHeight: 1.7, margin: 0, maxWidth: '62ch' }}>{m.body}</p>
           </div>

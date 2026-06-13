@@ -20,7 +20,7 @@ const leadS = {
   initials: { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(28px, 4vw, 48px)", color: "#4472C4", opacity: 0.5 },
 
   name:    { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: 22, color: "#0D1F4E", margin: "0 0 4px", letterSpacing: "-0.01em" },
-  role:    { fontFamily: "var(--ov-ff-sans)", fontWeight: 500, fontSize: 13, color: "#2494C1", textTransform: "uppercase", letterSpacing: "0.5px", margin: "0 0 12px" },
+  role:    { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "#2494C1", textTransform: "uppercase", letterSpacing: "0.5px", margin: "0 0 12px" },
   bio:     { fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "#6B7280", lineHeight: 1.6, margin: 0 }
 };
 

@@ -54,7 +54,7 @@ const S = {
   // ── Portal cards ─────────────────────────────────────────────────────
   bulletRow:    { display: 'flex', gap: 8, alignItems: 'flex-start' },
   bulletText:   { fontFamily: 'var(--ov-ff-sans)', fontSize: 13.5, color: '#4A5568', lineHeight: 1.55 },
-  portalLink:   { display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'var(--ov-ff-sans)', fontWeight: 700, fontSize: 13, color: '#2494C1', background: 'none', border: 'none', cursor: 'pointer', padding: 0, textDecoration: 'none', marginTop: 4 },
+  portalLink:   { display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#2494C1', background: 'none', border: 'none', cursor: 'pointer', padding: 0, textDecoration: 'none', marginTop: 4 },
 
   // ── Dark navy form section ───────────────────────────────────────────
   formGrid:     { display: 'grid', gridTemplateColumns: '55fr 45fr', gap: 64, alignItems: 'center' },
@@ -74,7 +74,7 @@ const S = {
   formWrap:     { background: '#fff', borderRadius: 20, padding: 'clamp(28px,3vw,40px)', boxShadow: '0 12px 64px rgba(0,0,0,.28)' },
   formTitle:    { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(22px,2.4vw,32px)', color: '#0D1F4E', letterSpacing: '-0.02em', lineHeight: 1.15, margin: 0 },
   stepIndicator:{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 28 },
-  stepDot:      { width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--ov-ff-sans)', fontWeight: 700, fontSize: 12 },
+  stepDot:      { width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 12 },
   stepLine:     { flex: 1, height: 1, background: 'rgba(13,31,78,.12)', maxWidth: 40 },
 
   fieldGroup:   { display: 'flex', flexDirection: 'column', gap: 20 },

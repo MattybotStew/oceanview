@@ -10,7 +10,7 @@ const S = {
     letterSpacing: "-0.027em", color: "#233d7c", margin: 0,
   },
   h3: {
-    fontFamily: "var(--ov-ff-display)", fontWeight: 600,
+    fontFamily: "var(--ov-ff-display)", fontWeight: 400,
     fontSize: 26, lineHeight: 1.2, color: "#0d1f4e", margin: 0,
   },
   accent: { fontStyle: "italic", color: "#70babf" },

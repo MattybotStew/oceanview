@@ -131,7 +131,7 @@ export default function LifeEventsPage() {
                 <FeatureList dark features={e.features} />
                 <div style={{ borderTop: '1px solid rgba(255,255,255,.08)', paddingTop: 14 }}>
                   <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.08em', textTransform: 'uppercase', color: 'rgba(242,252,255,.4)', marginRight: 8 }}>Products:</span>
-                  <span style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: '#70BABF', fontWeight: 500 }}>{e.product}</span>
+                  <span style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: '#70BABF', fontWeight: 600 }}>{e.product}</span>
                 </div>
               </div>
             ))}

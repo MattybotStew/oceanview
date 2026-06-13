@@ -67,7 +67,7 @@ const S = {
   productName: { fontFamily: "var(--ov-ff-sans)", fontSize: 16, fontWeight: 600, color: "var(--ov-navy-900)" },
   productYears: { fontFamily: "var(--ov-ff-sans)", fontSize: 13, color: "var(--ov-grey-500)", fontWeight: 400 },
   rateContainer: { display: "flex", alignItems: "center", gap: 18, flexShrink: 0 },
-  rate: { fontFamily: "var(--ov-ff-display)", fontSize: 20, color: "var(--ov-teal-600)", fontWeight: 500 },
+  rate: { fontFamily: "var(--ov-ff-display)", fontSize: 20, color: "var(--ov-teal-600)", fontWeight: 400 },
   arrow: { fontFamily: "var(--ov-ff-sans)", color: "var(--ov-navy-600)", fontSize: 18, transition: "transform .15s ease" },
 };
 
@@ -76,17 +76,17 @@ const PRODUCTS = {
     title: "Multi-Year Guaranteed Annuities",
     sub: "Experience guaranteed returns and secure retirement income with a Multi-Year Guaranteed Annuity from Oceanview.",
     items: [
-      { name: "Harbourview",       rate: "5.20%",          years: "5-Year" },
-      { name: "Sky Harbourview",   rate: "5.10%",          years: "7-Year" },
-      { name: "Harbourview Plus",  rate: "4.95%",          years: "3-Year" },
+      { name: "Harbourview",       rate: "5.20%",          years: "5-Year",  hash: "harbourview-myga" },
+      { name: "Sky Harbourview",   rate: "5.10%",          years: "7-Year",  hash: "sky-harbourview-myga" },
+      { name: "Harbourview Plus",  rate: "4.95%",          years: "3-Year",  hash: "harbourview-myga" },
     ],
   },
   fia: {
     title: "Fixed Indexed Annuities",
     sub: "Pursue growth tied to a market index with the assurance of principal protection.",
     items: [
-      { name: "Crescendo",       rate: "Index Cap 9.5%",  years: "10-Year" },
-      { name: "Crescendo Plus",  rate: "Index Cap 11.0%", years: "10-Year + Bonus" },
+      { name: "Crescendo",       rate: "Index Cap 9.5%",  years: "10-Year", hash: "caplock" },
+      { name: "Crescendo Plus",  rate: "Index Cap 11.0%", years: "10-Year + Bonus", hash: "topsider" },
     ],
   },
 };
@@ -110,8 +110,8 @@ export default function ProductsCard() {
               designed to balance protection, growth, and tax-deferred efficiency.
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
-              <PillMint>Compare Products</PillMint>
-              <TextLink color="rgba(242,252,255,.65)">Talk to a professional</TextLink>
+              <PillMint onClick={() => { window.location.hash = 'products' }}>Compare Products</PillMint>
+              <TextLink color="rgba(242,252,255,.65)" onClick={() => { window.location.hash = 'contact' }}>Talk to a professional</TextLink>
             </div>
           </div>
           <div style={{ ...S.card, flex: 1 }} className="ov-products-card">
@@ -124,21 +124,22 @@ export default function ProductsCard() {
             <div style={S.cardTitle} className="ov-products-card-title">{data.title}</div>
             <p style={S.cardSub} className="ov-products-card-sub">{data.sub}</p>
             {data.items.map((it) => (
-              <div
-                key={it.name}
-                style={S.row}
-                className="ov-product-row"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.paddingLeft = "12px";
-                  const arrow = e.currentTarget.querySelector(".product-arrow");
-                  if (arrow) arrow.style.transform = "translateX(6px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.paddingLeft = "0";
-                  const arrow = e.currentTarget.querySelector(".product-arrow");
-                  if (arrow) arrow.style.transform = "translateX(0)";
-                }}
-              >
+                <div
+                  key={it.name}
+                  style={{ ...S.row, cursor: "pointer" }}
+                  className="ov-product-row"
+                  onClick={() => { window.location.hash = it.hash }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.paddingLeft = "12px";
+                    const arrow = e.currentTarget.querySelector(".product-arrow");
+                    if (arrow) arrow.style.transform = "translateX(6px)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.paddingLeft = "0";
+                    const arrow = e.currentTarget.querySelector(".product-arrow");
+                    if (arrow) arrow.style.transform = "translateX(0)";
+                  }}
+                >
                 <div style={S.productInfo}>
                   <span style={S.productName} className="ov-product-name">{it.name}</span>
                   <span style={S.productYears} className="ov-product-years">{it.years}</span>

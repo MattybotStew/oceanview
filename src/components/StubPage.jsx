@@ -18,7 +18,7 @@ const stubStyles = {
   chip: {
     padding: "8px 18px", borderRadius: 99,
     border: "1px solid rgba(13,31,78,.15)",
-    fontFamily: "var(--ov-ff-sans)", fontSize: 13, fontWeight: 500,
+    fontFamily: "var(--ov-ff-sans)", fontSize: 13, fontWeight: 600,
     color: "var(--ov-navy-700)", background: "#fff",
   },
 };

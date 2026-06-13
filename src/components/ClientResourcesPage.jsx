@@ -57,11 +57,11 @@ function BrochureCard({ name, desc, route }) {
       <div style={{ display: "flex", gap: 8, marginTop: "auto", paddingTop: 4 }}>
         <button
           onClick={() => { window.location.hash = route; }}
-          style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 12, color: "#233D7C", background: "none", border: "1.5px solid rgba(13,31,78,.2)", borderRadius: 99, padding: "7px 14px", cursor: "pointer" }}
+          style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 12, color: "#233D7C", background: "#fff", border: "1.5px solid rgba(13,31,78,.2)", borderRadius: 99, padding: "7px 14px", cursor: "pointer" }}
         >
           View Page
         </button>
-        <button style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 12, color: "#fff", background: "#2494C1", border: "none", borderRadius: 99, padding: "7px 14px", cursor: "pointer" }}>
+        <button style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 12, color: "#233D7C", background: "#fff", border: "1.5px solid rgba(13,31,78,.2)", borderRadius: 99, padding: "7px 14px", cursor: "pointer" }}>
           <Download size={11} strokeWidth={2} /> Download PDF
         </button>
       </div>
@@ -170,16 +170,34 @@ const thBase = { padding: "14px 16px", fontWeight: 600, color: "rgba(242,252,255
 function RateSubNav({ active, onChange }) {
   const tabs = ["MYGA Rates", "FIA Caps & Participation", "California Rates"];
   return (
-    <div style={{ display: "flex", gap: 2, marginBottom: 32, borderBottom: "1px solid rgba(13,31,78,.08)", paddingBottom: 0 }}>
-      {tabs.map(t => (
-        <button key={t} onClick={() => onChange(t)} style={{
-          fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13,
-          padding: "10px 18px", background: "none", border: "none",
-          borderBottom: active === t ? "2px solid #2494C1" : "2px solid transparent",
-          color: active === t ? "#2494C1" : "#4A5568",
-          cursor: "pointer", marginBottom: -1,
-        }}>{t}</button>
-      ))}
+    <div style={{ display: "flex", marginBottom: 32, borderBottom: "1px solid #e8e5e5", overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+      {tabs.map(t => {
+        const isActive = active === t;
+        return (
+          <button key={t} onClick={() => onChange(t)} style={{
+            flex: "1 0 0",
+            minWidth: 100,
+            height: 51,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "0 24px",
+            border: "none",
+            borderRight: "1px solid #e8e5e5",
+            fontFamily: "var(--ov-ff-sans)",
+            fontWeight: 600,
+            fontSize: 13,
+            color: "#001F54",
+            whiteSpace: "nowrap",
+            cursor: "pointer",
+            background: isActive ? "rgba(226,241,242,0.6)" : "transparent",
+            transition: "background .15s",
+          }}
+            onMouseEnter={e => { if (!isActive) e.currentTarget.style.background = "rgba(226,241,242,0.35)"; }}
+            onMouseLeave={e => { if (!isActive) e.currentTarget.style.background = "transparent"; }}
+          >{t}</button>
+        );
+      })}
     </div>
   );
 }
@@ -210,7 +228,7 @@ function MYGARates({ bands, terms, note }) {
       <p style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 12, color: "#9CA3AF", margin: "12px 0 28px", lineHeight: 1.5 }}>
         {note}
       </p>
-      <button style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "none", border: "1.5px solid rgba(36,148,193,.3)", borderRadius: 8, padding: "10px 18px", fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "#2494C1", cursor: "pointer" }}>
+      <button style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#fff", border: "1.5px solid rgba(13,31,78,.2)", borderRadius: 8, padding: "10px 18px", fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "#233D7C", cursor: "pointer" }}>
         <Download size={13} strokeWidth={2} /> Download Full Rate Sheet (PDF)
       </button>
     </>
@@ -455,34 +473,40 @@ function ScrollNav({ active }) {
   };
 
   return (
-    <div style={{ background: "#fff", position: "sticky", top: HEADER_H, zIndex: 10, borderBottom: "1px solid rgba(13,31,78,.10)" }}>
-      <div style={{ maxWidth: "var(--ov-container)", margin: "0 auto", padding: "0 var(--ov-gutter)", display: "flex", alignItems: "stretch", gap: 6, overflowX: "auto", scrollbarWidth: "none" }}>
-        {NAV_ITEMS.map(({ id, label }) => {
-          const isActive = active === id;
-          return (
-            <button
-              key={id}
-              onClick={() => scrollTo(id)}
-              style={{
-                flex: "0 0 auto",
-                padding: "12px 20px",
-                border: 0,
-                background: "none",
-                fontFamily: "var(--ov-ff-sans)",
-                fontWeight: 600,
-                fontSize: 14,
-                letterSpacing: ".08em",
-                textTransform: "uppercase",
-                color: isActive ? "var(--ov-navy-900)" : "var(--ov-grey-600)",
-                cursor: "pointer",
-                borderBottom: `2px solid ${isActive ? "var(--ov-teal-600)" : "transparent"}`,
-                marginBottom: -1,
-                whiteSpace: "nowrap",
-                transition: "color .15s ease",
-              }}
-            >{label}</button>
-          );
-        })}
+    <div style={{ background: "#fff", position: "sticky", top: HEADER_H, zIndex: 50, boxShadow: "0 1px 0 #e8e5e5" }}>
+      <div className="ov-container">
+        <div style={{ display: "flex", overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+          {NAV_ITEMS.map(({ id, label }) => {
+            const isActive = active === id;
+            return (
+              <button
+                key={id}
+                onClick={() => scrollTo(id)}
+                style={{
+                  flex: "1 0 0",
+                  minWidth: 160,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: 4,
+                  padding: "14px 12px 15px",
+                  textDecoration: "none",
+                  transition: "border-color .15s",
+                  border: 0,
+                  background: "none",
+                  cursor: "pointer",
+                  borderBottom: isActive ? "3px solid #2494C1" : "1px solid #e8e5e5",
+                  paddingBottom: isActive ? 19 : 15,
+                }}
+                className="ov-scroll-nav-tab"
+              >
+                <span style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "#001F54", textAlign: "center", whiteSpace: "nowrap" }}>
+                  {label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

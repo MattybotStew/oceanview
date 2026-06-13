@@ -227,15 +227,15 @@ export default function IndividualsPage() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }} className="ov-concern-grid">
             {[
-              { label: 'Client Portal', desc: 'View your account value, transaction history, and policy documents online.', cta: 'Access Portal', href: null },
+              { label: 'Client Portal', desc: 'View your account value, transaction history, and policy documents online.', cta: 'Access Portal', href: 'https://customers.oceanview.mccamish.com/SelfServicePortal/#/login' },
               { label: 'Service Forms', desc: 'Download forms for beneficiary changes, withdrawals, transfers, and more.', cta: 'View Forms', hash: 'downloads' },
               { label: 'Contact Us', desc: 'Reach our service team by phone or email for questions about your policy.', cta: 'Get in Touch', hash: 'contact' },
             ].map(item => (
               <div key={item.label} style={{ background: '#fff', border: '1px solid rgba(13,31,78,.07)', borderRadius: 14, padding: '28px 24px', display: 'flex', flexDirection: 'column', gap: 14 }}>
-                <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 700, fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: '#0D1F4E' }}>{item.label}</div>
+                <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: '#0D1F4E' }}>{item.label}</div>
                 <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 14, color: '#4A5568', lineHeight: 1.65, margin: 0, flex: 1 }}>{item.desc}</p>
                 <button
-                  onClick={() => { if (item.hash) window.location.hash = item.hash }}
+                  onClick={() => { if (item.href) { window.open(item.href, '_blank') } else if (item.hash) { window.location.hash = item.hash } }}
                   style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#2494C1', background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left', display: 'inline-flex', alignItems: 'center', gap: 5 }}
                 >
                   {item.cta} →

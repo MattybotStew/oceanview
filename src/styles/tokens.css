@@ -932,3 +932,6 @@ a { color: inherit; text-decoration: none; }
   0%   { opacity: 0; transform: translateX(-50%) translateY(-6px); }
   100% { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
+
+/* ── Client Resources scroll nav tabs ───────────────────────── */
+.ov-scroll-nav-tab:hover { background: rgba(226,241,242,0.35); }

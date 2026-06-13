@@ -190,7 +190,7 @@ const S = {
   },
   sideBtnLabel: {
     fontFamily: "var(--ov-ff-sans)",
-    fontWeight: 500,
+    fontWeight: 600,
     fontSize: 14,
     color: "var(--ov-navy-900)",
     lineHeight: "21px",
@@ -208,7 +208,7 @@ const S = {
   contentTop: { display: "flex", flexDirection: "column", gap: 24 },
   eyebrow: {
     fontFamily: "var(--ov-ff-sans)",
-    fontWeight: 500,
+    fontWeight: 600,
     fontSize: 10,
     color: "var(--ov-navy-600)",
     letterSpacing: "1.2px",
@@ -216,7 +216,7 @@ const S = {
   },
   panelHeading: {
     fontFamily: "var(--ov-ff-display)",
-    fontWeight: 600,
+    fontWeight: 400,
     fontSize: 22,
     color: "var(--ov-navy-900)",
     lineHeight: "27.5px",
@@ -237,7 +237,7 @@ const S = {
     borderRadius: 99,
     padding: "3px 9px",
     fontFamily: "var(--ov-ff-sans)",
-    fontWeight: 500,
+    fontWeight: 600,
     fontSize: 11,
     color: "#1A3070",
     lineHeight: "16.5px",
@@ -248,7 +248,7 @@ const S = {
     alignItems: "center",
     gap: 4,
     fontFamily: "var(--ov-ff-sans)",
-    fontWeight: 500,
+    fontWeight: 600,
     fontSize: 13,
     color: "var(--ov-navy-900)",
     lineHeight: "19.5px",
@@ -269,7 +269,7 @@ function ProductLink({ link, onClose }) {
     }}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingBottom: link.desc ? 12 : 0 }}>
-        <span style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 500, fontSize: 15, color: hov ? "#1976A0" : "#1A3070", lineHeight: "21px", transition: "color 0.2s ease" }}>
+        <span style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 15, color: hov ? "#1976A0" : "#1A3070", lineHeight: "21px", transition: "color 0.2s ease" }}>
           {link.label}
         </span>
         <span style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 15, color: hov ? "#1976A0" : "#1A3070", transition: "color 0.2s ease" }}>→</span>
@@ -289,7 +289,7 @@ function SimpleLink({ link, onClose }) {
     <a href={link.href} onClick={onClose} style={{
       display: "flex", alignItems: "center", justifyContent: "space-between",
       gap: 32,
-      fontFamily: "var(--ov-ff-sans)", fontWeight: 500, fontSize: 15,
+      fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 15,
       color: hov ? "#1976A0" : "#1A3070", lineHeight: "21px",
       textDecoration: "none", cursor: "pointer",
       whiteSpace: "nowrap",
@@ -459,20 +459,21 @@ function NavItem({ name, config, onNav, active }) {
     );
   }
 
-  const isAbout = name === "About";
+  const clickableNames = { About: "#about", Products: "#products", "Client Resources": "#client-resources", Insights: "#insights" };
+  const clickableHref = clickableNames[name];
 
   return (
     <div style={{ position: "relative" }}>
       <a ref={triggerRef} className="ov-nav-btn"
-        href={isAbout ? "#about" : undefined}
+        href={clickableHref || undefined}
         style={{ ...S.navBtn, textDecoration: "none", background: (open || isActive) ? "rgba(255,255,255,0.1)" : "none", cursor: "pointer" }}
         aria-haspopup="true"
         aria-expanded={open}
         onMouseEnter={keepOpen} onMouseLeave={schedClose}
         onClick={(e) => {
-          if (isAbout) {
+          if (clickableHref) {
             e.preventDefault();
-            onNav && onNav("About");
+            onNav && onNav(name);
           }
           setOpen(o => !o);
         }}
@@ -576,7 +577,8 @@ function MobileNavItem({ name, config, expanded, onToggle, onClose, onNav }) {
     textAlign: "left",
   };
 
-  const isAbout = name === "About";
+  const clickableNames = { About: "#about", Products: "#products", "Client Resources": "#client-resources", Insights: "#insights" };
+  const isClickable = !!clickableNames[name];
 
   if (!config) {
     return <button style={rowStyle} onClick={() => { onNav && onNav(name); onClose(); }}>{name}</button>;
@@ -585,8 +587,8 @@ function MobileNavItem({ name, config, expanded, onToggle, onClose, onNav }) {
   return (
     <div>
       <button style={rowStyle} onClick={(e) => {
-        if (isAbout) {
-          onNav && onNav("About");
+        if (isClickable) {
+          onNav && onNav(name);
           onClose();
         } else {
           onToggle();

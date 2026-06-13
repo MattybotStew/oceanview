@@ -1,6 +1,7 @@
 // ProductDetailPage.jsx — Product detail template (Figma: 2026-Oceanview-Design / node 6951-569)
 import { useState, useEffect } from 'react'
 import { PillMint, PillGhost } from './Buttons.jsx'
+import CTABanner from './CTABanner.jsx'
 import HeroShaper from './HeroShaper.jsx'
 import { Download, ChevronRight } from 'lucide-react'
 
@@ -424,13 +425,15 @@ export default function ProductDetailPage({ product }) {
       </div>
 
       {/* ── Bottom CTA ────────────────────────────────────────────────────── */}
-      <section style={{ background: 'var(--ov-surface-tint)', textAlign: 'center' }} className="ov-section">
-        <div className="ov-container" style={{ maxWidth: 760, margin: '0 auto' }}>
-          <h2 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(28px,3.6vw,48px)', color: '#0D1F4E', letterSpacing: '-0.025em', lineHeight: 1.1, margin: '0 0 16px' }}>
-            {cta.heading}
-          </h2>
-          <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 16, color: '#4A5568', lineHeight: 1.65, margin: '0 0 36px' }}>{cta.sub}</p>
-          <PillMint hero onClick={() => { window.location.hash = 'contact' }}>{cta.buttonLabel}</PillMint>
+      <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
+        <div className="ov-container">
+          <CTABanner
+            eyebrow="Get Started"
+            title={cta.heading}
+            body={cta.sub}
+            cta={cta.buttonLabel}
+            onClick={() => { window.location.hash = 'contact'; }}
+          />
         </div>
       </section>
 
