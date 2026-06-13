@@ -49,7 +49,7 @@ const SERVICE_FORMS = [
 
 function BrochureCard({ name, desc, route }) {
   return (
-    <div style={{ background: "#fff", border: "1px solid rgba(13,31,78,.08)", borderRadius: 14, padding: "24px 22px 20px", display: "flex", flexDirection: "column", gap: 12 }}>
+    <div style={{ background: "rgba(112,186,191,0.2)", borderRadius: 14, padding: "24px 22px 20px", display: "flex", flexDirection: "column", gap: 12 }}>
       <div>
         <h3 style={{ fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: 18, color: "#0D1F4E", lineHeight: 1.2, margin: "0 0 8px", letterSpacing: "-0.01em" }}>{name}</h3>
         <p style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 13, color: "#6B7280", lineHeight: 1.6, margin: 0 }}>{desc}</p>
@@ -309,7 +309,7 @@ function ComparisonsTab() {
       <p style={{ ...S.body, marginBottom: 32 }}>Side-by-side breakdowns of Oceanview MYGAs and FIAs to help guide client conversations.</p>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
         {COMPARISONS.map(c => (
-          <div key={c.title} style={{ background: "#fff", border: "1px solid rgba(13,31,78,.08)", borderRadius: 14, padding: "28px 24px 22px", display: "flex", flexDirection: "column", gap: 14 }}>
+          <div key={c.title} style={{ background: "rgba(112,186,191,0.2)", borderRadius: 14, padding: "28px 24px 22px", display: "flex", flexDirection: "column", gap: 14 }}>
             <h3 style={{ fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: 18, color: "#0D1F4E", lineHeight: 1.25, margin: 0 }}>{c.title}</h3>
             <p style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "#4A5568", lineHeight: 1.65, margin: 0, flex: 1 }}>{c.desc}</p>
             <TextLink color="var(--ov-teal-600)" style={{ fontSize: 13 }}>Compare Features</TextLink>
@@ -429,7 +429,7 @@ function CaseStudiesSection() {
       <h2 style={S.h2}>Real-world articles, market perspectives, and agent guides.</h2>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20, marginTop: 32 }}>
         {CASE_STUDIES.map(c => (
-          <div key={c.title} style={{ background: "#fff", border: "1px solid rgba(13,31,78,.08)", borderRadius: 14, padding: "28px 24px 22px", display: "flex", flexDirection: "column", gap: 14 }}>
+          <div key={c.title} style={{ background: "rgba(112,186,191,0.2)", borderRadius: 14, padding: "28px 24px 22px", display: "flex", flexDirection: "column", gap: 14 }}>
             <div style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1" }}>{c.tag}</div>
             <h3 style={{ fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: 18, color: "#0D1F4E", lineHeight: 1.25, margin: 0 }}>{c.title}</h3>
             <p style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "#4A5568", lineHeight: 1.65, margin: 0, flex: 1 }}>{c.desc}</p>
