@@ -49,7 +49,7 @@ const SERVICE_FORMS = [
 
 function BrochureCard({ name, desc, route }) {
   return (
-    <div style={{ background: "rgba(112,186,191,0.2)", borderRadius: 14, padding: "24px 22px 20px", display: "flex", flexDirection: "column", gap: 12 }}>
+    <div style={{ background: "#fff", borderRadius: 14, padding: "24px 22px 20px", display: "flex", flexDirection: "column", gap: 12, border: "1px solid rgba(13,31,78,.08)" }}>
       <div>
         <h3 style={{ fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: 18, color: "#0D1F4E", lineHeight: 1.2, margin: "0 0 8px", letterSpacing: "-0.01em" }}>{name}</h3>
         <p style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 13, color: "#6B7280", lineHeight: 1.6, margin: 0 }}>{desc}</p>

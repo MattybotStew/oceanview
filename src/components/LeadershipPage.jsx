@@ -1,5 +1,4 @@
 import PageHero from './PageHero.jsx'
-import RatingBlock from './RatingBlock.jsx'
 import CTABanner from './CTABanner.jsx'
 
 const leadS = {
@@ -139,10 +138,7 @@ export default function LeadershipPage() {
         </div>
       </section>
 
-      {/* 4. A.M. BEST FINANCIAL RATING BLOCK */}
-      <RatingBlock />
-
-      {/* 5. CTA */}
+      {/* 4. CTA */}
       <section className="ov-section" style={{ background: 'var(--ov-surface-tint)' }}>
         <div className="ov-container">
           <CTABanner

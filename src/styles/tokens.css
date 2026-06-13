@@ -696,7 +696,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ─── Sales Tools ────────────────────────────────────────────── */
-.ov-tool-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(13,31,78,.10) !important; }
+.ov-tool-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(13,31,78,.10) !important; }
 @media (max-width: 860px) { .ov-tools-grid { grid-template-columns: repeat(2, 1fr) !important; } }
 @media (max-width: 540px) { .ov-tools-grid { grid-template-columns: 1fr !important; } }
 
@@ -725,7 +725,7 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 540px) { .ov-insights-grid { grid-template-columns: 1fr !important; } }
 
 /* ─── Client Resources ───────────────────────────────────────── */
-.ov-resource-card:hover > div { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(13,31,78,.10) !important; }
+.ov-resource-card:hover > div { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(13,31,78,.10) !important; }
 .ov-resource-card:hover .ov-resource-arrow { transform: translateX(4px); }
 @media (max-width: 860px) { .ov-resources-grid { grid-template-columns: repeat(2, 1fr) !important; } }
 @media (max-width: 540px) { .ov-resources-grid { grid-template-columns: 1fr !important; } }
