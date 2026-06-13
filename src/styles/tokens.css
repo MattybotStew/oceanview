@@ -318,11 +318,19 @@ a { color: inherit; text-decoration: none; }
   padding: 0 var(--ov-gutter);
 }
 
-/* Hero section wrapper — capped at 1800px */
+/* Hero section wrapper — full-width with 20px margin; capped at 1680px above 1840px */
 .ov-hero-wrapper {
-  max-width: 1800px;
-  margin: 0 auto;
-  padding: 0 var(--ov-gutter);
+  max-width: none;
+  margin: 0;
+  padding: 0 20px;
+}
+
+@media (min-width: 1840px) {
+  .ov-hero-wrapper {
+    max-width: 1680px;
+    margin: 0 auto;
+    padding: 0;
+  }
 }
 
 /* The actual hero card inside the wrapper */
@@ -333,32 +341,28 @@ a { color: inherit; text-decoration: none; }
   height: 800px;
 }
 
-/* Responsive container gutters - progressive narrowing */
+/* Responsive container gutters - progressive narrowing (container only, hero no longer participates) */
 @media (max-width: calc(var(--ov-container) + 240px)) {
-  .ov-container,
-  .ov-hero-wrapper {
+  .ov-container {
     padding: 0 60px;
   }
 }
 
 @media (max-width: 1100px) {
-  .ov-container,
-  .ov-hero-wrapper {
+  .ov-container {
     padding: 0 32px;
   }
 }
 
 @media (max-width: 720px) {
-  .ov-container,
-  .ov-hero-wrapper {
+  .ov-container {
     padding: 0 var(--ov-gutter-sm);
   }
 }
 
 /* Optional: Cap max-width on very wide screens to maintain readability */
 @media (min-width: 2000px) {
-  .ov-container,
-  .ov-hero-wrapper {
+  .ov-container {
     padding: 0 200px;
   }
 }
@@ -414,7 +418,7 @@ a { color: inherit; text-decoration: none; }
 
 @media (max-width: 720px) {
   .ov-hero-scrim {
-    background: linear-gradient(175deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.30) 55%, rgba(0,0,0,0.00) 100%) !important;
+    background: linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.30) 55%, rgba(0,0,0,0.00) 100%) !important;
   }
 }
 

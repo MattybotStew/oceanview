@@ -99,17 +99,19 @@ Surface:  #F1FBFF  (ov-surface-tint)
 
 ---
 
-## What Cline did most recently (June 12 2026)
+## What Cline did most recently (June 13 2026)
 
-### Token + accessibility cleanup across global components
+### Hero responsive layout overhaul + image focal point system + mobile scrim fix
 
-- **Footer.jsx** — replaced hardcoded `#001233` bg with `var(--ov-footer-bg)` (defined in tokens.css line 101)
-- **Header.jsx** — `maxWidth: 1400` → `var(--ov-container)` (1600px); dropdown panel heading font → `--ov-ff-display`; "About" nav item changed from `<button>` to `<a>` that navigates directly to `#about` on click (both desktop and mobile)
-- **Hero.jsx** — `aria-current="true"` → `aria-current="slide"` (correct ARIA semantics for carousels)
-- **HeroShaper.jsx** — `fill="#ffffff"` default → `fill="var(--ov-bg, #ffffff)"` for theme safety
-- **Highlights.jsx** — removed trailing `!` from last highlight body copy
-- **package.json** — added `gh-pages@^6.3.0` devDep + `"deploy": "npm run build && gh-pages -d dist"` script
-- **tokens.css** — WCAG AA contrast fixes: `--ov-grey-600` bumped `#4A5568→#374151` (7.2:1 on white); `--ov-danger` `#FF0000→#CC0000` (5.87:1); `--ov-link` now uses `--ov-teal-700` (darker) instead of `--ov-teal-600`
+- **tokens.css (hero wrapper)** — changed `.ov-hero-wrapper` to full-width with 20px left/right margin at all viewports < 1840px. At ≥ 1840px, caps at max-width 1680px centered. Removed hero from container padding system — hero now has its own independent layout.
+- **tokens.css (mobile scrim)** — changed `.ov-hero-scrim` mobile gradient from `175deg` to `0deg` (straight top-to-bottom) at ≤ 720px.
+- **Hero.jsx** — added optional `imgFocus` field to each slide in `heroSlides` array (e.g. `"65% 35%"`). Background image `backgroundPosition` now uses `s.imgFocus || "center"` instead of hardcoded `"center"`. Each slide can have its own focal point.
+- **PageHero.jsx** — added optional `imgFocus` prop. Image `backgroundPosition` uses `imgFocus || "center"` instead of hardcoded `"center"`. All existing callers work unchanged (fall back to `"center"`).
+
+### How imgFocus works (explainable to client)
+- Each hero image gets a focal point as `"X% Y%"` (horizontal vertical) — a CSS `background-position` value
+- The percentage is relative to the container, so the same value works at every viewport width
+- Desktop shows full scene; mobile crops toward the focal point keeping the subject in frame
 
 ---
 

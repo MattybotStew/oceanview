@@ -2,13 +2,13 @@
 import { PillMint, PillGhost } from './Buttons.jsx'
 import HeroShaper from './HeroShaper.jsx'
 
-export default function PageHero({ image, eyebrow, title, titleAccent, subtitle, ctaPrimary, onPrimary, ctaSecondary, onSecondary }) {
+export default function PageHero({ image, imgFocus, eyebrow, title, titleAccent, subtitle, ctaPrimary, onPrimary, ctaSecondary, onSecondary }) {
   return (
     <div className="ov-hero-wrapper" style={{ marginBottom: 40 }}>
       <section style={{ paddingTop: 20, paddingBottom: 0 }}>
         <div className="ov-hero-card" style={{ background: "var(--ov-navy-1000)" }}>
           {image
-            ? <div style={{ position: "absolute", inset: 0, backgroundImage: `url(${image})`, backgroundSize: "cover", backgroundPosition: "center", zIndex: 0 }} />
+            ? <div style={{ position: "absolute", inset: 0, backgroundImage: `url(${image})`, backgroundSize: "cover", backgroundPosition: imgFocus || "center", zIndex: 0 }} />
             : <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 80% 60% at 60% 50%, rgba(113,186,191,0.15) 0%, transparent 70%)", zIndex: 0 }} />
           }
           {image && (
