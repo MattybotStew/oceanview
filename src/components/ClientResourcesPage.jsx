@@ -1,12 +1,17 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import PageHero from './PageHero.jsx'
-import TabBar from './TabBar.jsx'
 import CTABanner from './CTABanner.jsx'
 import { TextLink } from './Buttons.jsx'
 import { Download } from 'lucide-react'
 import { Eyebrow } from './common.jsx'
 
-const TABS = ["Downloads", "Rates", "Comparisons", "Glossary"];
+const NAV_ITEMS = [
+  { id: 'downloads',    label: 'Downloads'    },
+  { id: 'rates',        label: 'Rates'        },
+  { id: 'comparisons',  label: 'Comparisons'  },
+  { id: 'glossary',     label: 'Glossary'     },
+  { id: 'case-studies', label: 'Case Studies' },
+];
 
 const S = {
   section:  { padding: "60px 0 80px" },
@@ -391,24 +396,117 @@ function GlossaryTab() {
   );
 }
 
-// ── PAGE ──────────────────────────────────────────────────────────────────────
+// ── CASE STUDIES ─────────────────────────────────────────────────────────────
 
-function tabFromURL() {
-  const qs = window.location.hash.includes('?') ? window.location.hash.split('?')[1] : '';
-  const tab = new URLSearchParams(qs).get('tab');
-  return TABS.includes(tab) ? tab : 'Downloads';
+const CASE_STUDIES = [
+  {
+    tag: "Case Study",
+    title: "Using MYGA for predictable retirement income",
+    desc: "How a 68-year-old retiree replaced CD ladder income with a 5-year MYGA — locking in 5.20% guaranteed with zero market risk.",
+    cta: "Read summary",
+    ctaStyle: "outline",
+  },
+  {
+    tag: "Guide",
+    title: "FIA crediting strategies demystified",
+    desc: "A plain-English breakdown of annual point-to-point, monthly average, and participation rate strategies for client conversations.",
+    cta: "Download PDF guide",
+    ctaStyle: "outline",
+  },
+  {
+    tag: "Comparison",
+    title: "CapLock vs. Harbourview FIA",
+    desc: "Side-by-side analysis of Oceanview's two FIA products — when to recommend each based on client risk profile and time horizon.",
+    cta: "View brief",
+    ctaStyle: "outline",
+  },
+];
+
+function CaseStudiesSection() {
+  return (
+    <div style={S.section}>
+      <Eyebrow>Insights & Case Studies</Eyebrow>
+      <h2 style={S.h2}>Real-world articles, market perspectives, and agent guides.</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20, marginTop: 32 }}>
+        {CASE_STUDIES.map(c => (
+          <div key={c.title} style={{ background: "#fff", border: "1px solid rgba(13,31,78,.08)", borderRadius: 14, padding: "28px 24px 22px", display: "flex", flexDirection: "column", gap: 14 }}>
+            <div style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1" }}>{c.tag}</div>
+            <h3 style={{ fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: 18, color: "#0D1F4E", lineHeight: 1.25, margin: 0 }}>{c.title}</h3>
+            <p style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "#4A5568", lineHeight: 1.65, margin: 0, flex: 1 }}>{c.desc}</p>
+            <TextLink color="var(--ov-teal-600)" style={{ fontSize: 13 }}>{c.cta}</TextLink>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
+// ── SCROLL NAV ────────────────────────────────────────────────────────────────
+
+const NAV_H = 48; // px — height of the sticky scroll nav bar
+const HEADER_H = 72; // px — site header height
+
+function ScrollNav({ active }) {
+  const scrollTo = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - HEADER_H - NAV_H;
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
+  return (
+    <div style={{ background: "#fff", position: "sticky", top: HEADER_H, zIndex: 10, borderBottom: "1px solid rgba(13,31,78,.06)" }}>
+      <div className="ov-container">
+        <div style={{ display: "flex", gap: 0, overflowX: "auto", scrollbarWidth: "none" }}>
+          {NAV_ITEMS.map(({ id, label }) => {
+            const isActive = active === id;
+            return (
+              <button
+                key={id}
+                onClick={() => scrollTo(id)}
+                style={{
+                  fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13,
+                  padding: "0 18px", height: NAV_H, background: "none", border: "none",
+                  borderBottom: isActive ? "2px solid #2494C1" : "2px solid transparent",
+                  color: isActive ? "#2494C1" : "#4A5568",
+                  cursor: "pointer", whiteSpace: "nowrap", flexShrink: 0,
+                  transition: "color .15s, border-color .15s",
+                }}
+              >{label}</button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── PAGE ──────────────────────────────────────────────────────────────────────
+
+const SECTION_BG = {
+  downloads:    "#fff",
+  rates:        "var(--ov-surface-tint)",
+  comparisons:  "#fff",
+  glossary:     "var(--ov-surface-tint)",
+  'case-studies': "#fff",
+};
+
 export default function ClientResourcesPage() {
-  const [activeTab, setActiveTab] = useState(tabFromURL);
+  const [activeSection, setActiveSection] = useState('downloads');
 
   useEffect(() => {
-    const onHash = () => setActiveTab(tabFromURL());
-    window.addEventListener('hashchange', onHash);
-    return () => window.removeEventListener('hashchange', onHash);
+    const observers = NAV_ITEMS.map(({ id }) => {
+      const el = document.getElementById(id);
+      if (!el) return null;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { rootMargin: `-${HEADER_H + NAV_H + 1}px 0px -55% 0px`, threshold: 0 }
+      );
+      obs.observe(el);
+      return obs;
+    });
+    return () => observers.forEach(o => o?.disconnect());
   }, []);
-
-  const tabBg = { Downloads: "#fff", Rates: "var(--ov-surface-tint)", Comparisons: "#fff", Glossary: "var(--ov-surface-tint)" };
 
   return (
     <main>
@@ -420,20 +518,19 @@ export default function ClientResourcesPage() {
         subtitle="Downloads, current rates, glossary, and product comparisons — all in one place. Designed to help you serve clients faster."
       />
 
-      <div style={{ background: "#fff", position: "sticky", top: 72, zIndex: 10, borderBottom: "1px solid rgba(13,31,78,.06)" }}>
-        <div className="ov-container">
-          <TabBar tabs={TABS} active={activeTab} onChange={setActiveTab} style={{ borderBottom: "none" }} />
-        </div>
-      </div>
+      <ScrollNav active={activeSection} />
 
-      <div style={{ background: tabBg[activeTab] ?? "#fff" }}>
-        <div className="ov-container">
-          {activeTab === "Downloads"   && <DownloadsTab />}
-          {activeTab === "Rates"       && <RatesTab />}
-          {activeTab === "Comparisons" && <ComparisonsTab />}
-          {activeTab === "Glossary"    && <GlossaryTab />}
+      {NAV_ITEMS.map(({ id }) => (
+        <div key={id} id={id} style={{ background: SECTION_BG[id] }}>
+          <div className="ov-container">
+            {id === 'downloads'    && <DownloadsTab />}
+            {id === 'rates'        && <RatesTab />}
+            {id === 'comparisons'  && <ComparisonsTab />}
+            {id === 'glossary'     && <GlossaryTab />}
+            {id === 'case-studies' && <CaseStudiesSection />}
+          </div>
         </div>
-      </div>
+      ))}
 
       <section className="ov-section" style={{ background: "#fff" }}>
         <div className="ov-container">
