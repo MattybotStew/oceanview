@@ -25,7 +25,7 @@ const FAQS = [
   ["What is an annuity?",
    "An annuity is a contract between you and an insurance company designed to provide a stream of income, often during retirement. With a fixed annuity, the insurance company guarantees both the principal and a minimum interest rate."],
   ["What products are available through Oceanview?",
-   "Oceanview offers Multi-Year Guaranteed Annuities (MYGAs) such as Harbourview and Sky Harbourview, and Fixed Indexed Annuities (FIAs) such as Crescendo and Crescendo Plus."],
+   "Oceanview offers Multi-Year Guaranteed Annuities (MYGAs) including Harbourview MYGA, Sky Harbourview MYGA, and CurrentRate MYGA, and Fixed Indexed Annuities (FIAs) including Harbourview FIA and CapLock FIA."],
   ["How is my money protected?",
    "All guarantees are backed by the financial strength and claims-paying ability of Oceanview Life and Annuity Company, which holds an A (Excellent) Financial Strength Rating from A.M. Best."],
   ["Is the interest tax-deferred?",
