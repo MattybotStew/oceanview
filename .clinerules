@@ -117,10 +117,10 @@ Surface:  #F1FBFF  (ov-surface-tint)
 
 ## What Claude Code did most recently (June 13 2026)
 
-### Accessibility page — built from live site content
+### Accessibility page — built and polished
 
-- **AccessibilityPage.jsx** — created new page with two sections: "Our Commitment" (WCAG 2.0 AA) and "Accessibility Questions" (email info@oceanviewlife.com). Uses `LegalPage` shell same as Disclaimers/Privacy/Terms.
-- **Page.jsx** — imported `AccessibilityPage`, added `case "accessibility"` to switch, removed `"accessibility"` from `STUB_ROUTES` (was blocking the switch).
+- **AccessibilityPage.jsx** — four sections: "Commitment to Accessibility" (WCAG 2.0 AA intent), "Guidelines We Follow" (PERCEIVABLE/OPERABLE/UNDERSTANDABLE/ROBUST list), "Continuous Improvement" (ongoing efforts + third-party caveat), "Contact Us" (teal card with email + response time). Uses `LegalPage` shell same as Disclaimers/Privacy/Terms.
+- **Page.jsx** — imported `AccessibilityPage`, added `case "accessibility"` to switch, removed from `STUB_ROUTES`, added to `PAGE_ROUTES` and titles map.
 
 ---
 
