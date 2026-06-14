@@ -9,6 +9,7 @@ import AboutBlock from './AboutBlock.jsx'
 import StatsStrip from './StatsStrip.jsx'
 import CTABanner from './CTABanner.jsx'
 import Footer from './Footer.jsx'
+import BackToTop from './BackToTop.jsx'
 import FAQPage from './FAQPage.jsx'
 import StubPage from './StubPage.jsx'
 import LeadershipPage from './LeadershipPage.jsx'
@@ -266,6 +267,7 @@ export default function Page() {
         {renderPage()}
       </div>
       <Footer />
+      <BackToTop />
     </>
   );
 }

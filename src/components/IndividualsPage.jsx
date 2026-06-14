@@ -158,7 +158,7 @@ export default function IndividualsPage() {
         <div className="ov-container">
           <div style={{ display: 'flex', gap: 72, alignItems: 'center', flexWrap: 'wrap' }} className="ov-split-row">
             <div style={{ flex: '1 1 280px', minWidth: 0 }}>
-              <img src="assets/older-couple-1.png" alt="Couple reviewing retirement plans" style={{ width: '100%', borderRadius: 20, display: 'block' }} />
+              <img src="assets/older-couple-1.png" alt="Couple reviewing retirement plans" loading="lazy" style={{ width: '100%', borderRadius: 20, display: 'block' }} />
             </div>
             <div style={{ flex: '1 1 300px', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 20 }}>
               <div>
@@ -211,7 +211,7 @@ export default function IndividualsPage() {
               </PillMint>
             </div>
             <div style={{ flex: '1 1 280px', minWidth: 0 }}>
-              <img src="assets/family.png" alt="Family planning for the future" style={{ width: '100%', borderRadius: 20, display: 'block' }} />
+              <img src="assets/family.png" alt="Family planning for the future" loading="lazy" style={{ width: '100%', borderRadius: 20, display: 'block' }} />
             </div>
           </div>
         </div>

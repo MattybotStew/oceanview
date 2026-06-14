@@ -93,7 +93,7 @@ function ArticleCard({ eyebrow, title, desc, img, href, readTime }) {
         transition: "transform .18s ease, box-shadow .18s ease",
       }}>
         <div style={{ position: "relative", overflow: "hidden", aspectRatio: "16/9", flexShrink: 0 }}>
-          <img src={img} alt={title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform .4s ease" }} className="ov-insight-img" />
+          <img src={img} alt={title} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform .4s ease" }} className="ov-insight-img" />
           <div style={{ position: "absolute", top: 14, left: 14 }}>
             <span style={{ background: "#fff", borderRadius: 200, padding: "4px 12px", fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color, boxShadow: "0 1px 4px rgba(0,0,0,.12)" }}>
               {eyebrow}
@@ -147,7 +147,7 @@ export default function InsightsPage() {
               </div>
             </div>
             <div style={{ width: "42%", flexShrink: 0, borderRadius: 20, overflow: "hidden", aspectRatio: "4/3" }} className="ov-insight-feat-img">
-              <img src={FEATURED.img} alt={FEATURED.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              <img src={FEATURED.img} alt={FEATURED.title} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
             </div>
           </div>
         </div>

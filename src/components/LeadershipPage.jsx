@@ -124,7 +124,7 @@ export default function LeadershipPage() {
               <div key={idx} style={leadS.card}>
                 <div style={leadS.imgWrap}>
                   {member.img
-                    ? <img src={member.img} alt={`${member.name}`} style={leadS.img} />
+                    ? <img src={member.img} alt={`${member.name}`} loading="lazy" style={leadS.img} />
                     : <span style={leadS.initials}>{initials}</span>
                   }
                 </div>

@@ -1,5 +1,5 @@
 // Hero.jsx — Rounded card hero with slider
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { PillMint, PillGhost } from './Buttons.jsx'
 import HeroShaper from './HeroShaper.jsx'
 
@@ -179,9 +179,18 @@ export default function Hero({ onPrimary, onSecondary }) {
     return () => clearInterval(intervalRef.current);
   }, [paused]);
 
-  const handlePrev = () => { prev(); setPaused(true); setTimeout(() => setPaused(false), 6000); };
-  const handleNext = () => { next(); setPaused(true); setTimeout(() => setPaused(false), 6000); };
+  const handlePrev = useCallback(() => { prev(); setPaused(true); setTimeout(() => setPaused(false), 6000); }, []);
+  const handleNext = useCallback(() => { next(); setPaused(true); setTimeout(() => setPaused(false), 6000); }, []);
   const handleDot  = (i) => { goTo(i); setPaused(true); setTimeout(() => setPaused(false), 6000); };
+
+  const touchStartX = useRef(0);
+  const onTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+  const onTouchEnd = (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(dx) < 50) return;
+    if (dx > 0) handlePrev();
+    else handleNext();
+  };
 
   const slide = heroSlides[currentSlide];
 
@@ -203,7 +212,7 @@ export default function Hero({ onPrimary, onSecondary }) {
           {`Slide ${currentSlide + 1} of ${heroSlides.length}: ${slide.titleLines.join(' ')} ${slide.titleAccent}`}
         </div>
 
-        <div className="ov-hero-card" style={heroStyles.card}>
+        <div className="ov-hero-card" style={heroStyles.card} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
           {heroSlides.map((s, idx) => (
             <div key={idx} className="ov-hero-bg" style={{
               position: "absolute",

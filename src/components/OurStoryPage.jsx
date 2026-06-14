@@ -167,7 +167,7 @@ export default function OurStoryPage() {
               </p>
             </div>
             <div style={{ flex: '1 1 280px', minWidth: 0 }}>
-              <img src="assets/AdobeStock_1231908414@0.3x.jpg" alt="Oceanview headquarters" style={{ width: '100%', borderRadius: 20, display: 'block' }} />
+              <img src="assets/AdobeStock_1231908414@0.3x.jpg" alt="Oceanview headquarters" loading="lazy" style={{ width: '100%', borderRadius: 20, display: 'block' }} />
             </div>
           </div>
         </div>

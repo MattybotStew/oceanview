@@ -139,6 +139,7 @@ export default function CompanyPage() {
             }} className="ov-about-diff-photo">
               <img
                 src="assets/older-couple-1.png"
+                loading="lazy"
                 alt="Happy retired couple planning their financial future"
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
@@ -206,6 +207,7 @@ export default function CompanyPage() {
             }} className="ov-about-story-photo">
               <img
                 src="assets/couple-walking.png"
+                loading="lazy"
                 alt="Couple walking together"
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
@@ -265,6 +267,7 @@ export default function CompanyPage() {
             }} className="ov-about-ambest-photo">
               <img
                 src="assets/hero-beach-couple.jpg"
+                loading="lazy"
                 alt="Couple on the beach"
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />

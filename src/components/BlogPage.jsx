@@ -106,7 +106,7 @@ function PostCard({ category, date, title, excerpt, img, href }) {
     <a href={href} style={{ textDecoration: "none" }} className="ov-blog-card">
       <div style={{ background: "#fff", borderRadius: 16, overflow: "hidden", border: "1px solid rgba(13,31,78,.07)", boxShadow: "0 2px 12px rgba(13,31,78,.04)", display: "flex", flexDirection: "column", height: "100%", transition: "transform .18s ease, box-shadow .18s ease" }}>
         <div style={{ aspectRatio: "16/9", overflow: "hidden", flexShrink: 0 }}>
-          <img src={img} alt={title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform .4s ease" }} className="ov-blog-img" />
+          <img src={img} alt={title} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform .4s ease" }} className="ov-blog-img" />
         </div>
         <div style={{ padding: "20px 22px 24px", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
@@ -160,7 +160,7 @@ export default function BlogPage() {
                 </span>
               </div>
               <div style={{ width: "42%", flexShrink: 0, borderRadius: 20, overflow: "hidden", aspectRatio: "4/3" }} className="ov-blog-feat-img">
-                <img src={FEATURED.img} alt={FEATURED.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform .4s ease" }} className="ov-blog-feat-photo" />
+                <img src={FEATURED.img} alt={FEATURED.title} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform .4s ease" }} className="ov-blog-feat-photo" />
               </div>
             </div>
           </a>

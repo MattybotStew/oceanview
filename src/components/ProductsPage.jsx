@@ -257,7 +257,7 @@ export default function ProductsPage() {
       <section id="prd-cat-fixed-annuities" style={{ ...PS.sectionWhite, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
         <div className="ov-container">
           <div style={PS.introRow} className="prd-intro-row prd-intro-img-right">
-            <img src="assets/family.png" alt="Family planning retirement" style={PS.introImg} className="prd-intro-img"/>
+            <img src="assets/family.png" alt="Family planning retirement" loading="lazy" style={PS.introImg} className="prd-intro-img"/>
             <div style={PS.introText}>
               <div>
                 <Eyebrow>Fixed Annuities</Eyebrow>
@@ -278,7 +278,7 @@ export default function ProductsPage() {
       <section id="prd-cat-fixed-with-flex" style={{ ...PS.sectionDark, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
         <div className="ov-container">
           <div style={PS.introRow} className="prd-intro-row prd-intro-img-left">
-            <img src="assets/older-couple-1.png" alt="Couple planning retirement with flexibility" style={PS.introImg} className="prd-intro-img"/>
+            <img src="assets/older-couple-1.png" alt="Couple planning retirement with flexibility" loading="lazy" style={PS.introImg} className="prd-intro-img"/>
             <div style={PS.introText}>
               <div>
                 <Eyebrow light>Fixed Annuities with Flexibility</Eyebrow>
@@ -299,7 +299,7 @@ export default function ProductsPage() {
       <section id="prd-cat-fixed-indexed" style={{ ...PS.sectionTint, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
         <div className="ov-container">
           <div style={PS.introRow} className="prd-intro-row prd-intro-img-right">
-            <img src="assets/lighthouse.jpg" alt="Fixed indexed annuities" style={PS.introImg} className="prd-intro-img"/>
+            <img src="assets/lighthouse.jpg" alt="Fixed indexed annuities" loading="lazy" style={PS.introImg} className="prd-intro-img"/>
             <div style={PS.introText}>
               <div>
                 <Eyebrow>Fixed Indexed Annuities</Eyebrow>

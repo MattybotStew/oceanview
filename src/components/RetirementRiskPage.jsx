@@ -153,7 +153,7 @@ export default function RetirementRiskPage() {
               </div>
             </div>
             <div style={{ flex: '1 1 280px', minWidth: 0 }}>
-              <img src="assets/older-couple-1.png" alt="Couple reviewing retirement plan" style={{ width: '100%', borderRadius: 20, display: 'block' }} />
+              <img src="assets/older-couple-1.png" alt="Couple reviewing retirement plan" loading="lazy" style={{ width: '100%', borderRadius: 20, display: 'block' }} />
             </div>
           </div>
         </div>

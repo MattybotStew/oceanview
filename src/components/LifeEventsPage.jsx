@@ -144,7 +144,7 @@ export default function LifeEventsPage() {
         <div className="ov-container">
           <div style={{ display: 'flex', gap: 64, alignItems: 'center', flexWrap: 'wrap' }} className="ov-split-row">
             <div style={{ flex: '1 1 280px', minWidth: 0 }}>
-              <img src="assets/family.png" alt="Family planning for the future" style={{ width: '100%', borderRadius: 20, display: 'block' }} />
+              <img src="assets/family.png" alt="Family planning for the future" loading="lazy" style={{ width: '100%', borderRadius: 20, display: 'block' }} />
             </div>
             <div style={{ flex: '1 1 280px', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 20 }}>
               <div>
