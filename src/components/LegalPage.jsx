@@ -47,7 +47,7 @@ export default function LegalPage({ title, subtitle, copyright, children }) {
       {/* Content */}
       <section style={{ background: '#fff', padding: '0 0 80px' }}>
         <div className="ov-container">
-          <div style={{ maxWidth: 780 }}>
+          <div style={{ maxWidth: 780, margin: '0 auto' }}>
             {children}
             <div style={S.divider} />
             <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 12, color: '#9CA3AF', lineHeight: 1.65 }}>
