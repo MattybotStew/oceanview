@@ -62,7 +62,6 @@ const heroStyles = {
     lineHeight: 1.1,
     color: "#F2FCFF",
     margin: 0,
-    textShadow: "0 2px 4px rgba(0,0,0,0.3)",
   },
   body: {
     fontFamily: "var(--ov-ff-sans)",

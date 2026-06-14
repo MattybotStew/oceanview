@@ -25,7 +25,7 @@ export default function PageHero({ image, imgFocus, eyebrow, title, titleAccent,
                 </span>
               </div>
             )}
-            <h1 className="ov-hero-title" style={{ fontFamily: "var(--ov-ff-display)", fontWeight: 800, fontSize: "clamp(28px, 4vw, 63px)", lineHeight: 1.1, color: "#F2FCFF", margin: 0, textShadow: "0 2px 4px rgba(0,0,0,0.3)" }}>
+            <h1 className="ov-hero-title" style={{ fontFamily: "var(--ov-ff-display)", fontWeight: 800, fontSize: "clamp(28px, 4vw, 63px)", lineHeight: 1.1, color: "#F2FCFF", margin: 0 }}>
               {title && <>{title}{titleAccent && <><br /></>}</>}
               {titleAccent && <em style={{ fontStyle: 'italic', color: '#70BABF' }}>{titleAccent}</em>}
             </h1>
