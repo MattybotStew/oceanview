@@ -1,183 +1,397 @@
-// Footer.jsx — Dark navy footer: email signup + link columns + legal
+// Footer.jsx — Dark navy footer matching Figma design (node 7157-1909)
 import { useState } from 'react'
 
-const footerStyles = {
+const S = {
   wrap: {
-    background: "var(--ov-footer-bg)",
-    color: "rgba(255,255,255,.72)",
-    padding: "56px 0 28px",
+    background: '#001F54',
+    color: 'rgba(255,255,255,.72)',
+    padding: '56px 0 0',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  inner: {
+    width: '100%',
+    maxWidth: 1200,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 60,
+    padding: '56px 24px',
   },
 
-  // Email capture row
-  signup: {
-    display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 56,
-    alignItems: "center", paddingBottom: 36,
-    borderBottom: "1px solid rgba(255,255,255,.12)",
+  // ── Section 1: Newsletter ─────────────────────────────────────────────
+  signupRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingBottom: 60,
+    borderBottom: '1px solid rgba(255,255,255,.12)',
+    width: '100%',
   },
-  signupCopy: { display: "flex", flexDirection: "column", gap: 6 },
-  signupEyebrow: {
-    fontFamily: "var(--ov-ff-eyebrow)", fontWeight: 600, fontSize: 12,
-    letterSpacing: ".12em", textTransform: "uppercase", color: "rgba(255,255,255,.7)",
+  signupLeft: {
+    width: 488,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+  },
+  eyebrow: {
+    fontFamily: 'PP Mori',
+    fontWeight: 600,
+    fontSize: 10,
+    lineHeight: '16.5px',
+    letterSpacing: '1.2px',
+    textTransform: 'uppercase',
+    color: 'rgba(255,255,255,.6)',
   },
   signupTitle: {
-    fontFamily: "var(--ov-ff-display)", fontWeight: 400,
-    fontSize: "clamp(22px, 3vw, 28px)",
-    lineHeight: 1.15, color: "#fff", margin: 0, textWrap: "balance",
+    fontFamily: 'Cormorant Garamond, var(--ov-ff-display)',
+    fontWeight: 500,
+    fontSize: 28,
+    lineHeight: '32.2px',
+    color: '#F2FCFF',
+    margin: 0,
   },
-  signupSub: {
-    fontSize: 13.5, lineHeight: 1.55, color: "rgba(255,255,255,.62)",
-    margin: 0, maxWidth: "44ch",
+  signupBody: {
+    fontFamily: 'PP Mori',
+    fontWeight: 400,
+    fontSize: 13.5,
+    lineHeight: '20.92px',
+    color: 'rgba(255,255,255,.62)',
+    margin: 0,
+    maxWidth: 488,
   },
-  form:    { display: "flex", flexDirection: "column", gap: 10 },
-  formRow: { display: "flex", gap: 10 },
+  signupRight: {
+    width: 538,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 12,
+  },
+  formRow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 12,
+  },
   input: {
-    flex: 1, height: 44, padding: "0 14px", borderRadius: 6,
-    border: "1px solid rgba(255,255,255,.18)", background: "rgba(255,255,255,.06)",
-    color: "#fff", fontFamily: "var(--ov-ff-body)", fontSize: 16, outline: "none",
+    width: 171,
+    height: 47,
+    padding: '12px 16px',
+    borderRadius: 8,
+    border: '1px solid rgba(255,255,255,.2)',
+    background: '#fff',
+    fontFamily: 'PP Mori',
+    fontWeight: 400,
+    fontSize: 14,
+    color: '#000',
+    outline: 'none',
+    boxSizing: 'border-box',
+  },
+  inputPlaceholder: {
+    color: 'rgba(0,0,0,.4)',
   },
   submit: {
-    height: 44, padding: "0 22px", borderRadius: 200, border: 0,
-    background: "#fff", color: "var(--ov-navy-1000)",
-    fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 14,
-    cursor: "pointer", whiteSpace: "nowrap", transition: "opacity .15s ease",
+    height: 47,
+    padding: '0 44px',
+    borderRadius: 200,
+    border: 0,
+    background: '#70BABF',
+    color: '#001F54',
+    fontFamily: 'PP Mori',
+    fontWeight: 600,
+    fontSize: 15.1,
+    lineHeight: '16px',
+    textTransform: 'capitalize',
+    cursor: 'pointer',
+    whiteSpace: 'nowrap',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'opacity .15s ease',
   },
-  ack: { fontSize: 12, lineHeight: 1.5, color: "rgba(255,255,255,.5)", margin: 0 },
+  consentRow: {
+    display: 'flex',
+    gap: 16,
+    padding: '8px 0',
+  },
+  checkbox: {
+    width: 20,
+    height: 20,
+    borderRadius: 2.5,
+    border: '1px solid #767676',
+    background: '#fff',
+    flexShrink: 0,
+    cursor: 'pointer',
+    appearance: 'none',
+    WebkitAppearance: 'none',
+  },
+  consentText: {
+    fontFamily: 'PP Mori',
+    fontWeight: 600,
+    fontSize: 12,
+    lineHeight: '16.8px',
+    color: '#F2FCFF',
+    opacity: 0.6,
+    margin: 0,
+  },
 
-  // Link columns
-  top: {
-    display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr 1fr 1fr", gap: 40,
-    padding: "44px 0 36px", borderBottom: "1px solid rgba(255,255,255,.12)",
+  // ── Section 2: Link columns ────────────────────────────────────────────
+  linkSection: {
+    paddingBottom: 60,
+    borderBottom: '1px solid rgba(255,255,255,.12)',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: 32,
   },
-  logoBlock: {
-    color: "#fff", fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: 24,
-    display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 14,
+  logoCol: {
+    flex: 1.2,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 24,
+  },
+  logoWrap: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingRight: 71,
+  },
+  logoImg: {
+    width: 214,
+    height: 40,
   },
   blurb: {
-    fontSize: 13, lineHeight: 1.65, maxWidth: "36ch", color: "rgba(255,255,255,.62)",
+    fontFamily: 'PP Mori',
+    fontWeight: 400,
+    fontSize: 13,
+    lineHeight: '21.45px',
+    color: 'rgba(255,255,255,.62)',
+    margin: 0,
+    maxWidth: 276,
+  },
+  socialRow: {
+    display: 'flex',
+    gap: 12,
+    paddingTop: 14,
+  },
+  socialBtn: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    border: '1px solid rgba(255,255,255,.2)',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#F2FCFF',
+    fontSize: 12,
+    fontFamily: 'PP Mori',
+    cursor: 'pointer',
+    background: 'transparent',
+    transition: 'border-color .15s ease, background .15s ease',
+  },
+  linkCol: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
   },
   colTitle: {
-    fontFamily: "var(--ov-ff-eyebrow)", fontWeight: 600, fontSize: 12,
-    letterSpacing: ".12em", textTransform: "uppercase", color: "#fff", marginBottom: 14,
+    fontFamily: 'PP Mori',
+    fontWeight: 600,
+    fontSize: 12,
+    lineHeight: '18px',
+    letterSpacing: '1.44px',
+    textTransform: 'uppercase',
+    color: '#F2FCFF',
+    height: 18,
   },
-  ul: { listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 },
-  li: { fontSize: 13.5, color: "rgba(255,255,255,.7)", cursor: "pointer", lineHeight: 1.5 },
+  linkList: {
+    listStyle: 'none',
+    padding: 0,
+    margin: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 12,
+  },
+  linkItem: {
+    fontFamily: 'PP Mori',
+    fontWeight: 400,
+    fontSize: 13.5,
+    lineHeight: '20.25px',
+    color: 'rgba(255,255,255,.7)',
+    cursor: 'pointer',
+    textDecoration: 'none',
+  },
 
-  // Bottom row
-  bottom: {
-    display: "flex", justifyContent: "space-between", alignItems: "center",
-    paddingTop: 22, fontSize: 12, color: "rgba(255,255,255,.55)",
-    flexWrap: "wrap", gap: 18,
+  // ── Section 3: Legal ───────────────────────────────────────────────────
+  legalSection: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 24,
+    paddingBottom: 28,
   },
-  legal: {
-    fontSize: 12, lineHeight: 1.6, color: "rgba(255,255,255,.42)",
-    marginTop: 18, maxWidth: "100%",
+  copyrightRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
   },
-  social: { display: "flex", gap: 12, alignItems: "center", marginTop: 16 },
-  socialBtn: {
-    width: 30, height: 30, borderRadius: "50%",
-    border: "1px solid rgba(255,255,255,.2)",
-    display: "inline-flex", alignItems: "center", justifyContent: "center",
-    color: "#fff", fontSize: 12, cursor: "pointer", background: "transparent",
-    transition: "border-color .15s ease, background .15s ease",
+  copyright: {
+    fontFamily: 'PP Mori',
+    fontWeight: 400,
+    fontSize: 12,
+    lineHeight: '18px',
+    color: 'rgba(255,255,255,.55)',
+  },
+  legalLinks: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+  legalLink: {
+    fontFamily: 'PP Mori',
+    fontWeight: 400,
+    fontSize: 12,
+    lineHeight: '18px',
+    color: 'rgba(255,255,255,.55)',
+    textDecoration: 'none',
+    cursor: 'pointer',
+  },
+  disclaimer: {
+    fontFamily: 'PP Mori',
+    fontWeight: 400,
+    fontSize: 11,
+    lineHeight: '17.6px',
+    color: 'rgba(255,255,255,.42)',
+    margin: 0,
+    maxWidth: 1200,
   },
 };
 
 export default function Footer() {
   const [submitted, setSubmitted] = useState(false);
-  const cols = [
-    ["Products", [
-      { label: "Harbourview MYGA",           href: "#harbourview-myga"     },
-      { label: "Horizon MYGA",               href: "#horizon-myga"         },
-      { label: "Current Rate Fixed Annuity", href: "#current-rate-fia"     },
-      { label: "Harbourview FIA",            href: "#harbourview-fia"       },
-      { label: "CapLock",                    href: "#caplock"               },
-      { label: "Topsider",                   href: "#topsider"              },
-    ]],
-    ["Company", [
-      { label: "Our Story",          href: "#our-story"    },
-      { label: "Leadership",         href: "#leadership"   },
-      { label: "Board of Directors", href: "#board"        },
-      { label: "Newsroom",           href: "#newsroom"     },
-      { label: "FAQ",                href: "#faq"          },
-    ]],
-    ["Client Resources", [
-      { label: "Case Studies",               href: "#client-resources?tab=case-studies" },
-      { label: "Downloads",                  href: "#client-resources?tab=downloads"    },
-      { label: "Rates",                      href: "#client-resources?tab=rates"        },
-      { label: "Comparisons",                href: "#client-resources?tab=comparisons"  },
-      { label: "Glossary",                   href: "#client-resources?tab=glossary"     },
-      { label: "Contact",                    href: "#contact"                           },
-    ]],
-    ["Insights", [
-      { label: "Retirement Risk Series", href: "#retirement-risk" },
-      { label: "Life Events Series",     href: "#life-events"     },
-      { label: "White Papers",           href: "#white-papers"    },
-      { label: "Contact",                href: "#contact"         },
-    ]],
-  ];
-  return (
-    <footer style={footerStyles.wrap}>
-      <div className="ov-container">
 
-        {/* Email signup */}
-        <div id="footer-newsletter" style={footerStyles.signup} className="ov-footer-signup">
-          <div style={footerStyles.signupCopy}>
-            <h2 style={{ ...footerStyles.signupTitle, fontWeight: 400 }}>Sign up for our newsletter.</h2>
-            <p style={footerStyles.signupSub}>
+  const navCols = [
+    {
+      title: 'Products',
+      links: [
+        { label: 'Harbourview MYGA',           href: '#harbourview-myga'     },
+        { label: 'Horizon MYGA',               href: '#horizon-myga'         },
+        { label: 'Current Rate Fixed Annuity', href: '#current-rate-fia'     },
+        { label: 'Harbourview FIA',            href: '#harbourview-fia'       },
+        { label: 'CapLock',                    href: '#caplock'               },
+        { label: 'Topsider',                   href: '#topsider'              },
+      ],
+    },
+    {
+      title: 'Company',
+      links: [
+        { label: 'Our Story',          href: '#our-story'    },
+        { label: 'Leadership',         href: '#leadership'   },
+        { label: 'Board of Directors', href: '#board'        },
+        { label: 'Newsroom',           href: '#newsroom'     },
+        { label: 'Careers',            href: 'https://careers.bayview.com/oceanview' },
+      ],
+    },
+    {
+      title: 'Client Resources',
+      links: [
+        { label: 'Case Studies',               href: '#client-resources?tab=case-studies' },
+        { label: 'Downloads',                  href: '#client-resources?tab=downloads'    },
+        { label: 'Glossary',                   href: '#client-resources?tab=glossary'     },
+        { label: 'Rates',                      href: '#client-resources?tab=rates'        },
+        { label: 'How Oceanview MYGAs Compare', href: '#client-resources?tab=comparisons'  },
+        { label: 'Cookies Preferences',        href: '#privacy'                           },
+      ],
+    },
+    {
+      title: 'Insights',
+      links: [
+        { label: 'Retirement Risk Series', href: '#retirement-risk' },
+        { label: 'Life Events Series',     href: '#life-events'     },
+        { label: 'White Papers',           href: '#white-papers'    },
+      ],
+    },
+  ];
+
+  return (
+    <footer style={S.wrap}>
+      <div style={S.inner}>
+
+        {/* ── Section 1: Newsletter signup ────────────────────────────── */}
+        <div id="footer-newsletter" style={S.signupRow} className="ov-footer-signup">
+          <div style={S.signupLeft}>
+            <div style={S.eyebrow}>Stay in the know</div>
+            <h2 style={S.signupTitle}>Smart insights, delivered.</h2>
+            <p style={S.signupBody}>
               Product updates, market commentary, and planning ideas from the Oceanview team.
             </p>
           </div>
-          <form style={footerStyles.form} onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>
-            <div style={footerStyles.formRow} className="ov-footer-form-row">
-              <label htmlFor="footer-first-name" className="sr-only">First name</label>
-              <input style={footerStyles.input} name="firstName" id="footer-first-name" autoComplete="given-name" placeholder="First name" required />
-              <label htmlFor="footer-email" className="sr-only">Email address</label>
-              <input style={footerStyles.input} name="email" id="footer-email" type="email" autoComplete="email" placeholder="Email address" required />
-              <button type="submit" style={footerStyles.submit}
-                onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
-                onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+          <form style={S.signupRight} onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>
+            <div style={S.formRow} className="ov-footer-form-row">
+              <label htmlFor="footer-first-name" className="sr-only">Name</label>
+              <input
+                style={S.input}
+                name="name"
+                id="footer-first-name"
+                autoComplete="given-name"
+                placeholder="Name"
+                required
+              />
+              <label htmlFor="footer-email" className="sr-only">Email</label>
+              <input
+                style={S.input}
+                name="email"
+                id="footer-email"
+                type="email"
+                autoComplete="email"
+                placeholder="Email"
+                required
+              />
+              <button type="submit" style={S.submit}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
               >
-                {submitted ? "Subscribed!" : "Sign Me Up"}
+                {submitted ? 'Signed Up!' : 'Get Started'}
               </button>
             </div>
-            <p style={footerStyles.ack}>
-              By subscribing, you agree to receive communications from Oceanview. Unsubscribe anytime.
-            </p>
+            <div style={S.consentRow}>
+              <label style={{ width: 22, height: 22, flexShrink: 0, position: 'relative' }}>
+                <input type="checkbox" style={S.checkbox} />
+              </label>
+              <p style={S.consentText}>
+                I agree to receive communications from Oceanview Life and Annuity. I understand I can unsubscribe at any time. We respect your privacy. Your information will never be shared.
+              </p>
+            </div>
           </form>
         </div>
 
-        {/* Link columns */}
-        <div style={footerStyles.top} className="ov-footer-cols">
-          <div>
-            <div style={footerStyles.logoBlock}>
-              <img src="assets/oceanview-logo-white.png" alt="Oceanview" style={{ height: 39.859, width: "auto" }}
-                onError={(e) => { e.target.style.display = "none"; }}
+        {/* ── Section 2: Link columns ────────────────────────────────── */}
+        <div style={S.linkSection} className="ov-footer-cols">
+          {/* Logo column */}
+          <div style={S.logoCol}>
+            <div style={S.logoWrap}>
+              <img
+                src="assets/oceanview-logo-white.png"
+                alt="Oceanview"
+                style={S.logoImg}
+                onError={(e) => { e.target.style.display = 'none'; }}
               />
             </div>
-            <p style={footerStyles.blurb}>
-              Oceanview Life and Annuity Company offers fixed and fixed-indexed annuities designed
-              for long-term retirement security.
+            <p style={S.blurb}>
+              Oceanview Life and Annuity Company offers fixed and fixed-indexed annuities designed for long-term retirement security.
             </p>
-            <div style={footerStyles.social}>
-              <button style={footerStyles.socialBtn} aria-label="LinkedIn"
-                onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,.12)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+            <div style={S.socialRow}>
+              {/* LinkedIn */}
+              <button style={S.socialBtn} aria-label="LinkedIn"
+                onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,.12)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>
               </button>
-              <button style={footerStyles.socialBtn} aria-label="Facebook"
-                onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,.12)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
-              >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-              </button>
-              <button style={footerStyles.socialBtn} aria-label="X / Twitter"
-                onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,.12)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+              {/* X (Twitter) */}
+              <button style={S.socialBtn} aria-label="X / Twitter"
+                onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,.12)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -185,18 +399,23 @@ export default function Footer() {
               </button>
             </div>
           </div>
-          {cols.map(([t, items]) => (
-            <div key={t}>
-              <div style={footerStyles.colTitle}>{t}</div>
-              <ul style={footerStyles.ul}>
-                {items.map((item) => (
-                  <li key={item.label}>
+
+          {/* Link columns */}
+          {navCols.map(col => (
+            <div key={col.title} style={S.linkCol}>
+              <div style={S.colTitle}>{col.title}</div>
+              <ul style={S.linkList}>
+                {col.links.map(link => (
+                  <li key={link.label}>
                     <a
-                      href={item.href}
-                      style={{ ...footerStyles.li, textDecoration: 'none', display: 'block' }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,.7)")}
-                    >{item.label}</a>
+                      href={link.href}
+                      style={S.linkItem}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = '#fff')}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,.7)')}
+                      {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    >
+                      {link.label}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -204,25 +423,23 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Bottom legal row */}
-        <div style={footerStyles.bottom}>
-          <span>© 2026 Oceanview Life and Annuity Company. All rights reserved.</span>
-          <span style={{ display: "flex", gap: 18 }}>
-            <a href="#privacy" style={{ color: "inherit", textDecoration: "none" }}>Privacy Notice</a>
-            <a href="#terms" style={{ color: "inherit", textDecoration: "none" }}>Terms of Use</a>
-            <a href="#accessibility" style={{ color: "inherit", textDecoration: "none" }}>Accessibility</a>
-          </span>
+        {/* ── Section 3: Legal ────────────────────────────────────────── */}
+        <div style={S.legalSection}>
+          <div style={S.copyrightRow}>
+            <span style={S.copyright}>© 2026 Oceanview Life and Annuity Company. All rights reserved. 1331 17th St., Suite 1050, Denver, CO 80202</span>
+            <div style={S.legalLinks}>
+              <a href="#privacy" style={S.legalLink} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.55)'}>Privacy Notice</a>
+              <a href="#disclaimers" style={S.legalLink} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.55)'}>Disclaimers</a>
+              <a href="#accessibility" style={S.legalLink} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.55)'}>Accessibility</a>
+              <a href="/sitemap.xml" style={S.legalLink} target="_blank" onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.55)'}>Sitemap</a>
+              <a href="#contact" style={S.legalLink} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.55)'}>Contact</a>
+            </div>
+          </div>
+          <p style={S.disclaimer}>
+            Annuities are products of the insurance industry and not guaranteed by any bank nor insured by FDIC or NCUA/NCUSIF. May lose value. No bank/credit union guarantee. Not a deposit. Not insured by any federal government agency. May only be offered by a licensed insurance agent. Guarantees are subject to the claim paying ability of the issuing insurance company.
+          </p>
         </div>
-        <p style={footerStyles.legal}>
-          Annuities are issued by Oceanview Life and Annuity Company (OLAC) or Oceanview Life and
-          Annuity Insurance Company (OLAIC), domiciled in Colorado and Arizona, respectively.
-          Annuities are insurance products, not deposits, and are not insured or guaranteed by the
-          FDIC or any other federal agency. Guarantees are based on the financial strength and
-          claims-paying ability of the issuing company. Tax-deferred growth is not equivalent to
-          current income, and withdrawals from annuity contracts may be subject to ordinary income
-          tax and, if taken before age 59½, an additional 10% federal tax. This material is for
-          informational purposes only and is not a recommendation.
-        </p>
+
       </div>
     </footer>
   );
