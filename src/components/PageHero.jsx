@@ -12,7 +12,7 @@ export default function PageHero({ image, imgFocus, eyebrow, title, titleAccent,
             : <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 80% 60% at 60% 50%, rgba(113,186,191,0.15) 0%, transparent 70%)", zIndex: 0 }} />
           }
           {image && (
-            <div className="ov-hero-scrim" style={{ position: "absolute", inset: 0, background: "linear-gradient(85deg, rgba(0,0,0,.82) 0%, rgba(0,31,84,.4) 60%, transparent 100%)", zIndex: 1 }} />
+            <div className="ov-hero-scrim" style={{ position: "absolute", inset: 0, background: "linear-gradient(85deg, rgba(0,31,84,.82) 0%, rgba(0,31,84,.4) 60%, transparent 100%)", zIndex: 1 }} />
           )}
           <div style={{ position: "absolute", inset: 0, backgroundImage: `url("assets/Noise.png")`, backgroundRepeat: "repeat", backgroundSize: "200px", opacity: 0.6, pointerEvents: "none", zIndex: 2 }} />
           <HeroShaper />
