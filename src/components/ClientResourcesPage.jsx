@@ -461,6 +461,7 @@ function ScrollNav({ active }) {
   const scrollTo = (id) => {
     const el = document.getElementById(id);
     if (!el) return;
+    history.replaceState(null, '', `${window.location.pathname}#client-resources?tab=${id}`);
     const top = el.getBoundingClientRect().top + window.scrollY - HEADER_H - NAV_H;
     window.scrollTo({ top, behavior: 'smooth' });
   };

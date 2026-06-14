@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { PillMint, PillNavy } from './Buttons.jsx'
 import {
   Phone, Mail, Printer, Building2, Clock, User,
@@ -625,8 +625,22 @@ const TABS = [
   { id: 'forms',     label: 'Forms & Resources' },
 ]
 
+function getTabFromHash() {
+  const hash = window.location.hash;
+  const match = hash.match(/[?&]tab=([^&]+)/);
+  return match ? match[1] : null;
+}
+
+const VALID_TABS = ['contacts', 'payments', 'portals', 'forms'];
+
 export default function ContactPage() {
-  const [activeTab, setActiveTab] = useState('contacts')
+  const initialTab = getTabFromHash();
+  const [activeTab, setActiveTab] = useState(initialTab && VALID_TABS.includes(initialTab) ? initialTab : 'contacts');
+
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId);
+    window.location.hash = `contact?tab=${tabId}`;
+  };
 
   const scrollToForm = () => {
     document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -668,7 +682,7 @@ export default function ContactPage() {
                 className="ov-contact-tab"
                 style={{ ...S.ctTab, ...(activeTab === t.id ? S.ctTabActive : S.ctTabInactive) }}
                 tabIndex={activeTab === t.id ? 0 : -1}
-                onClick={() => setActiveTab(t.id)}
+                onClick={() => handleTabChange(t.id)}
                 onKeyDown={(e) => {
                   const idx = TABS.findIndex(tab => tab.id === t.id)
                   let next = null
