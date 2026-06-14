@@ -401,24 +401,22 @@ a { color: inherit; text-decoration: none; }
 
 @media (max-width: 720px) {
   .ov-hero-content {
-    left: 24px;
-    right: 24px;
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 48px);
     max-width: none;
     gap: 20px;
+  }
+  .ov-hero-scrim {
+    background: rgba(0,31,84,0.80) !important;
   }
 }
 
 @media (max-width: 480px) {
   .ov-hero-content {
-    left: 20px;
-    right: 20px;
+    width: calc(100% - 40px);
     gap: 16px;
-  }
-}
-
-@media (max-width: 720px) {
-  .ov-hero-scrim {
-    background: rgba(0,31,84,0.80) !important;
   }
 }
 
