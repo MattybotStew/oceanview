@@ -639,7 +639,7 @@ export default function ContactPage() {
 
   const handleTabChange = (tabId) => {
     setActiveTab(tabId);
-    window.location.hash = `contact?tab=${tabId}`;
+    history.replaceState(null, '', `${window.location.pathname}#contact?tab=${tabId}`);
   };
 
   const scrollToForm = () => {
