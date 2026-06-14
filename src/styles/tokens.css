@@ -418,6 +418,10 @@ a { color: inherit; text-decoration: none; }
     width: calc(100% - 40px);
     gap: 16px;
   }
+  .ov-hero-content .ov-btn {
+    flex: 1 1 100%;
+    width: 100%;
+  }
 }
 
 /* ─── Hero carousel dot touch targets ──────────────────────────── */
