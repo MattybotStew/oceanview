@@ -14,7 +14,12 @@ const S = {
 }
 
 // ── Card ──────────────────────────────────────────────────────────────────────
-function ResourceCard({ icon: Icon, tag, title, body, dark }) {
+function ResourceCard({ icon: Icon, tag, title, body, dark, tint }) {
+  const cardOverride = dark
+    ? { background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.08)', boxShadow: 'none' }
+    : tint
+    ? { background: 'rgba(112,186,191,0.2)', border: '1px solid rgba(112,186,191,.25)', boxShadow: 'none' }
+    : {};
   return (
     <div style={{
       background: '#fff',
@@ -28,16 +33,20 @@ function ResourceCard({ icon: Icon, tag, title, body, dark }) {
       height: '100%',
       boxSizing: 'border-box',
       transition: 'transform .18s ease, box-shadow .18s ease',
+      ...cardOverride,
     }} className="ov-tool-card">
-      <div style={{ width: 44, height: 44, borderRadius: 10, background: 'var(--ov-surface-tint)', border: '1px solid rgba(36,148,193,.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-        <Icon size={18} color="#2494C1" strokeWidth={1.75} />
+      <div style={{ width: 44, height: 44, borderRadius: 10,
+        background: dark ? 'rgba(255,255,255,.08)' : 'var(--ov-surface-tint)',
+        border: dark ? '1px solid rgba(255,255,255,.12)' : '1px solid rgba(36,148,193,.15)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        <Icon size={18} color={dark ? '#70BABF' : '#2494C1'} strokeWidth={1.75} />
       </div>
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 6 }}>
-        <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#2494C1' }}>{tag}</span>
-        <h3 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 17, color: '#0D1F4E', letterSpacing: '-0.01em', lineHeight: 1.25, margin: 0 }}>{title}</h3>
-        <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13.5, color: '#4A5568', lineHeight: 1.6, margin: 0 }}>{body}</p>
+        <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: dark ? '#70BABF' : '#2494C1' }}>{tag}</span>
+        <h3 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 17, color: dark ? '#F2FCFF' : '#0D1F4E', letterSpacing: '-0.01em', lineHeight: 1.25, margin: 0 }}>{title}</h3>
+        <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13.5, color: dark ? 'rgba(242,252,255,.65)' : '#4A5568', lineHeight: 1.6, margin: 0 }}>{body}</p>
       </div>
-      <TextLink color="var(--ov-teal-600)" style={{ fontSize: 13, marginTop: 2 }}>View Resource</TextLink>
+      <TextLink color={dark ? '#70BABF' : 'var(--ov-teal-600)'} style={{ fontSize: 13, marginTop: 2 }}>View Resource</TextLink>
     </div>
   )
 }
@@ -106,7 +115,7 @@ export default function SalesToolsPage() {
             </p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }} className="ov-tools-grid">
-            {MYGA_TOOLS.map(t => <ResourceCard key={t.title} {...t} />)}
+            {MYGA_TOOLS.map(t => <ResourceCard key={t.title} {...t} tint />)}
           </div>
         </div>
       </section>
@@ -123,7 +132,7 @@ export default function SalesToolsPage() {
             </p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }} className="ov-tools-grid">
-            {FIA_TOOLS.map(t => <ResourceCard key={t.title} {...t} />)}
+            {FIA_TOOLS.map(t => <ResourceCard key={t.title} {...t} dark />)}
           </div>
         </div>
       </section>

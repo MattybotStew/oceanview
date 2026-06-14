@@ -34,7 +34,7 @@ const S = {
 
   // ── Info cards ───────────────────────────────────────────────────────
   cardGrid:     { display: 'flex', flexDirection: 'column', gap: 16 },
-  card:         { background: '#fff', border: '1px solid rgba(13,31,78,.08)', borderRadius: 16, padding: '28px 28px 24px', display: 'flex', flexDirection: 'column', gap: 14, boxShadow: '0 2px 12px rgba(13,31,78,.04)' },
+  card:         { background: 'rgba(112,186,191,0.2)', border: '1px solid rgba(112,186,191,.25)', borderRadius: 16, padding: '28px 28px 24px', display: 'flex', flexDirection: 'column', gap: 14 },
   cardTint:     { background: 'var(--ov-surface-tint-2)', border: '1px solid rgba(13,31,78,.06)', borderRadius: 16, padding: '28px 28px 24px', display: 'flex', flexDirection: 'column', gap: 14 },
   iconTile:     { width: 44, height: 44, borderRadius: 10, background: '#fff', border: '1px solid rgba(13,31,78,.10)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
   iconTileTint: { width: 44, height: 44, borderRadius: 10, background: 'rgba(255,255,255,.7)', border: '1px solid rgba(36,148,193,.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
@@ -46,7 +46,7 @@ const S = {
   monoVal:      { fontFamily: 'var(--ov-ff-mono)', fontSize: 14, color: '#0D1F4E', letterSpacing: '.04em' },
 
   // ── Wire transfer block ──────────────────────────────────────────────
-  wireBlock:    { background: 'rgba(13,31,78,.03)', borderRadius: 10, padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: 10 },
+  wireBlock:    { background: 'rgba(255,255,255,.65)', borderRadius: 10, padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: 10 },
   wireRow:      { display: 'flex', gap: 16, alignItems: 'baseline', flexWrap: 'wrap' },
   wireLabel:    { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.06em', textTransform: 'uppercase', color: '#828282', minWidth: 100 },
   wireVal:      { fontFamily: 'var(--ov-ff-mono)', fontWeight: 600, fontSize: 14, color: '#0D1F4E', letterSpacing: '.04em' },

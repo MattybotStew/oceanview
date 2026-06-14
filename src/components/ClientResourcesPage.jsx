@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useRef } from 'react'
 import PageHero from './PageHero.jsx'
 import CTABanner from './CTABanner.jsx'
-import { TextLink } from './Buttons.jsx'
+import { TextLink, PillGhost } from './Buttons.jsx'
 import { Download } from 'lucide-react'
 import { Eyebrow } from './common.jsx'
 
@@ -54,16 +54,11 @@ function BrochureCard({ name, desc, route }) {
         <h3 style={{ fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: 18, color: "#0D1F4E", lineHeight: 1.2, margin: "0 0 8px", letterSpacing: "-0.01em" }}>{name}</h3>
         <p style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 13, color: "#6B7280", lineHeight: 1.6, margin: 0 }}>{desc}</p>
       </div>
-      <div style={{ display: "flex", gap: 8, marginTop: "auto", paddingTop: 4 }}>
-        <button
-          onClick={() => { window.location.hash = route; }}
-          style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 12, color: "#233D7C", background: "#fff", border: "1.5px solid rgba(13,31,78,.2)", borderRadius: 99, padding: "7px 14px", cursor: "pointer" }}
-        >
-          View Page
-        </button>
-        <button style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 12, color: "#233D7C", background: "#fff", border: "1.5px solid rgba(13,31,78,.2)", borderRadius: 99, padding: "7px 14px", cursor: "pointer" }}>
+      <div style={{ display: "flex", gap: 16, marginTop: "auto", paddingTop: 4, alignItems: "center" }}>
+        <TextLink onClick={() => { window.location.hash = route; }} style={{ fontSize: 12 }}>View Page</TextLink>
+        <PillGhost style={{ fontSize: 12, padding: "7px 14px", display: "inline-flex", alignItems: "center", gap: 6 }}>
           <Download size={11} strokeWidth={2} /> Download PDF
-        </button>
+        </PillGhost>
       </div>
     </div>
   );
@@ -96,16 +91,14 @@ function DownloadsTab() {
       {/* Application Packets */}
       <p style={dlSectionHead}>Applications (MYGA / FIA Packets)</p>
       <div style={{ height: 1, background: "rgba(13,31,78,.12)", marginBottom: 32 }} />
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
         {APP_PACKETS.map(p => (
-          <div key={p.name} style={{ flex: "1 0 260px", background: "rgba(112,186,191,0.2)", borderRadius: 12, padding: "19px 24px 20px", display: "flex", flexDirection: "column", gap: 32 }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <div style={{ fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: 20, color: "#0D1F4E", lineHeight: 1.2 }}>{p.name}</div>
-              <p style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "#6B7280", lineHeight: 1.65, margin: 0 }}>{p.desc}</p>
+          <div key={p.name} style={{ flex: "1 0 260px", background: "#fff", borderRadius: 14, padding: "24px 22px 20px", display: "flex", flexDirection: "column", gap: 12, border: "1px solid rgba(13,31,78,.08)" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
+              <h3 style={{ fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: 18, color: "#0D1F4E", lineHeight: 1.2, margin: "0 0 4px", letterSpacing: "-0.01em" }}>{p.name}</h3>
+              <p style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 13, color: "#6B7280", lineHeight: 1.6, margin: 0 }}>{p.desc}</p>
             </div>
-            <button style={{ alignSelf: "flex-start", fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "#0D1F4E", background: "#fff", border: "1px solid #0D1F4E", borderRadius: 200, padding: "12px 23px", cursor: "pointer" }}>
-              Download
-            </button>
+            <PillGhost style={{ alignSelf: "flex-start", marginTop: 8 }}>Download</PillGhost>
           </div>
         ))}
       </div>
@@ -515,7 +508,7 @@ function ScrollNav({ active }) {
 // ── PAGE ──────────────────────────────────────────────────────────────────────
 
 const SECTION_BG = {
-  downloads:    "#fff",
+  downloads:    "var(--ov-surface-tint)",
   rates:        "var(--ov-surface-tint)",
   comparisons:  "#fff",
   glossary:     "var(--ov-surface-tint)",

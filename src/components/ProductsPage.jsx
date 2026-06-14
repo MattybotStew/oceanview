@@ -73,29 +73,40 @@ function FeatureList({ features, dark }) {
   );
 }
 
-function ProductCard({ eyebrow, heading, body, bullets, rate, rateTerm, href }) {
+function ProductCard({ eyebrow, heading, body, bullets, rate, rateTerm, href, dark, tint }) {
+  const cardOverride = dark
+    ? { background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.08)', boxShadow: 'none' }
+    : tint
+    ? { background: 'rgba(112,186,191,0.2)', border: '1px solid rgba(112,186,191,.25)', boxShadow: 'none' }
+    : {};
   return (
-    <div style={PS.card}>
+    <div style={{ ...PS.card, ...cardOverride }}>
       <div style={PS.cardHeader}>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={PS.cardEyebrow}>{eyebrow}</div>
-          <h3 style={PS.cardH3}>{heading}</h3>
+          <div style={{ ...PS.cardEyebrow, ...(dark && { color: '#70BABF' }) }}>{eyebrow}</div>
+          <h3 style={{ ...PS.cardH3, ...(dark && { color: '#F2FCFF' }) }}>{heading}</h3>
         </div>
         {rate && (
-          <div style={PS.rateBadge}>
-            <div style={PS.rateBadgeVal}>{rate}</div>
-            <div style={PS.rateBadgeLbl}>{rateTerm}</div>
+          <div style={{ ...PS.rateBadge, ...(dark && { background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.12)' }) }}>
+            <div style={{ ...PS.rateBadgeVal, ...(dark && { color: '#70BABF' }) }}>{rate}</div>
+            <div style={{ ...PS.rateBadgeLbl, ...(dark && { color: 'rgba(242,252,255,.55)' }) }}>{rateTerm}</div>
           </div>
         )}
       </div>
-      <p style={PS.cardBody}>{body}</p>
-      <div style={PS.cardBullets}>
-        <div style={PS.cbLabel}>Ideal for individuals who</div>
+      <p style={{ ...PS.cardBody, ...(dark && { color: 'rgba(242,252,255,.65)' }) }}>{body}</p>
+      <div style={{ ...PS.cardBullets, ...(dark && { background: 'rgba(255,255,255,.06)' }) }}>
+        <div style={{ ...PS.cbLabel, ...(dark && { color: '#70BABF' }) }}>Ideal for individuals who</div>
         {bullets.map((b, i) => (
-          <div key={i} style={PS.cbItem}>{CHECK}<p style={PS.cbText}>{b}</p></div>
+          <div key={i} style={{ ...PS.cbItem, ...(dark && { borderTop: '1px solid rgba(255,255,255,.08)' }) }}>
+            {CHECK}<p style={{ ...PS.cbText, ...(dark && { color: 'rgba(242,252,255,.65)' }) }}>{b}</p>
+          </div>
         ))}
       </div>
-      {href && <TextLink style={{ marginTop: "auto", paddingTop: 8, fontSize: 13 }} onClick={() => { window.location.hash = href.replace('#',''); window.scrollTo({top:0,behavior:'instant'}); }}>Learn more</TextLink>}
+      {href && <TextLink
+        style={{ marginTop: "auto", paddingTop: 8, fontSize: 13 }}
+        color={dark ? '#70BABF' : undefined}
+        onClick={() => { window.location.hash = href.replace('#',''); window.scrollTo({top:0,behavior:'instant'}); }}
+      >Learn more</TextLink>}
     </div>
   );
 }
@@ -257,8 +268,8 @@ export default function ProductsPage() {
             </div>
           </div>
           <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-2col">
-            <div id="prd-harbourview-myga" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.harbourviewMYGA}/></div>
-            <div id="prd-horizon-myga"     style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.horizonMYGA}/></div>
+            <div id="prd-harbourview-myga" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.harbourviewMYGA} tint /></div>
+            <div id="prd-horizon-myga"     style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.horizonMYGA} tint /></div>
           </div>
         </div>
       </section>
@@ -278,8 +289,8 @@ export default function ProductsPage() {
             </div>
           </div>
           <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-2col">
-            <div id="prd-current-rate"    style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.currentRate}/></div>
-            <div id="prd-harbourview-fia" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.harbourviewFIA}/></div>
+            <div id="prd-current-rate"    style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.currentRate} dark /></div>
+            <div id="prd-harbourview-fia" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.harbourviewFIA} dark /></div>
           </div>
         </div>
       </section>

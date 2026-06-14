@@ -123,7 +123,7 @@ function DefinitionItem({ title, body, last }) {
 
 function DownloadRow({ title, sub }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16, padding: '20px 24px', background: '#F0F9FC', border: '1px solid rgba(13,31,78,.09)', borderRadius: 10, marginTop: 16 }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16, padding: '20px 24px', background: '#fff', border: '1px solid rgba(13,31,78,.09)', borderRadius: 10, marginTop: 16 }}>
       <div>
         <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 14, color: '#0D1F4E', marginBottom: 3 }}>{title}</div>
         {sub && <div style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 12, color: '#6B7280' }}>{sub}</div>}
@@ -302,7 +302,7 @@ export default function ProductDetailPage({ product }) {
       </div>
 
       {/* ── 2-col main content ────────────────────────────────────────────── */}
-      <div style={{ background: '#fff' }} className="ov-section">
+      <div style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
         <div className="ov-container">
           <div style={{ display: 'flex', gap: 64, alignItems: 'flex-start' }} className="pdt-layout">
 

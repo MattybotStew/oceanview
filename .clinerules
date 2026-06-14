@@ -44,6 +44,30 @@ up-to-date by Claude Code so Cline always knows the current state of work.
 - `CTABanner` — inline CTA band (eyebrow + heading + body + button)
 - `CTAPanel` — soft-tint "Get Started" band
 
+### Card rules
+
+**Three card types — use the right one for the section background:**
+
+| Card type | Style | Sits on |
+|-----------|-------|---------|
+| White card | `background:'#fff'`, `borderRadius:14`, `border:'1px solid rgba(13,31,78,.08)'` | `var(--ov-surface-tint)` section |
+| Teal-tint card | `background:'rgba(112,186,191,0.2)'`, `borderRadius:14`, `border:'1px solid rgba(112,186,191,.25)'` | `#fff` section |
+| Dark card (on navy) | `background:'rgba(255,255,255,.05)'`, `borderRadius:16`, `border:'1px solid rgba(255,255,255,.08)'` | `var(--ov-navy-1000)` section |
+
+**Never put a white card on a white section** (invisible) or **a teal card on a teal-tint section** (low contrast).
+
+**Padding scale:**
+- Compact: `"20px 24px"`
+- Standard: `"24px 22px 20px"` (matches BrochureCard / AppPacket)
+- Large: `"28px 32px"`
+
+**CTA buttons inside cards — always use design system components:**
+- Navigation link (go to page/detail): `TextLink`
+- Primary action (download, submit): `PillGhost` or `PillMint`
+- Never use a raw `<button>` or `<a>` with manual font/padding/border styles inside a card
+
+**Card titles must use `<h3>`** (not `<div>`) with display font, ~18–19px, `letterSpacing: "-0.01em"`.
+
 ### Design tokens (key ones)
 ```
 Fonts:    var(--ov-ff-display)   PP Editorial New (headings)
@@ -112,6 +136,33 @@ Surface:  #F1FBFF  (ov-surface-tint)
 - Each hero image gets a focal point as `"X% Y%"` (horizontal vertical) — a CSS `background-position` value
 - The percentage is relative to the container, so the same value works at every viewport width
 - Desktop shows full scene; mobile crops toward the focal point keeping the subject in frame
+
+---
+
+## What Claude Code did most recently (June 14 2026)
+
+### Card consistency sweep — phase 3 (remaining pages audit)
+
+- **AgentFAQsPage.jsx** — FAQ section changed from `sectionWhite` to `sectionTint` (white `catCard` now sit on tint bg = correct); `contactCard` bg changed from `var(--ov-surface-tint-2)` (tint-on-tint) to `#fff` with border (white-on-tint = correct).
+- **ProductDetailPage.jsx** — Main 2-col content area bg changed from `#fff` to `var(--ov-surface-tint)` (all white `S.card` sections now sit on tint bg = correct); `DownloadRow` bg changed from `#F0F9FC` (near-invisible on tint) to `#fff` (now contrasts).
+- **LeadershipPage.jsx** — `leadS.gridSection` gained `background: 'var(--ov-surface-tint)'` so the white profile cards have contrast against the section bg.
+- Audit confirmed all other pages clean: InsightsPage, RetirementRiskPage, LifeEventsPage, DownloadsPage, FAQPage, BlogPage, IndividualsPage, LPLLandingPage, CeteraLandingPage, CompanyPage, OurStoryPage, BoardPage, StateApprovalPage, AgentPortalPage — no card/bg violations found.
+
+### Card consistency sweep — phase 2 (4 pages)
+
+- **ProductsPage.jsx** — `ProductCard` now accepts `dark` and `tint` props. Fixed Annuities section (white bg) passes `tint` → teal-tint cards. Fixed with Flex section (navy bg) passes `dark` → all text, badge, and bullet colors flip to light equivalents (`#F2FCFF`, `rgba(242,252,255,.65)`, `#70BABF`). Fixed Indexed section (tint bg) stays white — already correct.
+- **ProfessionalsPage.jsx** — `PortalCard` converted to dark card throughout (it only ever appears in the navy Advisor Resources section): `rgba(255,255,255,.05)` bg, translucent icon tile, teal eyebrow + light body text.
+- **SalesToolsPage.jsx** — `ResourceCard` gained real `tint`/`dark` support (the `dark` prop previously existed but was unused). MYGA tools section (white bg) passes `tint`; FIA tools section (navy bg) passes `dark` with full color flip.
+- **ContactPage.jsx** — `S.card` changed from white (`#fff`) to teal-tint (`rgba(112,186,191,0.2)`, teal border) — fixes invisible white cards on white tab panel section. `S.wireBlock` background changed from `rgba(13,31,78,.03)` (invisible on teal) to `rgba(255,255,255,.65)` so wire transfer detail rows remain legible.
+
+### Card consistency sweep — phase 1 + footer fixes (also June 14 2026)
+
+- **Footer.jsx** — added Sky Harbourview MYGA to Products column; converted LinkedIn/Twitter `<button>` to real `<a>` links with correct URLs; fixed sitemap href from `/sitemap.xml` to `${import.meta.env.BASE_URL}sitemap.xml` for correct GitHub Pages path.
+- **ClientResourcesPage.jsx** — changed downloads section bg from `#fff` to `var(--ov-surface-tint)` (white cards were invisible on white bg); converted BrochureCard "View Page" to `TextLink`, "Download PDF" to `PillGhost`; fixed AppPacket cards from teal-tinted to white (`#fff`, `borderRadius:14`, border) to match BrochureCard; fixed `<div>` title to `<h3>`; normalized padding.
+- **WhitePapersPage.jsx** — imported `TextLink`; replaced inline `→` button with `TextLink`.
+- **CaseStudiesPage.jsx** — imported `TextLink`; replaced inline `→` button with `TextLink`.
+- **NewsroomPage.jsx** — imported `PillNavy`, `PillGhost`; replaced custom-styled article buttons with `PillNavy` ("Read more") and `PillGhost` ("Download Rate Sheet"); removed dead `S.readMore` and `S.download` style objects.
+- **.clinerules** — added card rules section documenting three card types, background pairing rules, padding scale, and CTA button standards.
 
 ---
 

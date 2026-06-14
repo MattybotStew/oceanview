@@ -3,7 +3,7 @@ import CTABanner from './CTABanner.jsx'
 
 const leadS = {
   introSection: { padding: "100px 0 60px" },
-  gridSection:  { padding: "60px 0 120px" },
+  gridSection:  { padding: "60px 0 120px", background: 'var(--ov-surface-tint)' },
 
   eyebrowRow:  { display: "flex", alignItems: "center", gap: 6, marginBottom: 9 },
   eyebrowLine: { width: 18, height: 1, background: "#2494C1", flexShrink: 0 },

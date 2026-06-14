@@ -29,7 +29,7 @@ const S = {
 
   // Contact cards
   contactGrid: { display: 'flex', flexDirection: 'column', gap: 16, marginTop: 8 },
-  contactCard: { background: 'var(--ov-surface-tint-2)', borderRadius: 12, padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 4 },
+  contactCard: { background: '#fff', border: '1px solid rgba(13,31,78,.08)', borderRadius: 12, padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 4 },
   contactLabel:{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#2494C1' },
   contactVal:  { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 20, color: '#0D1F4E', letterSpacing: '-0.01em' },
   contactSub:  { fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: '#4A5568' },
@@ -205,7 +205,7 @@ export default function AgentFAQsPage() {
       />
 
       {/* ── FAQ sections ───────────────────────────────────────────────── */}
-      <section style={S.sectionWhite} className="ov-section">
+      <section style={S.sectionTint} className="ov-section">
         <div className="ov-container">
           <div style={S.introWrap}>
             <Eyebrow>Frequently Asked Questions</Eyebrow>

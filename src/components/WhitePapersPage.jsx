@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { TextLink } from './Buttons.jsx'
 import CTABanner from './CTABanner.jsx'
 
 const CATEGORIES = ["All", "Retirement Risk", "Life Events", "Market Outlook", "Product Research"];
@@ -117,13 +118,7 @@ function PaperCard({ category, date, title, desc, pages }) {
         </p>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 4 }}>
           <span style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 12, color: "var(--ov-grey-500)" }}>{pages} pages</span>
-          <button
-            onClick={() => window.location.hash = 'downloads'}
-            style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "var(--ov-navy-600)", display: "inline-flex", alignItems: "center", gap: 5, cursor: "pointer", background: "none", border: 0, padding: 0 }}
-            className="ov-blog-arrow"
-          >
-            Download PDF →
-          </button>
+          <TextLink onClick={() => window.location.hash = 'downloads'} style={{ fontSize: 13 }}>Download PDF</TextLink>
         </div>
       </div>
     </div>

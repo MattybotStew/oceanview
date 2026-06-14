@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { PillNavy, PillGhost } from './Buttons.jsx'
 import PageHero from './PageHero.jsx'
 import CTABanner from './CTABanner.jsx'
 import TabBar from './TabBar.jsx'
@@ -94,17 +95,6 @@ const S = {
     lineHeight: 1.68, margin: "0 0 20px", maxWidth: "72ch",
   },
   btnRow: { display: "flex", gap: 10, flexWrap: "wrap" },
-  readMore: {
-    fontFamily: "var(--ov-ff-sans)", fontSize: 13, fontWeight: 600,
-    color: "#fff", background: "#233D7C", border: "none",
-    borderRadius: 99, padding: "8px 20px", cursor: "pointer",
-  },
-  download: {
-    fontFamily: "var(--ov-ff-sans)", fontSize: 13, fontWeight: 600,
-    color: "#233D7C", background: "#fff",
-    border: "1px solid rgba(13,31,78,0.20)",
-    borderRadius: 99, padding: "8px 20px", cursor: "pointer",
-  },
   pagination: {
     display: "flex", justifyContent: "center", gap: 16,
     padding: "0 0 80px",
@@ -130,9 +120,9 @@ function Article({ category, title, date, body, hasDownload }) {
       <h2 style={S.articleTitle}>{title}</h2>
       <p style={S.articleBody}>{body}</p>
       <div style={S.btnRow}>
-        <button style={S.readMore} onClick={() => window.location.hash = 'newsroom'}>Read more</button>
+        <PillNavy onClick={() => window.location.hash = 'newsroom'}>Read more</PillNavy>
         {hasDownload && (
-          <button style={S.download} onClick={() => window.location.hash = 'downloads'}>Download Rate Sheet (PDF)</button>
+          <PillGhost onClick={() => window.location.hash = 'downloads'}>Download Rate Sheet (PDF)</PillGhost>
         )}
       </div>
     </div>

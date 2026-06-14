@@ -48,29 +48,28 @@ const PORTALS = [
 function PortalCard({ Icon, eyebrow, title, body, route }) {
   return (
     <div style={{
-      background: '#fff',
-      border: '1px solid rgba(13,31,78,.07)',
+      background: 'rgba(255,255,255,.05)',
+      border: '1px solid rgba(255,255,255,.08)',
       borderRadius: 16,
       padding: '28px 28px 24px',
       display: 'flex',
       flexDirection: 'column',
       gap: 14,
-      boxShadow: '0 2px 12px rgba(13,31,78,.04)',
       height: '100%',
       boxSizing: 'border-box',
       transition: 'transform .18s ease, box-shadow .18s ease',
     }}
       className="ov-portal-card"
     >
-      <div style={{ width: 44, height: 44, borderRadius: 10, background: 'var(--ov-surface-tint)', border: '1px solid rgba(36,148,193,.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-        <Icon size={20} color="#2494C1" strokeWidth={1.75} />
+      <div style={{ width: 44, height: 44, borderRadius: 10, background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        <Icon size={20} color="#70BABF" strokeWidth={1.75} />
       </div>
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#2494C1' }}>{eyebrow}</div>
-        <h3 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 20, color: '#0D1F4E', letterSpacing: '-0.015em', lineHeight: 1.2, margin: 0 }}>{title}</h3>
-        <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 14, color: '#4A5568', lineHeight: 1.65, margin: 0 }}>{body}</p>
+        <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#70BABF' }}>{eyebrow}</div>
+        <h3 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 20, color: '#F2FCFF', letterSpacing: '-0.015em', lineHeight: 1.2, margin: 0 }}>{title}</h3>
+        <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 14, color: 'rgba(242,252,255,.65)', lineHeight: 1.65, margin: 0 }}>{body}</p>
       </div>
-      <TextLink onClick={() => { window.location.hash = route }} color="var(--ov-teal-600)">Explore</TextLink>
+      <TextLink onClick={() => { window.location.hash = route }} color="#70BABF">Explore</TextLink>
     </div>
   )
 }

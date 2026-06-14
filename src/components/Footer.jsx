@@ -274,6 +274,7 @@ export default function Footer() {
       links: [
         { label: 'Harbourview MYGA',           href: '#harbourview-myga'     },
         { label: 'Horizon MYGA',               href: '#horizon-myga'         },
+        { label: 'Sky Harbourview MYGA',       href: '#sky-harbourview-myga' },
         { label: 'Current Rate Fixed Annuity', href: '#current-rate-fia'     },
         { label: 'Harbourview FIA',            href: '#harbourview-fia'       },
         { label: 'CapLock',                    href: '#caplock'               },
@@ -380,23 +381,23 @@ export default function Footer() {
             </p>
             <div style={S.socialRow}>
               {/* LinkedIn */}
-              <button style={S.socialBtn} aria-label="LinkedIn"
+              <a href="https://www.linkedin.com/company/oceanview-life-and-annuity/" target="_blank" rel="noopener noreferrer" style={S.socialBtn} aria-label="LinkedIn"
                 onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,.12)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>
-              </button>
+              </a>
               {/* X (Twitter) */}
-              <button style={S.socialBtn} aria-label="X / Twitter"
+              <a href="https://twitter.com/ovlifeannuity" target="_blank" rel="noopener noreferrer" style={S.socialBtn} aria-label="X / Twitter"
                 onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,.12)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                 </svg>
-              </button>
+              </a>
             </div>
           </div>
 
@@ -431,7 +432,7 @@ export default function Footer() {
               <a href="#privacy" style={S.legalLink} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.55)'}>Privacy Notice</a>
               <a href="#disclaimers" style={S.legalLink} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.55)'}>Disclaimers</a>
               <a href="#accessibility" style={S.legalLink} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.55)'}>Accessibility</a>
-              <a href="/sitemap.xml" style={S.legalLink} target="_blank" onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.55)'}>Sitemap</a>
+              <a href={`${import.meta.env.BASE_URL}sitemap.xml`} style={S.legalLink} target="_blank" rel="noopener noreferrer" onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.55)'}>Sitemap</a>
               <a href="#contact" style={S.legalLink} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.55)'}>Contact</a>
             </div>
           </div>
