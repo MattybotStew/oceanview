@@ -261,7 +261,7 @@ export default function ProductDetailPage({ product }) {
             <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(assets/Noise.png)', backgroundRepeat: 'repeat', backgroundSize: '200px', opacity: 0.6, pointerEvents: 'none', zIndex: 2 }} />
             <HeroShaper />
             <div className="ov-hero-content" style={{ zIndex: 11 }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,.12)', border: '1px solid rgba(255,255,255,.22)', borderRadius: 200, padding: '5px 12px', backdropFilter: 'blur(4px)', marginBottom: 4, alignSelf: 'flex-start' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(0,31,84,.45)', border: '1px solid rgba(255,255,255,.22)', borderRadius: 200, padding: '5px 12px', marginBottom: 4, alignSelf: 'flex-start' }}>
                 <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#F2FCFF', whiteSpace: 'nowrap' }}>{product.categoryShort || product.category}</span>
               </div>
               <h1 className="ov-hero-title" style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(28px,5.5vw,64px)', color: '#F2FCFF', letterSpacing: '-0.03em', lineHeight: 1.05, margin: 0 }}>
@@ -277,7 +277,7 @@ export default function ProductDetailPage({ product }) {
       </div>
 
       {/* ── Stats bar ─────────────────────────────────────────────────── */}
-      <div style={{ background: '#fff', padding: '12px 0' }}>
+      <div style={{ background: '#fff', padding: '12px 0 40px' }}>
         <div className="ov-container">
           <div style={{ background: 'var(--ov-navy-1000)', borderRadius: 16, padding: '0 32px', display: 'flex' }} className="pdt-stats-row">
             {stats.map((s, i) => (

@@ -125,6 +125,13 @@ Surface:  #F1FBFF  (ov-surface-tint)
 
 ## What Claude Code did most recently (June 16 2026)
 
+### Product detail hero polish + mobile section-nav "tabs" made more obvious
+
+- **ProductDetailPage.jsx** — hero's category badge (e.g. "MYGA") used `backdropFilter: 'blur(4px)'`, the only CSS feature in this hero that diverges from `PageHero`/`Hero` (which don't use backdrop-filter at all). Backdrop blur is a common point of failure for HTML-to-design import tools. Removed it, bumped the badge background to a solid `rgba(0,31,84,.45)` so it still reads clearly against the scrim without needing blur.
+- **tokens.css** — the mobile sticky section-nav (`.pdt-sidebar-nav`, the horizontal pill bar that replaces the desktop sidebar on ≤900px) had `margin-bottom: 0`, butting directly against the next section. Added `margin-bottom: 24px` to `.pdt-layout > aside` on mobile for breathing room. Also made the pills themselves much more obviously tab-like: added a visible border to inactive pills (previously near-invisible `rgba(13,31,78,.05)` fill with no border), and changed the active state from a light teal tint to a solid `#2494C1` fill with white text + shadow so the selected section is unmistakable. Added a right-edge mask-image fade on the scroll container to hint there are more tabs to scroll to.
+- Applies to all 7 product detail pages (Harbourview MYGA, Horizon MYGA, Sky Harbourview MYGA, Current Rate FIA, Harbourview FIA, CapLock, Topsider) since they share `ProductDetailPage.jsx` and the global `tokens.css` rules.
+- Stats bar (navy $20K/3–10/10%/1%/A-rating row) had only `padding: '12px 0'`, butting almost directly against the tinted content section below. Bumped to `'12px 0 40px'` for clear separation.
+
 ### Footer newsletter signup — removed <form> wrapper (Figma HTML import was dropping it)
 
 - **Footer.jsx** — the newsletter signup (name/email inputs, checkbox, Get Started button) was wrapped in a real `<form>` element. HTML-to-design importers (Figma's HTML import and similar plugins) skip `<form>` nodes when walking the DOM since forms have no design-tool equivalent, which silently dropped the entire signup block on import. Replaced `<form>` with a `<div role="form" aria-label="Newsletter signup">`; moved submit logic from `onSubmit` to the button's `onClick` (`submitNewsletter`), added refs on the two inputs and `reportValidity()` checks to preserve native required-field validation, and added an Enter-key handler (`handleEnterKey`) on both inputs so pressing Enter still submits like a real form would. Verified via Playwright: 0 `<form>` elements remain in the footer, and click-to-submit, empty-field validation, and Enter-key submission all still work.
