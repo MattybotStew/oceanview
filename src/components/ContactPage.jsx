@@ -650,7 +650,7 @@ export default function ContactPage() {
     <main>
 
       {/* ── Page header ─────────────────────────────────────────────────── */}
-      <section style={{ background: '#fff', padding: 'clamp(72px,9vw,112px) 0 0' }}>
+      <section style={{ background: '#fff', padding: 'clamp(72px,9vw,112px) 0 48px' }}>
         <div className="ov-container">
           <div style={S.pageHeaderInner}>
             <div style={S.pageEyebrowRow}>

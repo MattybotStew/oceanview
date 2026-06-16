@@ -125,6 +125,10 @@ Surface:  #F1FBFF  (ov-surface-tint)
 
 ## What Claude Code did most recently (June 16 2026)
 
+### Contact page — gap between header CTA and sticky tab nav
+
+- **ContactPage.jsx** — page header section had `padding: 'clamp(72px,9vw,112px) 0 0'` (top only, zero bottom), so the "Send us a message" button sat flush against the sticky tab nav below. Changed to `'...0 48px'` for breathing room.
+
 ### Product detail hero polish + mobile section-nav "tabs" made more obvious
 
 - **ProductDetailPage.jsx** — hero's category badge (e.g. "MYGA") used `backdropFilter: 'blur(4px)'`, the only CSS feature in this hero that diverges from `PageHero`/`Hero` (which don't use backdrop-filter at all). Backdrop blur is a common point of failure for HTML-to-design import tools. Removed it, bumped the badge background to a solid `rgba(0,31,84,.45)` so it still reads clearly against the scrim without needing blur.
