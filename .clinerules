@@ -125,6 +125,12 @@ Surface:  #F1FBFF  (ov-surface-tint)
 
 ## What Claude Code did most recently (June 16 2026)
 
+### LPL / Cetera landing pages — button sizing/overflow fixes
+
+- **PartnerLandingPage.jsx** case-study CTA ("Read Their Story") — sat in a `flexDirection:'column'` container with default `align-items:stretch`, stretching the pill button to the full column width instead of sizing to its content. Added `alignSelf:'flex-start'` to the button.
+- **PartnerLandingPage.jsx** bottom CTA buttons ("Contact Us" / "Browse Sales Tools") — the wrapper had `flexShrink:0`, which meant it never shrank enough on mobile to trigger its own `flexWrap:wrap`, so the second button overflowed off the right edge of the screen instead of stacking. Removed `flexShrink:0`, added `maxWidth:'100%'` — buttons now wrap to full-width stacked rows on mobile and stay side-by-side on desktop.
+- Both fixes apply to LPL and Cetera simultaneously since they share this one component.
+
 ### LPL / Cetera landing page heroes — same scrim bug as ProductDetailPage
 
 - **PartnerLandingPage.jsx** (shared hero/layout for both `LPLLandingPage.jsx` and `CeteraLandingPage.jsx`) — had the exact same two-part bug fixed earlier on `ProductDetailPage.jsx`: the scrim gradient started with `rgba(0,0,0,.82)` (black) instead of `rgba(0,31,84,.82)` (navy), and the scrim div was missing the `ov-hero-scrim` className so it never got the mobile flat-scrim override. Fixed both — one file fixes both partner pages since they share this component.

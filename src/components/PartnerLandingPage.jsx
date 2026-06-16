@@ -203,7 +203,7 @@ export default function PartnerLandingPage({ data }) {
               <p style={{ ...S.bodyDark, maxWidth: '52ch' }}>
                 A retired couple used the Harbourview Fixed Indexed Annuity to shield their savings from market volatility while achieving meaningful growth for their loved ones.
               </p>
-              <PillMint onClick={() => { window.location.hash = 'case-studies' }}>Read Their Story</PillMint>
+              <PillMint onClick={() => { window.location.hash = 'case-studies' }} style={{ alignSelf: 'flex-start' }}>Read Their Story</PillMint>
             </div>
             <div style={{ width: '38%', flexShrink: 0 }} className="lpl-case-img">
               <img src={caseStudy.image} alt="Couple enjoying retirement" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
@@ -269,7 +269,7 @@ export default function PartnerLandingPage({ data }) {
                 {cta.body}
               </p>
             </div>
-            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', flexShrink: 0 }}>
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', maxWidth: '100%' }}>
               <PillMint hero onClick={() => { window.location.hash = 'contact' }}>{cta.primaryLabel}</PillMint>
               <PillGhost light hero onClick={() => { window.location.hash = 'sales-tools' }}>{cta.secondaryLabel}</PillGhost>
             </div>
