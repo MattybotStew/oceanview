@@ -44,6 +44,13 @@ export default function BlogArticlePage() {
             <article style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 28 }}>
 
               <div>
+                <button
+                  type="button"
+                  onClick={() => { window.location.hash = 'blog'; }}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'none', border: 0, padding: 0, marginBottom: 20, fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: 'var(--ov-navy-600)', cursor: 'pointer' }}
+                >
+                  ← Back to Blog
+                </button>
                 <div style={S.eyebrowRow}>
                   <div style={S.eyebrowLine} />
                   <span style={S.eyebrow}>Education</span>

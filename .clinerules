@@ -125,6 +125,24 @@ Surface:  #F1FBFF  (ov-surface-tint)
 
 ## What Claude Code did most recently (June 16 2026)
 
+### Newsroom hero fix + tabs upgraded to match Contact/Client Resources pattern; Leadership card padding; back-link on article page
+
+- **NewsroomPage.jsx** — hero image was `assets/hero-overlay.jpg`, which (per the earlier discovery on the Our Story timeline) is a plain noise/grain texture, not a photo — so the hero rendered with no real image. Swapped to `assets/two.jpg`.
+- **NewsroomPage.jsx** — replaced the generic underline-style `TabBar.jsx` category filter (no URL persistence) with the same sticky full-width segmented tab pattern already established on `ContactPage.jsx` (equal-width flex tabs, light-teal active background `rgba(226,241,242,.6)`, right-border separators, ARIA `role="tablist"`/`role="tab"` with arrow/home/end keyboard nav, reuses the shared `.ov-contact-tab` focus-visible CSS). Category ids are now kebab-case (`press-releases`, etc.) and the active tab persists via `history.replaceState` to `#newsroom?tab=<id>`, restored on load — same convention as Contact and Client Resources. Removed the now-unused `TabBar.jsx` import from this page — the component itself is still used by `ProductsCard.jsx`, so it stays.
+- **LeadershipPage.jsx** — team card name/role/bio sat with zero horizontal padding, flush against the card edges (only the photo had its own rounded inset). Wrapped name/role/bio in a `cardBody` div with `padding: '0 6px 8px'`.
+- **BlogArticlePage.jsx** — added a "← Back to Blog" link above the eyebrow, linking to `#blog`. The article page was otherwise a dead end with no way back to the listing except the browser back button.
+
+### Our Story timeline — moved images to the left, centered the block
+
+- **OurStoryPage.jsx** — reordered each timeline row from [line+dot][text][image] to [image][line+dot][text]. The connector line moved from the outer wrapper's left padding edge to a fixed offset (`TL_IMG_W + TL_GAP` = 252px) so it sits between the image column and the text; the dot moved from `left:-36` (relative to the text block, compensating for the old 32px outer padding) to `left:-4.5` (centered directly on the new line position, relative to the text block's own edge — simpler now that the indent math isn't split across two nested paddings).
+- Capped the whole timeline block at `maxWidth: 840` with `margin: '0 auto'` so it's centered within the (wider) page container instead of stretching edge-to-edge.
+- Bug caught after first pass: below ~720px the image wraps above the text (flex-wrap), but the line is absolutely positioned at a fixed offset from the *outer* wrapper, so once wrapped it no longer lines up with the dot and floats orphaned. Fixed by adding `.ov-story-timeline-line` and hiding it via a new `@media (max-width: 720px)` rule in tokens.css — the dots alone still read fine as markers once stacked.
+
+### Our Story timeline — added a thumbnail image per milestone
+
+- **OurStoryPage.jsx** — the 7-milestone vertical timeline was text-only. Added an `img` field to each `MILESTONES` entry and updated `Timeline()` to render a 220px rounded thumbnail (object-cover, 4:3) alongside each entry's text, wrapping below the text on narrow viewports via `flexWrap` (no new CSS needed — same flex-basis + wrap pattern already used elsewhere on this page, e.g. `ov-split-row`).
+- Picked varied existing assets per era (lighthouse.jpg for 1987 founding, couple-walking.png, hero-beach-couple.jpg, four.jpg, older-couple-1.png, the literal `ambest.png` A (Excellent) badge for the 2021 rating milestone, family.png for "Today"). Initially tried `hero-overlay.jpg` for the "Today" entry — turned out to be a plain noise/grain texture file, not a photo (good reminder to actually open image assets before using them, not just trust the filename). Swapped to `family.png`.
+
 ### New page: default blog article template (`#blog-annuity-timing`)
 
 - **BlogArticlePage.jsx** — new, built from Figma node `7391-3634` ("Blog Article"). The Figma file used outdated/inconsistent fonts (Inter for body, Playfair Display for subheadings, Cormorant Garamond in the footer) and a one-off teal CTA card not used anywhere else on the live site. Rebuilt with this build's actual tokens instead: `var(--ov-ff-display)` (PP Editorial New) for h1/h3, `var(--ov-ff-sans)` (PP Mori) for body, navy `#233D7C`/`#0D1F4E` and grey `#4A5568`/`#6B7280` from the existing palette. Structure: eyebrow + h1 + date, intro paragraphs, full-width rounded hero image, two H3 sections with body + bullet lists, a `DownloadRow` resource card (same pattern as `ProductDetailPage`'s), a sticky navy sidebar CTA card (same pattern as `ProductDetailPage`'s `pdt-sidebar-cta`), and a bottom `CTABanner` (same component every other page already uses) instead of Figma's mismatched teal card.

@@ -18,6 +18,7 @@ const leadS = {
   img:     { width: "100%", height: "100%", objectFit: "cover" },
   initials: { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(28px, 4vw, 48px)", color: "#4472C4", opacity: 0.5 },
 
+  cardBody: { padding: "0 6px 8px" },
   name:    { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: 22, color: "#0D1F4E", margin: "0 0 4px", letterSpacing: "-0.01em" },
   role:    { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "#2494C1", textTransform: "uppercase", letterSpacing: "0.5px", margin: "0 0 12px" },
   bio:     { fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "#6B7280", lineHeight: 1.6, margin: 0 }
@@ -128,9 +129,11 @@ export default function LeadershipPage() {
                     : <span style={leadS.initials}>{initials}</span>
                   }
                 </div>
-                <h3 style={leadS.name}>{member.name}</h3>
-                <div style={leadS.role}>{member.role}</div>
-                <p style={leadS.bio}>{member.bio}</p>
+                <div style={leadS.cardBody}>
+                  <h3 style={leadS.name}>{member.name}</h3>
+                  <div style={leadS.role}>{member.role}</div>
+                  <p style={leadS.bio}>{member.bio}</p>
+                </div>
               </div>
             );
           })}

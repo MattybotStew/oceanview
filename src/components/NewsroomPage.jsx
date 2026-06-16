@@ -2,9 +2,22 @@ import { useState, useMemo } from 'react'
 import { PillNavy, PillGhost } from './Buttons.jsx'
 import PageHero from './PageHero.jsx'
 import CTABanner from './CTABanner.jsx'
-import TabBar from './TabBar.jsx'
 
-const CATEGORIES = ["All", "Downloads", "Press Releases", "Compliance Corner", "Rate Updates", "Product News"];
+const TABS = [
+  { id: 'all',               label: 'All' },
+  { id: 'downloads',         label: 'Downloads' },
+  { id: 'press-releases',    label: 'Press Releases' },
+  { id: 'compliance-corner', label: 'Compliance Corner' },
+  { id: 'rate-updates',      label: 'Rate Updates' },
+  { id: 'product-news',      label: 'Product News' },
+];
+const VALID_TABS = TABS.map(t => t.id);
+
+function getTabFromHash() {
+  const hash = window.location.hash;
+  const match = hash.match(/[?&]tab=([^&]+)/);
+  return match ? match[1] : null;
+}
 
 const ARTICLES = [
   {
@@ -45,21 +58,20 @@ const ARTICLES = [
 ];
 
 const CATEGORY_FILTER_MAP = {
-  "All": null,
-  "Downloads": null,
-  "Press Releases": "Press Releases",
-  "Compliance Corner": "Compliance Corner",
-  "Rate Updates": "Rate Updates",
-  "Product News": "Product News",
+  "all": null,
+  "downloads": null,
+  "press-releases": "Press Releases",
+  "compliance-corner": "Compliance Corner",
+  "rate-updates": "Rate Updates",
+  "product-news": "Product News",
 };
 
 const S = {
-  filterBar: {
-    background: "#fff",
-    position: "sticky",
-    top: 72,
-    zIndex: 10,
-  },
+  tabNavOuter: { background: '#fff', position: 'sticky', top: 'var(--ov-header-h, 72px)', zIndex: 50, boxShadow: '0 1px 0 #e8e5e5' },
+  tabRow:      { display: 'flex', borderBottom: '1px solid #e8e5e5', overflowX: 'auto', WebkitOverflowScrolling: 'touch' },
+  tab:         { flex: '1 0 0', minWidth: 140, height: 51, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 24px', border: 'none', borderRight: '1px solid #e8e5e5', fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#001F54', background: 'none', whiteSpace: 'nowrap', cursor: 'pointer', transition: 'background .15s', letterSpacing: '.01em' },
+  tabActive:   { background: 'rgba(226,241,242,0.6)' },
+  tabInactive: { background: 'transparent' },
   searchWrap: {
     padding: "28px 0 0",
   },
@@ -130,14 +142,20 @@ function Article({ category, title, date, body, hasDownload }) {
 }
 
 export default function NewsroomPage() {
-  const [activeTab, setActiveTab] = useState("All");
+  const initialTab = getTabFromHash();
+  const [activeTab, setActiveTab] = useState(initialTab && VALID_TABS.includes(initialTab) ? initialTab : 'all');
   const [query, setQuery] = useState("");
+
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId);
+    history.replaceState(null, '', `${window.location.pathname}#newsroom?tab=${tabId}`);
+  };
 
   const filtered = useMemo(() => {
     let results = ARTICLES;
     const catFilter = CATEGORY_FILTER_MAP[activeTab];
     if (catFilter) results = results.filter(a => a.category === catFilter);
-    if (activeTab === "Downloads") results = results.filter(a => a.hasDownload);
+    if (activeTab === "downloads") results = results.filter(a => a.hasDownload);
     if (query.trim()) {
       const q = query.toLowerCase();
       results = results.filter(a =>
@@ -150,15 +168,43 @@ export default function NewsroomPage() {
   return (
     <div style={{ background: "#fff" }}>
       <PageHero
-        image="assets/hero-overlay.jpg"
+        image="assets/two.jpg"
         eyebrow="Newsroom"
         title="News Room"
         subtitle="The latest rate updates, press releases, compliance guidance, and product announcements from Oceanview Life and Annuity Company."
       />
 
-      <div style={S.filterBar}>
+      <div style={S.tabNavOuter}>
         <div className="ov-container">
-          <TabBar tabs={CATEGORIES} active={activeTab} onChange={setActiveTab} />
+          <div role="tablist" aria-label="Newsroom categories" style={S.tabRow}>
+            {TABS.map((t, i) => (
+              <button
+                key={t.id}
+                role="tab"
+                id={`newsroom-tab-${t.id}`}
+                aria-selected={activeTab === t.id}
+                aria-controls="newsroom-tabpanel"
+                className="ov-contact-tab"
+                style={{ ...S.tab, ...(activeTab === t.id ? S.tabActive : S.tabInactive) }}
+                tabIndex={activeTab === t.id ? 0 : -1}
+                onClick={() => handleTabChange(t.id)}
+                onKeyDown={(e) => {
+                  let next = null;
+                  if (e.key === 'ArrowRight') next = (i + 1) % TABS.length;
+                  else if (e.key === 'ArrowLeft') next = (i - 1 + TABS.length) % TABS.length;
+                  else if (e.key === 'Home') next = 0;
+                  else if (e.key === 'End') next = TABS.length - 1;
+                  else return;
+                  e.preventDefault();
+                  document.getElementById(`newsroom-tab-${TABS[next].id}`)?.focus();
+                }}
+                onMouseEnter={e => { if (activeTab !== t.id) e.currentTarget.style.background = 'rgba(226,241,242,0.35)' }}
+                onMouseLeave={e => { if (activeTab !== t.id) e.currentTarget.style.background = 'transparent' }}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -173,7 +219,7 @@ export default function NewsroomPage() {
           />
         </div>
 
-        <div style={S.articleList}>
+        <div id="newsroom-tabpanel" style={S.articleList}>
           {filtered.length > 0
             ? filtered.map((a, i) => <Article key={i} {...a} />)
             : (

@@ -16,53 +16,70 @@ const MILESTONES = [
     year: '1987',
     heading: 'Founded in Phoenix',
     body: 'Oceanview Life and Annuity Company is established with a focused mandate: offer straightforward, guaranteed annuity products to Americans planning for retirement. From the start, the company commits to financial strength over growth-at-any-cost.',
+    img: 'assets/lighthouse.jpg',
   },
   {
     year: '1990s',
     heading: 'Building the distribution network',
     body: 'Over the following decade, Oceanview expands its agent and advisor relationships across the country. The company establishes the distributor-first model that still defines how we work today — investing in the professionals who serve clients directly.',
+    img: 'assets/couple-walking.png',
   },
   {
     year: '2004',
     heading: 'First Fixed Indexed Annuity',
     body: 'Oceanview introduces its first FIA product, offering clients index-linked growth potential with a guaranteed zero-percent floor. The Harbourview line is born — built around principal protection as a non-negotiable feature.',
+    img: 'assets/hero-beach-couple.jpg',
   },
   {
     year: '2012',
     heading: 'Partnership with Bayview Asset Management',
     body: 'Oceanview becomes part of the Bayview Asset Management family, gaining access to institutional capital strength while preserving its independent operating identity and commitment to the annuity market. The partnership deepens our capacity to honor long-term obligations.',
+    img: 'assets/four.jpg',
   },
   {
     year: '2017',
     heading: 'Thirty years. Still singular.',
     body: 'On our 30th anniversary, Oceanview remains one of the few carriers in the country focused exclusively on fixed annuity solutions. While competitors diversified, we doubled down — expanding the product lineup while maintaining the simplicity our advisors rely on.',
+    img: 'assets/older-couple-1.png',
   },
   {
     year: '2021',
     heading: 'A (Excellent) rating affirmed',
     body: 'A.M. Best affirms Oceanview\'s Financial Strength Rating of A (Excellent), citing balance-sheet strength, consistent operating performance, and disciplined enterprise risk management. The rating reflects nearly 35 years of conservative, principled growth.',
+    img: 'assets/ambest.png',
   },
   {
     year: 'Today',
     heading: 'Serving advisors in all 50 states',
     body: 'Oceanview is licensed nationwide, distributed through thousands of agents, advisors, banks, and broker-dealers. The mission is unchanged: give every client access to reliable, transparent retirement savings products — and give every advisor the tools and support to deliver them.',
+    img: 'assets/family.png',
   },
 ]
 
+const TL_IMG_W = 220
+const TL_GAP = 32
+
 function Timeline() {
   return (
-    <div style={{ position: 'relative', paddingLeft: 32 }}>
-      {/* Vertical line */}
-      <div style={{ position: 'absolute', left: 0, top: 8, bottom: 8, width: 1, background: 'rgba(36,148,193,.2)' }} />
+    <div style={{ position: 'relative', maxWidth: 840, margin: '0 auto' }}>
+      {/* Vertical line — sits between the image column and the text; hidden once image/text wrap (see tokens.css) */}
+      <div className="ov-story-timeline-line" style={{ position: 'absolute', left: TL_IMG_W + TL_GAP, top: 8, bottom: 8, width: 1, background: 'rgba(36,148,193,.2)' }} />
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 48 }}>
         {MILESTONES.map((m, i) => (
-          <div key={i} style={{ position: 'relative' }}>
-            {/* Dot */}
-            <div style={{ position: 'absolute', left: -36, top: 6, width: 9, height: 9, borderRadius: '50%', background: '#2494C1', border: '2px solid #fff', boxShadow: '0 0 0 3px rgba(36,148,193,.2)' }} />
-            <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: '#2494C1', marginBottom: 8 }}>{m.year}</div>
-            <h3 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(18px,1.8vw,24px)', color: '#0D1F4E', letterSpacing: '-0.015em', lineHeight: 1.2, margin: '0 0 10px' }}>{m.heading}</h3>
-            <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: '#4A5568', lineHeight: 1.7, margin: 0, maxWidth: '62ch' }}>{m.body}</p>
+          <div key={i} style={{ display: 'flex', gap: TL_GAP, alignItems: 'flex-start', flexWrap: 'wrap' }}>
+            {m.img && (
+              <div style={{ flex: '0 1 ' + TL_IMG_W + 'px', width: TL_IMG_W, maxWidth: '100%', aspectRatio: '4/3', borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(13,31,78,.08)', flexShrink: 0 }}>
+                <img src={m.img} alt={m.heading} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
+            )}
+            <div style={{ position: 'relative', flex: '1 1 320px', minWidth: 0, paddingLeft: 32 }}>
+              {/* Dot — centered on the vertical line */}
+              <div style={{ position: 'absolute', left: -4.5, top: 6, width: 9, height: 9, borderRadius: '50%', background: '#2494C1', border: '2px solid #fff', boxShadow: '0 0 0 3px rgba(36,148,193,.2)' }} />
+              <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: '#2494C1', marginBottom: 8 }}>{m.year}</div>
+              <h3 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(18px,1.8vw,24px)', color: '#0D1F4E', letterSpacing: '-0.015em', lineHeight: 1.2, margin: '0 0 10px' }}>{m.heading}</h3>
+              <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: '#4A5568', lineHeight: 1.7, margin: 0, maxWidth: '62ch' }}>{m.body}</p>
+            </div>
           </div>
         ))}
       </div>
