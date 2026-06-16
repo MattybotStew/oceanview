@@ -1,5 +1,5 @@
 // Footer.jsx — Dark navy footer matching Figma design (node 7157-1909)
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 const S = {
   wrap: {
@@ -269,6 +269,20 @@ const S = {
 
 export default function Footer() {
   const [submitted, setSubmitted] = useState(false);
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+
+  const submitNewsletter = () => {
+    if (!nameRef.current.reportValidity() || !emailRef.current.reportValidity()) return;
+    setSubmitted(true);
+  };
+
+  const handleEnterKey = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      submitNewsletter();
+    }
+  };
 
   const navCols = [
     {
@@ -327,28 +341,32 @@ export default function Footer() {
               Product updates, market commentary, and planning ideas from the Oceanview team.
             </p>
           </div>
-          <form style={S.signupRight} onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>
+          <div style={S.signupRight} role="form" aria-label="Newsletter signup">
             <div style={S.formRow} className="ov-footer-form-row">
               <label htmlFor="footer-first-name" className="sr-only">Name</label>
               <input
+                ref={nameRef}
                 style={S.input}
                 name="name"
                 id="footer-first-name"
                 autoComplete="given-name"
                 placeholder="Name"
+                onKeyDown={handleEnterKey}
                 required
               />
               <label htmlFor="footer-email" className="sr-only">Email</label>
               <input
+                ref={emailRef}
                 style={S.input}
                 name="email"
                 id="footer-email"
                 type="email"
                 autoComplete="email"
                 placeholder="Email"
+                onKeyDown={handleEnterKey}
                 required
               />
-              <button type="submit" style={S.submit}
+              <button type="button" style={S.submit} onClick={submitNewsletter}
                 onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
                 onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
               >
@@ -363,7 +381,7 @@ export default function Footer() {
                 I agree to receive communications from Oceanview Life and Annuity. I understand I can unsubscribe at any time. We respect your privacy. Your information will never be shared.
               </p>
             </div>
-          </form>
+          </div>
         </div>
 
         {/* ── Section 2: Link columns ────────────────────────────────── */}

@@ -125,6 +125,10 @@ Surface:  #F1FBFF  (ov-surface-tint)
 
 ## What Claude Code did most recently (June 16 2026)
 
+### Footer newsletter signup — removed <form> wrapper (Figma HTML import was dropping it)
+
+- **Footer.jsx** — the newsletter signup (name/email inputs, checkbox, Get Started button) was wrapped in a real `<form>` element. HTML-to-design importers (Figma's HTML import and similar plugins) skip `<form>` nodes when walking the DOM since forms have no design-tool equivalent, which silently dropped the entire signup block on import. Replaced `<form>` with a `<div role="form" aria-label="Newsletter signup">`; moved submit logic from `onSubmit` to the button's `onClick` (`submitNewsletter`), added refs on the two inputs and `reportValidity()` checks to preserve native required-field validation, and added an Enter-key handler (`handleEnterKey`) on both inputs so pressing Enter still submits like a real form would. Verified via Playwright: 0 `<form>` elements remain in the footer, and click-to-submit, empty-field validation, and Enter-key submission all still work.
+
 ### Product detail page hero — missing mobile scrim treatment + wrong scrim color
 
 - **ProductDetailPage.jsx** (shared template for all 7 product pages — Harbourview MYGA, Horizon MYGA, Sky Harbourview MYGA, Current Rate FIA, Harbourview FIA, CapLock, Topsider) — its hero gradient overlay div was missing the `ov-hero-scrim` className, so it never got the mobile flat-scrim override (`rgba(0,31,84,.65)` at ≤720px, see `tokens.css`) that `PageHero.jsx`/`Hero.jsx` already had. Added the className; verified via Playwright at 390px that the computed background now correctly flips to the flat mobile scrim.
