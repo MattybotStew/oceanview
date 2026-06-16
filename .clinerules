@@ -125,6 +125,14 @@ Surface:  #F1FBFF  (ov-surface-tint)
 
 ## What Claude Code did most recently (June 16 2026)
 
+### LPL / Cetera landing page heroes — same scrim bug as ProductDetailPage
+
+- **PartnerLandingPage.jsx** (shared hero/layout for both `LPLLandingPage.jsx` and `CeteraLandingPage.jsx`) — had the exact same two-part bug fixed earlier on `ProductDetailPage.jsx`: the scrim gradient started with `rgba(0,0,0,.82)` (black) instead of `rgba(0,31,84,.82)` (navy), and the scrim div was missing the `ov-hero-scrim` className so it never got the mobile flat-scrim override. Fixed both — one file fixes both partner pages since they share this component.
+
+### Professionals page — added a link to the LPL partner landing page
+
+- **ProfessionalsPage.jsx** — `#lpl-landing` (and `#cetera-landing`) were real, working routes with nothing on the site linking to them. Added a 7th card ("LPL Advisor Resources") to the "Advisor Resources" portal grid linking to `#lpl-landing`. Cetera's equivalent page is still unlinked — only LPL was requested.
+
 ### Legal pages — "LEGAL" eyebrow was flush left instead of centered
 
 - **LegalPage.jsx** (shared shell for Privacy, Terms, Disclaimers, Accessibility) — the hero section has `textAlign:'center'`, but the shared `Eyebrow` component (`common.jsx`) renders a `display:'flex'` div, and `textAlign` has no effect on flex containers (only on inline content) — so the eyebrow row stayed pinned to the left edge while the h1/subtitle (plain text, which `textAlign` does affect) centered correctly. Fixed by passing `style={{ justifyContent: 'center' }}` into `<Eyebrow>` — `Eyebrow` already spreads its `style` prop onto the flex container. One-line fix in the shared shell fixes all 4 pages at once.

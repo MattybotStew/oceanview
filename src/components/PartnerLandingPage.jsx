@@ -101,7 +101,7 @@ export default function PartnerLandingPage({ data }) {
         <section style={{ paddingTop: 20, paddingBottom: 0 }}>
           <div className="ov-hero-card" style={{ background: 'var(--ov-navy-1000)' }}>
             <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${hero.image})`, backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(85deg, rgba(0,0,0,.82) 0%, rgba(0,31,84,.4) 60%, transparent 100%)', zIndex: 1 }} />
+            <div className="ov-hero-scrim" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(85deg, rgba(0,31,84,.82) 0%, rgba(0,31,84,.4) 60%, transparent 100%)', zIndex: 1 }} />
             <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(assets/Noise.png)', backgroundRepeat: 'repeat', backgroundSize: '200px', opacity: 0.6, pointerEvents: 'none', zIndex: 2 }} />
             <HeroShaper />
             <div className="ov-hero-content" style={{ zIndex: 3 }}>

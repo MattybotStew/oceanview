@@ -3,7 +3,7 @@ import CTABanner from './CTABanner.jsx'
 import { Eyebrow } from './common.jsx'
 import {
   FileText, BookOpen, LayoutDashboard,
-  Download, Map, Layers,
+  Download, Map, Layers, Building2,
   ShieldCheck, TrendingUp, Headphones,
 } from 'lucide-react'
 
@@ -43,6 +43,7 @@ const PORTALS = [
   { Icon: Download,        eyebrow: 'Forms & Documents',  title: 'Downloads',                    body: 'Service forms, annuity packages, claims documents, and other key materials for immediate download.',   route: 'downloads' },
   { Icon: Map,             eyebrow: 'Product Availability', title: 'State Approval Chart',       body: 'Check which Oceanview annuity products are approved for sale in each state.',                          route: 'state-approval' },
   { Icon: Layers,          eyebrow: 'Client Materials',   title: 'Product Brochures',            body: 'Print-ready and digital brochures for every Oceanview annuity — designed to leave with your clients.', route: 'downloads' },
+  { Icon: Building2,       eyebrow: 'LPL Financial',      title: 'LPL Advisor Resources',        body: 'Product overviews, case studies, and ready-to-use resources built specifically for LPL-affiliated advisors.', route: 'lpl-landing' },
 ]
 
 function PortalCard({ Icon, eyebrow, title, body, route }) {
