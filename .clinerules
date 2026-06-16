@@ -125,6 +125,15 @@ Surface:  #F1FBFF  (ov-surface-tint)
 
 ## What Claude Code did most recently (June 16 2026)
 
+### LPL / Cetera landing pages — bottom CTA restyled to match the sitewide CTABanner pattern
+
+- **PartnerLandingPage.jsx** — the bottom CTA was a bespoke full-bleed navy section with two buttons, the only page on the site built that way. Every other "bottom CTA" (homepage, ProductDetailPage, CompanyPage, InsightsPage, ProfessionalsPage, etc.) uses the shared `CTABanner` component: a single contained, rounded navy card sitting inside `ov-container` on a white section background. Replaced the bespoke markup with `<CTABanner eyebrow title titleAccent body cta onClick>`, dropping the second "Browse Sales Tools" button (homepage's CTABanner usage is single-button too) and removing the now-unused `secondaryLabel` field from the `cta` data in `LPLLandingPage.jsx`/`CeteraLandingPage.jsx`. Fixes both pages since they share this component.
+- (Earlier in this same investigation, briefly fixed just the "Browse Sales Tools" destination to scroll to the in-page resources section instead of navigating to `#sales-tools` — superseded by this restyle, which removes that button entirely.)
+
+### LPL / Cetera landing pages — bottom CTA's "Browse Sales Tools" pointed to the wrong place
+
+- **PartnerLandingPage.jsx** — the bottom CTA's secondary button navigated to the generic, non-partner-specific `#sales-tools` page, abandoning the partner-specific resources already built into the same page (rate sheets, wholesaler maps, etc. in the `resources` section). Changed it to scroll to `resources.sectionId` instead, matching the pattern the hero's own secondary button already used. Fixes both LPL and Cetera since they share this component.
+
 ### LPL / Cetera landing pages — button sizing/overflow fixes
 
 - **PartnerLandingPage.jsx** case-study CTA ("Read Their Story") — sat in a `flexDirection:'column'` container with default `align-items:stretch`, stretching the pill button to the full column width instead of sizing to its content. Added `alignSelf:'flex-start'` to the button.

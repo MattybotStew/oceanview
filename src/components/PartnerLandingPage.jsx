@@ -1,5 +1,6 @@
 import { PillMint, PillGhost } from './Buttons.jsx'
 import { Eyebrow } from './common.jsx'
+import CTABanner from './CTABanner.jsx'
 import {
   ShieldCheck, Eye, Zap, Star,
   FileText, BarChart2, Download, Map,
@@ -259,21 +260,16 @@ export default function PartnerLandingPage({ data }) {
       )}
 
       {/* 7 ── CTA ───────────────────────────────────────────────────────────── */}
-      <section style={{ background: 'var(--ov-navy-1000)' }} className="ov-section">
+      <section style={{ background: '#fff' }} className="ov-section">
         <div className="ov-container">
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 48, flexWrap: 'wrap' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: '1 1 320px', minWidth: 0 }}>
-              <Eyebrow light>{cta.eyebrow}</Eyebrow>
-              <h2 style={{ ...S.h2Light }}>Ready to bring Oceanview <em style={S.accent}>to your clients?</em></h2>
-              <p style={{ ...S.bodyDark, marginTop: 4 }}>
-                {cta.body}
-              </p>
-            </div>
-            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', maxWidth: '100%' }}>
-              <PillMint hero onClick={() => { window.location.hash = 'contact' }}>{cta.primaryLabel}</PillMint>
-              <PillGhost light hero onClick={() => { window.location.hash = 'sales-tools' }}>{cta.secondaryLabel}</PillGhost>
-            </div>
-          </div>
+          <CTABanner
+            eyebrow={cta.eyebrow}
+            title="Ready to bring Oceanview"
+            titleAccent="to your clients?"
+            body={cta.body}
+            cta={cta.primaryLabel}
+            onClick={() => { window.location.hash = 'contact' }}
+          />
         </div>
       </section>
 

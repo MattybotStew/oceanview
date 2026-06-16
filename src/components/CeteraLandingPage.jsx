@@ -109,7 +109,6 @@ const data = {
     eyebrow: 'Get in Touch',
     body: 'Complete a general inquiry or reach our Cetera sales desk — a dedicated representative will follow up.',
     primaryLabel: 'Contact Us',
-    secondaryLabel: 'Browse Sales Tools',
   },
 }
 

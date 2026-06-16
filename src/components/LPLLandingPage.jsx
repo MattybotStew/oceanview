@@ -84,7 +84,6 @@ const data = {
     eyebrow: 'Get in Touch',
     body: 'Complete a general inquiry or reach our sales team directly — a dedicated representative will follow up.',
     primaryLabel: 'Contact Us',
-    secondaryLabel: 'Browse Sales Tools',
   },
 }
 
