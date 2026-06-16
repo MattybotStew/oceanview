@@ -194,7 +194,7 @@ export default function OurStoryPage() {
       <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
         <div className="ov-container">
           <div style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center' }}>
-            <Eyebrow>Our Mission</Eyebrow>
+            <Eyebrow style={{ justifyContent: 'center' }}>Our Mission</Eyebrow>
             <h2 style={{ ...S.h2, marginBottom: 28 }}>
               Empowering Americans toward a <em style={S.accentBlue}>financially secure retirement.</em>
             </h2>
