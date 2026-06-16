@@ -623,6 +623,10 @@ a { color: inherit; text-decoration: none; }
   .ov-footer-cols { grid-template-columns: 1fr !important; }
   .ov-footer-form-row input { flex: 1 1 100% !important; }
 }
+@media (max-width: 640px) {
+  .ov-footer-legal-row   { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; }
+  .ov-footer-legal-links { flex-wrap: wrap !important; gap: 10px 16px !important; }
+}
 
 /* ─── About (merged with rating) ────────────────────────────── */
 @media (max-width: 800px) {

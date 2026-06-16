@@ -123,6 +123,17 @@ Surface:  #F1FBFF  (ov-surface-tint)
 
 ---
 
+## What Claude Code did most recently (June 16 2026)
+
+### Mobile footer overflow fix
+
+- **Footer.jsx** — `S.signupRow` and `S.linkSection` were `display:'flex'` inline but `tokens.css` media queries tried to override them with `grid-template-columns`, which has no effect on a flex container — so the nav columns (Products/Company/Client Resources/Insights) never stacked on mobile and overflowed ~175px past the viewport edge. Converted both to `display:'grid'` (`signupRow`: `488px 538px` cols; `linkSection`: `1.2fr 1fr 1fr 1fr 1fr` cols) so the existing breakpoint overrides at 960/800/480px now actually apply. Also changed `signupLeft`/`signupRight` from fixed `width:488/538` to `maxWidth` + `width:'100%'`, and `S.input` from fixed `width:171` to `width:'100%'`, so they shrink on narrow screens instead of forcing horizontal overflow. Removed now-unused `flex:1.2`/`flex:1` from `logoCol`/`linkCol` (grid ignores the flex property).
+- **Footer.jsx / tokens.css** — `copyrightRow` (copyright text + 5 legal links) had no mobile handling at all and would overflow on phones. Added `ov-footer-legal-row` / `ov-footer-legal-links` classNames with a new `@media (max-width: 640px)` rule in `tokens.css` that stacks copyright above the links and lets the links wrap.
+- Verified via Playwright at 390×844 (iPhone 12): `document.body.scrollWidth` went from 565px (overflowing) to 390px (no overflow) after the fix; desktop (1440px) screenshot confirmed unchanged.
+- Root cause was also visible in the Figma mobile mockup itself (node `7662-2510`) — the link columns overflow the 390px frame there too, confirming the fix direction (stack to single column) rather than trying to replicate the Figma frame's overflow.
+
+---
+
 ## What Cline did most recently (June 13 2026)
 
 ### Hero responsive layout overhaul + image focal point system + mobile scrim fix

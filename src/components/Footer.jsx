@@ -21,14 +21,16 @@ const S = {
 
   // ── Section 1: Newsletter ─────────────────────────────────────────────
   signupRow: {
-    display: 'flex',
+    display: 'grid',
+    gridTemplateColumns: '488px 538px',
     justifyContent: 'space-between',
     paddingBottom: 60,
     borderBottom: '1px solid rgba(255,255,255,.12)',
     width: '100%',
   },
   signupLeft: {
-    width: 488,
+    maxWidth: 488,
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
@@ -60,7 +62,8 @@ const S = {
     maxWidth: 488,
   },
   signupRight: {
-    width: 538,
+    maxWidth: 538,
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     gap: 12,
@@ -71,7 +74,7 @@ const S = {
     gap: 12,
   },
   input: {
-    width: 171,
+    width: '100%',
     height: 47,
     padding: '12px 16px',
     borderRadius: 8,
@@ -137,12 +140,12 @@ const S = {
     paddingBottom: 60,
     borderBottom: '1px solid rgba(255,255,255,.12)',
     width: '100%',
-    display: 'flex',
-    alignItems: 'flex-start',
+    display: 'grid',
+    gridTemplateColumns: '1.2fr 1fr 1fr 1fr 1fr',
+    alignItems: 'start',
     gap: 32,
   },
   logoCol: {
-    flex: 1.2,
     display: 'flex',
     flexDirection: 'column',
     gap: 24,
@@ -186,7 +189,6 @@ const S = {
     transition: 'border-color .15s ease, background .15s ease',
   },
   linkCol: {
-    flex: 1,
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
@@ -426,9 +428,9 @@ export default function Footer() {
 
         {/* ── Section 3: Legal ────────────────────────────────────────── */}
         <div style={S.legalSection}>
-          <div style={S.copyrightRow}>
+          <div style={S.copyrightRow} className="ov-footer-legal-row">
             <span style={S.copyright}>© 2026 Oceanview Life and Annuity Company. All rights reserved. 1331 17th St., Suite 1050, Denver, CO 80202</span>
-            <div style={S.legalLinks}>
+            <div style={S.legalLinks} className="ov-footer-legal-links">
               <a href="#privacy" style={S.legalLink} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.55)'}>Privacy Notice</a>
               <a href="#disclaimers" style={S.legalLink} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.55)'}>Disclaimers</a>
               <a href="#accessibility" style={S.legalLink} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.55)'}>Accessibility</a>
