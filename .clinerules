@@ -125,6 +125,10 @@ Surface:  #F1FBFF  (ov-surface-tint)
 
 ## What Claude Code did most recently (June 16 2026)
 
+### Legal pages — "LEGAL" eyebrow was flush left instead of centered
+
+- **LegalPage.jsx** (shared shell for Privacy, Terms, Disclaimers, Accessibility) — the hero section has `textAlign:'center'`, but the shared `Eyebrow` component (`common.jsx`) renders a `display:'flex'` div, and `textAlign` has no effect on flex containers (only on inline content) — so the eyebrow row stayed pinned to the left edge while the h1/subtitle (plain text, which `textAlign` does affect) centered correctly. Fixed by passing `style={{ justifyContent: 'center' }}` into `<Eyebrow>` — `Eyebrow` already spreads its `style` prop onto the flex container. One-line fix in the shared shell fixes all 4 pages at once.
+
 ### Newsroom hero fix + tabs upgraded to match Contact/Client Resources pattern; Leadership card padding; back-link on article page
 
 - **NewsroomPage.jsx** — hero image was `assets/hero-overlay.jpg`, which (per the earlier discovery on the Our Story timeline) is a plain noise/grain texture, not a photo — so the hero rendered with no real image. Swapped to `assets/two.jpg`.
