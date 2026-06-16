@@ -125,9 +125,10 @@ Surface:  #F1FBFF  (ov-surface-tint)
 
 ## What Claude Code did most recently (June 16 2026)
 
-### Product detail page hero — missing mobile scrim treatment
+### Product detail page hero — missing mobile scrim treatment + wrong scrim color
 
 - **ProductDetailPage.jsx** (shared template for all 7 product pages — Harbourview MYGA, Horizon MYGA, Sky Harbourview MYGA, Current Rate FIA, Harbourview FIA, CapLock, Topsider) — its hero gradient overlay div was missing the `ov-hero-scrim` className, so it never got the mobile flat-scrim override (`rgba(0,31,84,.65)` at ≤720px, see `tokens.css`) that `PageHero.jsx`/`Hero.jsx` already had. Added the className; verified via Playwright at 390px that the computed background now correctly flips to the flat mobile scrim.
+- Same file — the gradient itself started with `rgba(0,0,0,.82)` (black) instead of `rgba(0,31,84,.82)` (navy) like `PageHero`/`Hero` use, making product page heroes look gray/washed-out instead of the rich navy tint seen on pages like About. Fixed to match.
 
 ### Mobile footer overflow fix
 
