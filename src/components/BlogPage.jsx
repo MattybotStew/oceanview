@@ -31,6 +31,14 @@ const POSTS = [
     href: "#blog-fia-guide",
   },
   {
+    category: "Education",
+    date: "May 28, 2026",
+    title: "When Is the Best Time to Consider Buying an Annuity?",
+    excerpt: "There's no single right age or moment that works for everyone. Here's how to think about timing in a way that's general and practical.",
+    img: "assets/hero-beach-couple.jpg",
+    href: "#blog-annuity-timing",
+  },
+  {
     category: "Market Commentary",
     date: "May 12, 2026",
     title: "Why Retirement Income Planning Has Never Been More Important",

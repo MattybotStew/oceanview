@@ -720,6 +720,12 @@ a { color: inherit; text-decoration: none; }
   .pdt-strategy-tabs button { flex: 0 0 auto !important; min-width: 100px !important; }
 }
 
+/* ─── Blog Article ───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .ov-article-layout { flex-direction: column !important; }
+  .ov-article-sidebar { width: 100% !important; position: static !important; }
+}
+
 /* ─── Sales Tools ────────────────────────────────────────────── */
 .ov-tool-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(13,31,78,.10) !important; }
 @media (max-width: 860px) { .ov-tools-grid { grid-template-columns: repeat(2, 1fr) !important; } }

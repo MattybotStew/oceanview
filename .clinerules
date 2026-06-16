@@ -125,6 +125,15 @@ Surface:  #F1FBFF  (ov-surface-tint)
 
 ## What Claude Code did most recently (June 16 2026)
 
+### New page: default blog article template (`#blog-annuity-timing`)
+
+- **BlogArticlePage.jsx** — new, built from Figma node `7391-3634` ("Blog Article"). The Figma file used outdated/inconsistent fonts (Inter for body, Playfair Display for subheadings, Cormorant Garamond in the footer) and a one-off teal CTA card not used anywhere else on the live site. Rebuilt with this build's actual tokens instead: `var(--ov-ff-display)` (PP Editorial New) for h1/h3, `var(--ov-ff-sans)` (PP Mori) for body, navy `#233D7C`/`#0D1F4E` and grey `#4A5568`/`#6B7280` from the existing palette. Structure: eyebrow + h1 + date, intro paragraphs, full-width rounded hero image, two H3 sections with body + bullet lists, a `DownloadRow` resource card (same pattern as `ProductDetailPage`'s), a sticky navy sidebar CTA card (same pattern as `ProductDetailPage`'s `pdt-sidebar-cta`), and a bottom `CTABanner` (same component every other page already uses) instead of Figma's mismatched teal card.
+- **tokens.css** — added `.ov-article-layout` / `.ov-article-sidebar` responsive rules (≤900px: stack to one column, sidebar CTA goes static full-width instead of sticky) — same pattern as `.pdt-layout`.
+- **Page.jsx** — wired route `blog-annuity-timing` (import, switch case, `PAGE_ROUTES`, `ROUTE_TO_NAV` → "Blog", page title + meta description).
+- **BlogPage.jsx** — added a real "Education" category post card linking to `#blog-annuity-timing` so the new template is reachable from the blog listing's "Read more" link, not just a dangling route.
+- This is a single hardcoded page (not a generic per-article template/data system) — matches the existing convention where most content pages are hardcoded components, reserving the "shared template + per-page data" pattern (like `ProductDetailPage`) for cases with many near-identical instances.
+- **InsightsPage.jsx** — of the 6 "Read →" article cards in the "All Insights" grid, 4 were standalone-article cards with no real dedicated page (they pointed back to a hub page as a placeholder: "Sequence-of-Returns Risk", "Navigating Divorce and Retirement Assets", "Fixed Annuities vs. CDs", "Longevity Risk and the Case for Lifetime Income"). Repointed those 4 to `#blog-annuity-timing`. Left "Life Events Series" and "White Papers" pointing at their real, already-built hub pages (`#life-events`, `#white-papers`) since those are correct as-is.
+
 ### Contact page — gap between header CTA and sticky tab nav
 
 - **ContactPage.jsx** — page header section had `padding: 'clamp(72px,9vw,112px) 0 0'` (top only, zero bottom), so the "Send us a message" button sat flush against the sticky tab nav below. Changed to `'...0 48px'` for breathing room.

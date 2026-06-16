@@ -24,6 +24,7 @@ import ContactPage from './ContactPage.jsx'
 import LPLLandingPage from './LPLLandingPage.jsx'
 import CeteraLandingPage from './CeteraLandingPage.jsx'
 import BlogPage from './BlogPage.jsx'
+import BlogArticlePage from './BlogArticlePage.jsx'
 import HarbourviewFIAPage from './HarbourviewFIAPage.jsx'
 import HarbourviewMYGAPage from './HarbourviewMYGAPage.jsx'
 import SkyHarbourviewMYGAPage from './SkyHarbourviewMYGAPage.jsx'
@@ -60,7 +61,7 @@ const STUB_ROUTES = {
 const ROUTE_TO_NAV = {
   "about": "About", "products": "Products",
   "client-resources": "Client Resources", "insights": "Insights",
-  "faq": "FAQ", "blog": "Blog", "leadership": "About", "board": "About", "newsroom": "About",
+  "faq": "FAQ", "blog": "Blog", "blog-annuity-timing": "Blog", "leadership": "About", "board": "About", "newsroom": "About",
   "white-papers": "Insights", "case-studies": "Client Resources",
   "retirement-risk": "Insights", "life-events": "Insights",
   "downloads": "Client Resources", "our-story": "About", "individuals": "",
@@ -72,7 +73,7 @@ const ROUTE_TO_NAV = {
 
 const PAGE_ROUTES = new Set([
   "", "home", "products", "about", "client-resources", "insights", "faq",
-  "blog", "leadership", "board", "newsroom", "white-papers", "case-studies",
+  "blog", "blog-annuity-timing", "leadership", "board", "newsroom", "white-papers", "case-studies",
   "retirement-risk", "life-events", "downloads", "our-story", "individuals", "state-approval",
   "professionals", "sales-tools", "agent-faqs",
   "contact", "lpl-landing", "cetera-landing",
@@ -144,6 +145,7 @@ export default function Page() {
       "insights": "Insights — Oceanview",
       "faq": "FAQ — Oceanview",
       "blog": "Blog — Oceanview",
+      "blog-annuity-timing": "When Is the Best Time to Consider Buying an Annuity? — Oceanview",
       "leadership": "Leadership — Oceanview",
       "board": "Board of Directors — Oceanview",
       "newsroom": "Newsroom — Oceanview",
@@ -172,6 +174,7 @@ export default function Page() {
       "insights": "Retirement planning insights, research, and educational content from Oceanview Life and Annuity.",
       "faq": "Frequently asked questions about Oceanview annuities, products, account management, and company information.",
       "blog": "Articles and perspectives on retirement planning, annuities, and financial security from Oceanview.",
+      "blog-annuity-timing": "A practical look at when it makes sense to consider buying an annuity, from approaching retirement to reassessing income needs.",
       "leadership": "Meet Oceanview's executive leadership team — decades of experience in insurance and financial services.",
       "board": "Oceanview's board of directors brings deep expertise in finance, risk management, and regulatory compliance.",
       "newsroom": "Press releases, media coverage, and company announcements from Oceanview Life and Annuity.",
@@ -243,6 +246,7 @@ export default function Page() {
       case "agent-faqs":        return <AgentFAQsPage />;
       case "contact":           return <ContactPage />;
       case "blog":               return <BlogPage />;
+      case "blog-annuity-timing": return <BlogArticlePage />;
       case "lpl-landing":        return <LPLLandingPage />;
       case "cetera-landing":     return <CeteraLandingPage />;
       case "faq":               return <FAQPage />;

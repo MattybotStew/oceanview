@@ -34,7 +34,7 @@ const ARTICLES = [
     title: "Sequence-of-Returns Risk",
     desc: "Why the order of investment returns matters more than the average — and how annuities provide a hedge.",
     img: "assets/two.jpg",
-    href: "#retirement-risk",
+    href: "#blog-annuity-timing",
     readTime: "8 min read",
   },
   {
@@ -42,7 +42,7 @@ const ARTICLES = [
     title: "Navigating Divorce and Retirement Assets",
     desc: "How to handle annuities, qualified accounts, and income streams during and after a divorce.",
     img: "assets/hero-couple.jpg",
-    href: "#life-events",
+    href: "#blog-annuity-timing",
     readTime: "6 min read",
   },
   {
@@ -50,7 +50,7 @@ const ARTICLES = [
     title: "Fixed Annuities vs. CDs: A Clear-Eyed Comparison",
     desc: "Both offer guaranteed returns, but the differences in tax treatment, liquidity, and long-term value matter.",
     img: "assets/hero-beach-couple.jpg",
-    href: "#white-papers",
+    href: "#blog-annuity-timing",
     readTime: "5 min read",
   },
   {
@@ -58,7 +58,7 @@ const ARTICLES = [
     title: "Longevity Risk and the Case for Lifetime Income",
     desc: "Americans are living longer than ever — here's how advisors can build portfolios that don't run out.",
     img: "assets/older-couple-1.png",
-    href: "#retirement-risk",
+    href: "#blog-annuity-timing",
     readTime: "7 min read",
   },
 ];
