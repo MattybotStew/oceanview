@@ -3,22 +3,23 @@ import PageHero from './PageHero.jsx'
 import CTABanner from './CTABanner.jsx'
 
 const S = {
-  section: { padding: "80px 0 100px", background: "#fff" },
+  section: { padding: "80px 0 100px", background: 'var(--ov-surface-tint)' },
   grid: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
     gap: "48px 40px",
   },
-  card: { display: "flex", flexDirection: "column" },
+  card: { display: "flex", flexDirection: "column", background: "#fff", borderRadius: 14, border: "1px solid rgba(13,31,78,.08)", overflow: "hidden" },
+  cardBody: { padding: "24px 22px 20px" },
   divider: { width: 32, height: 2, background: "#2494C1", marginBottom: 16, borderRadius: 2 },
   name: {
     fontFamily: "var(--ov-ff-display)", fontWeight: 400,
     fontSize: "clamp(18px, 1.8vw, 22px)", color: "#0D1F4E",
-    margin: "0 0 6px", letterSpacing: "-0.01em", lineHeight: 1.2,
+    margin: "0 0 8px", letterSpacing: "-0.01em", lineHeight: 1.2,
   },
   bio: {
     fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "#6B7280",
-    lineHeight: 1.68, margin: "0 0 18px", flex: 1,
+    lineHeight: 1.68, margin: "0 0 20px", flex: 1,
   },
   readBioBtn: {
     alignSelf: "flex-start",
@@ -80,14 +81,16 @@ function BoardCard({ name, bio }) {
 
   return (
     <div style={S.card}>
-      <div style={S.divider} />
-      <h3 style={S.name}>{name}</h3>
-      <p style={S.bio}>{preview}</p>
-      {isLong && (
-        <button style={S.readBioBtn} onClick={() => setExpanded(e => !e)}>
-          {expanded ? "Show less" : "Read Bio"}
-        </button>
-      )}
+      <div style={S.cardBody}>
+        <div style={S.divider} />
+        <h3 style={S.name}>{name}</h3>
+        <p style={S.bio}>{preview}</p>
+        {isLong && (
+          <button style={S.readBioBtn} onClick={() => setExpanded(e => !e)}>
+            {expanded ? "Show less" : "Read Bio"}
+          </button>
+        )}
+      </div>
     </div>
   );
 }
@@ -114,7 +117,7 @@ export default function BoardPage() {
         </div>
       </section>
 
-      <section className="ov-section" style={{ background: '#fff' }}>
+      <section className="ov-section" style={{ background: 'var(--ov-surface-tint)' }}>
         <div className="ov-container">
           <CTABanner
             eyebrow="Work With Us"
