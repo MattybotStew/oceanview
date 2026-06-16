@@ -10,7 +10,7 @@ const FEATURED = {
   title: "Oceanview Receives A (Excellent) Rating from A.M. Best for the Third Consecutive Year",
   excerpt: "A.M. Best has affirmed Oceanview Life and Annuity Company's Financial Strength Rating of A (Excellent), citing our balance-sheet strength, consistent operating performance, and disciplined enterprise risk management.",
   img: "assets/lighthouse.jpg",
-  href: "#blog-amBest",
+  href: "#blog-annuity-timing",
 };
 
 const POSTS = [
@@ -20,7 +20,7 @@ const POSTS = [
     title: "Harbourview FIA Now Available in All 50 States",
     excerpt: "Following regulatory approval in the remaining three states, our flagship Fixed Indexed Annuity is now accessible to advisors and their clients nationwide.",
     img: "assets/hero-beach-couple.jpg",
-    href: "#blog-harbourview-fia",
+    href: "#blog-annuity-timing",
   },
   {
     category: "Education",
@@ -28,7 +28,7 @@ const POSTS = [
     title: "Understanding Fixed Indexed Annuities: A Guide for Financial Professionals",
     excerpt: "A plain-language overview of how FIAs work, how interest is credited, and how to position them in a client's retirement portfolio.",
     img: "assets/family.png",
-    href: "#blog-fia-guide",
+    href: "#blog-annuity-timing",
   },
   {
     category: "Education",
@@ -44,7 +44,7 @@ const POSTS = [
     title: "Why Retirement Income Planning Has Never Been More Important",
     excerpt: "With interest rates stabilizing and longevity risk rising, fixed annuities are playing a larger role in advisor-built retirement portfolios.",
     img: "assets/four.jpg",
-    href: "#blog-income-planning",
+    href: "#blog-annuity-timing",
   },
   {
     category: "Rates",
@@ -52,7 +52,7 @@ const POSTS = [
     title: "May 2026 Rate Update: Harbourview MYGA at 5.20%",
     excerpt: "Oceanview's Harbourview MYGA continues to offer some of the industry's most competitive guaranteed rates. View our full rate sheet for all products.",
     img: "assets/two.jpg",
-    href: "#blog-may-rates",
+    href: "#blog-annuity-timing",
   },
   {
     category: "Education",
@@ -60,7 +60,7 @@ const POSTS = [
     title: "The Role of Annuities in a Balanced Retirement Portfolio",
     excerpt: "Fixed annuities and FIAs aren't replacements for equities — they're complements. Here's how advisors are using them to reduce sequence-of-returns risk.",
     img: "assets/older-couple-1.png",
-    href: "#blog-balanced-portfolio",
+    href: "#blog-annuity-timing",
   },
   {
     category: "Company News",
@@ -68,7 +68,7 @@ const POSTS = [
     title: "Oceanview Expands Distribution Partnership Network",
     excerpt: "We've added three new national distribution partners this quarter, bringing Oceanview products to thousands of additional financial professionals.",
     img: "assets/three.jpg",
-    href: "#blog-distribution",
+    href: "#blog-annuity-timing",
   },
   {
     category: "Market Commentary",
@@ -76,7 +76,7 @@ const POSTS = [
     title: "Protecting Against Longevity Risk: An Advisor's Perspective",
     excerpt: "Americans are living longer than actuarial tables predicted a decade ago. We spoke with three advisors about how they're adjusting retirement income plans.",
     img: "assets/hero-couple.jpg",
-    href: "#blog-longevity",
+    href: "#blog-annuity-timing",
   },
   {
     category: "Rates",
@@ -84,7 +84,7 @@ const POSTS = [
     title: "April 2026 Rate Update: New FIA Cap Rates Now Live",
     excerpt: "Updated index cap rates are now in effect for Harbourview FIA and CapLock. The S&P 500 annual cap has been increased to 9.5%.",
     img: "assets/AdobeStock_1231908414@0.3x.jpg",
-    href: "#blog-apr-rates",
+    href: "#blog-annuity-timing",
   },
 ];
 
