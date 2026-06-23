@@ -7,25 +7,10 @@
 
 **Last Updated:** 2026-06-23 (Claude Code)
 **Active Agent:** Claude Code
-**Last Commit:** 7aa81cf — feat: add all 8 RRS and LES detail pages (all subsequent changes uncommitted)
+**Last Commit:** dd17d38 — feat: add Brochures page (#brochures)
 
 ### In Progress
-- (none — all batches complete, pending commit)
-
-### Route slugs registered (uncommitted)
-| Route | Component |
-|---|---|
-| `rrs-market-risk` | RRSMarketRiskPage |
-| `rrs-inflation-risk` | RRSInflationRiskPage |
-| `rrs-longevity-risk` | RRSLongevityRiskPage |
-| `rrs-interest-rate-risk` | RRSInterestRateRiskPage |
-| `les-approaching-retirement` | LESApproachingRetirementPage |
-| `les-market-volatility` | LESMarketVolatilityPage |
-| `les-financial-windfall` | LESFinancialWindfallPage |
-| `les-career-transitions` | LESCareerTransitionsPage |
-| `sp500-strategy` | SP500StrategyPage |
-| `russell-strategy` | RussellStrategyPage |
-| `nasdaq-strategy` | NasdaqStrategyPage |
+- (none — all batches complete, pending push)
 
 ---
 
@@ -158,6 +143,7 @@ Surface:  #F1FBFF  (ov-surface-tint)
 | #sp500-strategy | SP500StrategyPage.jsx | ✅ Complete |
 | #russell-strategy | RussellStrategyPage.jsx | ✅ Complete |
 | #nasdaq-strategy | NasdaqStrategyPage.jsx | ✅ Complete |
+| #brochures | BrochuresPage.jsx | ✅ Complete |
 
 ---
 
@@ -455,6 +441,17 @@ Created 8 new detail page components in `src/components/`:
 - **index.html** — no changes needed. This is a standard single-entry Vite SPA (`<script type="module" src="/src/main.jsx">`); there's no per-page/per-component script tag pattern to wire.
 - Build verified clean (`npm run build` — 1815 modules, no errors).
 - These changes (Page.jsx, RetirementRiskPage.jsx, LifeEventsPage.jsx, .clinerules) are uncommitted in the working tree, same as Cline's earlier `.clinerules` edit — not yet committed pending user confirmation.
+
+---
+
+## What Claude Code did most recently (June 23 2026, batch 4)
+
+### Brochures page
+
+- **BrochuresPage.jsx** — New client-facing product brochure library at `#brochures`. Modeled after SalesToolsPage card grid: same `BrochureCard` component (icon tile, tag, h3, body), same `ov-tools-grid` 3-col responsive grid, same section structure. Two sections: Fixed Annuities (white bg, teal-tint cards) with 4 cards (Harbourview MYGA, Horizon MYGA, Sky Harbourview MYGA, Current Rate Fixed Annuity); Fixed Indexed Annuities (navy bg, dark cards) with 3 cards (Harbourview FIA, CapLock, Topsider). Each card has a `PillGhost` "Download PDF" CTA (no real PDFs yet — placeholder for when assets are ready). CTABanner → `#contact`.
+- **Page.jsx** — Imported `BrochuresPage`; added `"brochures"` to `PAGE_ROUTES`, `ROUTE_TO_NAV` (→ "Client Resources"), `renderPage()` switch, and `titles` map.
+- **Footer.jsx** — Changed "Product Brochures" footer link from `#downloads` → `#brochures` (previously pointed to the Downloads page which is the full spec-sheet/form library, not the client brochure page).
+- Build verified clean.
 
 ---
 
