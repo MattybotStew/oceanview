@@ -7,10 +7,10 @@
 
 **Last Updated:** 2026-06-23 (Claude Code)
 **Active Agent:** Claude Code
-**Last Commit:** bf178b2 — feat: add back navigation to 11 detail pages
+**Last Commit:** 3986b26 — chore: regenerate self-contained HTML snapshots with inlined assets
 
 ### In Progress
-- (none — all batches complete, pending push)
+- (none — all work complete and pushed)
 
 ---
 
@@ -441,6 +441,17 @@ Created 8 new detail page components in `src/components/`:
 - **index.html** — no changes needed. This is a standard single-entry Vite SPA (`<script type="module" src="/src/main.jsx">`); there's no per-page/per-component script tag pattern to wire.
 - Build verified clean (`npm run build` — 1815 modules, no errors).
 - These changes (Page.jsx, RetirementRiskPage.jsx, LifeEventsPage.jsx, .clinerules) are uncommitted in the working tree, same as Cline's earlier `.clinerules` edit — not yet committed pending user confirmation.
+
+---
+
+## What Claude Code did most recently (June 23 2026, batch 6)
+
+### Self-contained HTML snapshots + grid alignment fix
+
+- **`html-snapshots/capture.cjs`** — Rewrote capture script to base64-encode all fonts and images directly from disk. All 24 snapshots are now fully self-contained (open in Chrome with no dev server). 391 total assets inlined. Files range from ~1.6 MB (simple pages) to ~30 MB (blog, insights with many article images). Strips Vite `<script>` tags and `<base href>` after rendering.
+- **`RetirementRiskPage.jsx` + `LifeEventsPage.jsx`** — Added `flex: 1` to body `<p>` in hub cards so FeatureList and TextLink CTAs land at consistent vertical positions regardless of body text wrapping (grid alignment fix).
+- All commits pushed to origin. Working tree clean.
+- **Blocked:** Animated logo (`86ag1hvct` subtask — needs SVG from ClickUp). USAP Landing Page (`86ahfnw23` — waiting on client).
 
 ---
 
