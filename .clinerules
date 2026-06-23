@@ -7,7 +7,7 @@
 
 **Last Updated:** 2026-06-23 (Claude Code)
 **Active Agent:** Claude Code
-**Last Commit:** dd17d38 — feat: add Brochures page (#brochures)
+**Last Commit:** bf178b2 — feat: add back navigation to 11 detail pages
 
 ### In Progress
 - (none — all batches complete, pending push)
@@ -441,6 +441,16 @@ Created 8 new detail page components in `src/components/`:
 - **index.html** — no changes needed. This is a standard single-entry Vite SPA (`<script type="module" src="/src/main.jsx">`); there's no per-page/per-component script tag pattern to wire.
 - Build verified clean (`npm run build` — 1815 modules, no errors).
 - These changes (Page.jsx, RetirementRiskPage.jsx, LifeEventsPage.jsx, .clinerules) are uncommitted in the working tree, same as Cline's earlier `.clinerules` edit — not yet committed pending user confirmation.
+
+---
+
+## What Claude Code did most recently (June 23 2026, batch 5)
+
+### Back navigation — 11 detail pages
+
+- **8 RRS/LES pages** (RRSMarketRiskPage, RRSInflationRiskPage, RRSLongevityRiskPage, RRSInterestRateRiskPage, LESApproachingRetirementPage, LESMarketVolatilityPage, LESFinancialWindfallPage, LESCareerTransitionsPage) — Added "← Back to Retirement Risk Series" / "← Back to Life Events Series" link above the eyebrow row, matching the `BlogArticlePage.jsx` pattern (raw `<button>` with `background: none, border: 0` inline style).
+- **3 crediting strategy pages** (SP500StrategyPage, RussellStrategyPage, NasdaqStrategyPage) — Added "← Back to Harbourview FIA" back link above the eyebrow row, same pattern.
+- Commit: bf178b2. Build verified clean.
 
 ---
 
