@@ -60,6 +60,7 @@ import FIAOverviewPage from './FIAOverviewPage.jsx'
 import SP500StrategyPage from './SP500StrategyPage.jsx'
 import RussellStrategyPage from './RussellStrategyPage.jsx'
 import NasdaqStrategyPage from './NasdaqStrategyPage.jsx'
+import BrochuresPage from './BrochuresPage.jsx'
 
 const STUB_ROUTES = {
   // Top-level nav
@@ -81,7 +82,7 @@ const ROUTE_TO_NAV = {
   "les-approaching-retirement": "Insights", "les-market-volatility": "Insights",
   "les-financial-windfall": "Insights", "les-career-transitions": "Insights",
   "sp500-strategy": "Products", "russell-strategy": "Products", "nasdaq-strategy": "Products",
-  "downloads": "Client Resources", "our-story": "About", "individuals": "",
+  "downloads": "Client Resources", "brochures": "Client Resources", "our-story": "About", "individuals": "",
   "state-approval": "Professionals",
   "disclaimers": "", "privacy": "", "terms": "", "accessibility": "", "design": "",
   "professionals": "Professionals", "sales-tools": "Professionals",
@@ -91,7 +92,7 @@ const ROUTE_TO_NAV = {
 const PAGE_ROUTES = new Set([
   "", "home", "products", "about", "client-resources", "insights", "faq",
   "blog", "blog-annuity-timing", "leadership", "board", "newsroom", "white-papers", "case-studies",
-  "retirement-risk", "life-events", "downloads", "our-story", "individuals", "state-approval",
+  "retirement-risk", "life-events", "downloads", "brochures", "our-story", "individuals", "state-approval",
   "rrs-market-risk", "rrs-inflation-risk", "rrs-longevity-risk", "rrs-interest-rate-risk",
   "les-approaching-retirement", "les-market-volatility", "les-financial-windfall", "les-career-transitions",
   "professionals", "sales-tools", "agent-faqs",
@@ -182,6 +183,7 @@ export default function Page() {
       "les-financial-windfall": "Financial Windfall — Life Events Series — Oceanview",
       "les-career-transitions": "Career Transitions — Life Events Series — Oceanview",
       "downloads": "Downloads — Oceanview",
+      "brochures": "Product Brochures — Oceanview",
       "our-story": "Our Story — Oceanview",
       "individuals": "Individuals — Oceanview",
       "professionals": "Professionals — Oceanview",
@@ -271,6 +273,7 @@ export default function Page() {
       case "les-financial-windfall":     return <LESFinancialWindfallPage />;
       case "les-career-transitions":     return <LESCareerTransitionsPage />;
       case "downloads":          return <DownloadsPage />;
+      case "brochures":          return <BrochuresPage />;
       case "our-story":          return <OurStoryPage />;
       case "individuals":        return <IndividualsPage />;
       case "state-approval":     return <StateApprovalPage />;

@@ -312,7 +312,7 @@ export default function Footer() {
       links: [
         { label: 'Case Studies',               href: '#client-resources?tab=case-studies' },
         { label: 'Downloads',                  href: '#client-resources?tab=downloads'    },
-        { label: 'Product Brochures',          href: '#downloads'                         },
+        { label: 'Product Brochures',          href: '#brochures'                         },
         { label: 'Glossary',                   href: '#client-resources?tab=glossary'     },
         { label: 'Rates',                      href: '#client-resources?tab=rates'        },
         { label: 'How Oceanview MYGAs Compare', href: '#client-resources?tab=comparisons'  },
