@@ -122,7 +122,7 @@ export default function RetirementRiskPage() {
                     <h3 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 22, color: '#F2FCFF', letterSpacing: '-0.01em', lineHeight: 1.2, margin: 0 }}>{r.title}</h3>
                   </div>
                 </div>
-                <p style={{ ...S.bodyDark, fontSize: 14 }}>{r.body}</p>
+                <p style={{ ...S.bodyDark, fontSize: 14, flex: 1 }}>{r.body}</p>
                 <FeatureList dark features={r.features} />
                 <TextLink color="#70BABF" onClick={() => { window.location.hash = r.route; }}>Learn more</TextLink>
               </div>
