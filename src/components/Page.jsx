@@ -57,6 +57,9 @@ import LESMarketVolatilityPage from './LESMarketVolatilityPage.jsx'
 import LESFinancialWindfallPage from './LESFinancialWindfallPage.jsx'
 import LESCareerTransitionsPage from './LESCareerTransitionsPage.jsx'
 import FIAOverviewPage from './FIAOverviewPage.jsx'
+import SP500StrategyPage from './SP500StrategyPage.jsx'
+import RussellStrategyPage from './RussellStrategyPage.jsx'
+import NasdaqStrategyPage from './NasdaqStrategyPage.jsx'
 
 const STUB_ROUTES = {
   // Top-level nav
@@ -77,6 +80,7 @@ const ROUTE_TO_NAV = {
   "rrs-longevity-risk": "Insights", "rrs-interest-rate-risk": "Insights",
   "les-approaching-retirement": "Insights", "les-market-volatility": "Insights",
   "les-financial-windfall": "Insights", "les-career-transitions": "Insights",
+  "sp500-strategy": "Products", "russell-strategy": "Products", "nasdaq-strategy": "Products",
   "downloads": "Client Resources", "our-story": "About", "individuals": "",
   "state-approval": "Professionals",
   "disclaimers": "", "privacy": "", "terms": "", "accessibility": "", "design": "",
@@ -97,6 +101,7 @@ const PAGE_ROUTES = new Set([
   "harbourview-myga", "horizon-myga", "sky-harbourview-myga",
   "current-rate-fia", "harbourview-fia",
   "caplock", "topsider", "fia-overview",
+  "sp500-strategy", "russell-strategy", "nasdaq-strategy",
   // legacy aliases kept for any existing links
   "harbourview", "sky-harbourview", "fia-harbourview",
   ...Object.keys(STUB_ROUTES),
@@ -187,6 +192,9 @@ export default function Page() {
       "accessibility": "Accessibility — Oceanview",
       "agent-portal":  "Agent Portal — Oceanview",
       "fia-overview": "Fixed Indexed Annuities — Oceanview",
+      "sp500-strategy": "S&P 500 Crediting Strategy — Harbourview FIA — Oceanview",
+      "russell-strategy": "Russell 2000 Crediting Strategy — Harbourview FIA — Oceanview",
+      "nasdaq-strategy": "Nasdaq-100 Crediting Strategy — Harbourview FIA — Oceanview",
       "design": "Design System — Oceanview",
     };
     const descriptions = {
@@ -245,6 +253,9 @@ export default function Page() {
       case "caplock":               return <CapLockFIAPage />;
       case "topsider":              return <TopsiderFIAPage />;
       case "fia-overview":          return <FIAOverviewPage />;
+      case "sp500-strategy":        return <SP500StrategyPage />;
+      case "russell-strategy":      return <RussellStrategyPage />;
+      case "nasdaq-strategy":       return <NasdaqStrategyPage />;
       case "board":              return <BoardPage />;
       case "newsroom":           return <NewsroomPage />;
       case "white-papers":       return <WhitePapersPage />;

@@ -7,12 +7,12 @@
 
 **Last Updated:** 2026-06-23 (Claude Code)
 **Active Agent:** Claude Code
-**Last Commit:** 7aa81cf — feat: add all 8 RRS and LES detail pages (route wiring below is uncommitted)
+**Last Commit:** 7aa81cf — feat: add all 8 RRS and LES detail pages (all subsequent changes uncommitted)
 
 ### In Progress
-- (none — route wiring batch + 6-task UX batch both complete)
+- (none — all batches complete, pending commit)
 
-### Route slugs registered
+### Route slugs registered (uncommitted)
 | Route | Component |
 |---|---|
 | `rrs-market-risk` | RRSMarketRiskPage |
@@ -23,6 +23,9 @@
 | `les-market-volatility` | LESMarketVolatilityPage |
 | `les-financial-windfall` | LESFinancialWindfallPage |
 | `les-career-transitions` | LESCareerTransitionsPage |
+| `sp500-strategy` | SP500StrategyPage |
+| `russell-strategy` | RussellStrategyPage |
+| `nasdaq-strategy` | NasdaqStrategyPage |
 
 ---
 
@@ -152,6 +155,9 @@ Surface:  #F1FBFF  (ov-surface-tint)
 | #les-financial-windfall | LESFinancialWindfallPage.jsx | ✅ Complete |
 | #les-career-transitions | LESCareerTransitionsPage.jsx | ✅ Complete |
 | #fia-overview | FIAOverviewPage.jsx | ✅ Complete |
+| #sp500-strategy | SP500StrategyPage.jsx | ✅ Complete |
+| #russell-strategy | RussellStrategyPage.jsx | ✅ Complete |
+| #nasdaq-strategy | NasdaqStrategyPage.jsx | ✅ Complete |
 
 ---
 
@@ -449,6 +455,20 @@ Created 8 new detail page components in `src/components/`:
 - **index.html** — no changes needed. This is a standard single-entry Vite SPA (`<script type="module" src="/src/main.jsx">`); there's no per-page/per-component script tag pattern to wire.
 - Build verified clean (`npm run build` — 1815 modules, no errors).
 - These changes (Page.jsx, RetirementRiskPage.jsx, LifeEventsPage.jsx, .clinerules) are uncommitted in the working tree, same as Cline's earlier `.clinerules` edit — not yet committed pending user confirmation.
+
+---
+
+## What Claude Code did most recently (June 23 2026, batch 3)
+
+### Header chip cleanup + 3 FIA crediting strategy pages
+
+- **Header.jsx** — Removed `RATE_ITEMS` ("Explore Rates", "Compare Rates") from desktop nav chips and mobile drawer CTA pills — these chips do not appear in the approved Figma design (node `7670:2294`). Also corrected audience chip height from implicit ~34px to `height:44` with `padding:'0 12px'` to match Figma spec (chips fill the nav bar height). Footer confirmed already matched Figma — no footer changes needed.
+- **SP500StrategyPage.jsx** — New page at `#sp500-strategy`. Dedicated detail page for the S&P 500 crediting strategies available on the Harbourview FIA. Hero + "About the Index" section (icon tile, 2-col with teal-tint facts card) + "Available Strategies" navy section (6 dark cards with term badges: Annual PTP Cap, Annual PTP PR, 2-Year PTP PR, Monthly Average Cap, DRC 5%, DRC 10%) + "Why This Index" solution section (FeatureList + PillMint → #harbourview-fia) + CTABanner.
+- **RussellStrategyPage.jsx** — New page at `#russell-strategy`. Same structure as SP500, scoped to Russell 2000. 4 strategies (Annual PTP Cap, Annual PTP PR, 2-Year PTP PR, DRC 10%). Uses `BarChart` lucide icon.
+- **NasdaqStrategyPage.jsx** — New page at `#nasdaq-strategy`. Same structure, scoped to Nasdaq-100. 3 strategies (Annual PTP Cap, Annual PTP PR, 2-Year PTP PR). Uses `Zap` lucide icon.
+- **Page.jsx** — Imported all 3; added to `PAGE_ROUTES`, `ROUTE_TO_NAV` (→ "Products"), `renderPage()` switch, and `titles` map.
+- Build verified clean (1830 modules, no errors).
+- These 3 pages are the first step toward Figma comment #24 ("S&P Russell & NASDAQ - no nav items but call to actions on HV FIA page") — the next step is adding CTAs on HarbourviewFIAPage linking to them.
 
 ---
 

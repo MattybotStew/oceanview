@@ -140,7 +140,8 @@ const S = {
   },
   audChip: {
     display: "flex",
-    padding: 10,
+    height: 44,
+    padding: "0 12px",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 6,
@@ -626,10 +627,6 @@ export function Logo({ dark = false }) {
 // ─── HEADER ───────────────────────────────────────────────────────────────────
 const NAV_ITEMS = ["About", "Products", "Client Resources", "Insights", "Blog"];
 const AUD_ITEMS = ["Individuals", "Professionals"];
-const RATE_ITEMS = [
-  { label: "Explore Rates", href: "#client-resources?tab=rates" },
-  { label: "Compare Rates", href: "#client-resources?tab=comparisons" },
-];
 
 export default function Header({ active = "Home", onNav }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -676,15 +673,6 @@ export default function Header({ active = "Home", onNav }) {
                 onFocus={e => e.currentTarget.style.background = "rgba(255,255,255,0.2)"}
                 onBlur={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}>
                 {a}
-              </a>
-            ))}
-            {RATE_ITEMS.map(r => (
-              <a key={r.label} className="ov-aud-chip" href={r.href} style={{ ...S.audChip, textDecoration: "none" }}
-                onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.2)"}
-                onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
-                onFocus={e => e.currentTarget.style.background = "rgba(255,255,255,0.2)"}
-                onBlur={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}>
-                {r.label}
               </a>
             ))}
           </nav>
@@ -764,12 +752,6 @@ export default function Header({ active = "Home", onNav }) {
               }}
               style={{ display: "block", width: "100%", padding: "14px 20px", background: "#F0EEE9", borderRadius: 8, fontFamily: "var(--ov-ff-sans)", fontSize: 13, fontWeight: 600, color: "var(--ov-navy-900)", letterSpacing: "0.08em", textTransform: "uppercase", textAlign: "center", textDecoration: "none" }}>
               {a}
-            </a>
-          ))}
-          {RATE_ITEMS.map(r => (
-            <a key={r.label} href={r.href} onClick={closeMobile}
-              style={{ display: "block", width: "100%", padding: "14px 20px", background: "#F0EEE9", borderRadius: 8, fontFamily: "var(--ov-ff-sans)", fontSize: 13, fontWeight: 600, color: "var(--ov-navy-900)", letterSpacing: "0.08em", textTransform: "uppercase", textAlign: "center", textDecoration: "none" }}>
-              {r.label}
             </a>
           ))}
         </div>
