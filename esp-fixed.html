@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ESP — Values / Purpose / Impact</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans:wght@400;700&family=Red+Hat+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================================
+       ESP Design Tokens
+       ============================================================ */
+    :root {
+      /* Colors (mapped to token set) */
+      --esp-navy:       var(--color-accent);
+      --esp-charcoal:   var(--color-text-secondary);
+      --esp-light-blue: var(--color-background-alt);
+      --esp-pale-blue:  var(--color-accent-alt);
+      --esp-green:      #008939; /* custom */
+      --esp-yellow:     var(--color-warning);
+      --esp-black:      var(--color-text-primary);
+      --esp-white:      var(--color-background);
+
+      /* Typography */
+      --esp-ff-display: "Red Hat Display", system-ui, sans-serif;
+      --esp-ff-body:    "Noto Sans", system-ui, sans-serif;
+
+      /* Semantic tokens from DESIGN.md */
+      --esp-text-primary: #000000;
+      --esp-accent-3: #0066cc;
+      --esp-accent-4: #2b7a9e;
+      --esp-warning-alt: #c4711a;
+
+      /* Spacing (mapped to token scale) */
+      --esp-gap-sm:  var(--space-10);
+      --esp-gap-md:  var(--space-23);
+      --esp-gap-lg:  var(--space-34);
+      --esp-gap-xl:  var(--space-50);
+      --esp-gap-2xl: var(--space-80);
+
+      /* Machine-readable tokens (from DESIGN.md) */
+      /* Colors */
+      --color-text-secondary: #4a4a4a;
+      --color-accent: #16163f;
+      --color-accent-alt: #c0daf3;
+      --color-warning: #fed401;
+      --color-background: #ffffff;
+      --color-background-alt: #e8f3ff;
+      --color-text-primary: #000000;
+
+      /* Typography sizes (px) */
+      --type-display-size: 68px;
+      --type-h1-size: 57px;
+      --type-h2-size: 48px;
+      --type-h3-size: 46px;
+      --type-h4-size: 28px;
+      --type-h5-size: 19px;
+      --type-body-size: 16px;
+
+      /* Spacing scale (tokens) */
+      --space-10: 10px;
+      --space-18: 18px;
+      --space-20: 20px;
+      --space-23: 23px;
+      --space-24: 24px;
+      --space-25: 25px;
+      --space-34: 34px;
+      --space-40: 40px;
+      --space-50: 50px;
+      --space-70: 70px;
+      --space-80: 80px;
+      --space-100: 100px;
+      --space-144: 144px;
+      --space-150: 150px;
+
+      /* Radii */
+      --radius-md: 26px;
+      --radius-sm: 10px;
+
+      /* Map esp radii to token radii */
+      --esp-radius-sm: var(--radius-sm);
+      --esp-radius-md: var(--radius-md);
+    }
+
+    /* ============================================================
+       Reset & Base
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img { max-width: 100%; display: block; height: auto; }
+
+    body {
+      font-family: var(--esp-ff-body);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 26px;
+      color: var(--esp-charcoal);
+      background: var(--esp-white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ============================================================
+       ESP Section — Values / Purpose / Impact
+       ============================================================ */
+    .esp-section {
+      background: var(--esp-light-blue);
+      padding: 100px 0 150px 0;
+      overflow: hidden;
+    }
+
+    .esp-section-inner {
+      max-width: 1290px;
+      margin: 0 auto;
+      padding: 0 70px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--esp-gap-xl);
+    }
+
+    /* ── Row ──────────────────────────────────────────────────── */
+    .esp-row {
+      display: flex;
+      gap: var(--esp-gap-2xl);
+      align-items: flex-start;
+    }
+
+    .esp-row--reversed {
+      flex-direction: row-reverse;
+    }
+
+    /* ── Text column ──────────────────────────────────────────── */
+    .esp-text-col {
+      flex: 0 0 581px;
+      width: 581px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .esp-text-inner {
+      display: flex;
+      flex-direction: column;
+      gap: var(--esp-gap-lg);
+    }
+
+    /* ── Image column ─────────────────────────────────────────── */
+    .esp-image-col {
+      flex: 0 0 629px;
+      width: 629px;
+    }
+
+    .esp-image-wrap {
+      border-radius: var(--esp-radius-md);
+      overflow: hidden;
+      width: 100%;
+      height: 536px;
+    }
+
+    .esp-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ── Typography ───────────────────────────────────────────── */
+    .esp-h2 {
+      font-family: var(--esp-ff-display);
+      font-size: 46px;
+      font-weight: 600;
+      line-height: 1;
+      color: var(--esp-navy);
+    }
+
+    .esp-h2--lg {
+      font-size: 48px;
+    }
+
+    .esp-body {
+      font-family: var(--esp-ff-body);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 26px;
+      color: var(--esp-charcoal);
+    }
+
+    .esp-body-bold {
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 26px;
+      color: var(--esp-navy);
+    }
+
+    /* ── Values checklist ─────────────────────────────────────── */
+    .esp-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: var(--esp-gap-md);
+      list-style: none;
+    }
+
+    .esp-checklist li {
+      display: flex;
+      gap: var(--esp-gap-sm);
+      align-items: flex-start;
+    }
+
+    .esp-check-icon {
+      flex-shrink: 0;
+      width: 16px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .esp-check-icon svg {
+      display: block;
+    }
+
+    .esp-check-text {
+      flex: 1;
+      min-width: 0;
+      font-family: var(--esp-ff-body);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 26px;
+      color: var(--esp-charcoal);
+    }
+
+    .esp-check-text strong {
+      font-weight: 700;
+      color: var(--esp-navy);
+    }
+
+    /* ── Impact stats grid ────────────────────────────────────── */
+    .esp-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 40px;
+      row-gap: 50px;
+    }
+
+    .esp-stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .esp-stat-number {
+      font-family: var(--esp-ff-display);
+      font-size: 67.7px;
+      font-weight: 600;
+      line-height: 74.79px;
+      letter-spacing: 2.03px;
+      color: var(--color-accent);
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--esp-pale-blue);
+    }
+
+    .esp-stat-label {
+      font-family: var(--esp-ff-display);
+      font-size: 19px;
+      font-weight: 600;
+      line-height: 24px;
+      color: var(--esp-navy);
+      margin-top: var(--esp-gap-lg);
+      max-height: 24px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ── CTA button ───────────────────────────────────────────── */
+    .esp-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--esp-ff-display);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 19px;
+      color: var(--color-text-primary);
+      background: var(--color-warning);
+      border-radius: var(--esp-radius-sm);
+      padding: 20px 25px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      align-self: flex-start;
+      white-space: nowrap;
+    }
+
+    .esp-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ── Wave divider ─────────────────────────────────────────── */
+    .esp-wave {
+      width: 100%;
+      height: 79px;
+      overflow: hidden;
+      line-height: 0;
+      margin-top: -79px; /* pull up to sit at bottom of section */
+      position: relative;
+      z-index: 1;
+    }
+
+    .esp-wave svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      transform: scaleY(-1); /* flip vertically */
+    }
+
+    /* ── Responsive ───────────────────────────────────────────── */
+    @media (max-width: 1200px) {
+      .esp-image-col {
+        flex: 0 0 50%;
+        width: auto;
+      }
+      .esp-image-wrap {
+        height: auto;
+        aspect-ratio: 629 / 536;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .esp-section {
+        padding: 80px 0 100px 0;
+      }
+      .esp-h2 {
+        font-size: 36px;
+      }
+      .esp-h2--lg {
+        font-size: 38px;
+      }
+      .esp-stat-number {
+        font-size: 52px;
+        line-height: 58px;
+        letter-spacing: 1.5px;
+      }
+      .esp-stat-label {
+        font-size: 17px;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .esp-row,
+      .esp-row--reversed {
+        flex-direction: column;
+        gap: var(--esp-gap-lg);
+      }
+      .esp-image-col {
+        flex: none;
+        width: 100%;
+      }
+      .esp-image-wrap {
+        height: auto;
+        aspect-ratio: 629 / 536;
+      }
+      .esp-section {
+        padding: 60px 0 80px 0;
+      }
+      .esp-section-inner {
+        gap: var(--esp-gap-lg);
+      }
+      .esp-stats-grid {
+        column-gap: 24px;
+        row-gap: 34px;
+      }
+      .esp-stat-number {
+        font-size: 44px;
+        line-height: 50px;
+        letter-spacing: 1px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .esp-section {
+        padding: 40px 0 60px 0;
+      }
+      .esp-section-inner {
+        padding: 0 18px;
+        gap: 25px;
+      }
+      .esp-row {
+        gap: 25px;
+      }
+      .esp-h2 {
+        font-size: 28px;
+      }
+      .esp-h2--lg {
+        font-size: 30px;
+      }
+      .esp-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+      .esp-stat-number {
+        font-size: 40px;
+        line-height: 46px;
+        letter-spacing: 0.5px;
+      }
+      .esp-stat-label {
+        font-size: 16px;
+        margin-top: 20px;
+      }
+      .esp-cta {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       ESP Section — Values / Purpose / Impact
+       Background: #E8F3FF, padding 100/0/150/0
+       Content max-width: 1290px
+       ============================================================ -->
+  <section class="esp-section">
+
+    <div class="esp-section-inner">
+
+      <!-- ── Row 1: Values (text) | Photo ─────────────────────── -->
+      <div class="esp-row">
+
+        <!-- Text column -->
+        <div class="esp-text-col">
+          <div class="esp-text-inner">
+
+            <h2 class="esp-h2">Values</h2>
+
+            <ul class="esp-checklist">
+              <li>
+                <span class="esp-check-icon">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8.5L6.5 12L13 4" stroke="#008939" stroke-opacity="0.75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="esp-check-text"><strong>Infused with Joyful Hospitality:</strong> We are spreaders of warm hospitality who go the extra mile to create priceless welcomes. People come first&#8212;always.</span>
+              </li>
+              <li>
+                <span class="esp-check-icon">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8.5L6.5 12L13 4" stroke="#008939" stroke-opacity="0.75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="esp-check-text"><strong>Innovating Possibilities:</strong> There is always more than one way forward. We solve problems at the root, challenge the status quo, and cling to what is possible.</span>
+              </li>
+              <li>
+                <span class="esp-check-icon">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8.5L6.5 12L13 4" stroke="#008939" stroke-opacity="0.75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="esp-check-text"><strong>Activating the Abilities of All:</strong> We spark strengths, coach growth, and adapt intentionally&#8212;ensuring every person has the opportunity to learn, lead, and thrive.</span>
+              </li>
+              <li>
+                <span class="esp-check-icon">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8.5L6.5 12L13 4" stroke="#008939" stroke-opacity="0.75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="esp-check-text"><strong>Fascinated with Fun:</strong> We ask, How can this be fun? A playful spirit fuels celebration, creativity, and connection in everything we do.</span>
+              </li>
+              <li>
+                <span class="esp-check-icon">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8.5L6.5 12L13 4" stroke="#008939" stroke-opacity="0.75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="esp-check-text"><strong>Compassion, Freely Given:</strong> We lean into the awkward, offer comfort, and believe small acts can make a big impact. Indifference has no place here.</span>
+              </li>
+              <li>
+                <span class="esp-check-icon">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8.5L6.5 12L13 4" stroke="#008939" stroke-opacity="0.75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="esp-check-text"><strong>Connecting the Unconnected:</strong> We build bridges with intent&#8212;owning the gaps and fostering connection, even when it&#8217;s uncomfortable.</span>
+              </li>
+              <li>
+                <span class="esp-check-icon">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8.5L6.5 12L13 4" stroke="#008939" stroke-opacity="0.75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="esp-check-text"><strong>Persevering, Together:</strong> We move as one team. No silos. No shortcuts. We run the race together and refuse to yield.</span>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+
+        <!-- Image column -->
+        <div class="esp-image-col">
+          <div class="esp-image-wrap">
+            <img
+              src="https://picsum.photos/seed/esp-values/629/536"
+              alt="ESP Values"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Row 2: Photo (left) | Purpose + Impact + CTA (right) ─── -->
+      <div class="esp-row">
+
+        <!-- Image column -->
+        <div class="esp-image-col">
+          <div class="esp-image-wrap">
+            <img
+              src="https://picsum.photos/seed/esp-purpose/629/536"
+              alt="ESP Purpose"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <!-- Text column -->
+        <div class="esp-text-col">
+          <div class="esp-text-inner">
+
+            <!-- Purpose -->
+            <h2 class="esp-h2">Our Purpose</h2>
+
+            <p class="esp-body-bold">
+              ESP exists because experiences matter.
+            </p>
+
+            <p class="esp-body">
+              When people of all abilities are given consistent opportunities to connect,
+              try new things, and be supported as whole individuals, confidence grows.
+              When families are surrounded by community, support extends beyond programs
+              into everyday life. And when communities are invited into that experience,
+              perspectives change.
+            </p>
+
+            <p class="esp-body">
+              ESP designs experiences that strengthen individuals, support families, and
+              shape more connected, compassionate communities.
+            </p>
+
+            <!-- Impact -->
+            <h2 class="esp-h2 esp-h2--lg">Our Impact</h2>
+
+            <p class="esp-body">
+              These numbers represent people, relationships, and experiences that
+              continue to shape families and communities.
+            </p>
+
+            <div class="esp-stats-grid">
+              <div class="esp-stat">
+                <span class="esp-stat-number">1,300</span>
+                <span class="esp-stat-label">Members Served</span>
+              </div>
+              <div class="esp-stat">
+                <span class="esp-stat-number">2,700</span>
+                <span class="esp-stat-label">Volunteers</span>
+              </div>
+              <div class="esp-stat">
+                <span class="esp-stat-number">75</span>
+                <span class="esp-stat-label">Community Events</span>
+              </div>
+              <div class="esp-stat">
+                <span class="esp-stat-number">60+</span>
+                <span class="esp-stat-label">Sponsors</span>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <a href="#" class="esp-cta">Read Impact Report</a>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ── Wave divider ────────────────────────────────────────── -->
+    <div class="esp-wave" aria-hidden="true">
+      <svg viewBox="0 0 1440 79" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0 79V0C120 20 240 35 360 40C480 45 600 40 720 30C840 20 960 15 1080 20C1200 25 1320 35 1440 45V79H0Z" fill="#E8F3FF"/>
+      </svg>
+    </div>
+
+  </section>
+
+</body>
+</html>
