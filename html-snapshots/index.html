@@ -2,122 +2,43 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oceanview — All 24 Pages (Bulk Import)</title>
+<title>Oceanview Mockups</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: #F1FBFF;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    padding: 40px 20px;
-  }
-  .header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  .header h1 {
-    font-size: 32px;
-    color: #0D1F4E;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-  .header p {
-    font-size: 14px;
-    color: #6B7280;
-  }
-  .page-block {
-    margin-bottom: 60px;
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(13,31,78,.08);
-  }
-  .page-label {
-    padding: 16px 24px;
-    background: #0D1F4E;
-    color: #F2FCFF;
-    font-size: 15px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .page-label .num {
-    background: rgba(255,255,255,.15);
-    border-radius: 6px;
-    padding: 4px 10px;
-    font-size: 12px;
-    font-weight: 700;
-    min-width: 32px;
-    text-align: center;
-  }
-  .page-label .route {
-    font-size: 12px;
-    color: rgba(242,252,255,.5);
-    font-weight: 400;
-    font-family: monospace;
-  }
-  iframe {
-    width: 100%;
-    border: none;
-    display: block;
-  }
+  body { margin: 0; padding: 0; }
+  iframe { width: 1440px; border: 0; display: block; }
 </style>
 </head>
 <body>
-
-<div class="header">
-  <h1>Oceanview — 24 Mockup Pages</h1>
-  <p>Each iframe loads at 1680px width from the dev server. Scroll down to capture all pages at once with html.to.design.</p>
-</div>
-
 <script>
 const PAGES = [
-  { num: 1,  route: '',                    name: 'Home',                    height: 7800 },
-  { num: 2,  route: '#products',           name: 'Products',                height: 6200 },
-  { num: 3,  route: '#retirement-risk',    name: 'Retirement Risk',         height: 2400 },
-  { num: 4,  route: '#life-events',        name: 'Life Events',             height: 2600 },
-  { num: 5,  route: '#case-studies',       name: 'Case Studies',            height: 2200 },
-  { num: 6,  route: '#white-papers',       name: 'White Papers',            height: 2200 },
-  { num: 7,  route: '#rrs-market-risk',    name: 'RRS Market Risk',         height: 2600 },
-  { num: 8,  route: '#rrs-inflation-risk', name: 'RRS Inflation Risk',      height: 2600 },
-  { num: 9,  route: '#rrs-longevity-risk', name: 'RRS Longevity Risk',      height: 2600 },
-  { num: 10, route: '#rrs-interest-rate-risk', name: 'RRS Interest Rate Risk', height: 2600 },
-  { num: 11, route: '#les-approaching-retirement', name: 'LES Approaching Retirement', height: 2600 },
-  { num: 12, route: '#les-market-volatility', name: 'LES Market Volatility', height: 2600 },
-  { num: 13, route: '#les-financial-windfall', name: 'LES Financial Windfall', height: 2600 },
-  { num: 14, route: '#les-career-transitions', name: 'LES Career Transitions', height: 2600 },
-  { num: 15, route: '#fia-overview',       name: 'FIA Overview',            height: 2400 },
-  { num: 16, route: '#sky-harbourview-myga', name: 'Sky Harbourview MYGA',  height: 5200 },
-  { num: 17, route: '#harbourview-fia',    name: 'Harbourview FIA',         height: 5600 },
-  { num: 18, route: '#brochures',          name: 'Brochures',               height: 1800 },
-  { num: 19, route: '#blog',               name: 'Blog',                    height: 3000 },
-  { num: 20, route: '#downloads',          name: 'Downloads',               height: 2200 },
-  { num: 21, route: '#contact',            name: 'Contact',                 height: 4000 },
-  { num: 22, route: '#professionals',      name: 'Professionals',           height: 2200 },
-  { num: 23, route: '#client-resources',   name: 'Client Resources',        height: 4000 },
-  { num: 24, route: '#insights',           name: 'Insights',                height: 3200 },
+  { route: '',                    height: 7800 },
+  { route: '#products',           height: 6200 },
+  { route: '#retirement-risk',    height: 2400 },
+  { route: '#life-events',        height: 2600 },
+  { route: '#case-studies',       height: 2200 },
+  { route: '#white-papers',       height: 2200 },
+  { route: '#rrs-market-risk',    height: 2600 },
+  { route: '#rrs-inflation-risk', height: 2600 },
+  { route: '#rrs-longevity-risk', height: 2600 },
+  { route: '#rrs-interest-rate-risk', height: 2600 },
+  { route: '#les-approaching-retirement', height: 2600 },
+  { route: '#les-market-volatility', height: 2600 },
+  { route: '#les-financial-windfall', height: 2600 },
+  { route: '#les-career-transitions', height: 2600 },
+  { route: '#fia-overview',       height: 2400 },
+  { route: '#sky-harbourview-myga', height: 5200 },
+  { route: '#harbourview-fia',    height: 5600 },
+  { route: '#brochures',          height: 1800 },
+  { route: '#blog',               height: 3000 },
+  { route: '#downloads',          height: 2200 },
+  { route: '#contact',            height: 4000 },
+  { route: '#professionals',      height: 2200 },
+  { route: '#client-resources',   height: 4000 },
+  { route: '#insights',           height: 3200 },
 ];
-
-const container = document.body;
-
 PAGES.forEach(p => {
-  const block = document.createElement('div');
-  block.className = 'page-block';
-
-  const label = document.createElement('div');
-  label.className = 'page-label';
-  label.innerHTML = `<span class="num">${p.num}/24</span> ${p.name} <span class="route">#${p.route || 'home'}</span>`;
-  block.appendChild(label);
-
-  const iframe = document.createElement('iframe');
-  iframe.src = `http://localhost:5173/oceanview/${p.route}`;
-  iframe.style.height = p.height + 'px';
-  block.appendChild(iframe);
-
-  container.appendChild(block);
+  document.write('<iframe src="http://localhost:5173/oceanview/' + p.route + '" style="height:' + p.height + 'px"></iframe>');
 });
 </script>
-
 </body>
 </html>
