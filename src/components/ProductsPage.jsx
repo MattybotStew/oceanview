@@ -307,6 +307,7 @@ export default function ProductsPage() {
               </div>
               <p style={PS.body}>Fixed indexed annuities credit interest based on the performance of a market index — while a zero-percent floor ensures your clients never lose principal to market downturns.</p>
               <FeatureList features={CAT3_FEATURES} />
+              <TextLink onClick={() => { window.location.hash = 'fia-overview'; }}>Compare the full FIA line</TextLink>
             </div>
           </div>
           <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-2col">

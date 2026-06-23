@@ -1,4 +1,4 @@
-import { PillMint, PillGhost } from './Buttons.jsx'
+import { PillMint, PillGhost, TextLink } from './Buttons.jsx'
 import { Clock, BarChart2, Gift, Briefcase } from 'lucide-react'
 import CTABanner from './CTABanner.jsx'
 import { Eyebrow } from './common.jsx'
@@ -33,6 +33,7 @@ const EVENTS = [
     Icon: Clock,
     eyebrow: 'Life Event 1',
     title: 'Approaching Retirement',
+    route: 'les-approaching-retirement',
     subtitle: '5–10 years before the finish line',
     body: "Priorities shift from pure accumulation to balancing growth with protection. This window is the ideal time to position assets in vehicles that will perform through retirement — not just to it.",
     features: [
@@ -46,6 +47,7 @@ const EVENTS = [
     Icon: BarChart2,
     eyebrow: 'Life Event 2',
     title: 'Market Volatility',
+    route: 'les-market-volatility',
     subtitle: 'When markets move sharply',
     body: 'Market downturns trigger anxiety — and often panic-driven decisions that lock in losses. Clients who move into a zero-floor FIA stop the bleeding and stay positioned for recovery.',
     features: [
@@ -59,6 +61,7 @@ const EVENTS = [
     Icon: Gift,
     eyebrow: 'Life Event 3',
     title: 'Financial Windfall',
+    route: 'les-financial-windfall',
     subtitle: 'Inheritance, sale proceeds, or settlement funds',
     body: 'Sudden wealth requires thoughtful management. A MYGA locks in today\'s rates immediately, while an FIA provides growth potential and principal safety for clients who need time to plan.',
     features: [
@@ -72,6 +75,7 @@ const EVENTS = [
     Icon: Briefcase,
     eyebrow: 'Life Event 4',
     title: 'Career Transitions',
+    route: 'les-career-transitions',
     subtitle: 'Job changes, retirement, and 401(k) rollovers',
     body: '401(k) rollovers represent one of the largest single-event asset movements in a client\'s financial life. A direct rollover to an IRA-held annuity provides continuity and eliminates reinvestment risk.',
     features: [
@@ -133,6 +137,7 @@ export default function LifeEventsPage() {
                   <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.08em', textTransform: 'uppercase', color: 'rgba(242,252,255,.4)', marginRight: 8 }}>Products:</span>
                   <span style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: '#70BABF', fontWeight: 600 }}>{e.product}</span>
                 </div>
+                <TextLink color="#70BABF" onClick={() => { window.location.hash = e.route; }}>Learn more</TextLink>
               </div>
             ))}
           </div>

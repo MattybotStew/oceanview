@@ -886,6 +886,30 @@ a { color: inherit; text-decoration: none; }
   border-bottom: 1px solid var(--ov-border-faint);
   position: relative;
   z-index: 10;
+  display: flex;
+  align-items: center;
+}
+
+.ov-ticker-asof-fixed {
+  flex-shrink: 0;
+  padding: 0 var(--ov-sp-4);
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--ov-ff-sans);
+  font-size: var(--ov-fz-caption);
+  font-weight: 600;
+  color: var(--ov-navy-600);
+  border-right: 1px solid var(--ov-border-faint);
+  background: var(--ov-surface-tint);
+  white-space: nowrap;
+}
+
+.ov-ticker-scroll {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 .ov-ticker-track {
@@ -895,6 +919,30 @@ a { color: inherit; text-decoration: none; }
   height: 100%;
   align-items: center;
   animation: tickerScroll 30s linear infinite;
+}
+
+.ov-ticker-compact {
+  height: auto;
+  white-space: normal;
+  border-bottom: none;
+  border-radius: 10px;
+  border: 1px solid var(--ov-border-faint);
+}
+
+.ov-ticker-track-static {
+  display: flex;
+  flex-wrap: wrap;
+  animation: none;
+  padding: var(--ov-sp-3) var(--ov-sp-4);
+}
+
+.ov-ticker-asof {
+  font-family: var(--ov-ff-sans);
+  font-size: var(--ov-fz-caption);
+  font-weight: 600;
+  color: var(--ov-navy-600);
+  margin-left: auto;
+  white-space: nowrap;
 }
 
 .ov-ticker-track:hover {
@@ -952,11 +1000,15 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* Mobile ticker adjustments */
+@media (max-width: 480px) {
+  .ov-ticker-asof-fixed { display: none; }
+}
+
 @media (max-width: 768px) {
   .ov-ticker-track {
     gap: var(--ov-sp-6);
   }
-  
+
   .ov-ticker-item {
     font-size: var(--ov-fz-caption);
     gap: var(--ov-sp-2);
@@ -976,6 +1028,16 @@ a { color: inherit; text-decoration: none; }
 @keyframes ov-dropdown-in {
   0%   { opacity: 0; transform: translateX(-50%) translateY(-6px); }
   100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ── Professional popup modal animation ─────────────────────── */
+@keyframes ov-popup-fade-in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes ov-popup-scale-in {
+  0%   { opacity: 0; transform: scale(0.96) translateY(8px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 /* ── Client Resources scroll nav tabs ───────────────────────── */

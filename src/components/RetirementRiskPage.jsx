@@ -1,4 +1,4 @@
-import { PillMint, PillGhost } from './Buttons.jsx'
+import { PillMint, PillGhost, TextLink } from './Buttons.jsx'
 import { ShieldCheck, TrendingDown, DollarSign, Percent } from 'lucide-react'
 import CTABanner from './CTABanner.jsx'
 import { Eyebrow } from './common.jsx'
@@ -33,6 +33,7 @@ const RISKS = [
     Icon: DollarSign,
     eyebrow: 'Risk #1',
     title: 'Longevity Risk',
+    route: 'rrs-longevity-risk',
     body: 'Americans are living longer than ever — and outliving retirement savings is now one of the most common threats to financial security. A guaranteed income stream removes this uncertainty.',
     features: [
       'Guaranteed lifetime income options available',
@@ -44,6 +45,7 @@ const RISKS = [
     Icon: TrendingDown,
     eyebrow: 'Risk #2',
     title: 'Market Risk',
+    route: 'rrs-market-risk',
     body: 'A significant portfolio loss early in retirement can permanently impair income — a phenomenon called sequence-of-returns risk. Principal protection shields clients from this outcome.',
     features: [
       'Zero-floor protection: account value cannot decrease due to index loss',
@@ -55,6 +57,7 @@ const RISKS = [
     Icon: Percent,
     eyebrow: 'Risk #3',
     title: 'Inflation Risk',
+    route: 'rrs-inflation-risk',
     body: 'Rising prices gradually erode purchasing power. Fixed indexed annuities offer growth potential tied to market indexes, which may outpace inflation over the long term.',
     features: [
       'Index-linked crediting with caps, participation rates, or spreads',
@@ -66,6 +69,7 @@ const RISKS = [
     Icon: ShieldCheck,
     eyebrow: 'Risk #4',
     title: 'Interest Rate Risk',
+    route: 'rrs-interest-rate-risk',
     body: 'Interest rate changes can erode the value of bond holdings or reduce income from traditional savings vehicles. MYGAs lock in competitive rates for the full contract term.',
     features: [
       'Guaranteed rates locked for the full contract period',
@@ -120,6 +124,7 @@ export default function RetirementRiskPage() {
                 </div>
                 <p style={{ ...S.bodyDark, fontSize: 14 }}>{r.body}</p>
                 <FeatureList dark features={r.features} />
+                <TextLink color="#70BABF" onClick={() => { window.location.hash = r.route; }}>Learn more</TextLink>
               </div>
             ))}
           </div>

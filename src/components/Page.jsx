@@ -48,6 +48,15 @@ import TermsPage from './TermsPage.jsx'
 import AccessibilityPage from './AccessibilityPage.jsx'
 import AgentPortalPage from './AgentPortalPage.jsx'
 import DesignPage from './DesignPage.jsx'
+import RRSMarketRiskPage from './RRSMarketRiskPage.jsx'
+import RRSInflationRiskPage from './RRSInflationRiskPage.jsx'
+import RRSLongevityRiskPage from './RRSLongevityRiskPage.jsx'
+import RRSInterestRateRiskPage from './RRSInterestRateRiskPage.jsx'
+import LESApproachingRetirementPage from './LESApproachingRetirementPage.jsx'
+import LESMarketVolatilityPage from './LESMarketVolatilityPage.jsx'
+import LESFinancialWindfallPage from './LESFinancialWindfallPage.jsx'
+import LESCareerTransitionsPage from './LESCareerTransitionsPage.jsx'
+import FIAOverviewPage from './FIAOverviewPage.jsx'
 
 const STUB_ROUTES = {
   // Top-level nav
@@ -64,6 +73,10 @@ const ROUTE_TO_NAV = {
   "faq": "FAQ", "blog": "Blog", "blog-annuity-timing": "Blog", "leadership": "About", "board": "About", "newsroom": "About",
   "white-papers": "Insights", "case-studies": "Client Resources",
   "retirement-risk": "Insights", "life-events": "Insights",
+  "rrs-market-risk": "Insights", "rrs-inflation-risk": "Insights",
+  "rrs-longevity-risk": "Insights", "rrs-interest-rate-risk": "Insights",
+  "les-approaching-retirement": "Insights", "les-market-volatility": "Insights",
+  "les-financial-windfall": "Insights", "les-career-transitions": "Insights",
   "downloads": "Client Resources", "our-story": "About", "individuals": "",
   "state-approval": "Professionals",
   "disclaimers": "", "privacy": "", "terms": "", "accessibility": "", "design": "",
@@ -75,13 +88,15 @@ const PAGE_ROUTES = new Set([
   "", "home", "products", "about", "client-resources", "insights", "faq",
   "blog", "blog-annuity-timing", "leadership", "board", "newsroom", "white-papers", "case-studies",
   "retirement-risk", "life-events", "downloads", "our-story", "individuals", "state-approval",
+  "rrs-market-risk", "rrs-inflation-risk", "rrs-longevity-risk", "rrs-interest-rate-risk",
+  "les-approaching-retirement", "les-market-volatility", "les-financial-windfall", "les-career-transitions",
   "professionals", "sales-tools", "agent-faqs",
   "contact", "lpl-landing", "cetera-landing",
   "disclaimers", "privacy", "terms", "accessibility", "agent-portal", "design",
   // product pages — canonical routes
   "harbourview-myga", "horizon-myga", "sky-harbourview-myga",
   "current-rate-fia", "harbourview-fia",
-  "caplock", "topsider",
+  "caplock", "topsider", "fia-overview",
   // legacy aliases kept for any existing links
   "harbourview", "sky-harbourview", "fia-harbourview",
   ...Object.keys(STUB_ROUTES),
@@ -153,6 +168,14 @@ export default function Page() {
       "case-studies": "Case Studies — Oceanview",
       "retirement-risk": "Retirement Risk — Oceanview",
       "life-events": "Life Events — Oceanview",
+      "rrs-market-risk": "Market Risk — Retirement Risk Series — Oceanview",
+      "rrs-inflation-risk": "Inflation Risk — Retirement Risk Series — Oceanview",
+      "rrs-longevity-risk": "Longevity Risk — Retirement Risk Series — Oceanview",
+      "rrs-interest-rate-risk": "Interest Rate Risk — Retirement Risk Series — Oceanview",
+      "les-approaching-retirement": "Approaching Retirement — Life Events Series — Oceanview",
+      "les-market-volatility": "Market Volatility — Life Events Series — Oceanview",
+      "les-financial-windfall": "Financial Windfall — Life Events Series — Oceanview",
+      "les-career-transitions": "Career Transitions — Life Events Series — Oceanview",
       "downloads": "Downloads — Oceanview",
       "our-story": "Our Story — Oceanview",
       "individuals": "Individuals — Oceanview",
@@ -163,6 +186,7 @@ export default function Page() {
       "terms": "Terms of Use — Oceanview",
       "accessibility": "Accessibility — Oceanview",
       "agent-portal":  "Agent Portal — Oceanview",
+      "fia-overview": "Fixed Indexed Annuities — Oceanview",
       "design": "Design System — Oceanview",
     };
     const descriptions = {
@@ -183,6 +207,7 @@ export default function Page() {
       "individuals": "Retirement solutions for individuals — explore how Oceanview annuities can protect and grow your savings.",
       "accessibility": "Oceanview Life and Annuity is committed to making OceanviewLife.com accessible to everyone, in line with WCAG 2.0 AA standards.",
       "agent-portal": "Secure login for licensed Oceanview agents — manage client accounts, submit new business, and access sales tools.",
+      "fia-overview": "Explore Oceanview's Fixed Indexed Annuity line — Harbourview FIA, CapLock, and Topsider — index-linked growth with zero-floor principal protection.",
       "design": "Oceanview Design System — complete reference for colors, typography, buttons, links, shadows, pills, forms, layout, and component patterns.",
     };
     document.title = titles[route] || "Oceanview Life and Annuity";
@@ -219,12 +244,21 @@ export default function Page() {
       case "fia-harbourview":       return <HarbourviewFIAPage />;       // legacy alias
       case "caplock":               return <CapLockFIAPage />;
       case "topsider":              return <TopsiderFIAPage />;
+      case "fia-overview":          return <FIAOverviewPage />;
       case "board":              return <BoardPage />;
       case "newsroom":           return <NewsroomPage />;
       case "white-papers":       return <WhitePapersPage />;
       case "case-studies":       return <CaseStudiesPage />;
       case "retirement-risk":    return <RetirementRiskPage />;
       case "life-events":        return <LifeEventsPage />;
+      case "rrs-market-risk":            return <RRSMarketRiskPage />;
+      case "rrs-inflation-risk":         return <RRSInflationRiskPage />;
+      case "rrs-longevity-risk":         return <RRSLongevityRiskPage />;
+      case "rrs-interest-rate-risk":     return <RRSInterestRateRiskPage />;
+      case "les-approaching-retirement": return <LESApproachingRetirementPage />;
+      case "les-market-volatility":      return <LESMarketVolatilityPage />;
+      case "les-financial-windfall":     return <LESFinancialWindfallPage />;
+      case "les-career-transitions":     return <LESCareerTransitionsPage />;
       case "downloads":          return <DownloadsPage />;
       case "our-story":          return <OurStoryPage />;
       case "individuals":        return <IndividualsPage />;

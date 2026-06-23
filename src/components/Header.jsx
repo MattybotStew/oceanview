@@ -1,5 +1,6 @@
 // Header.jsx — Responsive header: desktop mega-dropdown + mobile drawer
 import { useState, useRef, useEffect, Fragment } from 'react'
+import ProfessionalPopup from './ProfessionalPopup.jsx'
 
 // ─── CHEVRON ──────────────────────────────────────────────────────────────────
 function Chevron({ direction = "down", size = 16, color = "#FFF" }) {
@@ -63,6 +64,7 @@ const NAV_DROPDOWNS = {
           { label: "CapLock™ FIA", href: "#caplock",   desc: "Guaranteed cap rate locked for the entire surrender charge period — no annual resets, no uncertainty." },
           { label: "Topsider FIA", href: "#topsider",  desc: "Upside-focused index crediting strategies within a structured, protected framework built for accumulation." },
         ],
+        cta: { label: "Compare the full FIA line", href: "#fia-overview" },
       },
     ],
   },
@@ -624,10 +626,15 @@ export function Logo({ dark = false }) {
 // ─── HEADER ───────────────────────────────────────────────────────────────────
 const NAV_ITEMS = ["About", "Products", "Client Resources", "Insights", "Blog"];
 const AUD_ITEMS = ["Individuals", "Professionals"];
+const RATE_ITEMS = [
+  { label: "Explore Rates", href: "#client-resources?tab=rates" },
+  { label: "Compare Rates", href: "#client-resources?tab=comparisons" },
+];
 
 export default function Header({ active = "Home", onNav }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState(null);
+  const [professionalPopupOpen, setProfessionalPopupOpen] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -659,12 +666,25 @@ export default function Header({ active = "Home", onNav }) {
             ))}
             {AUD_ITEMS.map(a => (
               <a key={a} className="ov-aud-chip" href={`#${a.toLowerCase()}`} style={{ ...S.audChip, textDecoration: "none" }}
-                onClick={(e) => { e.preventDefault(); onNav && onNav(a); }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (a === "Professionals") { setProfessionalPopupOpen(true); return; }
+                  onNav && onNav(a);
+                }}
                 onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.2)"}
                 onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
                 onFocus={e => e.currentTarget.style.background = "rgba(255,255,255,0.2)"}
                 onBlur={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}>
                 {a}
+              </a>
+            ))}
+            {RATE_ITEMS.map(r => (
+              <a key={r.label} className="ov-aud-chip" href={r.href} style={{ ...S.audChip, textDecoration: "none" }}
+                onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.2)"}
+                onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
+                onFocus={e => e.currentTarget.style.background = "rgba(255,255,255,0.2)"}
+                onBlur={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}>
+                {r.label}
               </a>
             ))}
           </nav>
@@ -737,14 +757,25 @@ export default function Header({ active = "Home", onNav }) {
         <div style={{ padding: "16px 20px 24px", borderTop: "1px solid rgba(13,31,78,0.08)", display: "flex", flexDirection: "column", gap: 10, flexShrink: 0 }}>
           {AUD_ITEMS.map(a => (
             <a key={a} href={`#${a.toLowerCase()}`}
-              onClick={(e) => { e.preventDefault(); onNav && onNav(a); closeMobile(); }}
+              onClick={(e) => {
+                e.preventDefault();
+                if (a === "Professionals") { setProfessionalPopupOpen(true); closeMobile(); return; }
+                onNav && onNav(a); closeMobile();
+              }}
               style={{ display: "block", width: "100%", padding: "14px 20px", background: "#F0EEE9", borderRadius: 8, fontFamily: "var(--ov-ff-sans)", fontSize: 13, fontWeight: 600, color: "var(--ov-navy-900)", letterSpacing: "0.08em", textTransform: "uppercase", textAlign: "center", textDecoration: "none" }}>
               {a}
+            </a>
+          ))}
+          {RATE_ITEMS.map(r => (
+            <a key={r.label} href={r.href} onClick={closeMobile}
+              style={{ display: "block", width: "100%", padding: "14px 20px", background: "#F0EEE9", borderRadius: 8, fontFamily: "var(--ov-ff-sans)", fontSize: 13, fontWeight: 600, color: "var(--ov-navy-900)", letterSpacing: "0.08em", textTransform: "uppercase", textAlign: "center", textDecoration: "none" }}>
+              {r.label}
             </a>
           ))}
         </div>
       </div>
     </header>
+    <ProfessionalPopup open={professionalPopupOpen} onClose={() => setProfessionalPopupOpen(false)} />
     </>
   );
 }

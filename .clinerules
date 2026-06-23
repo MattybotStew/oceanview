@@ -3,6 +3,29 @@
 
 ---
 
+## Current Session State
+
+**Last Updated:** 2026-06-23 (Claude Code)
+**Active Agent:** Claude Code
+**Last Commit:** 7aa81cf — feat: add all 8 RRS and LES detail pages (route wiring below is uncommitted)
+
+### In Progress
+- (none — route wiring batch + 6-task UX batch both complete)
+
+### Route slugs registered
+| Route | Component |
+|---|---|
+| `rrs-market-risk` | RRSMarketRiskPage |
+| `rrs-inflation-risk` | RRSInflationRiskPage |
+| `rrs-longevity-risk` | RRSLongevityRiskPage |
+| `rrs-interest-rate-risk` | RRSInterestRateRiskPage |
+| `les-approaching-retirement` | LESApproachingRetirementPage |
+| `les-market-volatility` | LESMarketVolatilityPage |
+| `les-financial-windfall` | LESFinancialWindfallPage |
+| `les-career-transitions` | LESCareerTransitionsPage |
+
+---
+
 ## Who else is working on this codebase
 
 **Claude Code** is the primary coding agent on this project. This `.clinerules` file is kept
@@ -120,6 +143,15 @@ Surface:  #F1FBFF  (ov-surface-tint)
 | #terms       | TermsPage.jsx         | ✅ Complete  |
 | #agent-portal | AgentPortalPage.jsx   | ✅ Complete  |
 | #accessibility | AccessibilityPage.jsx | ✅ Complete  |
+| #rrs-market-risk | RRSMarketRiskPage.jsx | ✅ Complete |
+| #rrs-inflation-risk | RRSInflationRiskPage.jsx | ✅ Complete |
+| #rrs-longevity-risk | RRSLongevityRiskPage.jsx | ✅ Complete |
+| #rrs-interest-rate-risk | RRSInterestRateRiskPage.jsx | ✅ Complete |
+| #les-approaching-retirement | LESApproachingRetirementPage.jsx | ✅ Complete |
+| #les-market-volatility | LESMarketVolatilityPage.jsx | ✅ Complete |
+| #les-financial-windfall | LESFinancialWindfallPage.jsx | ✅ Complete |
+| #les-career-transitions | LESCareerTransitionsPage.jsx | ✅ Complete |
+| #fia-overview | FIAOverviewPage.jsx | ✅ Complete |
 
 ---
 
@@ -360,3 +392,77 @@ Key node IDs (as node-id URL param format):
 - Leadership: `7326-1671`
 - Board of Directors: `7326-2209`
 - Newsroom: `7391-1326`
+
+---
+
+## What Cline did most recently (June 23 2026)
+
+### All 8 RRS and LES detail pages — created (commit 7aa81cf)
+
+Created 8 new detail page components in `src/components/`:
+
+**RRS (Retirement Risk Series) — 4 pages:**
+- **RRSMarketRiskPage.jsx** — Market Risk: sequence-of-returns risk deep-dive, zero-floor protection solution, Harbourview FIA focus. Hero + 3 content sections + CTABanner.
+- **RRSInflationRiskPage.jsx** — Inflation Risk: purchasing power erosion, tax-deferred compounding, index-linked crediting strategies. Hero + 3 content sections + CTABanner.
+- **RRSLongevityRiskPage.jsx** — Longevity Risk: outliving savings statistics, guaranteed lifetime income, FIA income riders + MYGA accumulation. Hero + 3 content sections + CTABanner.
+- **RRSInterestRateRiskPage.jsx** — Interest Rate Risk: reinvestment trap, bond price sensitivity, MYGA rate lock vs CD ladder. Hero + 3 content sections + CTABanner.
+
+**LES (Life Events Series) — 4 pages:**
+- **LESApproachingRetirementPage.jsx** — Pre-retirement window (5–10 years), accumulation-to-protection shift, MYGA + FIA pairing. Hero + 3 content sections + CTABanner.
+- **LESMarketVolatilityPage.jsx** — Fear-driven decision-making, behavior gap, zero-floor FIA eliminates emotional triggers. Hero + 3 content sections + CTABanner.
+- **LESFinancialWindfallPage.jsx** — Inheritance/sale proceeds/settlements, urgency trap, tax-deferred windfall management via MYGA. Hero + 3 content sections + CTABanner.
+- **LESCareerTransitionsPage.jsx** — 401(k) rollovers, the default problem, IRA-held MYGA/FIA as rollover destination. Hero + 3 content sections + CTABanner.
+
+**Page structure (consistent across all 8):**
+- Hero: centered text with eyebrow row (blue dash + uppercase label) + h1 + subtitle
+- Section 1: white bg, 2-col split — text left (icon tile + Eyebrow + h2 + body paragraphs), teal-tint card right (h3 + FeatureList)
+- Section 2: navy bg (`var(--ov-navy-1000)`), Eyebrow + h2 + dark cards in 2-col grid
+- Section 3: white bg, 2-col split — text left (Eyebrow + h2 + body + FeatureList + PillMint/PillGhost CTAs), image right
+- CTABanner: tint bg section, shared CTABanner component
+
+**Design compliance:**
+- All inline style objects with design tokens (`var(--ov-ff-display)`, `var(--ov-ff-sans)`, `var(--ov-navy-1000)`, `var(--ov-surface-tint)`)
+- FeatureList component with dark/light variants (matches hub page pattern)
+- Card rules followed: teal-tint cards on white sections, dark cards on navy sections
+- Shared components used: Eyebrow, CTABanner, PillMint, PillGhost (no raw buttons)
+- Lucide icons: TrendingDown, Percent, DollarSign, ShieldCheck, Clock, BarChart2, Gift, Briefcase
+- Responsive classes reused: `ov-section`, `ov-container`, `ov-split-row`, `ov-risk-grid`
+- Build verified clean (`npm run build` — 1807 modules, no errors)
+
+**What was NOT done (intentionally left for Claude Code):**
+- Page.jsx route wiring (imports, switch cases, PAGE_ROUTES, titles)
+- Header.jsx navigation links
+- Hub card linking (RetirementRiskPage.jsx and LifeEventsPage.jsx cards still need links to their detail pages)
+- index.html script updates
+- tokens.css additions (none needed — existing responsive classes cover all 8 pages)
+
+---
+
+## What Claude Code did most recently (June 23 2026)
+
+### Route wiring for the 8 RRS/LES detail pages (Cline's June 23 handoff)
+
+- **Page.jsx** — imported all 8 components (`RRSMarketRiskPage`, `RRSInflationRiskPage`, `RRSLongevityRiskPage`, `RRSInterestRateRiskPage`, `LESApproachingRetirementPage`, `LESMarketVolatilityPage`, `LESFinancialWindfallPage`, `LESCareerTransitionsPage`); added all 8 slugs to `PAGE_ROUTES`, `ROUTE_TO_NAV` (→ "Insights", matching their hub pages), the `renderPage()` switch, and the `titles` map. Did not add to the `descriptions` map — the existing hub pages (`retirement-risk`, `life-events`) also have no custom meta description entry, so this matches that convention rather than introducing one.
+- **Header.jsx** — no changes. The Insights dropdown already links to the two hub pages (`#retirement-risk`, `#life-events`); the 8 detail pages are one level deeper, same pattern as `#blog-annuity-timing` (reachable only via `BlogPage.jsx` cards, not listed in the header itself). Adding all 8 as header entries would be inconsistent with how every other multi-page series on this site is surfaced.
+- **RetirementRiskPage.jsx** — the 4 navy "risk" pillar cards had no link to their new dedicated pages. Added a `route` field to each `RISKS` entry (`rrs-longevity-risk`, `rrs-market-risk`, `rrs-inflation-risk`, `rrs-interest-rate-risk`) and a `TextLink` ("Learn more", `color="#70BABF"` to read against the dark card) at the bottom of each card navigating to it.
+- **LifeEventsPage.jsx** — same pattern: added a `route` field to each `EVENTS` entry (`les-approaching-retirement`, `les-market-volatility`, `les-financial-windfall`, `les-career-transitions`) and a `TextLink` under the existing "Products:" line on each dark card.
+- **index.html** — no changes needed. This is a standard single-entry Vite SPA (`<script type="module" src="/src/main.jsx">`); there's no per-page/per-component script tag pattern to wire.
+- Build verified clean (`npm run build` — 1815 modules, no errors).
+- These changes (Page.jsx, RetirementRiskPage.jsx, LifeEventsPage.jsx, .clinerules) are uncommitted in the working tree, same as Cline's earlier `.clinerules` edit — not yet committed pending user confirmation.
+
+---
+
+## What Claude Code did most recently (June 23 2026, batch 2)
+
+### 6-task UX batch: ContactForm extraction, ProfessionalPopup, header rate chips, ticker enhancements, FIA overview page, footer links
+
+- **ContactForm.jsx** — new. Extracted the 2-step progressive inquiry form (`InquiryForm`/`StepDot` + `US_STATES`/`INQUIRY_TYPES`/`HEARD_OPTIONS`/`AGENT_TYPES`) out of `ContactPage.jsx` into its own standalone, self-contained component (no props — manages its own state, same behavior as before: inquiry-type branching, policyholder/agent conditional questions, NPN validation, success state). **ContactPage.jsx** now imports it and renders `<ContactForm />` in place of the old inline `InquiryForm`; removed the now-dead form-only styles (`stepIndicator`, `field*`, `input`, `select`, `textarea`, `inlineNote`, `checkRow`, `fieldRow2`, `successWrap/Icon`, unused `formTitle`) and now-unused imports (`PillMint`, `ChevronRight`, `Check`, `US_STATES`) from that file. `formWrap` (the outer dark-section card) stayed in `ContactPage.jsx` since it's page layout, not form-internal.
+- **ProfessionalPopup.jsx** — new. Centered modal (navy-tinted `rgba(0,31,84,.55)` backdrop, white rounded card, fade+scale-in animation) with 4 links (Agent Portal, Sales Tools, LPL Advisor Resources, Cetera Advisor Resources) using the same hover/border-accent treatment as the header's mega-dropdown `SimpleLink`/`ProductLink`, plus a footer "View all professional resources" link to `#professionals`. New keyframes `ov-popup-fade-in` / `ov-popup-scale-in` added to `tokens.css` next to the existing `ov-dropdown-in`.
+- **Header.jsx** — clicking the "Professionals" audience chip (desktop nav-group chip and mobile drawer CTA pill) now opens `ProfessionalPopup` instead of navigating straight to `#professionals`; "Individuals" is unchanged. Also added two new audience-styled chips, `RATE_ITEMS` = "Explore Rates" (`#client-resources?tab=rates`) and "Compare Rates" (`#client-resources?tab=comparisons`), rendered both in the desktop chip group (real `<a href>` like the existing Client Resources dropdown sub-links — relies on native hashchange, not the `onNav`/`goto` slugifier, since these need a `?tab=` query param) and the mobile drawer CTA pills. Existing Client Resources dropdown links to Rates/Comparisons are unchanged (kept as secondary access, per instructions).
+- **TickerBar.jsx** — added a non-scrolling "As of HH:MM ET" timestamp badge (updates every 60s) fixed to the left of the scrolling marquee (new `.ov-ticker-scroll` wrapper + `.ov-ticker-asof-fixed` in `tokens.css`; hidden under 480px to avoid crowding), and a ▲/▼ direction glyph next to each change percentage. Added an optional `compact` prop (renders a static, non-marquee, wrapping row — `.ov-ticker-compact`/`.ov-ticker-track-static` — for embedding the ticker inline elsewhere on the site) without changing the default sticky-bar usage in `Page.jsx`.
+- **FIAOverviewPage.jsx** — new hub page at `#fia-overview` summarizing the Fixed Indexed Annuity line (Harbourview FIA, CapLock™ FIA, Topsider FIA), built in the same self-contained hardcoded-component style as `RetirementRiskPage.jsx`/`LifeEventsPage.jsx`: hero, "how FIAs work" 2-col section, navy 3-card compare section (each card links to its product page), a "want the full comparison" CTA row pointing to the existing `#client-resources?tab=comparisons` table (intentionally not duplicating that data), and a closing `CTABanner`. Wired into `Page.jsx` (import, `PAGE_ROUTES`, switch case, `titles`/`descriptions` maps — note: the `titles` and `descriptions` consts in `Page.jsx` are two separate objects both ending near a `"design":` key, easy to add an entry to the wrong one). Linked in from `Header.jsx`'s Products → "Fixed Indexed Annuities" dropdown tab (`cta: "Compare the full FIA line"`) and from `ProductsPage.jsx`'s Fixed Indexed Annuities section (new `TextLink`) so it isn't an orphan route.
+- **SkyHarbourviewMYGAPage.jsx** — reviewed; field-for-field identical structure to `HarbourviewMYGAPage.jsx` (verified via diff), already using the shared `ProductDetailPage` template correctly including the `key-terms` section-jump stat row. No changes needed.
+- **Footer.jsx** — added "Financial Professional Blog" → `#blog` to the Insights column, and "Product Brochures" → `#downloads` to the Client Resources column (distinct from the existing "Downloads" link, which points to the Client Resources page's Downloads *tab* — `#downloads` is the dedicated `DownloadsPage.jsx` with the actual brochure/spec-sheet library).
+- Verified via Playwright (dev server): ticker shows timestamp + arrows with no console errors; Professionals popup opens with all 4 links and closes correctly; "Explore Rates" chip navigates to `#client-resources?tab=rates`; `#fia-overview` renders with correct page title and no console errors; footer shows both new links.
+- Build verified clean throughout (`npm run build`, final pass: no errors).
+- All changes uncommitted in the working tree pending user confirmation, same as the route-wiring batch above.
