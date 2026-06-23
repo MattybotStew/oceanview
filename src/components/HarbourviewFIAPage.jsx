@@ -71,6 +71,11 @@ const PRODUCT = {
         ],
       },
     ],
+    strategyLinks: [
+      { label: "Learn more about S&P 500 strategies", href: "#sp500-strategy" },
+      { label: "Learn more about Russell 2000 strategies", href: "#russell-strategy" },
+      { label: "Learn more about Nasdaq-100 strategies", href: "#nasdaq-strategy" },
+    ],
   },
 
   keyTerms: {

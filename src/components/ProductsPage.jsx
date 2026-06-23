@@ -144,6 +144,13 @@ const PRODUCTS = {
     body: "Provides guaranteed interest for a set term, offering stable and predictable growth without exposure to market fluctuations — suited for those who want simplicity and certainty.",
     bullets: ["Are looking for straightforward, guaranteed growth over a set term", "Prioritize clarity and consistency in their retirement planning", "Prefer a fixed interest structure with clearly defined outcomes", "Want an easy-to-understand accumulation solution"],
   },
+  skyHarbourviewMYGA: {
+    href: "#sky-harbourview-myga",
+    eyebrow: "Sky Harbourview MYGA", rate: null, rateTerm: null,
+    heading: "Guaranteed yield with tax-deferred growth and a built-in death benefit",
+    body: "A Multi-Year Guaranteed Annuity that provides a guaranteed rate of return over a set period — with full principal protection, tax-deferred growth, and a death benefit for your beneficiaries included at no extra cost.",
+    bullets: ["Want guaranteed returns with no market exposure", "Value the security of a death benefit for beneficiaries", "Prefer tax-deferred growth over a set accumulation period", "Are looking for predictable, clearly defined growth outcomes"],
+  },
   currentRate: {
     href: "#current-rate-fia",
     eyebrow: "Current Rate Fixed Annuity", rate: "4.95%", rateTerm: "3-Year Initial Rate",
@@ -183,9 +190,10 @@ const CATEGORIES = [
 const SCROLL_MARGIN = "240px";
 
 const NAV_PRODUCTS = [
-  { label: "Harbourview MYGA",           href: "#prd-harbourview-myga", cat: "fixed-annuities" },
-  { label: "Horizon MYGA",               href: "#prd-horizon-myga",     cat: "fixed-annuities" },
-  { label: "Current Rate Fixed Annuity", href: "#prd-current-rate",     cat: "fixed-with-flex" },
+  { label: "Harbourview MYGA",           href: "#prd-harbourview-myga",      cat: "fixed-annuities" },
+  { label: "Horizon MYGA",               href: "#prd-horizon-myga",           cat: "fixed-annuities" },
+  { label: "Sky Harbourview MYGA",       href: "#prd-sky-harbourview-myga",  cat: "fixed-annuities" },
+  { label: "Current Rate Fixed Annuity", href: "#prd-current-rate",          cat: "fixed-with-flex" },
   { label: "Harbourview FIA",            href: "#prd-harbourview-fia",  cat: "fixed-with-flex" },
   { label: "CapLock",                    href: "#prd-caplock",          cat: "fixed-indexed" },
   { label: "Topsider",                   href: "#prd-topsider",         cat: "fixed-indexed" },
@@ -269,7 +277,8 @@ export default function ProductsPage() {
           </div>
           <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-2col">
             <div id="prd-harbourview-myga" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.harbourviewMYGA} tint /></div>
-            <div id="prd-horizon-myga"     style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.horizonMYGA} tint /></div>
+            <div id="prd-horizon-myga"            style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.horizonMYGA} tint /></div>
+            <div id="prd-sky-harbourview-myga"    style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.skyHarbourviewMYGA} tint /></div>
           </div>
         </div>
       </section>

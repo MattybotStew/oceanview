@@ -1,6 +1,6 @@
 // ProductDetailPage.jsx — Product detail template (Figma: 2026-Oceanview-Design / node 6951-569)
 import { useState, useEffect } from 'react'
-import { PillMint, PillGhost } from './Buttons.jsx'
+import { PillMint, PillGhost, TextLink } from './Buttons.jsx'
 import CTABanner from './CTABanner.jsx'
 import HeroShaper from './HeroShaper.jsx'
 import { Download, ChevronRight } from 'lucide-react'
@@ -356,6 +356,15 @@ export default function ProductDetailPage({ product }) {
                     <StrategyRow key={s.name} {...s} last={i === creditingStrategies.tabs[activeTab].strategies.length - 1} />
                   ))}
                 </div>
+                {creditingStrategies.strategyLinks && creditingStrategies.strategyLinks.length > 0 && (
+                  <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 20 }}>
+                    {creditingStrategies.strategyLinks.map((link, i) => (
+                      <TextLink key={i} onClick={() => { window.location.hash = link.href.replace('#', ''); window.scrollTo({ top: 0, behavior: 'instant' }) }}>
+                        {link.label}
+                      </TextLink>
+                    ))}
+                  </div>
+                )}
               </section>}
 
               {/* 4 — Key terms */}
