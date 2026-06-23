@@ -38,6 +38,13 @@ export default function RRSLongevityRiskPage() {
     <main>
       <section style={{ background: '#fff', padding: '80px 0 64px', textAlign: 'center' }}>
         <div className="ov-container">
+          <button
+            type="button"
+            onClick={() => { window.location.hash = 'retirement-risk'; }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'none', border: 0, padding: 0, marginBottom: 20, fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: 'var(--ov-navy-600)', cursor: 'pointer' }}
+          >
+            ← Back to Retirement Risk Series
+          </button>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 20 }}>
             <div style={{ width: 18, height: 1, background: '#2494C1', flexShrink: 0 }} />
             <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: '#2494C1' }}>Retirement Risk Series</span>
