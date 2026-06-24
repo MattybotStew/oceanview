@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import PageHero from './PageHero.jsx'
 import CTABanner from './CTABanner.jsx'
 import { TextLink, PillGhost } from './Buttons.jsx'
@@ -24,13 +24,29 @@ const S = {
 
 // ── DOWNLOADS ─────────────────────────────────────────────────────────────────
 
-const BROCHURES = [
-  { name: "Harbourview MYGA",           desc: "Multi-Year Guaranteed Annuity — competitive guaranteed rates across multiple terms.",    route: "harbourview-myga" },
-  { name: "Sky Harbourview MYGA",        desc: "Enhanced MYGA with nursing home waiver and strong rate bands.",                         route: "sky-harbourview-myga" },
-  { name: "CurrentRate MYGA",            desc: "Flexible premium annuity with competitive current rates and annual reset.",              route: "current-rate-fia" },
-  { name: "Harbourview FIA",             desc: "Balanced growth with principal protection and multiple indexing strategies.",            route: "harbourview-fia" },
-  { name: "CapLock Fixed Indexed",       desc: "Guaranteed cap rates and participation choices — zero market risk.",                     route: "caplock" },
-  { name: "FlexSave SPIA",               desc: "Single premium immediate annuity providing guaranteed lifetime income.",                 route: "products" },
+const BROCHURE_GROUPS = [
+  {
+    label: "Fixed Annuities",
+    items: [
+      { name: "Harbourview MYGA",      desc: "Multi-Year Guaranteed Annuity — competitive guaranteed rates across multiple terms.",    route: "harbourview-myga" },
+      { name: "Horizon MYGA",          desc: "Straightforward guaranteed accumulation — predictable growth and tax deferral.",          route: "horizon-myga" },
+      { name: "Sky Harbourview MYGA",   desc: "Enhanced MYGA with nursing home waiver and strong rate bands.",                         route: "sky-harbourview-myga" },
+    ],
+  },
+  {
+    label: "Fixed Annuities with Flexibility",
+    items: [
+      { name: "CurrentRate MYGA",       desc: "Flexible premium annuity with competitive current rates and annual reset.",              route: "current-rate-fia" },
+      { name: "Harbourview FIA",        desc: "Balanced growth with principal protection and multiple indexing strategies.",            route: "harbourview-fia" },
+    ],
+  },
+  {
+    label: "Fixed Indexed Annuities",
+    items: [
+      { name: "CapLock Fixed Indexed",  desc: "Guaranteed cap rates and participation choices — zero market risk.",                     route: "caplock" },
+      { name: "Topsider FIA",           desc: "Upside-focused index crediting strategies within a structured, protected framework.",    route: "topsider" },
+    ],
+  },
 ];
 
 const APP_PACKETS = [
@@ -73,7 +89,6 @@ const dlSectionHead = {
 function DownloadsTab() {
   return (
     <div style={S.section}>
-      {/* Product Brochures */}
       <Eyebrow>Product Brochures</Eyebrow>
       <h2 style={S.h2}>Brochures & spec sheets</h2>
       <p style={{ ...S.body, marginBottom: 4 }}>
@@ -82,9 +97,17 @@ function DownloadsTab() {
       <p style={{ fontFamily: "var(--ov-ff-sans)", fontStyle: "italic", fontSize: 13, color: "#9CA3AF", margin: "0 0 28px" }}>
         *All PDF forms reflect latest revisions (March 2026). For agent use only.
       </p>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
-        {BROCHURES.map(b => <BrochureCard key={b.name} {...b} />)}
-      </div>
+
+      {BROCHURE_GROUPS.map((group, gi) => (
+        <div key={group.label}>
+          {gi > 0 && <div style={S.divider} />}
+          <p style={dlSectionHead}>{group.label}</p>
+          <div style={{ height: 1, background: "rgba(13,31,78,.12)", marginBottom: 32 }} />
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
+            {group.items.map(b => <BrochureCard key={b.name} {...b} />)}
+          </div>
+        </div>
+      ))}
 
       <div style={S.divider} />
 
@@ -452,12 +475,20 @@ function CaseStudiesSection() {
   );
 }
 
-// ── SCROLL NAV ────────────────────────────────────────────────────────────────
+// ── TAB NAV ───────────────────────────────────────────────────────────────────
 
-const NAV_H = 48; // px — height of the sticky scroll nav bar
+const NAV_H = 51; // px — height of the sticky tab nav
 const HEADER_H = 72; // px — site header height
 
-function ScrollNav({ active }) {
+const ctS = {
+  ctNavOuter:  { background: '#fff', position: 'sticky', top: HEADER_H, zIndex: 50, boxShadow: '0 1px 0 #e8e5e5' },
+  ctTabRow:    { display: 'flex', borderBottom: '1px solid #e8e5e5', overflowX: 'auto', WebkitOverflowScrolling: 'touch' },
+  ctTab:       { flex: '1 0 0', minWidth: 140, height: 51, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 24px', borderTop: 'none', borderLeft: 'none', borderBottom: 'none', borderRight: '1px solid #e8e5e5', fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#001F54', whiteSpace: 'nowrap', cursor: 'pointer', transition: 'background .15s', letterSpacing: '.01em' },
+  ctTabActive:   { background: 'rgba(226,241,242,0.6)' },
+  ctTabInactive: { background: 'transparent' },
+};
+
+function TabNav({ active, items }) {
   const scrollTo = (id) => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -467,36 +498,36 @@ function ScrollNav({ active }) {
   };
 
   return (
-    <div style={{ background: "#fff", position: "sticky", top: HEADER_H, zIndex: 50, boxShadow: "0 1px 0 #e8e5e5" }}>
+    <div style={ctS.ctNavOuter}>
       <div className="ov-container">
-        <div style={{ display: "flex", overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
-          {NAV_ITEMS.map(({ id, label }) => {
-            const isActive = active === id;
+        <div role="tablist" aria-label="Client Resources sections" style={ctS.ctTabRow}>
+          {items.map((t, idx) => {
+            const isActive = active === t.id;
             return (
               <button
-                key={id}
-                onClick={() => scrollTo(id)}
-                style={{
-                  flex: "1 0 0",
-                  minWidth: 160,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: 4,
-                  padding: "14px 12px 15px",
-                  textDecoration: "none",
-                  transition: "border-color .15s",
-                  border: 0,
-                  background: "none",
-                  cursor: "pointer",
-                  borderBottom: isActive ? "3px solid #2494C1" : "1px solid #e8e5e5",
-                  paddingBottom: isActive ? 19 : 15,
+                key={t.id}
+                role="tab"
+                id={`tab-${t.id}`}
+                aria-selected={isActive}
+                aria-controls={`section-${t.id}`}
+                className="ov-contact-tab"
+                style={{ ...ctS.ctTab, ...(isActive ? ctS.ctTabActive : ctS.ctTabInactive) }}
+                tabIndex={isActive ? 0 : -1}
+                onClick={() => scrollTo(t.id)}
+                onKeyDown={(e) => {
+                  let next = null;
+                  if (e.key === 'ArrowRight') next = (idx + 1) % items.length;
+                  else if (e.key === 'ArrowLeft')  next = (idx - 1 + items.length) % items.length;
+                  else if (e.key === 'Home')        next = 0;
+                  else if (e.key === 'End')         next = items.length - 1;
+                  else return;
+                  e.preventDefault();
+                  document.getElementById(`tab-${items[next].id}`)?.focus();
                 }}
-                className="ov-scroll-nav-tab"
+                onMouseEnter={e => { if (!isActive) e.currentTarget.style.background = 'rgba(226,241,242,0.35)'; }}
+                onMouseLeave={e => { if (!isActive) e.currentTarget.style.background = 'transparent'; }}
               >
-                <span style={{ fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "#001F54", textAlign: "center", whiteSpace: "nowrap" }}>
-                  {label}
-                </span>
+                {t.label}
               </button>
             );
           })}
@@ -519,8 +550,6 @@ const SECTION_BG = {
 export default function ClientResourcesPage({ tab }) {
   const initialTab = NAV_ITEMS.find(n => n.id === tab) ? tab : 'downloads';
   const [activeSection, setActiveSection] = useState(initialTab);
-
-  const didScrollTo = useRef(false);
 
   useEffect(() => {
     const observers = NAV_ITEMS.map(({ id }) => {
@@ -557,7 +586,7 @@ export default function ClientResourcesPage({ tab }) {
         subtitle="Downloads, current rates, glossary, and product comparisons — all in one place. Designed to help you serve clients faster."
       />
 
-      <ScrollNav active={activeSection} />
+      <TabNav active={activeSection} items={NAV_ITEMS} />
 
       {NAV_ITEMS.map(({ id }) => (
         <div key={id} id={id} style={{ background: SECTION_BG[id] }}>

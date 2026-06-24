@@ -5,9 +5,9 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-06-24 (Cline)
-**Active Agent:** Cline
-**Last Commit:** 355a5cf — chore: regenerate snapshots after PageHero layer collapse
+**Last Updated:** 2026-06-24 (Claude Code)
+**Active Agent:** Claude Code
+**Last Commit:** 6791788 — fix: restore ?tab= navigation on Client Resources page
 **Working Tree:** Clean
 
 ### In Progress
