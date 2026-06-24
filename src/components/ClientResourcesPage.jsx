@@ -98,16 +98,9 @@ function DownloadsTab() {
         *All PDF forms reflect latest revisions (March 2026). For agent use only.
       </p>
 
-      {BROCHURE_GROUPS.map((group, gi) => (
-        <div key={group.label}>
-          {gi > 0 && <div style={S.divider} />}
-          <p style={dlSectionHead}>{group.label}</p>
-          <div style={{ height: 1, background: "rgba(13,31,78,.12)", marginBottom: 32 }} />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
-            {group.items.map(b => <BrochureCard key={b.name} {...b} />)}
-          </div>
-        </div>
-      ))}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16, marginBottom: 0 }}>
+        {BROCHURE_GROUPS.flatMap(g => g.items).map(b => <BrochureCard key={b.name} {...b} />)}
+      </div>
 
       <div style={S.divider} />
 
@@ -498,32 +491,17 @@ function TabNav({ active, items }) {
   };
 
   return (
-    <div style={ctS.ctNavOuter}>
+    <nav aria-label="Client Resources sections" style={{ background: '#fff', position: 'sticky', top: HEADER_H, zIndex: 50 }}>
       <div className="ov-container">
-        <div role="tablist" aria-label="Client Resources sections" style={ctS.ctTabRow}>
-          {items.map((t, idx) => {
+        <div style={{ display: 'flex', borderBottom: '1px solid #e8e5e5', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+          {items.map(t => {
             const isActive = active === t.id;
             return (
               <button
                 key={t.id}
-                role="tab"
-                id={`tab-${t.id}`}
-                aria-selected={isActive}
-                aria-controls={`section-${t.id}`}
+                onClick={() => scrollTo(t.id)}
                 className="ov-contact-tab"
                 style={{ ...ctS.ctTab, ...(isActive ? ctS.ctTabActive : ctS.ctTabInactive) }}
-                tabIndex={isActive ? 0 : -1}
-                onClick={() => scrollTo(t.id)}
-                onKeyDown={(e) => {
-                  let next = null;
-                  if (e.key === 'ArrowRight') next = (idx + 1) % items.length;
-                  else if (e.key === 'ArrowLeft')  next = (idx - 1 + items.length) % items.length;
-                  else if (e.key === 'Home')        next = 0;
-                  else if (e.key === 'End')         next = items.length - 1;
-                  else return;
-                  e.preventDefault();
-                  document.getElementById(`tab-${items[next].id}`)?.focus();
-                }}
                 onMouseEnter={e => { if (!isActive) e.currentTarget.style.background = 'rgba(226,241,242,0.35)'; }}
                 onMouseLeave={e => { if (!isActive) e.currentTarget.style.background = 'transparent'; }}
               >
@@ -533,7 +511,7 @@ function TabNav({ active, items }) {
           })}
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
 
