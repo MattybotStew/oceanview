@@ -2,7 +2,7 @@
 import { PillMint, PillGhost } from './Buttons.jsx'
 import HeroShaper from './HeroShaper.jsx'
 
-export default function PageHero({ image, imgFocus, eyebrow, title, titleAccent, subtitle, ctaPrimary, onPrimary, ctaSecondary, onSecondary }) {
+export default function PageHero({ image, imgFocus, badge, eyebrow, title, titleAccent, subtitle, ctaPrimary, onPrimary, ctaSecondary, onSecondary }) {
   return (
     <div className="ov-hero-wrapper" style={{ marginBottom: 40 }}>
       <section style={{ paddingTop: 20, paddingBottom: 0 }}>
@@ -16,8 +16,13 @@ export default function PageHero({ image, imgFocus, eyebrow, title, titleAccent,
           )}
           <div style={{ position: "absolute", inset: 0, backgroundImage: `url("assets/Noise.png")`, backgroundRepeat: "repeat", backgroundSize: "200px", opacity: 0.6, pointerEvents: "none", zIndex: 2 }} />
           <HeroShaper />
-          <div className="ov-hero-content">
-            {eyebrow && (
+            <div className="ov-hero-content">
+              {badge && (
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(0,31,84,.45)', border: '1px solid rgba(255,255,255,.22)', borderRadius: 200, padding: '5px 12px', marginBottom: 4, alignSelf: 'flex-start' }}>
+                  <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#F2FCFF', whiteSpace: 'nowrap' }}>{badge}</span>
+                </div>
+              )}
+              {eyebrow && (
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <div style={{ width: 18, height: 1, background: 'rgba(112,186,191,.65)', flexShrink: 0 }} />
                 <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: '#70BABF' }}>

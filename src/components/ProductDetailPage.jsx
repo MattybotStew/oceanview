@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { PillMint, PillGhost, TextLink } from './Buttons.jsx'
 import CTABanner from './CTABanner.jsx'
-import HeroShaper from './HeroShaper.jsx'
+import PageHero from './PageHero.jsx'
 import { Download, ChevronRight } from 'lucide-react'
 
 // ── Shared styles ─────────────────────────────────────────────────────────────
@@ -253,28 +253,15 @@ export default function ProductDetailPage({ product }) {
     <main>
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <div className="ov-hero-wrapper" style={{ marginBottom: 40 }}>
-        <section style={{ paddingTop: 20, paddingBottom: 0 }}>
-          <div className="ov-hero-card" style={{ background: 'var(--ov-navy-1000)' }}>
-            <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${product.image})`, backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }} />
-            <div className="ov-hero-scrim" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(85deg, rgba(0,31,84,.82) 0%, rgba(0,31,84,.4) 60%, transparent 100%)', zIndex: 1 }} />
-            <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(assets/Noise.png)', backgroundRepeat: 'repeat', backgroundSize: '200px', opacity: 0.6, pointerEvents: 'none', zIndex: 2 }} />
-            <HeroShaper />
-            <div className="ov-hero-content" style={{ zIndex: 11 }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(0,31,84,.45)', border: '1px solid rgba(255,255,255,.22)', borderRadius: 200, padding: '5px 12px', marginBottom: 4, alignSelf: 'flex-start' }}>
-                <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#F2FCFF', whiteSpace: 'nowrap' }}>{product.categoryShort || product.category}</span>
-              </div>
-              <h1 className="ov-hero-title" style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(28px,5.5vw,64px)', color: '#F2FCFF', letterSpacing: '-0.03em', lineHeight: 1.05, margin: 0 }}>
-                {product.name}
-              </h1>
-              <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 'clamp(14px,1.4vw,17px)', color: 'rgba(242,252,255,.72)', lineHeight: 1.65, margin: 0, maxWidth: '52ch' }}>
-                {product.tagline}
-              </p>
-              <PillMint hero onClick={() => scrollTo('crediting-strategies')} style={{ alignSelf: 'flex-start' }}>{product.heroCtaLabel || 'Explore Strategies'}</PillMint>
-            </div>
-          </div>
-        </section>
-      </div>
+      <PageHero
+        image={product.image}
+        imgFocus={product.imgFocus}
+        badge={product.categoryShort || product.category}
+        title={product.name}
+        subtitle={product.tagline}
+        ctaPrimary={product.heroCtaLabel || 'Explore Strategies'}
+        onPrimary={() => scrollTo('crediting-strategies')}
+      />
 
       {/* ── Stats bar ─────────────────────────────────────────────────── */}
       <div style={{ background: '#fff', padding: '12px 0 40px' }}>
