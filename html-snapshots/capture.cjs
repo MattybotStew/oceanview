@@ -1,10 +1,12 @@
 const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const BASE_URL = 'http://localhost:5173';
 const BASE = BASE_URL + '/oceanview/';
 const PROJECT_ROOT = path.resolve(__dirname, '..');
+const OUT_DIR = __dirname;
 
 const ROUTES = [
   { route: '',                              name: 'home' },
@@ -33,136 +35,88 @@ const ROUTES = [
   { route: '#insights',                     name: 'insights' },
 ];
 
-// Map a URL string found in HTML to a local file path
-function resolveToLocalPath(urlStr) {
-  // Absolute server path: /oceanview/src/fonts/... or /oceanview/...
-  if (urlStr.startsWith('/oceanview/')) {
-    const rel = urlStr.slice('/oceanview/'.length);
-    // fonts live in src/, everything else in public/
-    const srcPath = path.join(PROJECT_ROOT, rel);
-    if (fs.existsSync(srcPath)) return srcPath;
-    const pubPath = path.join(PROJECT_ROOT, 'public', rel);
-    if (fs.existsSync(pubPath)) return pubPath;
-    return null;
-  }
-  // Relative path (with <base href="/oceanview/">) — maps to public/
-  if (!urlStr.startsWith('http') && !urlStr.startsWith('//') && !urlStr.startsWith('data:')) {
-    const cleaned = urlStr.replace(/^\.?\//, '');
-    const pubPath = path.join(PROJECT_ROOT, 'public', cleaned);
-    if (fs.existsSync(pubPath)) return pubPath;
-    // Also try without public/ prefix
-    const rootPath = path.join(PROJECT_ROOT, cleaned);
-    if (fs.existsSync(rootPath)) return rootPath;
-  }
-  return null;
-}
-
-function mimeForExt(filePath) {
-  const ext = path.extname(filePath).toLowerCase();
-  const map = {
-    '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
-    '.gif': 'image/gif', '.webp': 'image/webp', '.svg': 'image/svg+xml',
-    '.otf': 'font/otf', '.ttf': 'font/ttf', '.woff': 'font/woff',
-    '.woff2': 'font/woff2', '.ico': 'image/x-icon',
-  };
-  return map[ext] || 'application/octet-stream';
-}
-
-function toDataUri(filePath) {
-  const buf = fs.readFileSync(filePath);
-  return `data:${mimeForExt(filePath)};base64,${buf.toString('base64')}`;
-}
-
-// Extract all unique asset URL strings from HTML that need inlining
-function collectAssetUrls(html) {
-  const urls = new Set();
-
-  // url("...") and url('...') and url(...) in CSS
-  const cssUrl = /url\(["']?([^"')]+)["']?\)/g;
-  let m;
-  while ((m = cssUrl.exec(html)) !== null) {
-    const u = m[1].trim();
-    if (!u.startsWith('data:') && !u.startsWith('#')) urls.add(u);
-  }
-
-  // src="..." on img/video tags (skip script/module srcs)
-  const srcAttr = /\bsrc="([^"]+)"/g;
-  while ((m = srcAttr.exec(html)) !== null) {
-    const u = m[1].trim();
-    if (u.startsWith('data:') || u.includes('@vite') || /\.(jsx?|tsx?|mjs)/.test(u)) continue;
-    urls.add(u);
-  }
-
-  return urls;
-}
-
 (async () => {
+  // ── 1. Render all pages ─────────────────────────────────────────
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
     viewport: { width: 1440, height: 900 },
     deviceScaleFactor: 1,
   });
 
-  const outDir = __dirname;
-  let totalInlined = 0;
-
   for (const { route, name } of ROUTES) {
     const page = await context.newPage();
-    console.log(`\nProcessing: ${name}`);
+    console.log(`Capturing: ${name}`);
 
     await page.goto(BASE + route, { waitUntil: 'networkidle', timeout: 30000 });
     await page.waitForTimeout(500);
 
-    // Capture fully rendered DOM
     let html = await page.evaluate(() => {
       return '<!DOCTYPE html>\n<html>' + document.documentElement.innerHTML + '</html>';
     });
 
     await page.close();
 
-    // Build replacement map (unique URLs only — process each asset once)
-    const urls = collectAssetUrls(html);
-    const replacements = new Map();
-    let inlined = 0;
-    let skipped = 0;
+    // Rewrite absolute font paths → relative  e.g. /oceanview/src/fonts/PP*.otf → fonts/PP*.otf
+    html = html.replace(/\/oceanview\/src\/fonts\//g, 'fonts/');
 
-    for (const urlStr of urls) {
-      const localPath = resolveToLocalPath(urlStr);
-      if (localPath) {
-        replacements.set(urlStr, toDataUri(localPath));
-        inlined++;
-      } else {
-        skipped++;
-      }
-    }
+    // Rewrite any remaining /oceanview/assets/ → assets/
+    html = html.replace(/\/oceanview\/assets\//g, 'assets/');
 
-    console.log(`  ${inlined} assets inlined, ${skipped} skipped (external/unknown)`);
-
-    // Apply replacements — longest URLs first to avoid partial replacement bugs
-    const sortedEntries = [...replacements.entries()].sort((a, b) => b[0].length - a[0].length);
-    for (const [orig, dataUri] of sortedEntries) {
-      const escaped = orig.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      html = html.replace(new RegExp(escaped, 'g'), dataUri);
-    }
-
-    // Strip Vite runtime scripts (page is already rendered static HTML)
-    html = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gis, '');
-
-    // Remove <base href> — all URLs are now data URIs
+    // Strip <base href> — paths are now relative to the HTML file itself
     html = html.replace(/<base[^>]*>/gi, '');
 
-    // Ensure 1440px viewport hint for html.to.design
+    // Strip Vite runtime scripts (React already rendered)
+    html = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gis, '');
+
+    // Add explicit 1440px viewport width hint
     if (!html.includes('name="viewport"')) {
       html = html.replace('<head>', '<head>\n  <meta name="viewport" content="width=1440">');
     }
 
-    const outPath = path.join(outDir, `${name}.html`);
-    fs.writeFileSync(outPath, html);
-    const kb = (fs.statSync(outPath).size / 1024).toFixed(0);
-    console.log(`  ✅ ${name}.html (${kb} KB)`);
-    totalInlined += inlined;
+    fs.writeFileSync(path.join(OUT_DIR, `${name}.html`), html);
+    console.log(`  ✅ ${name}.html`);
   }
 
   await browser.close();
-  console.log(`\n✅ Done — ${ROUTES.length} self-contained snapshots, ${totalInlined} total assets inlined.`);
+
+  // ── 2. Copy asset directories into html-snapshots/ ─────────────
+  console.log('\nCopying assets...');
+
+  const fontsOut = path.join(OUT_DIR, 'fonts');
+  const assetsOut = path.join(OUT_DIR, 'assets');
+
+  fs.mkdirSync(fontsOut, { recursive: true });
+  fs.mkdirSync(assetsOut, { recursive: true });
+
+  // Fonts: src/fonts/ → html-snapshots/fonts/
+  const fontsIn = path.join(PROJECT_ROOT, 'src', 'fonts');
+  for (const f of fs.readdirSync(fontsIn)) {
+    fs.copyFileSync(path.join(fontsIn, f), path.join(fontsOut, f));
+  }
+  console.log(`  ✅ Copied fonts/ (${fs.readdirSync(fontsOut).length} files)`);
+
+  // Images: public/assets/ → html-snapshots/assets/
+  const imagesIn = path.join(PROJECT_ROOT, 'public', 'assets');
+  for (const f of fs.readdirSync(imagesIn)) {
+    fs.copyFileSync(path.join(imagesIn, f), path.join(assetsOut, f));
+  }
+  console.log(`  ✅ Copied assets/ (${fs.readdirSync(assetsOut).length} files)`);
+
+  // ── 3. Build ZIP ────────────────────────────────────────────────
+  const zipPath = path.join(PROJECT_ROOT, 'html-snapshots.zip');
+  console.log('\nBuilding ZIP...');
+
+  // Include only HTML files + fonts/ + assets/ (not capture scripts or screenshots)
+  const htmlFiles = ROUTES.map(r => r.name + '.html').join(' ');
+  execSync(`cd "${OUT_DIR}" && zip -r "${zipPath}" ${htmlFiles} fonts/ assets/`, { stdio: 'inherit' });
+
+  const sizeMB = (fs.statSync(zipPath).size / 1024 / 1024).toFixed(1);
+  console.log(`\n✅ html-snapshots.zip — ${sizeMB} MB`);
+
+  if (parseFloat(sizeMB) > 32) {
+    console.warn(`⚠️  ZIP is ${sizeMB} MB — exceeds the 32 MB html.to.design limit.`);
+    console.warn('   Consider resizing the large images in public/assets/ and re-running.');
+  } else {
+    console.log('   Ready to upload to html.to.design ✓');
+  }
 })();
