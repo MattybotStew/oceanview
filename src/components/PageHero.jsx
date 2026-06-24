@@ -6,15 +6,22 @@ export default function PageHero({ image, imgFocus, badge, eyebrow, title, title
   return (
     <div className="ov-hero-wrapper" style={{ marginBottom: 40 }}>
       <section style={{ paddingTop: 20, paddingBottom: 0 }}>
-        <div className="ov-hero-card" style={{ background: "var(--ov-navy-1000)" }}>
-          {image
-            ? <div style={{ position: "absolute", inset: 0, backgroundImage: `url(${image})`, backgroundSize: "cover", backgroundPosition: imgFocus || "center", zIndex: 0 }} />
-            : <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 80% 60% at 60% 50%, rgba(113,186,191,0.15) 0%, transparent 70%)", zIndex: 0 }} />
-          }
-          {image && (
-            <div className="ov-hero-scrim" style={{ position: "absolute", inset: 0, background: "linear-gradient(85deg, rgba(0,31,84,.82) 0%, rgba(0,31,84,.4) 60%, transparent 100%)", zIndex: 1 }} />
+        <div
+          className="ov-hero-card"
+          style={{
+            backgroundColor: "var(--ov-navy-1000)",
+            ...(image && { backgroundImage: `url(${image})`, backgroundSize: "cover", backgroundPosition: imgFocus || "center" }),
+          }}
+        >
+          {!image && (
+            <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 80% 60% at 60% 50%, rgba(113,186,191,0.15) 0%, transparent 70%)", zIndex: 0 }} />
           )}
-          <div style={{ position: "absolute", inset: 0, backgroundImage: `url("assets/Noise.png")`, backgroundRepeat: "repeat", backgroundSize: "200px", opacity: 0.6, pointerEvents: "none", zIndex: 2 }} />
+          {image && (
+            <div
+              className="ov-hero-scrim"
+              style={{ position: "absolute", inset: 0, zIndex: 1, background: `url("assets/Noise.png") 0 0 / 200px, linear-gradient(85deg, rgba(0,31,84,.82) 0%, rgba(0,31,84,.4) 60%, transparent 100%)` }}
+            />
+          )}
           <HeroShaper />
             <div className="ov-hero-content">
               {badge && (
