@@ -537,10 +537,9 @@ export default function ClientResourcesPage({ tab }) {
   }, []);
 
   useEffect(() => {
-    if (!tab || didScrollTo.current) return;
+    if (!tab) return;
     const el = document.getElementById(tab);
     if (el) {
-      didScrollTo.current = true;
       const top = el.getBoundingClientRect().top + window.scrollY - HEADER_H - NAV_H;
       requestAnimationFrame(() => {
         window.scrollTo({ top, behavior: 'instant' });

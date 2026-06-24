@@ -137,12 +137,14 @@ export default function Page() {
 
   const [route, setRoute] = useState(getRoute);
   const [scrolled, setScrolled] = useState(false);
+  const [hashVersion, setHashVersion]   = useState(0);  // bumped on every hash change to force re-render when only query param changes
 
   useEffect(() => {
     const onHash = () => {
       const newRoute = getRoute();
       if (!PAGE_ROUTES.has(newRoute)) return; // in-page anchor — let browser scroll natively
       setRoute(newRoute);
+      setHashVersion(v => v + 1);  // ensures re-render even when route slug is unchanged (e.g. ?tab= param changes)
       window.scrollTo({ top: 0, behavior: "instant" });
     };
     window.addEventListener("hashchange", onHash);

@@ -1,23 +1,31 @@
-# Oceanview — Cline Project Rules
+# Oceanview — Cline & Claude Code Project Rules
 # Read this before touching any file.
 
 ---
 
 ## Current Session State
 
-**Last Updated:** 2026-06-23 (Claude Code)
-**Active Agent:** Claude Code
-**Last Commit:** 3986b26 — chore: regenerate self-contained HTML snapshots with inlined assets
+**Last Updated:** 2026-06-24 (Cline)
+**Active Agent:** Cline
+**Last Commit:** 355a5cf — chore: regenerate snapshots after PageHero layer collapse
+**Working Tree:** Clean
 
 ### In Progress
 - (none — all work complete and pushed)
+
+### Newly Unblocked
+- **Animated logo** (ClickUp task 86ag1hvct) — `oceanview-logo-animated.svg` is now attached to the task and ready to implement in `Header.jsx`. Previously blocked waiting on this asset.
+
+### Still Blocked
+- **USAP Landing Page** (ClickUp task 86ahfnw23) — waiting on client content
 
 ---
 
 ## Who else is working on this codebase
 
-**Claude Code** is the primary coding agent on this project. This `.clinerules` file is kept
-up-to-date by Claude Code so Cline always knows the current state of work.
+**Cline** and **Claude Code** both work on this codebase. This `.clinerules` file is kept
+up-to-date by whichever agent last made changes so the other always knows the current state
+of work, open tasks, and conventions before touching any file.
 
 ---
 
@@ -440,7 +448,6 @@ Created 8 new detail page components in `src/components/`:
 - **LifeEventsPage.jsx** — same pattern: added a `route` field to each `EVENTS` entry (`les-approaching-retirement`, `les-market-volatility`, `les-financial-windfall`, `les-career-transitions`) and a `TextLink` under the existing "Products:" line on each dark card.
 - **index.html** — no changes needed. This is a standard single-entry Vite SPA (`<script type="module" src="/src/main.jsx">`); there's no per-page/per-component script tag pattern to wire.
 - Build verified clean (`npm run build` — 1815 modules, no errors).
-- These changes (Page.jsx, RetirementRiskPage.jsx, LifeEventsPage.jsx, .clinerules) are uncommitted in the working tree, same as Cline's earlier `.clinerules` edit — not yet committed pending user confirmation.
 
 ---
 
@@ -503,4 +510,3 @@ Created 8 new detail page components in `src/components/`:
 - **Footer.jsx** — added "Financial Professional Blog" → `#blog` to the Insights column, and "Product Brochures" → `#downloads` to the Client Resources column (distinct from the existing "Downloads" link, which points to the Client Resources page's Downloads *tab* — `#downloads` is the dedicated `DownloadsPage.jsx` with the actual brochure/spec-sheet library).
 - Verified via Playwright (dev server): ticker shows timestamp + arrows with no console errors; Professionals popup opens with all 4 links and closes correctly; "Explore Rates" chip navigates to `#client-resources?tab=rates`; `#fia-overview` renders with correct page title and no console errors; footer shows both new links.
 - Build verified clean throughout (`npm run build`, final pass: no errors).
-- All changes uncommitted in the working tree pending user confirmation, same as the route-wiring batch above.
