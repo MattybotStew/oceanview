@@ -23,6 +23,7 @@ import AgentFAQsPage from './AgentFAQsPage.jsx'
 import ContactPage from './ContactPage.jsx'
 import LPLLandingPage from './LPLLandingPage.jsx'
 import CeteraLandingPage from './CeteraLandingPage.jsx'
+import NationalSeniorGamesPage from './NationalSeniorGamesPage.jsx'
 import BlogPage from './BlogPage.jsx'
 import BlogArticlePage from './BlogArticlePage.jsx'
 import HarbourviewFIAPage from './HarbourviewFIAPage.jsx'
@@ -87,6 +88,7 @@ const ROUTE_TO_NAV = {
   "disclaimers": "", "privacy": "", "terms": "", "accessibility": "", "design": "",
   "professionals": "Professionals", "sales-tools": "Professionals",
   "agent-faqs": "Professionals", "lpl-landing": "Professionals", "cetera-landing": "Professionals",
+  "national-senior-games": "",
 };
 
 const PAGE_ROUTES = new Set([
@@ -96,7 +98,7 @@ const PAGE_ROUTES = new Set([
   "rrs-market-risk", "rrs-inflation-risk", "rrs-longevity-risk", "rrs-interest-rate-risk",
   "les-approaching-retirement", "les-market-volatility", "les-financial-windfall", "les-career-transitions",
   "professionals", "sales-tools", "agent-faqs",
-  "contact", "lpl-landing", "cetera-landing",
+  "contact", "lpl-landing", "cetera-landing", "national-senior-games",
   "disclaimers", "privacy", "terms", "accessibility", "agent-portal", "design",
   // product pages — canonical routes
   "harbourview-myga", "horizon-myga", "sky-harbourview-myga",
@@ -199,6 +201,7 @@ export default function Page() {
       "sp500-strategy": "S&P 500 Crediting Strategy — Harbourview FIA — Oceanview",
       "russell-strategy": "Russell 2000 Crediting Strategy — Harbourview FIA — Oceanview",
       "nasdaq-strategy": "Nasdaq-100 Crediting Strategy — Harbourview FIA — Oceanview",
+      "national-senior-games": "Oceanview Life | Proud Sponsor of the National Senior Games Association",
       "design": "Design System — Oceanview",
     };
     const descriptions = {
@@ -220,6 +223,7 @@ export default function Page() {
       "accessibility": "Oceanview Life and Annuity is committed to making OceanviewLife.com accessible to everyone, in line with WCAG 2.0 AA standards.",
       "agent-portal": "Secure login for licensed Oceanview agents — manage client accounts, submit new business, and access sales tools.",
       "fia-overview": "Explore Oceanview's Fixed Indexed Annuity line — Harbourview FIA, CapLock, and Topsider — index-linked growth with zero-floor principal protection.",
+      "national-senior-games": "Oceanview Life and Annuity Company is proud to sponsor the National Senior Games Association and celebrate active aging, community, competition and the long game in life and retirement.",
       "design": "Oceanview Design System — complete reference for colors, typography, buttons, links, shadows, pills, forms, layout, and component patterns.",
     };
     document.title = titles[route] || "Oceanview Life and Annuity";
@@ -299,6 +303,7 @@ export default function Page() {
       case "blog-annuity-timing": return <BlogArticlePage />;
       case "lpl-landing":        return <LPLLandingPage />;
       case "cetera-landing":     return <CeteraLandingPage />;
+      case "national-senior-games": return <NationalSeniorGamesPage />;
       case "faq":               return <FAQPage />;
       case "leadership":        return <LeadershipPage />;
       default:                  return <HomePage goto={goto} />;
@@ -320,7 +325,7 @@ export default function Page() {
       <div id="main-content" tabIndex={-1} style={{ outline: "none" }}>
         {renderPage()}
       </div>
-      <Footer />
+      <Footer hideSignup={route === "national-senior-games"} />
       <BackToTop />
     </>
   );

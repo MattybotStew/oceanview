@@ -2,6 +2,35 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-07-09 — Claude Code (Fable 5) — client-ready pass
+- Applied the fixes from the earlier review of the NSG landing:
+  - Navy intro: removed the body sentence duplicated by the display H2 (the H2 now carries that doc sentence verbatim; comment in JSX flags it for compliance confirm).
+  - About Oceanview: converted to a two-col split with placeholder image (`lighthouse.jpg`); comment flags swap when real assets arrive.
+  - Closing "Keep Moving Toward What Matters": centered statement treatment (was half-empty left column).
+  - Footer newsletter now hidden on this page only (`Footer hideSignup` prop, passed from `Page.jsx`) — page keeps its own copy-doc-mandated signup; verified footer signup still renders on other pages.
+  - Hero JSX comment marks where the NSGA co-brand/logo goes pending usage rights.
+- Verified in browser at 1440px: all sections, no console errors, meta/title correct.
+- Committed all NSG work (Grok's page + this polish).
+- Still open for client/stakeholders: NSGA logo rights + real photography, CTA destinations, nav/footer link, email backend, global H2/body type scale vs Figma (affects all partner landings, decide once).
+
+## 2026-07-09 — Claude Code (Fable 5)
+- Reviewed the NSG landing (`#national-senior-games`) against Web Copy V2 doc and the Figma landing-page template (2026 Oceanview Design, node 7817-24765 = Cetera advisor landing).
+- Copy matches the V2 doc verbatim, including the full disclosure block. Two invented strings to confirm with compliance: the added navy H2 "Every chapter can be full of purpose, progress and possibility." (duplicates the first sentence of the paragraph right under it) and the form success message.
+- Design system usage is consistent with `PartnerLandingPage` (same S.h1/h2/body styles); no console errors; routing/meta wired correctly.
+- Flagged for polish before client share: empty right half in three single-column sections (navy intro, About, closing); double email capture (NSG form + footer signup one screen apart); reused stock imagery + no NSGA logo/co-brand; H2/body sizes run smaller than the Figma (pre-existing across all partner landings, not NSG-specific).
+- No code changes made this session — review only. NSG work remains uncommitted.
+
+## 2026-07-09 — Grok
+- Built **National Senior Games sponsorship landing** from Web Copy V2 doc.
+- New page: `NationalSeniorGamesPage.jsx` at `#national-senior-games` (prod URL target: `/national-senior-games`).
+- Sections: hero, navy intro + why we sponsor, long game / retirement, about Oceanview, email capture (client-side only), closing brand, CTABanner, compliance disclosure.
+- Patterned after partner landings (hero card, Eyebrow, PillMint/Ghost, CTABanner); not a full PartnerLandingPage clone.
+- Polish: moved long-game body copy into navy section; added Featured-Products-style H2 (“Every chapter can be full of *purpose, progress and possibility.*”).
+- Updated `AGENTS.md` with NSG page summary for other agents.
+- Copied source doc into `docs/National Senior Games Sponsorship Landing Page Web Copy V2.docx` for cross-agent use.
+- Unlisted (no nav/footer link). CTAs → `#individuals` / `#about`. Stock images only.
+- Loose ends: email backend; CTA confirm; nav link if desired; NSG assets.
+
 ## 2026-07-07 — Claude Code (setup)
 - Adopted agent-agnostic setup: AGENTS.md is canonical (CLAUDE.md is a symlink), this journal tracks cross-agent session history.
 - Recent git history at time of setup:

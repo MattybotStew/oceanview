@@ -642,6 +642,12 @@ a { color: inherit; text-decoration: none; }
 @media (min-width: 600px) { .lpl-res-2col, .lpl-res-3col { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; } }
 @media (min-width: 960px) { .lpl-res-3col { grid-template-columns: repeat(3, 1fr) !important; } }
 
+/* ─── National Senior Games sponsorship landing ─────────────── */
+@media (max-width: 800px) {
+  .nsg-split { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .nsg-split-reverse { display: flex !important; flex-direction: column-reverse !important; }
+}
+
 /* ─── Product Detail Page ────────────────────────────────────── */
 @media (max-width: 900px) {
   .pdt-layout { flex-direction: column !important; align-items: stretch !important; }

@@ -5,13 +5,18 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-06-24 (Claude Code)
+**Last Updated:** 2026-07-09 (Claude Code — review session, no code changes)
 **Active Agent:** Claude Code
-**Last Commit:** 6791788 — fix: restore ?tab= navigation on Client Resources page
-**Working Tree:** Clean
+**Last Commit:** e5e4be0 — Update package-lock.json (local uncommitted: NSG page)
+**Working Tree:** Dirty — National Senior Games page added
 
 ### In Progress
-- (none — all work complete and pushed)
+- (none — NSG landing polished and committed 2026-07-09; see JOURNAL.md. Awaiting client/compliance on: navy H2 + success-message copy, NSGA logo rights, real photography, CTA destinations, nav link, email backend.)
+
+### Newly completed (2026-07-09)
+- **National Senior Games sponsorship landing** — `#national-senior-games` / `NationalSeniorGamesPage.jsx`. Copy from "Web Copy V2" doc. Unlisted (no nav link yet). Email form is UI-only.
+- Navy intro uses Featured-Products pattern: eyebrow + H2 with italic accent (“purpose, progress and possibility”) + body paragraphs in the navy band (not a white strip under hero).
+- Summary also written into `AGENTS.md` under “Recent work”.
 
 ### Newly Unblocked
 - **Animated logo** (ClickUp task 86ag1hvct) — `oceanview-logo-animated.svg` is now attached to the task and ready to implement in `Header.jsx`. Previously blocked waiting on this asset.
@@ -152,6 +157,7 @@ Surface:  #F1FBFF  (ov-surface-tint)
 | #russell-strategy | RussellStrategyPage.jsx | ✅ Complete |
 | #nasdaq-strategy | NasdaqStrategyPage.jsx | ✅ Complete |
 | #brochures | BrochuresPage.jsx | ✅ Complete |
+| #national-senior-games | NationalSeniorGamesPage.jsx | ✅ Complete (unlisted; no nav link) |
 
 ---
 

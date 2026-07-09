@@ -267,7 +267,7 @@ const S = {
   },
 };
 
-export default function Footer() {
+export default function Footer({ hideSignup = false }) {
   const [submitted, setSubmitted] = useState(false);
   const nameRef = useRef(null);
   const emailRef = useRef(null);
@@ -335,6 +335,9 @@ export default function Footer() {
       <div style={S.inner}>
 
         {/* ── Section 1: Newsletter signup ────────────────────────────── */}
+        {/* Hidden on pages with their own email capture (e.g. National Senior Games) to avoid
+            two competing signup forms on one page. */}
+        {!hideSignup && (
         <div id="footer-newsletter" style={S.signupRow} className="ov-footer-signup">
           <div style={S.signupLeft}>
             <div style={S.eyebrow}>Stay in the know</div>
@@ -385,6 +388,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
+        )}
 
         {/* ── Section 2: Link columns ────────────────────────────────── */}
         <div style={S.linkSection} className="ov-footer-cols">
