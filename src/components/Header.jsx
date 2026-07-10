@@ -359,7 +359,7 @@ function TabbedContent({ tab, onClose }) {
   );
 }
 
-export function TabbedDropdown({ config, onClose = () => {}, onEscape, initialTab = 0, lockTab = false }) {
+export function TabbedDropdown({ config, onClose = () => {}, onEscape, initialTab = 0, lockTab = false, className = '' }) {
   const [activeIdx, setActiveIdx] = useState(initialTab);
 
   // Keep showcase panels on a fixed tab when lockTab is true
@@ -384,7 +384,12 @@ export function TabbedDropdown({ config, onClose = () => {}, onEscape, initialTa
   };
 
   return (
-    <div style={S.dropPanel} onKeyDown={handleKeyDown} tabIndex={-1}>
+    <div
+      className={`ov-drop-panel${className ? ` ${className}` : ''}`}
+      style={S.dropPanel}
+      onKeyDown={handleKeyDown}
+      tabIndex={-1}
+    >
       <div style={S.sidebar} data-sidebar>
         {config.tabs.map((t, i) => {
           const active = i === activeIdx;
@@ -418,7 +423,7 @@ export function TabbedDropdown({ config, onClose = () => {}, onEscape, initialTa
   );
 }
 
-export function SimpleDropdown({ config, onClose = () => {}, onEscape }) {
+export function SimpleDropdown({ config, onClose = () => {}, onEscape, className = '' }) {
   const handleKeyDown = (e) => {
     if (e.key === 'Escape') { e.preventDefault(); onEscape?.(); return; }
     const links = [...e.currentTarget.querySelectorAll('a')];
@@ -429,7 +434,12 @@ export function SimpleDropdown({ config, onClose = () => {}, onEscape }) {
   };
 
   return (
-    <div style={{ ...S.dropPanel }} onKeyDown={handleKeyDown} tabIndex={-1}>
+    <div
+      className={`ov-drop-panel${className ? ` ${className}` : ''}`}
+      style={{ ...S.dropPanel }}
+      onKeyDown={handleKeyDown}
+      tabIndex={-1}
+    >
       <div style={{ padding: 30, display: "flex", flexDirection: "column", gap: 24 }}>
         {config.links.map((link, i) => (
           <Fragment key={link.label}>
@@ -548,7 +558,7 @@ function NavItem({ name, config, onNav, active }) {
 
 // ─── MOBILE NAV COMPONENTS ────────────────────────────────────────────────────
 
-function MobileNavContent({ config, onClose }) {
+export function MobileNavContent({ config, onClose = () => {} }) {
   if (!config) return null;
 
   const itemStyle = {
@@ -667,8 +677,8 @@ export function Logo({ dark = false }) {
 }
 
 // ─── HEADER ───────────────────────────────────────────────────────────────────
-const NAV_ITEMS = ["About", "Products", "Client Resources", "Insights", "Blog"];
-const AUD_ITEMS = ["Individuals", "Professionals"];
+export const NAV_ITEMS = ["About", "Products", "Client Resources", "Insights", "Blog"];
+export const AUD_ITEMS = ["Individuals", "Professionals"];
 
 export default function Header({ active = "Home", onNav }) {
   const [mobileOpen, setMobileOpen] = useState(false);

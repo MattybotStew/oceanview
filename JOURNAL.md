@@ -3,6 +3,9 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 ## 2026-07-10 — Grok
+- **#nav-dropdowns** responsive: Desktop / Mobile / Both tabs; auto-picks view from live breakpoint (1025px). Mobile phone-frame drawers use `MobileNavContent` (full expanded + per-section). Desktop panels scroll / stack ≤720px. Exports: `MobileNavContent`, `NAV_ITEMS`, `AUD_ITEMS`.
+
+## 2026-07-10 — Grok
 - **Nav dropdowns showcase** — `#nav-dropdowns` / `NavDropdownsPage.jsx` (unlisted). Stacks every desktop mega-menu open using live `TabbedDropdown` / `SimpleDropdown` + `NAV_DROPDOWNS` from Header. About + Products shown once per tab (locked). For Devn / design review.
 
 ## 2026-07-10 — Grok
