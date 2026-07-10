@@ -210,8 +210,17 @@ const S = {
     display: "flex",
     flexDirection: "column",
     minWidth: 420,
+    minHeight: 0,
   },
-  contentTop: { display: "flex", flexDirection: "column", gap: 24 },
+  contentTop: { display: "flex", flexDirection: "column", gap: 24, flexShrink: 0 },
+  // Grows between body and CTA so badges sit vertically centered in that band
+  tagsMid: {
+    flex: 1,
+    display: "flex",
+    alignItems: "center",
+    minHeight: 0,
+    padding: "8px 0",
+  },
   eyebrow: {
     fontFamily: "var(--ov-ff-sans)",
     fontWeight: 600,
@@ -259,6 +268,7 @@ const S = {
     color: "var(--ov-navy-900)",
     lineHeight: "19.5px",
     textDecoration: "none",
+    flexShrink: 0,
   },
 };
 
@@ -309,13 +319,18 @@ function SimpleLink({ link, onClose }) {
 }
 
 function TabbedContent({ tab, onClose }) {
+  const hasTags = Array.isArray(tab.tags) && tab.tags.length > 0;
+  // With tags: top | flex-grow mid (centered badges) | CTA
+  // Without tags but with CTA: space-between top and CTA
   return (
-    <div style={{ ...S.content, justifyContent: tab.cta ? "space-between" : "flex-start" }}>
+    <div style={{
+      ...S.content,
+      justifyContent: tab.cta && !hasTags ? "space-between" : "flex-start",
+    }}>
       <div style={S.contentTop}>
         <span style={S.eyebrow}>{tab.eyebrow}</span>
         <h3 style={S.panelHeading}>{tab.heading}</h3>
         <p style={S.panelBody}>{tab.body}</p>
-        {tab.tags && <div style={S.tags}>{tab.tags.map(t => <span key={t} style={S.tag}>{t}</span>)}</div>}
         {tab.links && tab.links.map(link => (
           <Fragment key={link.label}>
             <div style={S.divider}/>
@@ -323,7 +338,23 @@ function TabbedContent({ tab, onClose }) {
           </Fragment>
         ))}
       </div>
-      {tab.cta && <a href={tab.cta.href} onClick={onClose} style={S.ctaLink} {...(tab.cta.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{tab.cta.label} →</a>}
+      {hasTags && (
+        <div style={S.tagsMid}>
+          <div style={S.tags}>
+            {tab.tags.map(t => <span key={t} style={S.tag}>{t}</span>)}
+          </div>
+        </div>
+      )}
+      {tab.cta && (
+        <a
+          href={tab.cta.href}
+          onClick={onClose}
+          style={S.ctaLink}
+          {...(tab.cta.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        >
+          {tab.cta.label} →
+        </a>
+      )}
     </div>
   );
 }
