@@ -6,7 +6,9 @@ Shared session log for all AI agents. Newest entries at the top.
 - Refreshed **Design System page** (`#design` / `DesignPage.jsx`) — was stale since 2026-06-13.
 - Now imports live `PillMint`/`PillNavy`/`PillWhite`/`PillGhost`/`TextLink`, `Eyebrow`, and `CTABanner`.
 - Documented full token sets (secondary colors, greys, surfaces, borders, status, CTA aliases), cards section (3 types), CTAPanel, PageHero `badge`, TextLink default navy-600, corrected CTABanner CTA (PillMint not PillNavy).
-- Build passes. Still unlisted (no nav link).
+- Build passes. Committed + pushed: `a37479b` on `main`.
+- Unlisted by design (same as partner/NSG landings — not a missing nav bug). Documented that in `AGENTS.md` for all agents.
+- Agent handoff updated: `JOURNAL.md`, `.clinerules`, `AGENTS.md` (CLAUDE.md symlink).
 
 ## 2026-07-09 — Claude Code (Fable 5) — client-ready pass
 - Applied the fixes from the earlier review of the NSG landing:

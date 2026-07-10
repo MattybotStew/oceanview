@@ -5,18 +5,21 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-07-10 (Grok — Design System page refresh)
+**Last Updated:** 2026-07-10 (Grok — Design System page refresh + agent docs)
 **Active Agent:** Grok
-**Working Tree:** DesignPage.jsx refreshed (may be uncommitted)
+**Last Commit:** `a37479b` — docs: refresh Design System page (#design) to match live tokens (pushed to origin/main)
+**Working Tree:** Clean for DesignPage work (local `.DS_Store` only)
 
 ### In Progress
 - (none open from this session)
 
 ### Newly completed (2026-07-10)
-- **Design System page** (`#design` / `DesignPage.jsx`) brought up to date with `tokens.css` + live Buttons/Eyebrow/CTABanner. Adds Cards section, PillWhite, full token palettes, corrected patterns (CTABanner uses PillMint; TextLink default navy-600). Still unlisted.
+- **Design System page** (`#design` / `DesignPage.jsx`) brought up to date with `tokens.css` + live Buttons/Eyebrow/CTABanner. Adds Cards section, PillWhite, full token palettes, corrected patterns (CTABanner uses PillMint; TextLink default navy-600).
+- Unlisted routes (`#design`, partner landings, `#national-senior-games`) are **intentional** — not in main nav; open by hash only. Documented in `AGENTS.md`.
+- Shared agent context updated: `JOURNAL.md`, `.clinerules`, `AGENTS.md` (CLAUDE.md → AGENTS.md symlink).
 
 ### Prior (2026-07-09)
-- **National Senior Games sponsorship landing** — `#national-senior-games`. Awaiting client/compliance on navy H2 + success copy, NSGA logo, photography, CTAs, nav link, email backend.
+- **National Senior Games sponsorship landing** — `#national-senior-games`. Awaiting client/compliance on navy H2 + success copy, NSGA logo, photography, CTAs, optional nav link, email backend.
 
 ### Newly Unblocked
 - **Animated logo** (ClickUp task 86ag1hvct) — `oceanview-logo-animated.svg` is now attached to the task and ready to implement in `Header.jsx`. Previously blocked waiting on this asset.

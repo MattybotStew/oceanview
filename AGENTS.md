@@ -8,11 +8,47 @@ Read `.clinerules` at the start of every session. It is kept up-to-date by both 
 
 ## Session continuity
 
-This project is worked on by multiple AI agents (Claude Code, Gemini CLI, Deep Code, …).
+This project is worked on by multiple AI agents (Claude Code, Gemini CLI, Deep Code, Grok, …).
 - At session start: read `JOURNAL.md` (newest first) and recent `git log`.
 - Before ending a session: add a short entry at the top of `JOURNAL.md` — date, agent/model, what was done, decisions, loose ends.
 
-## Recent work (2026-07-09 — Grok)
+## Unlisted routes (by design)
+
+These are **real pages** with hash routes, but they are **not** in header/footer main nav. That is intentional (campaign/partner/internal destinations), not a bug:
+
+| Route | Component | Purpose |
+|-------|-----------|---------|
+| `#design` | `DesignPage.jsx` | Internal design system reference |
+| `#cetera-landing` | `CeteraLandingPage.jsx` | Partner landing |
+| `#lpl-landing` | `LPLLandingPage.jsx` | Partner landing |
+| `#national-senior-games` | `NationalSeniorGamesPage.jsx` | Sponsorship landing |
+
+Open via URL/hash only. Do not “fix” by adding nav links unless stakeholders request it.
+
+---
+
+## Recent work (2026-07-10 — Grok)
+
+### Design System page refresh
+
+- **Route:** `#design` (unlisted — internal reference only)
+- **File:** `src/components/DesignPage.jsx`
+- **Commit:** `a37479b` on `main` (pushed to GitHub)
+- **Was stale:** Last written 2026-06-13; tokens/components had moved on without updating this page
+
+**What changed:**
+- Imports **live** shared components: `PillMint`, `PillNavy`, `PillWhite`, `PillGhost`, `TextLink` (`Buttons.jsx`), `Eyebrow` (`common.jsx`), `CTABanner` (so hover/focus match production CSS)
+- Full token coverage from `tokens.css`: navy-800, secondary gold/orange, footer bg, greys 50–900, surfaces, borders, status, CTA primary/secondary aliases
+- New **Cards** section: white / teal-tint / dark-on-navy (matches `.clinerules` card rules)
+- Corrected docs: CTABanner CTA is **PillMint** (not PillNavy); TextLink default color is **`var(--ov-navy-600)`**; Eyebrow default vs `light`; PageHero `badge` prop; CTAPanel documented
+- Forms notes no longer use Tailwind-style pseudocode
+- Layout notes include `.nsg-split` / partner-landing helpers
+
+**Source of truth (still):** `src/styles/tokens.css` + shared components — keep `#design` in sync when those change.
+
+---
+
+## Recent work (2026-07-09 — Grok + Claude Code)
 
 ### National Senior Games sponsorship landing
 
@@ -33,8 +69,9 @@ This project is worked on by multiple AI agents (Claude Code, Gemini CLI, Deep C
 
 **Pattern:** Same visual system as partner landings (`PartnerLandingPage` / Cetera / LPL) — hero card, `Eyebrow`, `PillMint`/`PillGhost`, `CTABanner`, navy/teal tokens — but **not** a data-driven `PartnerLandingPage` clone (different section set).
 
-**Not done / loose ends:**
-- Unlisted — no header or footer nav link yet
-- Placeholder stock images (no NSG-specific photography)
+**Not done / loose ends (stakeholder-dependent):**
+- Unlisted by design unless they request a nav/footer link
+- Placeholder stock images (no NSG-specific photography); NSGA logo rights pending
 - Email form is client-side success only
 - CTA destinations and assets still open to stakeholder confirm
+- Navy H2 + form success message may need compliance confirm
