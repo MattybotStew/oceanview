@@ -3,6 +3,12 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 ## 2026-07-10 — Grok
+- **#design page** is now dual-purpose: **WPBakery how-to at top** + full design system below.
+  - Navy intro banner, setup steps, package file map, “how styles get into WPBakery” table, React→WPB map.
+  - Teal **WPBakery** callouts on every system section (buttons, cards, hero, CTA, etc.) with `ov-*` classes.
+  - Sidebar groups: WPBakery · Design system. Meta description updated in `Page.jsx`.
+
+## 2026-07-10 — Grok
 - Added **WPBakery design-system package** under `docs/wpbakery/` for the WordPress build-out:
   - `oceanview-wpbakery.css` — tokens + buttons, cards, hero, CTA banner/panel, forms, splits, tabs
   - `README.md` — setup, React→WPBakery map, class cheat sheets

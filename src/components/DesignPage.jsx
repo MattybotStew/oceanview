@@ -1,6 +1,7 @@
-// DesignPage.jsx — Oceanview Design System reference page
-// Source of truth: src/styles/tokens.css + Buttons.jsx / common.jsx / PageHero / CTABanner / CTAPanel
-// Sticky sidebar + scrollable content. Keep in sync when tokens or shared components change.
+// DesignPage.jsx — Design system visual reference + WPBakery how-to
+// React prototype source: tokens.css + Buttons / common / PageHero / CTABanner / CTAPanel
+// WordPress production: docs/wpbakery/ (oceanview-wpbakery.css, recipes, enqueue-example.php)
+// Sticky sidebar + scrollable content. Keep React + WPBakery docs in sync.
 import { useState } from 'react'
 import { PillMint, PillNavy, PillWhite, PillGhost, TextLink } from './Buttons.jsx'
 import { Eyebrow } from './common.jsx'
@@ -9,16 +10,17 @@ import CTABanner from './CTABanner.jsx'
 const HEADER_H = 72;
 
 const SECTIONS = [
-  { id: 'colors', label: 'Colors' },
-  { id: 'typography', label: 'Typography' },
-  { id: 'buttons', label: 'Buttons' },
-  { id: 'links', label: 'Links' },
-  { id: 'shadows', label: 'Shadows' },
-  { id: 'cards', label: 'Cards' },
-  { id: 'pills', label: 'Pills & Badges' },
-  { id: 'forms', label: 'Forms' },
-  { id: 'layout', label: 'Layout' },
-  { id: 'patterns', label: 'Component Patterns' },
+  { id: 'wpbakery', label: 'WPBakery how-to', group: 'wpb' },
+  { id: 'colors', label: 'Colors', group: 'system' },
+  { id: 'typography', label: 'Typography', group: 'system' },
+  { id: 'buttons', label: 'Buttons', group: 'system' },
+  { id: 'links', label: 'Links', group: 'system' },
+  { id: 'shadows', label: 'Shadows', group: 'system' },
+  { id: 'cards', label: 'Cards', group: 'system' },
+  { id: 'pills', label: 'Pills & Badges', group: 'system' },
+  { id: 'forms', label: 'Forms', group: 'system' },
+  { id: 'layout', label: 'Layout', group: 'system' },
+  { id: 'patterns', label: 'Component Patterns', group: 'system' },
 ];
 
 // ── STYLES ────────────────────────────────────────────────────────────────────
@@ -76,7 +78,246 @@ const S = {
     lineHeight: 1.65, overflowX: 'auto', margin: 0,
   },
   row: { display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' },
+  wpb: {
+    marginTop: 16, padding: '14px 16px', borderRadius: 12,
+    background: 'rgba(36,148,193,0.08)', border: '1px solid rgba(36,148,193,0.22)',
+    fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: 'var(--ov-navy-900)', lineHeight: 1.65,
+  },
+  wpbLabel: {
+    display: 'inline-block', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px',
+    textTransform: 'uppercase', color: 'var(--ov-teal-600)', marginBottom: 6,
+  },
+  heroBanner: {
+    background: 'var(--ov-navy-1000)', borderRadius: 16, padding: '28px 32px',
+    marginBottom: 28, color: '#F2FCFF',
+  },
+  step: {
+    display: 'flex', gap: 14, marginBottom: 16, alignItems: 'flex-start',
+  },
+  stepNum: {
+    flexShrink: 0, width: 28, height: 28, borderRadius: 99,
+    background: 'var(--ov-teal-400)', color: 'var(--ov-navy-1000)',
+    fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13,
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+  },
 };
+
+/** WPBakery callout — how to apply this pattern in WordPress */
+function Wpb({ children }) {
+  return (
+    <div style={S.wpb}>
+      <div style={S.wpbLabel}>WPBakery</div>
+      <div>{children}</div>
+    </div>
+  );
+}
+
+// ── WPBAKERY HOW-TO ───────────────────────────────────────────────────────────
+
+function WpBakeryHowTo() {
+  return (
+    <div id="wpbakery" style={S.section}>
+      <div style={S.heroBanner}>
+        <div style={{
+          fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11,
+          letterSpacing: '1.2px', textTransform: 'uppercase', color: '#70BABF', marginBottom: 10,
+        }}>
+          Production build-out
+        </div>
+        <h1 style={{
+          fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(26px, 3vw, 36px)',
+          color: '#F2FCFF', margin: '0 0 12px', lineHeight: 1.15, letterSpacing: '-0.02em',
+        }}>
+          Design system + <em style={{ fontStyle: 'italic', color: '#70BABF' }}>WPBakery how-to</em>
+        </h1>
+        <p style={{
+          fontFamily: 'var(--ov-ff-sans)', fontSize: 15, lineHeight: 1.65,
+          color: 'rgba(242,252,255,0.72)', margin: 0, maxWidth: '62ch',
+        }}>
+          This page is the interactive reference for Oceanview styles.
+          Ship pages in <strong style={{ color: '#fff', fontWeight: 600 }}>WordPress + WPBakery</strong> using the package in{' '}
+          <span style={S.mono}>docs/wpbakery/</span> — do not rebuild production pages in React.
+        </p>
+      </div>
+
+      <h2 style={S.h2}>WPBakery how-to</h2>
+      <p style={{ ...S.note, marginTop: 0, marginBottom: 20 }}>
+        Goal: load one CSS file on the theme, then build every section with Extra class names and Raw HTML recipes.
+        Each section below shows the live React look <em>and</em> the WPBakery class to use.
+      </p>
+
+      <div style={S.card}>
+        <div style={S.cardHd}>Package files (repo → theme)</div>
+        <table style={S.table}>
+          <thead>
+            <tr>
+              <th style={S.th}>File in docs/wpbakery/</th>
+              <th style={S.th}>What to do with it</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style={S.td}><span style={S.mono}>oceanview-wpbakery.css</span></td>
+              <td style={S.td}>Copy into child theme root (or assets/css/). This is the full design system as CSS classes.</td>
+            </tr>
+            <tr>
+              <td style={S.td}><span style={S.mono}>enqueue-example.php</span></td>
+              <td style={S.td}>Paste hooks into child theme <span style={S.mono}>functions.php</span> (enqueue CSS + body class <span style={S.mono}>ov-ds</span>).</td>
+            </tr>
+            <tr>
+              <td style={S.td}><span style={S.mono}>recipes.html</span></td>
+              <td style={S.td}>Copy-paste into WPBakery <strong>Raw HTML</strong> for hero, CTA banner, cards, splits, forms.</td>
+            </tr>
+            <tr>
+              <td style={S.td}><span style={S.mono}>shortcodes.md</span></td>
+              <td style={S.td}>Row / column structures and Extra class recipes.</td>
+            </tr>
+            <tr>
+              <td style={S.td}><span style={S.mono}>color-swatches.md</span></td>
+              <td style={S.td}>Hex values if you must use Design Options color pickers.</td>
+            </tr>
+            <tr>
+              <td style={S.td}><span style={S.mono}>README.md</span></td>
+              <td style={S.td}>Full builder guide (cheat sheets, card rules, mapping table).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style={S.card}>
+        <div style={S.cardHd}>One-time setup (child theme)</div>
+        <div style={S.step}>
+          <div style={S.stepNum}>1</div>
+          <div style={S.note}>
+            <strong style={{ color: 'var(--ov-navy-900)' }}>Fonts</strong> — Upload PP Editorial New + PP Mori into the theme
+            (e.g. <span style={S.mono}>fonts/</span>). Fix <span style={S.mono}>@font-face</span> paths at the top of{' '}
+            <span style={S.mono}>oceanview-wpbakery.css</span> if needed.
+          </div>
+        </div>
+        <div style={S.step}>
+          <div style={S.stepNum}>2</div>
+          <div style={S.note}>
+            <strong style={{ color: 'var(--ov-navy-900)' }}>CSS</strong> — Copy <span style={S.mono}>oceanview-wpbakery.css</span> into the child theme.
+          </div>
+        </div>
+        <div style={S.step}>
+          <div style={S.stepNum}>3</div>
+          <div style={S.note}>
+            <strong style={{ color: 'var(--ov-navy-900)' }}>Enqueue</strong> — From <span style={S.mono}>enqueue-example.php</span>: load the stylesheet
+            and add body class <span style={S.mono}>ov-ds</span> so base type styles apply sitewide.
+          </div>
+        </div>
+        <div style={S.step}>
+          <div style={S.stepNum}>4</div>
+          <div style={S.note}>
+            <strong style={{ color: 'var(--ov-navy-900)' }}>Build</strong> — In WPBakery, use Row Extra class for section bands, Button Extra class
+            (or Raw HTML) for pills, and Raw HTML recipes for hero / CTA banner.
+          </div>
+        </div>
+        <pre style={{ ...S.pre, marginTop: 8 }}>{`// Child theme functions.php — see docs/wpbakery/enqueue-example.php
+wp_enqueue_style( 'oceanview-ds', get_stylesheet_directory_uri() . '/oceanview-wpbakery.css', [], $ver );
+// body_class filter adds: ov-ds`}</pre>
+      </div>
+
+      <div style={S.card}>
+        <div style={S.cardHd}>How styles get into WPBakery (the system)</div>
+        <table style={S.table}>
+          <thead>
+            <tr>
+              <th style={S.th}>What you want</th>
+              <th style={S.th}>Where to put the class</th>
+              <th style={S.th}>Classes / source</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style={S.td}>Section band (tint / navy / white)</td>
+              <td style={S.td}>Row → Extra class name</td>
+              <td style={S.td}><span style={S.mono}>ov-section ov-bg-tint</span> · <span style={S.mono}>ov-bg-navy</span> · <span style={S.mono}>ov-bg-white</span></td>
+            </tr>
+            <tr>
+              <td style={S.td}>Primary / ghost buttons</td>
+              <td style={S.td}>Button Extra class, or Raw HTML <span style={S.mono}>&lt;a&gt;</span></td>
+              <td style={S.td}><span style={S.mono}>ov-btn ov-btn--mint ov-btn--sm</span> (etc.)</td>
+            </tr>
+            <tr>
+              <td style={S.td}>Cards</td>
+              <td style={S.td}>Column Extra class or HTML wrapper</td>
+              <td style={S.td}><span style={S.mono}>ov-card ov-card--white</span> / <span style={S.mono}>--teal</span> / <span style={S.mono}>--dark</span></td>
+            </tr>
+            <tr>
+              <td style={S.td}>Eyebrow, body, accents</td>
+              <td style={S.td}>Text Block / Custom Heading HTML</td>
+              <td style={S.td}><span style={S.mono}>ov-eyebrow</span> · <span style={S.mono}>ov-body-lg</span> · <span style={S.mono}>ov-accent</span></td>
+            </tr>
+            <tr>
+              <td style={S.td}>Page hero</td>
+              <td style={S.td}>Raw HTML element</td>
+              <td style={S.td}>Paste hero block from <span style={S.mono}>recipes.html</span></td>
+            </tr>
+            <tr>
+              <td style={S.td}>CTA banner / panel</td>
+              <td style={S.td}>Raw HTML element</td>
+              <td style={S.td}><span style={S.mono}>ov-cta-banner</span> / <span style={S.mono}>ov-cta-panel</span> recipes</td>
+            </tr>
+            <tr>
+              <td style={S.td}>Hex only (last resort)</td>
+              <td style={S.td}>Design Options color picker</td>
+              <td style={S.td}><span style={S.mono}>color-swatches.md</span> — prefer classes so CSS updates fix all pages</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style={S.card}>
+        <div style={S.cardHd}>React → WPBakery map</div>
+        <table style={S.table}>
+          <thead>
+            <tr><th style={S.th}>React (this prototype)</th><th style={S.th}>WPBakery</th></tr>
+          </thead>
+          <tbody>
+            <tr><td style={S.td}><span style={S.mono}>tokens.css</span></td><td style={S.td}>Same vars inside <span style={S.mono}>oceanview-wpbakery.css</span></td></tr>
+            <tr><td style={S.td}><span style={S.mono}>PillMint</span> / <span style={S.mono}>PillGhost</span></td><td style={S.td}><span style={S.mono}>ov-btn ov-btn--mint</span> / <span style={S.mono}>--ghost</span></td></tr>
+            <tr><td style={S.td}><span style={S.mono}>Eyebrow</span></td><td style={S.td}><span style={S.mono}>&lt;p class="ov-eyebrow"&gt;</span></td></tr>
+            <tr><td style={S.td}><span style={S.mono}>PageHero</span></td><td style={S.td}>Raw HTML — recipes.html hero</td></tr>
+            <tr><td style={S.td}><span style={S.mono}>CTABanner</span></td><td style={S.td}>Raw HTML — <span style={S.mono}>ov-cta-banner</span></td></tr>
+            <tr><td style={S.td}><span style={S.mono}>CTAPanel</span></td><td style={S.td}>Raw HTML — <span style={S.mono}>ov-cta-panel</span></td></tr>
+            <tr><td style={S.td}><span style={S.mono}>TextLink</span></td><td style={S.td}><span style={S.mono}>&lt;a class="ov-text-link"&gt;</span></td></tr>
+            <tr><td style={S.td}>Hash routes (#products)</td><td style={S.td}>Real WP pages / permalinks</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style={S.card}>
+        <div style={S.cardHd}>Rules of thumb</div>
+        <div style={S.note}>
+          <strong>Prefer classes over Design Options</strong> for brand-critical pieces (buttons, heroes, navy bands, cards)
+          so one CSS update fixes every page.<br /><br />
+          <strong>Raw HTML wins</strong> for hero + CTA banner — stacking six native elements is less reliable than the recipe.<br /><br />
+          <strong>If theme Button styles fight you</strong>, use <span style={S.mono}>&lt;a class="ov-btn …"&gt;</span> in Raw HTML / Text Block instead of the Button element.<br /><br />
+          <strong>Unlisted landings</strong> (partner, NSG, this design page if published) are real pages — just leave them out of the primary menu.<br /><br />
+          <strong>When tokens change</strong> in React, update <span style={S.mono}>docs/wpbakery/oceanview-wpbakery.css</span> and bump the enqueue version.
+        </div>
+      </div>
+
+      <div style={S.card}>
+        <div style={S.cardHd}>Example: mint button in Raw HTML</div>
+        <pre style={S.pre}>{`<a class="ov-btn ov-btn--mint ov-btn--sm" href="/products/">Explore Products</a>
+<a class="ov-btn ov-btn--ghost ov-btn--sm" href="/about/">Learn More</a>
+<a class="ov-btn ov-btn--ghost-light ov-btn--lg" href="/contact/">On dark backgrounds</a>`}</pre>
+      </div>
+
+      <div style={S.card}>
+        <div style={S.cardHd}>Example: section Row</div>
+        <pre style={S.pre}>{`// Row → Extra class name:
+ov-section ov-bg-tint
+
+// Column → Extra class name (white card on tint):
+ov-card ov-card--white ov-card--large`}</pre>
+      </div>
+    </div>
+  );
+}
 
 // ── COLOR SWATCH ──────────────────────────────────────────────────────────────
 
@@ -175,6 +416,12 @@ function Colors() {
       <p style={{ ...S.note, marginTop: 0, marginBottom: 20 }}>
         All tokens live on <span style={S.mono}>:root</span> in <span style={S.mono}>src/styles/tokens.css</span>. Prefer semantic aliases in UI code.
       </p>
+      <Wpb>
+        Same CSS variables ship in <span style={S.mono}>docs/wpbakery/oceanview-wpbakery.css</span>.
+        Prefer row/column classes (<span style={S.mono}>ov-bg-navy</span>, <span style={S.mono}>ov-bg-tint</span>) over pasting hex into Design Options.
+        Hex list for pickers: <span style={S.mono}>docs/wpbakery/color-swatches.md</span>.
+      </Wpb>
+      <div style={{ height: 20 }} />
       <div style={S.card}><div style={S.cardHd}>Navy palette</div><div style={S.grid(220)}>{NAVIES.map(c => <Swatch key={c[0]} name={c[0]} hex={c[1]} note={c[2]} />)}</div></div>
       <div style={S.card}><div style={S.cardHd}>Teal / Cyan palette</div><div style={S.grid(220)}>{TEALS.map(c => <Swatch key={c[0]} name={c[0]} hex={c[1]} note={c[2]} />)}</div></div>
       <div style={S.card}><div style={S.cardHd}>Secondary brand</div><div style={S.grid(220)}>{SECONDARY.map(c => <Swatch key={c[0]} name={c[0]} hex={c[1]} note={c[2]} />)}</div></div>
@@ -224,6 +471,13 @@ function Typography() {
   return (
     <div id="typography" style={S.section}>
       <h2 style={S.h2}>Typography</h2>
+      <Wpb>
+        Body class <span style={S.mono}>ov-ds</span> (from enqueue) styles headings/body globally.
+        Or set classes on text: <span style={S.mono}>ov-h1</span>–<span style={S.mono}>ov-h5</span>, <span style={S.mono}>ov-body-lg</span>, <span style={S.mono}>ov-meta</span>.
+        Italic teal accent: <span style={S.mono}>&lt;em class="ov-accent"&gt;…&lt;/em&gt;</span>.
+        Upload brand fonts to the theme; stacks: PP Editorial New (display), PP Mori (UI).
+      </Wpb>
+      <div style={{ height: 20 }} />
       <div style={S.card}>
         <div style={S.cardHd}>Font families</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -292,10 +546,17 @@ function Buttons() {
   return (
     <div id="buttons" style={S.section}>
       <h2 style={S.h2}>Buttons</h2>
-      <p style={{ ...S.note, marginTop: 0, marginBottom: 20 }}>
+      <p style={{ ...S.note, marginTop: 0, marginBottom: 12 }}>
         Live components from <span style={S.mono}>Buttons.jsx</span>. Hover / focus / disabled states are defined on <span style={S.mono}>.ov-btn-*</span> in tokens.css.
         API: <span style={S.mono}>hero</span> → large size; <span style={S.mono}>PillGhost light</span> → ghost-light on dark.
       </p>
+      <Wpb>
+        Extra class on Button (or Raw HTML): <span style={S.mono}>ov-btn ov-btn--mint ov-btn--sm</span>.
+        Sizes: <span style={S.mono}>--sm</span> default · <span style={S.mono}>--lg</span> = hero.
+        Variants: <span style={S.mono}>--mint</span> · <span style={S.mono}>--navy</span> · <span style={S.mono}>--ghost</span> · <span style={S.mono}>--ghost-light</span> · <span style={S.mono}>--white</span>.
+        If theme chrome fights you, use Raw HTML <span style={S.mono}>&lt;a class="ov-btn …"&gt;</span>.
+      </Wpb>
+      <div style={{ height: 20 }} />
 
       <div style={S.card}>
         <div style={S.cardHd}>PillMint — primary CTA (any background)</div>
@@ -308,6 +569,7 @@ function Buttons() {
           <strong>Class:</strong> <span style={S.mono}>.ov-btn--mint</span> · bg <span style={S.mono}>--ov-cta-primary-bg</span> · color <span style={S.mono}>--ov-cta-primary-fg</span><br />
           <strong>Hover:</strong> translateY(-2px) + teal glow · <strong>Active:</strong> press inset shadow
         </div>
+        <Wpb><span style={S.mono}>ov-btn ov-btn--mint ov-btn--sm</span> · hero: add <span style={S.mono}>ov-btn--lg</span></Wpb>
       </div>
 
       <div style={S.card}>
@@ -319,6 +581,7 @@ function Buttons() {
         <div style={S.note}>
           <strong>Class:</strong> <span style={S.mono}>.ov-btn--navy</span> · bg <span style={S.mono}>--ov-cta-secondary-bg</span> · color <span style={S.mono}>--ov-cta-secondary-fg</span>
         </div>
+        <Wpb><span style={S.mono}>ov-btn ov-btn--navy ov-btn--sm</span></Wpb>
       </div>
 
       <div style={S.card}>
@@ -330,6 +593,7 @@ function Buttons() {
         <div style={S.note}>
           <strong>Class:</strong> <span style={S.mono}>.ov-btn--ghost</span> · transparent + navy border · hover fills navy
         </div>
+        <Wpb><span style={S.mono}>ov-btn ov-btn--ghost ov-btn--sm</span></Wpb>
       </div>
 
       <div style={{ ...S.card, background: 'var(--ov-navy-1000)' }}>
@@ -343,6 +607,9 @@ function Buttons() {
           <strong>PillWhite:</strong> <span style={S.mono}>.ov-btn--white</span> — solid white on navy/images<br />
           <strong>PillGhost light:</strong> <span style={S.mono}>.ov-btn--ghost-light</span> — frosted outline (PageHero secondary)
         </div>
+        <Wpb>
+          <span style={S.mono}>ov-btn ov-btn--white</span> · <span style={S.mono}>ov-btn ov-btn--ghost-light</span> (use on navy/image rows)
+        </Wpb>
       </div>
 
       <div style={S.card}>
@@ -363,6 +630,11 @@ function Links() {
   return (
     <div id="links" style={S.section}>
       <h2 style={S.h2}>Links</h2>
+      <Wpb>
+        Text links: <span style={S.mono}>&lt;a class="ov-text-link" href="…"&gt;Label&lt;/a&gt;</span> (arrow via CSS <span style={S.mono}>::after</span>).
+        Teal variant: add <span style={S.mono}>ov-text-link--teal</span>. Body links under <span style={S.mono}>.ov-ds</span> underline automatically.
+      </Wpb>
+      <div style={{ height: 20 }} />
 
       <div style={S.card}>
         <div style={S.cardHd}>TextLink — standalone action (Buttons.jsx)</div>
@@ -421,6 +693,10 @@ function Shadows() {
   return (
     <div id="shadows" style={S.section}>
       <h2 style={S.h2}>Shadows</h2>
+      <Wpb>
+        Prefer card/border classes over custom box-shadows. Shadows are baked into <span style={S.mono}>ov-card</span> / button hovers in the WPBakery CSS.
+      </Wpb>
+      <div style={{ height: 16 }} />
       <div style={S.grid(260)}>
         {shadows.map(s => (
           <div key={s[0]} style={{ background: '#fff', borderRadius: 16, padding: 24, boxShadow: s[1], border: '1px solid rgba(13,31,78,0.04)' }}>
@@ -440,9 +716,16 @@ function Cards() {
   return (
     <div id="cards" style={S.section}>
       <h2 style={S.h2}>Cards</h2>
-      <p style={{ ...S.note, marginTop: 0, marginBottom: 20 }}>
+      <p style={{ ...S.note, marginTop: 0, marginBottom: 12 }}>
         Three card types — match card surface to section background. Never put a white card on white or a teal card on surface-tint.
       </p>
+      <Wpb>
+        Column Extra class (or HTML wrapper): <span style={S.mono}>ov-card ov-card--white</span> on <span style={S.mono}>ov-bg-tint</span> rows;
+        <span style={S.mono}> ov-card--teal</span> on white; <span style={S.mono}>ov-card--dark</span> on navy.
+        Padding: <span style={S.mono}>ov-card--compact</span> / <span style={S.mono}>--standard</span> / <span style={S.mono}>--large</span>.
+        Title: <span style={S.mono}>&lt;h3 class="ov-card__title"&gt;</span>. In-card nav → <span style={S.mono}>ov-text-link</span>; actions → <span style={S.mono}>ov-btn</span>.
+      </Wpb>
+      <div style={{ height: 20 }} />
 
       <div style={{ ...S.card, background: 'var(--ov-surface-tint)' }}>
         <div style={S.cardHd}>White card — sits on surface-tint</div>
@@ -504,6 +787,11 @@ function Pills() {
   return (
     <div id="pills" style={S.section}>
       <h2 style={S.h2}>Pills & Badges</h2>
+      <Wpb>
+        Badges: <span style={S.mono}>ov-badge</span> · <span style={S.mono}>ov-badge--teal</span> · <span style={S.mono}>ov-badge--hero</span>.
+        Tabs: <span style={S.mono}>nav.ov-tabs</span> with <span style={S.mono}>.is-active</span> on the current link (recipes.html).
+      </Wpb>
+      <div style={{ height: 20 }} />
 
       <div style={S.card}>
         <div style={S.cardHd}>Tab underline pattern (Contact / Client Resources)</div>
@@ -565,6 +853,11 @@ function Forms() {
   return (
     <div id="forms" style={S.section}>
       <h2 style={S.h2}>Forms</h2>
+      <Wpb>
+        Light fields: class <span style={S.mono}>ov-input</span> / <span style={S.mono}>ov-textarea</span> + <span style={S.mono}>ov-label</span>, or style CF7/Gravity via the shared CSS selectors in the package.
+        Dark: <span style={S.mono}>ov-input--dark</span> or place the form inside <span style={S.mono}>ov-bg-navy</span> / footer band. Recipe block 14 in <span style={S.mono}>recipes.html</span>.
+      </Wpb>
+      <div style={{ height: 20 }} />
 
       <div style={{ ...S.card, background: 'var(--ov-footer-bg)' }}>
         <div style={{ ...S.cardHd, color: 'rgba(255,255,255,0.5)' }}>Newsletter — dark (Footer)</div>
@@ -618,6 +911,12 @@ function Layout() {
   return (
     <div id="layout" style={S.section}>
       <h2 style={S.h2}>Layout</h2>
+      <Wpb>
+        Row Extra class: <span style={S.mono}>ov-section ov-bg-white|ov-bg-tint|ov-bg-navy|ov-bg-footer</span>.
+        On navy, add <span style={S.mono}>ov-on-dark</span> for light text. Content width: wrap with <span style={S.mono}>ov-container</span> or theme container.
+        Two-up landings: Raw HTML <span style={S.mono}>ov-split</span> / <span style={S.mono}>ov-split--reverse</span> (see recipes).
+      </Wpb>
+      <div style={{ height: 20 }} />
 
       <div style={S.card}>
         <div style={S.cardHd}>.ov-container</div>
@@ -691,6 +990,11 @@ function Patterns() {
   return (
     <div id="patterns" style={S.section}>
       <h2 style={S.h2}>Component Patterns</h2>
+      <Wpb>
+        Prefer <span style={S.mono}>recipes.html</span> Raw HTML for hero, CTA banner, and CTA panel.
+        Eyebrow in text: <span style={S.mono}>&lt;p class="ov-eyebrow"&gt;</span> or <span style={S.mono}>ov-eyebrow--light</span> on dark.
+      </Wpb>
+      <div style={{ height: 20 }} />
 
       <div style={S.card}>
         <div style={S.cardHd}>Eyebrow — common.jsx</div>
@@ -705,6 +1009,7 @@ function Patterns() {
           <strong>Default:</strong> line + text #2494C1 · <strong>light:</strong> line rgba(112,186,191,.6) · text #70BABF<br />
           Source: <span style={S.mono}>Eyebrow</span> in common.jsx (Hero / PageHero may inline similar markup)
         </div>
+        <Wpb><span style={S.mono}>&lt;p class="ov-eyebrow"&gt;Label&lt;/p&gt;</span> · dark: add <span style={S.mono}>ov-eyebrow--light</span></Wpb>
       </div>
 
       <div style={S.card}>
@@ -726,6 +1031,10 @@ function Patterns() {
           Primary CTA: <span style={S.mono}>PillMint hero</span> · Secondary: <span style={S.mono}>PillGhost light hero</span><br />
           <span style={S.mono}>imgFocus</span> sets background-position at all breakpoints · badge optional frosted pill
         </div>
+        <Wpb>
+          Do not rebuild with stacked WPBakery elements. Paste hero from <span style={S.mono}>recipes.html</span>
+          (<span style={S.mono}>.ov-hero-wrap</span> / <span style={S.mono}>.ov-hero-card</span> / <span style={S.mono}>.ov-hero-title</span>).
+        </Wpb>
       </div>
 
       <div style={S.card}>
@@ -742,6 +1051,9 @@ function Patterns() {
           Navy rounded band · text left / CTA right · stacks on narrow viewports<br />
           CTA is <span style={S.mono}>PillMint hero</span> (not PillNavy) · optional eyebrow + italic titleAccent
         </div>
+        <Wpb>
+          Raw HTML recipe <span style={S.mono}>.ov-cta-banner</span> — CTA uses <span style={S.mono}>ov-btn ov-btn--mint ov-btn--lg</span>.
+        </Wpb>
       </div>
 
       <div style={S.card}>
@@ -753,6 +1065,9 @@ function Patterns() {
         <div style={S.note}>
           Full-width <span style={S.mono}>var(--ov-navy-1000)</span> · centered max ~720px · dual-audience product/sales CTAs
         </div>
+        <Wpb>
+          Raw HTML recipe <span style={S.mono}>.ov-cta-panel</span> (full-width navy close; not the same as CTABanner).
+        </Wpb>
       </div>
 
       <div style={S.card}>
@@ -781,7 +1096,7 @@ function Patterns() {
 // ── PAGE ──────────────────────────────────────────────────────────────────────
 
 export default function DesignPage() {
-  const [active, setActive] = useState('colors');
+  const [active, setActive] = useState('wpbakery');
 
   const scrollTo = (id) => {
     const el = document.getElementById(id);
@@ -791,11 +1106,20 @@ export default function DesignPage() {
     setActive(id);
   };
 
+  const wpbSections = SECTIONS.filter(s => s.group === 'wpb');
+  const systemSections = SECTIONS.filter(s => s.group === 'system');
+
   return (
     <div style={S.page}>
       <nav style={S.sidebar} aria-label="Design system sections">
-        <div style={S.sbTitle}>Jump to</div>
-        {SECTIONS.map(s => (
+        <div style={S.sbTitle}>WPBakery</div>
+        {wpbSections.map(s => (
+          <button key={s.id} type="button" onClick={() => scrollTo(s.id)} style={S.sbLink(active === s.id)}>
+            {s.label}
+          </button>
+        ))}
+        <div style={{ ...S.sbTitle, marginTop: 24 }}>Design system</div>
+        {systemSections.map(s => (
           <button key={s.id} type="button" onClick={() => scrollTo(s.id)} style={S.sbLink(active === s.id)}>
             {s.label}
           </button>
@@ -803,10 +1127,7 @@ export default function DesignPage() {
       </nav>
 
       <div style={S.content}>
-        <p style={{ ...S.note, marginTop: 0, marginBottom: 32 }}>
-          Oceanview design system · route <span style={S.mono}>#design</span> · unlisted internal reference.
-          Prefer tokens.css + shared components over re-implementing styles.
-        </p>
+        <WpBakeryHowTo />
         <Colors />
         <Typography />
         <Buttons />

@@ -43,22 +43,15 @@ Production build-out is **WPBakery on WordPress**. React is the prototype/refere
 
 When tokens/components change in React, update the WPBakery CSS too and bump the enqueue version. Prefer Raw HTML for hero + CTA banner; use Row Extra class `ov-section ov-bg-*` for section bands.
 
-### Design System page refresh
+### Design System page (`#design`) — system + WPBakery how-to
 
-- **Route:** `#design` (unlisted — internal reference only)
+- **Route:** `#design` (unlisted)
 - **File:** `src/components/DesignPage.jsx`
-- **Commit:** `a37479b` on `main` (pushed to GitHub)
-- **Was stale:** Last written 2026-06-13; tokens/components had moved on without updating this page
-
-**What changed:**
-- Imports **live** shared components: `PillMint`, `PillNavy`, `PillWhite`, `PillGhost`, `TextLink` (`Buttons.jsx`), `Eyebrow` (`common.jsx`), `CTABanner` (so hover/focus match production CSS)
-- Full token coverage from `tokens.css`: navy-800, secondary gold/orange, footer bg, greys 50–900, surfaces, borders, status, CTA primary/secondary aliases
-- New **Cards** section: white / teal-tint / dark-on-navy (matches `.clinerules` card rules)
-- Corrected docs: CTABanner CTA is **PillMint** (not PillNavy); TextLink default color is **`var(--ov-navy-600)`**; Eyebrow default vs `light`; PageHero `badge` prop; CTAPanel documented
-- Forms notes no longer use Tailwind-style pseudocode
-- Layout notes include `.nsg-split` / partner-landing helpers
-
-**Source of truth (still):** `src/styles/tokens.css` + shared components — keep `#design` in sync when those change.
+- **Dual purpose:**
+  1. **WPBakery how-to (top)** — setup (fonts → CSS → enqueue), package file map (`docs/wpbakery/`), where to put Extra class names, React→WPB map, examples
+  2. **Design system (below)** — live tokens/components with teal **WPBakery** callouts (`ov-*` classes) on each section
+- Sidebar: “WPBakery” group + “Design system” group
+- **Source of truth:** React visuals = `tokens.css` + shared components; WP production = `docs/wpbakery/oceanview-wpbakery.css` + recipes — keep both in sync
 
 ---
 

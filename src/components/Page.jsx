@@ -224,7 +224,7 @@ export default function Page() {
       "agent-portal": "Secure login for licensed Oceanview agents — manage client accounts, submit new business, and access sales tools.",
       "fia-overview": "Explore Oceanview's Fixed Indexed Annuity line — Harbourview FIA, CapLock, and Topsider — index-linked growth with zero-floor principal protection.",
       "national-senior-games": "Oceanview Life and Annuity Company is proud to sponsor the National Senior Games Association and celebrate active aging, community, competition and the long game in life and retirement.",
-      "design": "Oceanview Design System — complete reference for colors, typography, buttons, links, shadows, pills, forms, layout, and component patterns.",
+      "design": "Oceanview Design System and WPBakery how-to — tokens, components, and docs/wpbakery classes for the WordPress build-out.",
     };
     document.title = titles[route] || "Oceanview Life and Annuity";
     let meta = document.querySelector('meta[name="description"]');

@@ -5,17 +5,15 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-07-10 (Grok — WPBakery package + push)
+**Last Updated:** 2026-07-10 (Grok — #design page WPBakery how-to)
 **Active Agent:** Grok
-**Working Tree:** Committing WPBakery package to main
 
 ### In Progress
 - (none)
 
 ### Newly completed (2026-07-10)
-- **WPBakery design system** — `docs/wpbakery/` (CSS, README, recipes, shortcodes, color swatches, `enqueue-example.php`). WordPress build-out; React is prototype.
-- **Design System page** (`#design`) refreshed earlier (`a37479b`).
-- Unlisted routes intentional (not main nav). See `AGENTS.md`.
+- **#design** = WPBakery how-to (top) + design system with `ov-*` callouts; package in `docs/wpbakery/`.
+- Unlisted routes intentional. See `AGENTS.md`.
 
 ### Prior (2026-07-09)
 - **National Senior Games sponsorship landing** — `#national-senior-games`. Awaiting client/compliance on navy H2 + success copy, NSGA logo, photography, CTAs, optional nav link, email backend.
