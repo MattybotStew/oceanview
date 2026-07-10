@@ -18,7 +18,8 @@ These are **real pages** with hash routes, but they are **not** in header/footer
 
 | Route | Component | Purpose |
 |-------|-----------|---------|
-| `#design` | `DesignPage.jsx` | Internal design system reference |
+| `#design` | `DesignPage.jsx` | Internal design system + WPBakery how-to |
+| `#nav-dropdowns` | `NavDropdownsPage.jsx` | All desktop mega-menus open/stacked (review handoff) |
 | `#cetera-landing` | `CeteraLandingPage.jsx` | Partner landing |
 | `#lpl-landing` | `LPLLandingPage.jsx` | Partner landing |
 | `#national-senior-games` | `NationalSeniorGamesPage.jsx` | Sponsorship landing |

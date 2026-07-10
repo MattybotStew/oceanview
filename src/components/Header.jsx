@@ -19,8 +19,8 @@ function Chevron({ direction = "down", size = 16, color = "#FFF" }) {
   );
 }
 
-// ─── NAV DATA ─────────────────────────────────────────────────────────────────
-const NAV_DROPDOWNS = {
+// ─── NAV DATA (exported for #nav-dropdowns showcase) ──────────────────────────
+export const NAV_DROPDOWNS = {
   About: {
     type: "tabbed",
     tabs: [
@@ -359,8 +359,17 @@ function TabbedContent({ tab, onClose }) {
   );
 }
 
-function TabbedDropdown({ config, onClose, onEscape }) {
-  const [activeIdx, setActiveIdx] = useState(0);
+export function TabbedDropdown({ config, onClose = () => {}, onEscape, initialTab = 0, lockTab = false }) {
+  const [activeIdx, setActiveIdx] = useState(initialTab);
+
+  // Keep showcase panels on a fixed tab when lockTab is true
+  useEffect(() => {
+    setActiveIdx(initialTab);
+  }, [initialTab]);
+
+  const selectTab = (i) => {
+    if (!lockTab) setActiveIdx(i);
+  };
 
   const handleKeyDown = (e) => {
     if (e.key === 'Escape') { e.preventDefault(); onEscape?.(); return; }
@@ -380,10 +389,12 @@ function TabbedDropdown({ config, onClose, onEscape }) {
         {config.tabs.map((t, i) => {
           const active = i === activeIdx;
           return (
-            <button key={t.label} style={{ ...S.sideBtn, background: active ? "#fff" : "none" }}
-              onMouseEnter={() => setActiveIdx(i)}
-              onFocus={() => setActiveIdx(i)}
+            <button key={t.label} type="button" style={{ ...S.sideBtn, background: active ? "#fff" : "none" }}
+              onMouseEnter={() => selectTab(i)}
+              onFocus={() => selectTab(i)}
               onClick={() => {
+                selectTab(i);
+                if (lockTab) return; // showcase: don't navigate away
                 if (t.cta && t.cta.href) {
                   if (t.cta.external) {
                     window.open(t.cta.href, "_blank", "noopener,noreferrer");
@@ -407,7 +418,7 @@ function TabbedDropdown({ config, onClose, onEscape }) {
   );
 }
 
-function SimpleDropdown({ config, onClose, onEscape }) {
+export function SimpleDropdown({ config, onClose = () => {}, onEscape }) {
   const handleKeyDown = (e) => {
     if (e.key === 'Escape') { e.preventDefault(); onEscape?.(); return; }
     const links = [...e.currentTarget.querySelectorAll('a')];

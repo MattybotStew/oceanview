@@ -49,6 +49,7 @@ import TermsPage from './TermsPage.jsx'
 import AccessibilityPage from './AccessibilityPage.jsx'
 import AgentPortalPage from './AgentPortalPage.jsx'
 import DesignPage from './DesignPage.jsx'
+import NavDropdownsPage from './NavDropdownsPage.jsx'
 import RRSMarketRiskPage from './RRSMarketRiskPage.jsx'
 import RRSInflationRiskPage from './RRSInflationRiskPage.jsx'
 import RRSLongevityRiskPage from './RRSLongevityRiskPage.jsx'
@@ -85,7 +86,7 @@ const ROUTE_TO_NAV = {
   "sp500-strategy": "Products", "russell-strategy": "Products", "nasdaq-strategy": "Products",
   "downloads": "Client Resources", "brochures": "Client Resources", "our-story": "About", "individuals": "",
   "state-approval": "Professionals",
-  "disclaimers": "", "privacy": "", "terms": "", "accessibility": "", "design": "",
+  "disclaimers": "", "privacy": "", "terms": "", "accessibility": "", "design": "", "nav-dropdowns": "",
   "professionals": "Professionals", "sales-tools": "Professionals",
   "agent-faqs": "Professionals", "lpl-landing": "Professionals", "cetera-landing": "Professionals",
   "national-senior-games": "",
@@ -99,7 +100,7 @@ const PAGE_ROUTES = new Set([
   "les-approaching-retirement", "les-market-volatility", "les-financial-windfall", "les-career-transitions",
   "professionals", "sales-tools", "agent-faqs",
   "contact", "lpl-landing", "cetera-landing", "national-senior-games",
-  "disclaimers", "privacy", "terms", "accessibility", "agent-portal", "design",
+  "disclaimers", "privacy", "terms", "accessibility", "agent-portal", "design", "nav-dropdowns",
   // product pages — canonical routes
   "harbourview-myga", "horizon-myga", "sky-harbourview-myga",
   "current-rate-fia", "harbourview-fia",
@@ -203,6 +204,7 @@ export default function Page() {
       "nasdaq-strategy": "Nasdaq-100 Crediting Strategy — Harbourview FIA — Oceanview",
       "national-senior-games": "Oceanview Life | Proud Sponsor of the National Senior Games Association",
       "design": "Design System — Oceanview",
+      "nav-dropdowns": "Nav Dropdowns Showcase — Oceanview",
     };
     const descriptions = {
       "": "Oceanview Life and Annuity offers fixed and fixed-indexed annuities designed to protect and grow your retirement savings. A-rated by A.M. Best.",
@@ -225,6 +227,7 @@ export default function Page() {
       "fia-overview": "Explore Oceanview's Fixed Indexed Annuity line — Harbourview FIA, CapLock, and Topsider — index-linked growth with zero-floor principal protection.",
       "national-senior-games": "Oceanview Life and Annuity Company is proud to sponsor the National Senior Games Association and celebrate active aging, community, competition and the long game in life and retirement.",
       "design": "Oceanview Design System and WPBakery how-to — tokens, components, and docs/wpbakery classes for the WordPress build-out.",
+      "nav-dropdowns": "All desktop header mega-menus open and stacked for design review — About, Products, Client Resources, Insights.",
     };
     document.title = titles[route] || "Oceanview Life and Annuity";
     let meta = document.querySelector('meta[name="description"]');
@@ -289,6 +292,7 @@ export default function Page() {
       case "accessibility":      return <AccessibilityPage />;
       case "agent-portal":       return <AgentPortalPage />;
       case "design":             return <DesignPage />;
+      case "nav-dropdowns":      return <NavDropdownsPage />;
       case "about":             return <CompanyPage />;
       case "client-resources":  {
         const tabParam = window.location.hash.includes('?tab=') ? window.location.hash.split('?tab=')[1]?.split('&')[0] : null;

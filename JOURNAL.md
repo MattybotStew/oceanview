@@ -3,6 +3,9 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 ## 2026-07-10 — Grok
+- **Nav dropdowns showcase** — `#nav-dropdowns` / `NavDropdownsPage.jsx` (unlisted). Stacks every desktop mega-menu open using live `TabbedDropdown` / `SimpleDropdown` + `NAV_DROPDOWNS` from Header. About + Products shown once per tab (locked). For Devn / design review.
+
+## 2026-07-10 — Grok
 - **#design page** is now dual-purpose: **WPBakery how-to at top** + full design system below.
   - Navy intro banner, setup steps, package file map, “how styles get into WPBakery” table, React→WPB map.
   - Teal **WPBakery** callouts on every system section (buttons, cards, hero, CTA, etc.) with `ov-*` classes.
