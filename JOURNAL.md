@@ -3,6 +3,16 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 ## 2026-07-10 — Grok
+- Added **WPBakery design-system package** under `docs/wpbakery/` for the WordPress build-out:
+  - `oceanview-wpbakery.css` — tokens + buttons, cards, hero, CTA banner/panel, forms, splits, tabs
+  - `README.md` — setup, React→WPBakery map, class cheat sheets
+  - `recipes.html` — Raw HTML snippets for builders
+  - `shortcodes.md` — row/column recipes
+  - `color-swatches.md` — hex list for Design Options
+  - `enqueue-example.php` — child-theme enqueue + `ov-ds` body class
+- React `#design` stays the interactive reference; WPBakery CSS is what ships on WordPress.
+
+## 2026-07-10 — Grok
 - Refreshed **Design System page** (`#design` / `DesignPage.jsx`) — was stale since 2026-06-13.
 - Now imports live `PillMint`/`PillNavy`/`PillWhite`/`PillGhost`/`TextLink`, `Eyebrow`, and `CTABanner`.
 - Documented full token sets (secondary colors, greys, surfaces, borders, status, CTA aliases), cards section (3 types), CTAPanel, PageHero `badge`, TextLink default navy-600, corrected CTABanner CTA (PillMint not PillNavy).

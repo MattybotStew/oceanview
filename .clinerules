@@ -5,18 +5,17 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-07-10 (Grok — Design System page refresh + agent docs)
+**Last Updated:** 2026-07-10 (Grok — WPBakery package + push)
 **Active Agent:** Grok
-**Last Commit:** `a37479b` — docs: refresh Design System page (#design) to match live tokens (pushed to origin/main)
-**Working Tree:** Clean for DesignPage work (local `.DS_Store` only)
+**Working Tree:** Committing WPBakery package to main
 
 ### In Progress
-- (none open from this session)
+- (none)
 
 ### Newly completed (2026-07-10)
-- **Design System page** (`#design` / `DesignPage.jsx`) brought up to date with `tokens.css` + live Buttons/Eyebrow/CTABanner. Adds Cards section, PillWhite, full token palettes, corrected patterns (CTABanner uses PillMint; TextLink default navy-600).
-- Unlisted routes (`#design`, partner landings, `#national-senior-games`) are **intentional** — not in main nav; open by hash only. Documented in `AGENTS.md`.
-- Shared agent context updated: `JOURNAL.md`, `.clinerules`, `AGENTS.md` (CLAUDE.md → AGENTS.md symlink).
+- **WPBakery design system** — `docs/wpbakery/` (CSS, README, recipes, shortcodes, color swatches, `enqueue-example.php`). WordPress build-out; React is prototype.
+- **Design System page** (`#design`) refreshed earlier (`a37479b`).
+- Unlisted routes intentional (not main nav). See `AGENTS.md`.
 
 ### Prior (2026-07-09)
 - **National Senior Games sponsorship landing** — `#national-senior-games`. Awaiting client/compliance on navy H2 + success copy, NSGA logo, photography, CTAs, optional nav link, email backend.

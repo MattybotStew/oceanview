@@ -1,0 +1,758 @@
+/**
+ * Oceanview Design System — WPBakery-friendly stylesheet
+ * -------------------------------------------------------
+ * Source of truth for the React prototype: src/styles/tokens.css + #design page
+ * This file is the WordPress / WPBakery translation: pure CSS, no React.
+ *
+ * How to use
+ * 1. Enqueue in the child theme (or WPBakery Custom CSS if small):
+ *      wp_enqueue_style( 'oceanview-ds', get_stylesheet_directory_uri() . '/oceanview-wpbakery.css', [], '1.0' );
+ * 2. On WPBakery elements, set "Extra class name" / "Element ID" to the classes below.
+ * 3. Prefer these classes over one-off Design Options so the site stays consistent.
+ *
+ * Naming: ov-*  (same prefix as the React site)
+ */
+
+/* ============================================================
+   FONTS — upload PP Editorial New + PP Mori to theme / fonts/
+   and adjust paths, or load via Font Library / Typekit.
+   Fallbacks keep layout readable until brand fonts are live.
+   ============================================================ */
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("../fonts/PPEditorialNew-Regular.otf") format("opentype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("../fonts/PPEditorialNew-Italic.otf") format("opentype");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("../fonts/PPEditorialNew-Ultrabold.otf") format("opentype");
+  font-weight: 800; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("../fonts/PPEditorialNew-UltraboldItalic.otf") format("opentype");
+  font-weight: 800; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "PP Mori";
+  src: url("../fonts/PPMori-Regular.otf") format("opentype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "PP Mori";
+  src: url("../fonts/PPMori-Italic.otf") format("opentype");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "PP Mori";
+  src: url("../fonts/PPMori-Semibold.otf") format("opentype");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "PP Mori";
+  src: url("../fonts/PPMori-Black.otf") format("opentype");
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root {
+  /* Navy */
+  --ov-navy-1000: #001F54;
+  --ov-navy-900:  #0D1F4E;
+  --ov-navy-800:  #1A2452;
+  --ov-navy-700:  #16317B;
+  --ov-navy-600:  #1A3070;
+  --ov-navy-500:  #233D7C;
+  --ov-navy-400:  #223F84;
+  --ov-navy-300:  #4472C4;
+
+  /* Teal */
+  --ov-teal-700: #1976A0;
+  --ov-teal-600: #2494C1;
+  --ov-teal-500: #06BCC1;
+  --ov-teal-400: #6BBABF;
+  --ov-teal-300: #71BABF;
+
+  /* Secondary */
+  --ov-golden-sun:    #E1C43B;
+  --ov-sunset-orange: #A84124;
+  --ov-footer-bg:     #001233;
+
+  /* Surfaces */
+  --ov-surface-0:      #FFFFFF;
+  --ov-surface-tint:   #F1FBFF;
+  --ov-surface-tint-2: #F2FCFF;
+  --ov-surface-tint-3: #F2FAFE;
+  --ov-surface-cream:  #F0EEE9;
+  --ov-surface-soft:   #F9F9F9;
+
+  /* Greys */
+  --ov-grey-900: #212529;
+  --ov-grey-800: #333333;
+  --ov-grey-700: #2B3A4F;
+  --ov-grey-600: #374151;
+  --ov-grey-500: #6B7280;
+  --ov-grey-400: #828282;
+  --ov-grey-300: #DADADA;
+  --ov-grey-200: #E9EBF5;
+  --ov-grey-150: #CFD5EA;
+  --ov-grey-100: #D9D9D9;
+  --ov-grey-50:  #F2F2F2;
+
+  /* Borders / shadows */
+  --ov-border-faint:    rgba(13, 31, 78, 0.10);
+  --ov-border-soft:     rgba(13, 31, 78, 0.12);
+  --ov-border-dark:     rgba(13, 31, 78, 0.20);
+  --ov-border-on-dark:  rgba(255, 255, 255, 0.20);
+  --ov-shadow-card:   0 24px 60px 0 rgba(13, 31, 78, 0.12);
+  --ov-shadow-button: 0 2px 8px 0 rgba(13, 31, 78, 0.10);
+  --ov-shadow-press:  inset 0 1px 0 rgba(0, 0, 0, 0.10);
+
+  /* Semantic */
+  --ov-success: #008000;
+  --ov-danger:  #CC0000;
+  --ov-info:    var(--ov-teal-600);
+  --ov-bg:              var(--ov-surface-0);
+  --ov-bg-soft:         var(--ov-surface-tint);
+  --ov-fg:              var(--ov-navy-900);
+  --ov-fg-on-dark:      var(--ov-surface-tint-2);
+  --ov-fg-muted:        var(--ov-grey-600);
+  --ov-link:            var(--ov-teal-700);
+  --ov-cta-primary-bg:  var(--ov-teal-400);
+  --ov-cta-primary-fg:  var(--ov-navy-1000);
+  --ov-cta-secondary-bg: var(--ov-navy-500);
+  --ov-cta-secondary-fg: var(--ov-fg-on-dark);
+
+  /* Type */
+  --ov-ff-display: "PP Editorial New", "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --ov-ff-sans:    "PP Mori", "Manrope", "DM Sans", "Inter", system-ui, sans-serif;
+  --ov-ff-body:    var(--ov-ff-sans);
+
+  --ov-fz-h1: 48px;
+  --ov-fz-h2: 42px;
+  --ov-fz-h3: 36px;
+  --ov-fz-h4: 28px;
+  --ov-fz-h5: 24px;
+  --ov-fz-body-lg: 18px;
+  --ov-fz-body: 16px;
+  --ov-fz-body-sm: 14px;
+  --ov-fz-meta: 13px;
+  --ov-fz-caption: 12px;
+
+  --ov-section-py: 80px;
+  --ov-container: 1600px;
+  --ov-radius-pill: 200px;
+}
+
+@media (max-width: 1024px) { :root { --ov-section-py: 64px; } }
+@media (max-width: 720px)  { :root { --ov-section-py: 48px; } }
+@media (max-width: 480px)  { :root { --ov-section-py: 36px; } }
+
+/* ============================================================
+   BASE (scope lightly — WP themes already set body)
+   Prefer applying .ov-ds on a wrapper or body class from theme.
+   ============================================================ */
+.ov-ds,
+.ov-ds body,
+body.ov-ds {
+  font-family: var(--ov-ff-body);
+  color: var(--ov-fg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ov-ds h1, .ov-ds h2, .ov-ds h3, .ov-ds h4, .ov-ds h5, .ov-ds h6,
+.ov-heading {
+  font-family: var(--ov-ff-display);
+  color: var(--ov-navy-900);
+  font-weight: 400;
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.4em;
+}
+
+.ov-ds h1, .ov-h1 { font-size: clamp(32px, 4vw, var(--ov-fz-h1)); }
+.ov-ds h2, .ov-h2 { font-size: clamp(26px, 3vw, var(--ov-fz-h2)); line-height: 1.1; }
+.ov-ds h3, .ov-h3 { font-size: clamp(18px, 2vw, var(--ov-fz-h3)); }
+.ov-ds h4, .ov-h4 { font-size: var(--ov-fz-h4); }
+.ov-ds h5, .ov-h5 { font-size: var(--ov-fz-h5); }
+
+.ov-ds p, .ov-body {
+  font-family: var(--ov-ff-body);
+  font-size: var(--ov-fz-body);
+  line-height: 1.6;
+  color: var(--ov-grey-600);
+  margin: 0 0 1em;
+}
+.ov-body-lg { font-size: var(--ov-fz-body-lg); line-height: 1.65; color: var(--ov-grey-600); }
+.ov-body-sm { font-size: var(--ov-fz-body-sm); line-height: 1.5; color: var(--ov-grey-600); }
+.ov-meta    { font-size: var(--ov-fz-meta); color: var(--ov-grey-600); }
+.ov-caption { font-size: var(--ov-fz-caption); color: var(--ov-grey-500); }
+
+.ov-accent { font-style: italic; color: #70BABF; }
+.ov-on-dark { color: var(--ov-fg-on-dark) !important; }
+.ov-on-dark p, .ov-on-dark .ov-body { color: rgba(242, 252, 255, 0.72); }
+
+/* ============================================================
+   SECTION / ROW HELPERS  →  WPBakery Row "Extra class name"
+   ============================================================ */
+.ov-section {
+  padding-top: var(--ov-section-py);
+  padding-bottom: var(--ov-section-py);
+}
+
+.ov-bg-white   { background-color: #fff !important; }
+.ov-bg-tint    { background-color: var(--ov-surface-tint) !important; }
+.ov-bg-navy    { background-color: var(--ov-navy-1000) !important; color: var(--ov-fg-on-dark); }
+.ov-bg-footer  { background-color: var(--ov-footer-bg) !important; color: var(--ov-fg-on-dark); }
+.ov-bg-cream   { background-color: var(--ov-surface-cream) !important; }
+.ov-bg-soft    { background-color: var(--ov-surface-soft) !important; }
+
+/* Inner content max width — put on inner row or custom HTML wrapper */
+.ov-container {
+  max-width: var(--ov-container);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 120px;
+  padding-right: 120px;
+  box-sizing: border-box;
+}
+@media (max-width: 1840px) {
+  .ov-container { padding-left: 60px; padding-right: 60px; }
+}
+@media (max-width: 1100px) {
+  .ov-container { padding-left: 32px; padding-right: 32px; }
+}
+@media (max-width: 720px) {
+  .ov-container { padding-left: 16px; padding-right: 16px; }
+}
+
+/* ============================================================
+   EYEBROW  →  Text Block / Custom HTML
+   ============================================================ */
+.ov-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+}
+.ov-eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: #2494C1;
+  flex-shrink: 0;
+}
+.ov-eyebrow__text,
+.ov-eyebrow {
+  font-family: var(--ov-ff-sans);
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #2494C1;
+}
+/* When using a span only (no flex parent): */
+span.ov-eyebrow {
+  display: inline-flex;
+}
+.ov-eyebrow--light::before { background: rgba(112, 186, 191, 0.6); }
+.ov-eyebrow--light,
+.ov-eyebrow--light .ov-eyebrow__text { color: #70BABF; }
+
+/* ============================================================
+   BUTTONS  →  Button element "Extra class name" OR Custom HTML <a>
+   Use: ov-btn ov-btn--mint ov-btn--sm
+   ============================================================ */
+.ov-btn,
+a.ov-btn,
+button.ov-btn,
+.wpb_btn-container .ov-btn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1.5px solid transparent !important;
+  border-radius: var(--ov-radius-pill) !important;
+  box-sizing: border-box;
+  font-family: var(--ov-ff-sans) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.15s ease,
+              color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+  line-height: 1.2 !important;
+  box-shadow: none !important;
+}
+
+.ov-btn--sm { padding: 12px 28px !important; font-size: 14px !important; }
+.ov-btn--lg { padding: 20px 40px !important; font-size: 15px !important; }
+
+/* Primary — teal (PillMint) */
+.ov-btn--mint {
+  background: var(--ov-cta-primary-bg) !important;
+  color: var(--ov-cta-primary-fg) !important;
+  border-color: transparent !important;
+}
+.ov-btn--mint:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(107, 186, 191, 0.45) !important;
+  color: var(--ov-cta-primary-fg) !important;
+}
+
+/* Secondary — navy (PillNavy) */
+.ov-btn--navy {
+  background: var(--ov-cta-secondary-bg) !important;
+  color: var(--ov-cta-secondary-fg) !important;
+}
+.ov-btn--navy:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(35, 61, 124, 0.35) !important;
+  color: var(--ov-cta-secondary-fg) !important;
+}
+
+/* White on dark */
+.ov-btn--white {
+  background: #fff !important;
+  color: var(--ov-navy-900) !important;
+}
+.ov-btn--white:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.5) !important;
+  color: var(--ov-navy-900) !important;
+}
+
+/* Ghost on light */
+.ov-btn--ghost {
+  background: transparent !important;
+  color: var(--ov-navy-900) !important;
+  border-color: var(--ov-navy-900) !important;
+}
+.ov-btn--ghost:hover {
+  background: var(--ov-navy-900) !important;
+  color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(13, 31, 78, 0.2) !important;
+}
+
+/* Ghost light on dark / image */
+.ov-btn--ghost-light {
+  background: rgba(255, 255, 255, 0.10) !important;
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  backdrop-filter: blur(4px);
+}
+.ov-btn--ghost-light:hover {
+  background: rgba(255, 255, 255, 0.20) !important;
+  border-color: rgba(255, 255, 255, 0.65) !important;
+  color: #fff !important;
+  transform: translateY(-2px);
+}
+
+.ov-btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Text link (arrow) */
+.ov-text-link {
+  font-family: var(--ov-ff-body);
+  font-weight: 600;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ov-navy-600);
+  text-decoration: none !important;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.ov-text-link::after {
+  content: "→";
+  letter-spacing: -0.01em;
+  transition: transform 0.18s ease;
+}
+.ov-text-link:hover::after { transform: translateX(4px); }
+.ov-text-link--teal { color: var(--ov-teal-600); }
+
+/* Inline body links */
+.ov-ds a:not(.ov-btn):not(.ov-text-link) {
+  color: var(--ov-link);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ============================================================
+   CARDS  →  Column "Extra class name" or Custom HTML wrapper
+   ============================================================ */
+.ov-card {
+  border-radius: 14px;
+  padding: 28px 32px;
+  box-sizing: border-box;
+}
+.ov-card--white {
+  background: #fff;
+  border: 1px solid rgba(13, 31, 78, 0.08);
+}
+/* Use white card only on .ov-bg-tint sections */
+.ov-card--teal {
+  background: rgba(112, 186, 191, 0.2);
+  border: 1px solid rgba(112, 186, 191, 0.25);
+}
+/* Use teal card only on white sections */
+.ov-card--dark {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  color: var(--ov-fg-on-dark);
+}
+.ov-card--dark h1,
+.ov-card--dark h2,
+.ov-card--dark h3,
+.ov-card--dark h4 { color: var(--ov-fg-on-dark); }
+.ov-card--dark p { color: rgba(242, 252, 255, 0.7); }
+
+.ov-card--compact { padding: 20px 24px; }
+.ov-card--standard { padding: 24px 22px 20px; }
+.ov-card--large { padding: 28px 32px; }
+
+.ov-card__title {
+  font-family: var(--ov-ff-display);
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: var(--ov-navy-900);
+  margin: 0 0 8px;
+  font-weight: 400;
+}
+
+/* ============================================================
+   BADGES / CHIPS
+   ============================================================ */
+.ov-badge {
+  display: inline-block;
+  font-family: var(--ov-ff-sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 99px;
+  background: rgba(13, 31, 78, 0.06);
+  color: #1A3070;
+}
+.ov-badge--teal {
+  background: rgba(112, 186, 191, 0.12);
+  border: 1px solid rgba(112, 186, 191, 0.2);
+  color: #70BABF;
+}
+.ov-badge--hero {
+  background: rgba(0, 31, 84, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #F2FCFF;
+  padding: 5px 12px;
+  border-radius: 200px;
+  letter-spacing: 1.2px;
+  font-size: 10px;
+}
+
+/* ============================================================
+   HERO CARD  →  Custom HTML or Row + background image
+   ============================================================ */
+.ov-hero-wrap {
+  padding: 0 20px;
+  margin-bottom: 40px;
+  box-sizing: border-box;
+}
+@media (min-width: 1840px) {
+  .ov-hero-wrap {
+    max-width: 1680px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+  }
+}
+
+.ov-hero-card {
+  position: relative;
+  border-radius: 32px;
+  overflow: hidden;
+  min-height: 520px;
+  height: 800px;
+  background-color: var(--ov-navy-1000);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 1100px) { .ov-hero-card { height: 580px; } }
+@media (max-width: 720px)  { .ov-hero-card { height: 560px; } }
+@media (max-width: 480px)  { .ov-hero-card { height: 520px; } }
+
+.ov-hero-card__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(85deg, rgba(0, 31, 84, 0.82) 0%, rgba(0, 31, 84, 0.4) 60%, transparent 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+.ov-hero-card__content {
+  position: relative;
+  z-index: 2;
+  padding: 48px 80px;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+@media (max-width: 720px) {
+  .ov-hero-card__content {
+    padding: 32px 24px;
+    max-width: 100%;
+  }
+  .ov-hero-card__content .ov-btn {
+    width: 100%;
+  }
+}
+
+.ov-hero-title {
+  font-family: var(--ov-ff-display);
+  font-weight: 800;
+  font-size: clamp(28px, 4vw, 63px);
+  line-height: 1.1;
+  color: #F2FCFF;
+  margin: 0;
+  letter-spacing: 0;
+}
+.ov-hero-sub {
+  font-family: var(--ov-ff-sans);
+  font-size: clamp(14px, 1.4vw, 17px);
+  line-height: 1.6;
+  color: rgba(242, 252, 255, 0.82);
+  margin: 0;
+  max-width: 46ch;
+}
+.ov-hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ============================================================
+   CTA BANNER  →  Custom HTML (preferred) or Row + classes
+   ============================================================ */
+.ov-cta-banner {
+  background: #001F54;
+  border-radius: 16px;
+  padding: clamp(36px, 4vw, 56px) clamp(32px, 5vw, 80px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+.ov-cta-banner__text {
+  flex: 1 1 320px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ov-cta-banner__title {
+  font-family: var(--ov-ff-display);
+  font-weight: 800;
+  font-size: clamp(28px, 3.2vw, 42px);
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  color: #F2FCFF;
+  margin: 0;
+}
+.ov-cta-banner__body {
+  font-family: var(--ov-ff-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(242, 252, 255, 0.62);
+  margin: 4px 0 0;
+  max-width: 48ch;
+}
+
+/* ============================================================
+   CTA PANEL  →  full-width navy closing section
+   ============================================================ */
+.ov-cta-panel {
+  background: var(--ov-navy-1000);
+  text-align: center;
+  padding: 80px 40px;
+}
+.ov-cta-panel__inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.ov-cta-panel__title {
+  font-family: var(--ov-ff-display);
+  font-weight: 400;
+  font-size: clamp(34px, 4.4vw, 58px);
+  line-height: 1.05;
+  color: #F2FCFF;
+  margin: 0 0 20px;
+  letter-spacing: -0.02em;
+}
+.ov-cta-panel__sub {
+  font-family: var(--ov-ff-sans);
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.65;
+  color: rgba(242, 252, 255, 0.62);
+  margin: 0 auto 44px;
+  max-width: 54ch;
+}
+.ov-cta-panel__ctas {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   TABS (underline style — Contact / Client Resources)
+   ============================================================ */
+.ov-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid #e8e5e5;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.ov-tabs a,
+.ov-tabs button {
+  padding: 14px 20px;
+  border: none;
+  background: transparent;
+  font-family: var(--ov-ff-sans);
+  font-weight: 600;
+  font-size: 13px;
+  color: #001F54;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  text-decoration: none;
+}
+.ov-tabs a.is-active,
+.ov-tabs button.is-active,
+.ov-tabs a[aria-selected="true"] {
+  border-bottom-color: #2494C1;
+}
+
+/* ============================================================
+   FORMS
+   ============================================================ */
+.ov-label {
+  display: block;
+  font-family: var(--ov-ff-sans);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--ov-navy-900);
+  margin-bottom: 6px;
+}
+.ov-input,
+.ov-textarea,
+.wpcf7 input[type="text"],
+.wpcf7 input[type="email"],
+.wpcf7 textarea,
+.gform_wrapper input[type="text"],
+.gform_wrapper input[type="email"],
+.gform_wrapper textarea {
+  width: 100%;
+  box-sizing: border-box;
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(107, 126, 160, 0.3);
+  background: #fff;
+  font-family: var(--ov-ff-sans);
+  font-size: 15px;
+  color: var(--ov-navy-900);
+  outline: none;
+}
+.ov-textarea,
+.wpcf7 textarea,
+.gform_wrapper textarea {
+  height: auto;
+  min-height: 100px;
+  padding: 12px 14px;
+  resize: vertical;
+}
+.ov-input:focus,
+.ov-textarea:focus {
+  border-color: var(--ov-teal-700);
+}
+
+/* Dark form (footer-style) */
+.ov-bg-footer .ov-input,
+.ov-bg-navy .ov-input,
+.ov-input--dark {
+  height: 44px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+.ov-bg-footer .ov-label,
+.ov-bg-navy .ov-label { color: #fff; }
+
+/* ============================================================
+   SPLITS (NSG / partner landings)
+   ============================================================ */
+.ov-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.ov-split--reverse { direction: rtl; }
+.ov-split--reverse > * { direction: ltr; }
+@media (max-width: 900px) {
+  .ov-split,
+  .ov-split--reverse {
+    grid-template-columns: 1fr;
+    direction: ltr;
+    gap: 32px;
+  }
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+.ov-divider {
+  height: 1px;
+  background: var(--ov-border-soft);
+  border: 0;
+  margin: 24px 0;
+}
+.ov-divider--on-dark { background: rgba(255, 255, 255, 0.12); }
+
+.ov-stack { display: flex; flex-direction: column; gap: 16px; }
+.ov-stack--sm { gap: 8px; }
+.ov-stack--lg { gap: 28px; }
+.ov-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+.ov-text-center { text-align: center; }
+.ov-mt-0 { margin-top: 0 !important; }
+.ov-mb-0 { margin-bottom: 0 !important; }
+
+/* Kill default WPBakery button chrome when our classes are used */
+.wpb_wrapper .ov-btn.vc_btn3,
+.wpb_wrapper a.ov-btn {
+  border-radius: var(--ov-radius-pill) !important;
+}

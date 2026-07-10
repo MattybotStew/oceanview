@@ -29,6 +29,20 @@ Open via URL/hash only. Do not “fix” by adding nav links unless stakeholders
 
 ## Recent work (2026-07-10 — Grok)
 
+### WPBakery design system package
+
+Production build-out is **WPBakery on WordPress**. React is the prototype/reference.
+
+- **Folder:** `docs/wpbakery/`
+- **CSS to enqueue:** `docs/wpbakery/oceanview-wpbakery.css` (tokens + `ov-*` classes)
+- **PHP enqueue example:** `docs/wpbakery/enqueue-example.php` (child theme `functions.php`)
+- **Builder guide:** `docs/wpbakery/README.md`
+- **Copy-paste HTML:** `docs/wpbakery/recipes.html`
+- **Row/column recipes:** `docs/wpbakery/shortcodes.md`
+- **Hex swatches:** `docs/wpbakery/color-swatches.md`
+
+When tokens/components change in React, update the WPBakery CSS too and bump the enqueue version. Prefer Raw HTML for hero + CTA banner; use Row Extra class `ov-section ov-bg-*` for section bands.
+
 ### Design System page refresh
 
 - **Route:** `#design` (unlisted — internal reference only)
