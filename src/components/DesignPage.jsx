@@ -1,6 +1,10 @@
 // DesignPage.jsx — Oceanview Design System reference page
-// Sticky sidebar + scrollable content area, matching Figma reference pattern
+// Source of truth: src/styles/tokens.css + Buttons.jsx / common.jsx / PageHero / CTABanner / CTAPanel
+// Sticky sidebar + scrollable content. Keep in sync when tokens or shared components change.
 import { useState } from 'react'
+import { PillMint, PillNavy, PillWhite, PillGhost, TextLink } from './Buttons.jsx'
+import { Eyebrow } from './common.jsx'
+import CTABanner from './CTABanner.jsx'
 
 const HEADER_H = 72;
 
@@ -10,6 +14,7 @@ const SECTIONS = [
   { id: 'buttons', label: 'Buttons' },
   { id: 'links', label: 'Links' },
   { id: 'shadows', label: 'Shadows' },
+  { id: 'cards', label: 'Cards' },
   { id: 'pills', label: 'Pills & Badges' },
   { id: 'forms', label: 'Forms' },
   { id: 'layout', label: 'Layout' },
@@ -56,10 +61,21 @@ const S = {
     color: 'var(--ov-grey-500)', letterSpacing: '0.06em',
     textTransform: 'uppercase', marginBottom: 20,
   },
+  note: {
+    fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: 'var(--ov-grey-600)',
+    lineHeight: 1.7, marginTop: 16,
+  },
+  mono: { fontFamily: 'ui-monospace, monospace', fontSize: 12 },
   table: { width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--ov-ff-sans)', fontSize: 13, marginTop: 12 },
   th: { padding: '10px 12px', fontWeight: 600, color: 'var(--ov-grey-500)', fontSize: 11, letterSpacing: '0.8px', textTransform: 'uppercase', textAlign: 'left', borderBottom: '1px solid rgba(13,31,78,0.08)' },
   td: { padding: '10px 12px', color: 'var(--ov-navy-900)', borderBottom: '1px solid rgba(13,31,78,0.04)', lineHeight: 1.5, fontSize: 13 },
   grid: (min) => ({ display: 'grid', gridTemplateColumns: `repeat(auto-fill, minmax(${min}px, 1fr))`, gap: 12 }),
+  pre: {
+    background: 'var(--ov-navy-1000)', color: '#f2fcff', borderRadius: 12,
+    padding: '16px 20px', fontFamily: 'ui-monospace, monospace', fontSize: 13,
+    lineHeight: 1.65, overflowX: 'auto', margin: 0,
+  },
+  row: { display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' },
 };
 
 // ── COLOR SWATCH ──────────────────────────────────────────────────────────────
@@ -67,7 +83,10 @@ const S = {
 function Swatch({ name, hex, note }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-      <div style={{ width: 48, height: 48, borderRadius: 12, background: hex, border: '1px solid rgba(13,31,78,0.06)', flexShrink: 0 }} />
+      <div style={{
+        width: 48, height: 48, borderRadius: 12, background: hex,
+        border: '1px solid rgba(13,31,78,0.06)', flexShrink: 0,
+      }} />
       <div>
         <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 14, color: 'var(--ov-navy-900)', marginBottom: 2 }}>{name}</div>
         <div style={{ fontFamily: 'ui-monospace, monospace', fontSize: 13, color: 'var(--ov-grey-600)' }}>{hex}</div>
@@ -81,58 +100,97 @@ function Swatch({ name, hex, note }) {
 
 function Colors() {
   const NAVIES = [
-    ['--ov-navy-1000', '#001F54', 'Deepest — footer bg, card headings'],
+    ['--ov-navy-1000', '#001F54', 'Deepest — footer-adjacent dark, card headings'],
     ['--ov-navy-900',  '#0D1F4E', 'Primary text (--ov-fg)'],
+    ['--ov-navy-800',  '#1A2452', ''],
     ['--ov-navy-700',  '#16317B', ''],
-    ['--ov-navy-600',  '#1A3070', 'Dropdown link color'],
-    ['--ov-navy-500',  '#233D7C', 'Header bg, secondary CTA bg'],
+    ['--ov-navy-600',  '#1A3070', 'Dropdown links, TextLink default'],
+    ['--ov-navy-500',  '#233D7C', 'Header / secondary CTA (--ov-cta-secondary-bg)'],
     ['--ov-navy-400',  '#223F84', ''],
     ['--ov-navy-300',  '#4472C4', 'Section callout accent'],
   ];
   const TEALS = [
     ['--ov-teal-700', '#1976A0', 'Link color (--ov-link)'],
-    ['--ov-teal-600', '#2494C1', 'Info / accent color'],
+    ['--ov-teal-600', '#2494C1', 'Info / accent; Eyebrow default'],
     ['--ov-teal-500', '#06BCC1', ''],
     ['--ov-teal-400', '#6BBABF', 'Primary CTA bg (--ov-cta-primary-bg)'],
-    ['--ov-teal-300', '#71BABF', 'Teal accent text, hero italic'],
+    ['--ov-teal-300', '#71BABF', 'Teal accent text, hero italic (~#70BABF in UI)'],
+  ];
+  const SECONDARY = [
+    ['--ov-golden-sun',    '#E1C43B', 'Brand secondary gold'],
+    ['--ov-sunset-orange', '#A84124', 'Brand secondary orange'],
+    ['--ov-footer-bg',     '#001233', 'Footer background'],
   ];
   const GREYS = [
     ['--ov-grey-900', '#212529', ''],
     ['--ov-grey-800', '#333333', ''],
     ['--ov-grey-700', '#2B3A4F', ''],
     ['--ov-grey-600', '#374151', 'Body text (--ov-fg-muted), AA 7.2:1'],
-    ['--ov-grey-500', '#6B7280', 'Meta text'],
-    ['--ov-grey-400', '#828282', ''],
+    ['--ov-grey-500', '#6B7280', 'Meta / captions'],
+    ['--ov-grey-400', '#828282', 'Meta alias (--ov-fg-meta)'],
+    ['--ov-grey-300', '#DADADA', ''],
+    ['--ov-grey-200', '#E9EBF5', ''],
     ['--ov-grey-150', '#CFD5EA', 'Hero dot inactive'],
+    ['--ov-grey-100', '#D9D9D9', ''],
+    ['--ov-grey-50',  '#F2F2F2', ''],
   ];
   const SURFACES = [
-    ['--ov-surface-0', '#FFFFFF', 'Page bg (--ov-bg)'],
-    ['--ov-surface-tint', '#F1FBFF', 'Soft tint bg (--ov-bg-soft)'],
+    ['--ov-surface-0',      '#FFFFFF', 'Page bg (--ov-bg)'],
+    ['--ov-surface-tint',   '#F1FBFF', 'Soft tint (--ov-bg-soft)'],
     ['--ov-surface-tint-2', '#F2FCFF', 'On-dark text (--ov-fg-on-dark)'],
-    ['--ov-surface-cream', '#F0EEE9', 'Nav sidebar + mobile bg'],
+    ['--ov-surface-tint-3', '#F2FAFE', ''],
+    ['--ov-surface-cream',  '#F0EEE9', 'Nav sidebar + mobile bg'],
+    ['--ov-surface-soft',   '#F9F9F9', ''],
+  ];
+  const STATUS = [
+    ['--ov-success', '#008000', 'Success'],
+    ['--ov-danger',  '#CC0000', 'Danger — AA 5.87:1 on white'],
+    ['--ov-info',    '#2494C1', 'Maps to --ov-teal-600'],
+  ];
+  const BORDERS = [
+    ['--ov-border-faint',    'rgba(13, 31, 78, 0.10)', ''],
+    ['--ov-border-soft',     'rgba(13, 31, 78, 0.12)', 'Default light divider'],
+    ['--ov-border-dark',     'rgba(13, 31, 78, 0.20)', ''],
+    ['--ov-border-on-dark',  'rgba(255, 255, 255, 0.20)', ''],
+    ['--ov-border-hairline', 'rgba(0, 0, 0, 0.13)', ''],
   ];
   const ALIASES = [
-    ['--ov-bg',             '--ov-surface-0',      '#FFFFFF'],
-    ['--ov-bg-soft',        '--ov-surface-tint',   '#F1FBFF'],
-    ['--ov-fg',             '--ov-navy-900',       '#0D1F4E'],
-    ['--ov-fg-on-dark',     '--ov-surface-tint-2', '#F2FCFF'],
-    ['--ov-fg-muted',       '--ov-grey-600',       '#374151'],
-    ['--ov-cta-primary-bg', '--ov-teal-400',       '#6BBABF'],
-    ['--ov-cta-primary-fg', '--ov-navy-1000',      '#001F54'],
-    ['--ov-link',           '--ov-teal-700',       '#1976A0'],
+    ['--ov-bg',               '--ov-surface-0',       '#FFFFFF'],
+    ['--ov-bg-soft',          '--ov-surface-tint',    '#F1FBFF'],
+    ['--ov-bg-deep',          '--ov-navy-500',        '#233D7C'],
+    ['--ov-fg',               '--ov-navy-900',        '#0D1F4E'],
+    ['--ov-fg-on-dark',       '--ov-surface-tint-2',  '#F2FCFF'],
+    ['--ov-fg-muted',         '--ov-grey-600',        '#374151'],
+    ['--ov-fg-meta',          '--ov-grey-400',        '#828282'],
+    ['--ov-link',             '--ov-teal-700',        '#1976A0'],
+    ['--ov-cta-primary-bg',   '--ov-teal-400',        '#6BBABF'],
+    ['--ov-cta-primary-fg',   '--ov-navy-1000',       '#001F54'],
+    ['--ov-cta-secondary-bg', '--ov-navy-500',        '#233D7C'],
+    ['--ov-cta-secondary-fg', '--ov-fg-on-dark',      '#F2FCFF'],
   ];
+
   return (
     <div id="colors" style={S.section}>
       <h2 style={S.h2}>Colors</h2>
+      <p style={{ ...S.note, marginTop: 0, marginBottom: 20 }}>
+        All tokens live on <span style={S.mono}>:root</span> in <span style={S.mono}>src/styles/tokens.css</span>. Prefer semantic aliases in UI code.
+      </p>
       <div style={S.card}><div style={S.cardHd}>Navy palette</div><div style={S.grid(220)}>{NAVIES.map(c => <Swatch key={c[0]} name={c[0]} hex={c[1]} note={c[2]} />)}</div></div>
       <div style={S.card}><div style={S.cardHd}>Teal / Cyan palette</div><div style={S.grid(220)}>{TEALS.map(c => <Swatch key={c[0]} name={c[0]} hex={c[1]} note={c[2]} />)}</div></div>
+      <div style={S.card}><div style={S.cardHd}>Secondary brand</div><div style={S.grid(220)}>{SECONDARY.map(c => <Swatch key={c[0]} name={c[0]} hex={c[1]} note={c[2]} />)}</div></div>
       <div style={S.card}><div style={S.cardHd}>Grey palette</div><div style={S.grid(220)}>{GREYS.map(c => <Swatch key={c[0]} name={c[0]} hex={c[1]} note={c[2]} />)}</div></div>
-      <div style={S.card}><div style={S.cardHd}>Surface colors</div><div style={S.grid(220)}>{SURFACES.map(c => <Swatch key={c[0]} name={c[0]} hex={c[1]} note={c[2]} />)}</div></div>
+      <div style={S.card}><div style={S.cardHd}>Surfaces</div><div style={S.grid(220)}>{SURFACES.map(c => <Swatch key={c[0]} name={c[0]} hex={c[1]} note={c[2]} />)}</div></div>
+      <div style={S.card}><div style={S.cardHd}>Status</div><div style={S.grid(220)}>{STATUS.map(c => <Swatch key={c[0]} name={c[0]} hex={c[1]} note={c[2]} />)}</div></div>
+      <div style={S.card}><div style={S.cardHd}>Borders</div><div style={S.grid(220)}>{BORDERS.map(c => <Swatch key={c[0]} name={c[0]} hex={c[1]} note={c[2]} />)}</div></div>
       <div style={S.card}>
         <div style={S.cardHd}>Semantic aliases</div>
         <table style={S.table}>
           <thead><tr><th style={S.th}>Token</th><th style={S.th}>Maps To</th><th style={S.th}>Value</th></tr></thead>
-          <tbody>{ALIASES.map(r => <tr key={r[0]}>{r.map((c,i) => <td key={i} style={{...S.td, fontFamily: i < 2 ? 'ui-monospace, monospace' : 'var(--ov-ff-sans)', fontSize: 12}}>{c}</td>)}</tr>)}</tbody>
+          <tbody>{ALIASES.map(r => (
+            <tr key={r[0]}>{r.map((c, i) => (
+              <td key={i} style={{ ...S.td, fontFamily: i < 2 ? 'ui-monospace, monospace' : 'var(--ov-ff-sans)', fontSize: 12 }}>{c}</td>
+            ))}</tr>
+          ))}</tbody>
         </table>
       </div>
     </div>
@@ -143,20 +201,26 @@ function Colors() {
 
 function Typography() {
   const SCALE = [
-    ['h1', '--ov-fz-h1 (48px)', 'PP Editorial New', 'clamp(32px, 4vw, 48px)', '400', '1.16', '-0.025em'],
-    ['h2', '--ov-fz-h2 (42px)', 'PP Editorial New', 'clamp(26px, 3vw, 42px)', '400', '1.1', '-0.025em'],
-    ['h3', '--ov-fz-h3 (36px)', 'PP Editorial New', 'clamp(18px, 2vw, 36px)', '400', '1.16', '-0.025em'],
-    ['h4', '--ov-fz-h4 (28px)', 'PP Editorial New', '28px', '400', '1.16', '0'],
-    ['h5', '--ov-fz-h5 (24px)', 'PP Editorial New', '24px', '400', '1.16', '0'],
-    ['p (body)', '--ov-fz-body (16px)', 'PP Mori', '16px', '400', '1.6', '0'],
-    ['Body Large', '--ov-fz-body-lg (18px)', 'PP Mori', '18px', '400', '1.65', '0'],
-    ['Body Small', '--ov-fz-body-sm (14px)', 'PP Mori', '14px', '400', '1.5', '0'],
-    ['Meta', '--ov-fz-meta (13px)', 'PP Mori', '13px', '400', '1.5', '0'],
-    ['Caption', '--ov-fz-caption (12px)', 'PP Mori', '12px', '400', '1.4', '0'],
-    ['Eyebrow (.ov-eyebrow)', '--ov-fz-eyebrow (16px)', 'PP Mori', '16px', '600', '1.0', '0.10em, uppercase'],
+    ['display-1', '--ov-fz-display-1', 'PP Editorial New', '124px', '400', '1.0', 'token only'],
+    ['display-2', '--ov-fz-display-2', 'PP Editorial New', '69px', '400', '1.0', 'token only'],
+    ['display-3 / .ov-display', '--ov-fz-display-3', 'PP Editorial New', '63px', '400', '1.0', ''],
+    ['h1 / .ov-h1', '--ov-fz-h1', 'PP Editorial New', 'clamp(32px, 4vw, 48px)', '400', '1.16', '-0.025em'],
+    ['h2 / .ov-h2', '--ov-fz-h2', 'PP Editorial New', 'clamp(26px, 3vw, 42px)', '400', '1.1', '-0.025em'],
+    ['h3 / .ov-h3', '--ov-fz-h3', 'PP Editorial New', 'clamp(18px, 2vw, 36px)', '400', '1.16', '-0.025em'],
+    ['h4 / .ov-h4', '--ov-fz-h4', 'PP Editorial New', '28px', '400', '1.16', '0'],
+    ['h5 / .ov-h5', '--ov-fz-h5', 'PP Editorial New', '24px', '400', '1.16', '0'],
+    ['h6', '--ov-fz-h6', 'PP Editorial New', '20px', '400', '1.16', '0'],
+    ['p / .ov-body', '--ov-fz-body', 'PP Mori', '16px', '400', '1.6', '0'],
+    ['Body Large / .ov-p-lg', '--ov-fz-body-lg', 'PP Mori', '18px', '400', '1.65', '0'],
+    ['Body Small / .ov-p-sm', '--ov-fz-body-sm', 'PP Mori', '14px', '400', '1.5', '0'],
+    ['Meta / .ov-meta', '--ov-fz-meta', 'PP Mori', '13px', '400', '1.5', '0'],
+    ['Caption / .ov-caption', '--ov-fz-caption', 'PP Mori', '12px', '400', '1.4', '0'],
+    ['.ov-eyebrow class', '--ov-fz-eyebrow', 'PP Mori', '16px', '600', '1.0', '0.10em, uppercase'],
+    ['Eyebrow component', 'inline', 'PP Mori', '10px', '600', '1', '1.4px, uppercase'],
     ['Hero Title', 'inline', 'PP Editorial New', 'clamp(28px, 8vw, 63px)', '800', '1.1', '0'],
     ['PageHero Title', 'inline', 'PP Editorial New', 'clamp(28px, 4vw, 63px)', '800', '1.1', '0'],
   ];
+
   return (
     <div id="typography" style={S.section}>
       <h2 style={S.h2}>Typography</h2>
@@ -164,38 +228,58 @@ function Typography() {
         <div style={S.cardHd}>Font families</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div>
-            <div style={{ fontFamily: 'PP Editorial New', fontWeight: 400, fontSize: 32, color: '#0D1F4E', lineHeight: 1.1 }}>PP Editorial New</div>
-            <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', marginTop: 4 }}>Brand display serif — used for all headings (h1–h6, .ov-h1–.ov-h5).</div>
-            <div style={{ fontFamily: 'PP Mori', fontSize: 12, color: 'var(--ov-grey-500)' }}>Weights: 200 (Ultralight), 400 (Regular), 800 (Ultrabold) + italic variants. Via src/fonts/.</div>
+            <div style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 32, color: '#0D1F4E', lineHeight: 1.1 }}>PP Editorial New</div>
+            <div style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: 'var(--ov-grey-600)', marginTop: 4 }}>
+              Brand display serif — headings (h1–h6, .ov-h1–.ov-h5, hero titles). Token: <span style={S.mono}>--ov-ff-display</span>
+            </div>
+            <div style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 12, color: 'var(--ov-grey-500)' }}>
+              Weights: 200 Ultralight, 400 Regular, 800 Ultrabold + italics. Files in <span style={S.mono}>src/fonts/</span>.
+            </div>
           </div>
-          <div style={{ height: 1, background: 'rgba(13,31,78,0.08)' }} />
+          <div style={{ height: 1, background: 'var(--ov-border-faint)' }} />
           <div>
-            <div style={{ fontFamily: 'PP Mori', fontWeight: 600, fontSize: 32, color: '#0D1F4E', lineHeight: 1.1 }}>PP Mori</div>
-            <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', marginTop: 4 }}>Brand sans — body text, UI, buttons, navigation, eyebrow.</div>
-            <div style={{ fontFamily: 'PP Mori', fontSize: 12, color: 'var(--ov-grey-500)' }}>Weights: 200 (Extralight), 400 (Regular), 600 (Semibold), 900 (Black) + italic variants.</div>
+            <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 32, color: '#0D1F4E', lineHeight: 1.1 }}>PP Mori</div>
+            <div style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: 'var(--ov-grey-600)', marginTop: 4 }}>
+              Brand sans — body, UI, buttons, nav. Tokens: <span style={S.mono}>--ov-ff-sans</span> / <span style={S.mono}>--ov-ff-body</span>
+            </div>
+            <div style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 12, color: 'var(--ov-grey-500)' }}>
+              Weights: 200 Extralight, 400 Regular, 600 Semibold, 900 Black + italics.
+            </div>
           </div>
         </div>
       </div>
+
       <div style={S.card}>
-        <div style={S.cardHd}>Type scale — with responsive clamp values</div>
+        <div style={S.cardHd}>Type scale</div>
         <table style={S.table}>
-          <thead><tr><th style={S.th}>Element</th><th style={S.th}>Token</th><th style={S.th}>Font</th><th style={S.th}>Size</th><th style={S.th}>Weight</th><th style={S.th}>Line</th><th style={S.th}>Tracking</th></tr></thead>
-          <tbody>{SCALE.map((r,i) => <tr key={i}>{r.map((c,j) => <td key={j} style={S.td}>{c}</td>)}</tr>)}</tbody>
+          <thead>
+            <tr>
+              <th style={S.th}>Element</th><th style={S.th}>Token</th><th style={S.th}>Font</th>
+              <th style={S.th}>Size</th><th style={S.th}>Weight</th><th style={S.th}>Line</th><th style={S.th}>Tracking</th>
+            </tr>
+          </thead>
+          <tbody>{SCALE.map((r, i) => <tr key={i}>{r.map((c, j) => <td key={j} style={S.td}>{c}</td>)}</tr>)}</tbody>
         </table>
       </div>
+
       <div style={S.card}>
-        <div style={S.cardHd}>Responsive font formula</div>
-        <div style={{ fontFamily: 'ui-monospace, monospace', fontSize: 14, color: 'var(--ov-navy-900)', marginBottom: 8 }}>vw% = target_px / design_width × 100</div>
-        <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.6 }}>
-          E.g. 48px target at 1440px = 3.33vw → <span style={{ fontFamily: 'ui-monospace, monospace' }}>clamp(32px, 3.33vw, 48px)</span><br />
-          Hero uses 8vw; PageHero uses 4vw for a more refined inner-page scale.
+        <div style={S.cardHd}>Live samples</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <h1 style={{ margin: 0 }}>Heading one sample</h1>
+          <h2 style={{ margin: 0 }}>Heading two sample</h2>
+          <h3 style={{ margin: 0 }}>Heading three sample</h3>
+          <p style={{ margin: 0 }}>Body copy uses PP Mori at 16px / 1.6 with muted navy-grey for long-form readability.</p>
+          <p className="ov-p-lg" style={{ margin: 0 }}>Large body for lead paragraphs and intros.</p>
+          <p className="ov-meta" style={{ margin: 0 }}>Meta text for timestamps, labels, and secondary info.</p>
         </div>
       </div>
+
       <div style={S.card}>
-        <div style={S.cardHd}>Global button text</div>
-        <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.6 }}>
-          All buttons use <strong>PP Mori 600 (Semibold)</strong> with letter-spacing: 0.02em ·<br />
-          PillMint/Navy: 15px · Small: 14px · TextLink: 15px
+        <div style={S.cardHd}>Button text</div>
+        <div style={S.note}>
+          All <span style={S.mono}>.ov-btn</span> variants: PP Mori 600, letter-spacing <span style={S.mono}>.02em</span>.
+          Sizes: <span style={S.mono}>sm</span> 14px / 12px 28px · <span style={S.mono}>lg</span> (hero) 15px / 20px 40px.
+          TextLink: 15px default (often overridden per context).
         </div>
       </div>
     </div>
@@ -208,85 +292,65 @@ function Buttons() {
   return (
     <div id="buttons" style={S.section}>
       <h2 style={S.h2}>Buttons</h2>
+      <p style={{ ...S.note, marginTop: 0, marginBottom: 20 }}>
+        Live components from <span style={S.mono}>Buttons.jsx</span>. Hover / focus / disabled states are defined on <span style={S.mono}>.ov-btn-*</span> in tokens.css.
+        API: <span style={S.mono}>hero</span> → large size; <span style={S.mono}>PillGhost light</span> → ghost-light on dark.
+      </p>
 
       <div style={S.card}>
-        <div style={S.cardHd}>PillMint — Primary CTA (teal, all backgrounds)</div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
-          <button style={{
-            display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-            border: '1.5px solid transparent', borderRadius: 200, boxSizing: 'border-box',
-            fontFamily: 'PP Mori', fontWeight: 600, letterSpacing: '.02em', whiteSpace: 'nowrap',
-            cursor: 'pointer', padding: '14px 30px', fontSize: 15,
-            background: 'var(--ov-teal-400)', color: 'var(--ov-navy-1000)',
-          }}>Explore Products</button>
-          <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.7 }}>
-            <strong>Default:</strong> bg=#6BBABF, color=#001F54<br />
-            <strong>Hover:</strong> translateY(-2px) + box-shadow: 0 8px 28px rgba(107,186,191,.45)<br />
-            <strong>Active:</strong> translateY(0) + inset 0 1px 0 rgba(0,0,0,.10)<br />
-            <strong>Hero:</strong> 15px/20px 40px · <strong>Inline:</strong> 14px/12px 28px
-          </div>
+        <div style={S.cardHd}>PillMint — primary CTA (any background)</div>
+        <div style={S.row}>
+          <PillMint>Explore Products</PillMint>
+          <PillMint hero>Hero size</PillMint>
+          <PillMint disabled>Disabled</PillMint>
+        </div>
+        <div style={S.note}>
+          <strong>Class:</strong> <span style={S.mono}>.ov-btn--mint</span> · bg <span style={S.mono}>--ov-cta-primary-bg</span> · color <span style={S.mono}>--ov-cta-primary-fg</span><br />
+          <strong>Hover:</strong> translateY(-2px) + teal glow · <strong>Active:</strong> press inset shadow
         </div>
       </div>
 
       <div style={S.card}>
-        <div style={S.cardHd}>PillNavy — Secondary CTA (navy, light backgrounds)</div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
-          <button style={{
-            display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-            border: '1.5px solid transparent', borderRadius: 200, boxSizing: 'border-box',
-            fontFamily: 'PP Mori', fontWeight: 600, letterSpacing: '.02em', whiteSpace: 'nowrap',
-            cursor: 'pointer', padding: '14px 30px', fontSize: 15,
-            background: 'var(--ov-navy-500)', color: 'var(--ov-surface-tint-2)',
-          }}>Learn More</button>
-          <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.7 }}>
-            <strong>Default:</strong> bg=#233D7C, color=#F2FCFF<br />
-            <strong>Hover:</strong> translateY(-2px) + box-shadow: 0 8px 32px rgba(35,61,124,.35)
-          </div>
+        <div style={S.cardHd}>PillNavy — secondary CTA (light backgrounds)</div>
+        <div style={S.row}>
+          <PillNavy>Learn More</PillNavy>
+          <PillNavy hero>Hero size</PillNavy>
+        </div>
+        <div style={S.note}>
+          <strong>Class:</strong> <span style={S.mono}>.ov-btn--navy</span> · bg <span style={S.mono}>--ov-cta-secondary-bg</span> · color <span style={S.mono}>--ov-cta-secondary-fg</span>
         </div>
       </div>
 
       <div style={S.card}>
-        <div style={S.cardHd}>PillGhost — Outline CTA (light backgrounds)</div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
-          <button style={{
-            display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-            borderRadius: 200, boxSizing: 'border-box', fontFamily: 'PP Mori', fontWeight: 600,
-            letterSpacing: '.02em', whiteSpace: 'nowrap', cursor: 'pointer',
-            padding: '14px 30px', fontSize: 15, background: 'transparent',
-            color: 'var(--ov-navy-900)', border: '1.5px solid var(--ov-navy-900)',
-          }}>Contact Us</button>
-          <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.7 }}>
-            <strong>Default:</strong> transparent, border: 1.5px solid #0D1F4E, color: #0D1F4E<br />
-            <strong>Hover:</strong> bg: #0D1F4E, color: #fff, box-shadow: 0 8px 24px rgba(13,31,78,.2)
-          </div>
+        <div style={S.cardHd}>PillGhost — outline (light backgrounds)</div>
+        <div style={S.row}>
+          <PillGhost>Contact Us</PillGhost>
+          <PillGhost hero>Hero size</PillGhost>
+        </div>
+        <div style={S.note}>
+          <strong>Class:</strong> <span style={S.mono}>.ov-btn--ghost</span> · transparent + navy border · hover fills navy
         </div>
       </div>
 
       <div style={{ ...S.card, background: 'var(--ov-navy-1000)' }}>
-        <div style={{ ...S.cardHd, color: 'rgba(255,255,255,0.5)' }}>PillGhost Light — Outline CTA (dark / image backgrounds)</div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
-          <button style={{
-            display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-            borderRadius: 200, boxSizing: 'border-box', fontFamily: 'PP Mori', fontWeight: 600,
-            letterSpacing: '.02em', whiteSpace: 'nowrap', cursor: 'pointer',
-            padding: '14px 30px', fontSize: 15, background: 'rgba(255,255,255,.10)',
-            color: '#fff', border: '1.5px solid rgba(255,255,255,.35)', backdropFilter: 'blur(4px)',
-          }}>Get Started</button>
-          <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'rgba(255,255,255,0.7)', lineHeight: 1.7 }}>
-            <strong>Default:</strong> bg: rgba(255,255,255,.10), border: rgba(255,255,255,.35), color: #fff, backdrop-filter: blur(4px)<br />
-            <strong>Hover:</strong> bg: rgba(255,255,255,.20), border: rgba(255,255,255,.65)
-          </div>
+        <div style={{ ...S.cardHd, color: 'rgba(255,255,255,0.5)' }}>On dark — PillWhite + PillGhost light</div>
+        <div style={S.row}>
+          <PillWhite>PillWhite</PillWhite>
+          <PillGhost light>PillGhost light</PillGhost>
+          <PillMint>PillMint still ok</PillMint>
+        </div>
+        <div style={{ ...S.note, color: 'rgba(255,255,255,0.7)' }}>
+          <strong>PillWhite:</strong> <span style={S.mono}>.ov-btn--white</span> — solid white on navy/images<br />
+          <strong>PillGhost light:</strong> <span style={S.mono}>.ov-btn--ghost-light</span> — frosted outline (PageHero secondary)
         </div>
       </div>
 
       <div style={S.card}>
-        <div style={S.cardHd}>.ov-btn base architecture</div>
-        <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.7 }}>
-          All buttons extend <span style={{ fontFamily: 'ui-monospace, monospace' }}>.ov-btn</span>:<br />
-          • display: inline-flex · border-radius: 200px · font-weight: 600 · letter-spacing: .02em<br />
-          • transition: transform .18s, box-shadow .18s, background .15s, color .15s<br />
-          • focus-visible: 2px solid currentColor ring, 3px offset · disabled: opacity .4, pointer-events none<br />
-          • Size variants: <span style={{ fontFamily: 'ui-monospace, monospace' }}>.ov-btn--sm</span> (12px 28px, 14px) · <span style={{ fontFamily: 'ui-monospace, monospace' }}>.ov-btn--lg</span> (20px 40px, 15px)
+        <div style={S.cardHd}>.ov-btn architecture</div>
+        <div style={S.note}>
+          Base: inline-flex · border-radius 200px · border 1.5px transparent (size parity) · font-weight 600 · letter-spacing .02em<br />
+          Focus-visible: 2px solid currentColor, 3px offset · Disabled: opacity .4, pointer-events none<br />
+          Sizes: <span style={S.mono}>.ov-btn--sm</span> (default) · <span style={S.mono}>.ov-btn--lg</span> when <span style={S.mono}>hero</span>
         </div>
       </div>
     </div>
@@ -301,43 +365,44 @@ function Links() {
       <h2 style={S.h2}>Links</h2>
 
       <div style={S.card}>
-        <div style={S.cardHd}>.ov-text-link — standalone action links (outside paragraph copy)</div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 32, marginBottom: 12 }}>
-          <span style={{ fontFamily: 'PP Mori', fontWeight: 600, fontSize: 15, display: 'inline-flex', alignItems: 'center', gap: 8, color: '#1976A0', cursor: 'pointer' }}>
-            Get Directions <span style={{ fontFamily: 'PP Mori', letterSpacing: '-.01em' }}>→</span>
-          </span>
-          <span style={{ fontFamily: 'PP Mori', fontWeight: 600, fontSize: 15, display: 'inline-flex', alignItems: 'center', gap: 8, color: '#1976A0', cursor: 'pointer' }}>
-            Explore Products <span style={{ fontFamily: 'PP Mori', letterSpacing: '-.01em' }}>→</span>
-          </span>
+        <div style={S.cardHd}>TextLink — standalone action (Buttons.jsx)</div>
+        <div style={{ ...S.row, marginBottom: 12 }}>
+          <TextLink onClick={() => {}}>Get Directions</TextLink>
+          <TextLink color="var(--ov-teal-600)" onClick={() => {}}>Teal override</TextLink>
         </div>
-        <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.7 }}>
-          <strong>Default:</strong> color: #1976A0 (--ov-link) · font-weight: 600 · font-size: 15px · no underline · gap: 8px<br />
-          <strong>Hover:</strong> color: #1976A0 (--ov-teal-700) · arrow → translateX(4px)<br />
-          <strong>Focus:</strong> 2px solid currentColor outline, 2px offset<br />
-          <strong>Use:</strong> Card CTAs, section links — NOT inside paragraph text
+        <div style={S.note}>
+          <strong>Default color:</strong> <span style={S.mono}>var(--ov-navy-600)</span> (#1A3070) — not link teal; pass <span style={S.mono}>color</span> to override<br />
+          <strong>Class:</strong> <span style={S.mono}>.ov-text-link</span> · weight 600 · arrow → slides on hover<br />
+          <strong>Use:</strong> card CTAs, “view page” actions — not inside paragraph copy
         </div>
       </div>
 
       <div style={S.card}>
-        <div style={S.cardHd}>Inline links — embedded in paragraph copy</div>
-        <div style={{ fontFamily: 'PP Mori', fontSize: 15, color: 'var(--ov-grey-600)', lineHeight: 1.65, marginBottom: 12 }}>
-          Contact our <a href="#" onClick={e => e.preventDefault()} style={{ color: '#1976A0', fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: 2 }}>sales team</a> for current rates and product availability.
+        <div style={S.cardHd}>Inline links — inside body copy</div>
+        <div style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: 'var(--ov-grey-600)', lineHeight: 1.65, marginBottom: 12 }}>
+          Contact our{' '}
+          <a
+            href="#contact"
+            onClick={e => e.preventDefault()}
+            style={{ color: 'var(--ov-link)', fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: 2 }}
+          >
+            sales team
+          </a>{' '}
+          for current rates and product availability.
         </div>
-        <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.7 }}>
-          <strong>Rule:</strong> underline always visible (WCAG 1.4.1 — color alone insufficient in body copy)<br />
-          <strong>Style:</strong> color: #1976A0 · font-weight: 600 · underline · underline-offset: 2px
+        <div style={S.note}>
+          Always underline in body (WCAG 1.4.1). Color: <span style={S.mono}>var(--ov-link)</span> / #1976A0 · weight 600 · underline-offset 2px
         </div>
       </div>
 
       <div style={{ ...S.card, background: 'var(--ov-footer-bg)' }}>
-        <div style={{ ...S.cardHd, color: 'rgba(255,255,255,0.5)' }}>Footer links — dark background context</div>
+        <div style={{ ...S.cardHd, color: 'rgba(255,255,255,0.5)' }}>Footer links</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 12 }}>
-          <a href="#" onClick={e => e.preventDefault()} style={{ fontFamily: 'PP Mori', fontSize: 13.5, color: 'rgba(255,255,255,.7)', textDecoration: 'none' }}>Case Studies</a>
-          <a href="#" onClick={e => e.preventDefault()} style={{ fontFamily: 'PP Mori', fontSize: 13.5, color: 'rgba(255,255,255,.7)', textDecoration: 'none' }}>Downloads</a>
+          <a href="#" onClick={e => e.preventDefault()} style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13.5, color: 'rgba(255,255,255,.7)', textDecoration: 'none' }}>Case Studies</a>
+          <a href="#" onClick={e => e.preventDefault()} style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13.5, color: 'rgba(255,255,255,.7)', textDecoration: 'none' }}>Downloads</a>
         </div>
-        <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'rgba(255,255,255,.5)' }}>
-          <strong>Default:</strong> font-size: 13.5px · color: rgba(255,255,255,.7) · no underline<br />
-          <strong>Hover:</strong> color: #fff
+        <div style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: 'rgba(255,255,255,.5)' }}>
+          Default: 13.5px · rgba(255,255,255,.7) · no underline · Hover: color #fff
         </div>
       </div>
     </div>
@@ -348,22 +413,86 @@ function Links() {
 
 function Shadows() {
   const shadows = [
-    ['--ov-shadow-card',   '0 24px 60px 0 rgba(13, 31, 78, 0.12)', 'Dropdown panels, content cards'],
+    ['--ov-shadow-card',   '0 24px 60px 0 rgba(13, 31, 78, 0.12)', 'Dropdown panels, elevated cards'],
     ['--ov-shadow-cover',  '0 25px 50px -12px rgba(0, 0, 0, 0.25)', 'Hero cover / overlay panels'],
     ['--ov-shadow-button', '0 2px 8px 0 rgba(13, 31, 78, 0.10)', 'Default button elevation'],
-    ['--ov-shadow-press',  'inset 0 1px 0 rgba(0, 0, 0, 0.10)', 'Button active/pressed state'],
+    ['--ov-shadow-press',  'inset 0 1px 0 rgba(0, 0, 0, 0.10)', 'Button active / pressed'],
   ];
   return (
     <div id="shadows" style={S.section}>
       <h2 style={S.h2}>Shadows</h2>
       <div style={S.grid(260)}>
         {shadows.map(s => (
-          <div key={s[0]} style={{ background: '#fff', borderRadius: 16, padding: 24, boxShadow: s[1] }}>
-            <div style={{ fontFamily: 'PP Mori', fontWeight: 600, fontSize: 15, color: 'var(--ov-navy-900)', marginBottom: 8, lineHeight: 1.3 }}>{s[0]}</div>
-            <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.5, marginBottom: 6 }}>{s[2]}</div>
-            <div style={{ fontFamily: 'ui-monospace, monospace', fontSize: 12, color: 'var(--ov-grey-500)' }}>{s[1]}</div>
+          <div key={s[0]} style={{ background: '#fff', borderRadius: 16, padding: 24, boxShadow: s[1], border: '1px solid rgba(13,31,78,0.04)' }}>
+            <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 15, color: 'var(--ov-navy-900)', marginBottom: 8 }}>{s[0]}</div>
+            <div style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.5, marginBottom: 6 }}>{s[2]}</div>
+            <div style={{ fontFamily: 'ui-monospace, monospace', fontSize: 11, color: 'var(--ov-grey-500)' }}>{s[1]}</div>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+// ── CARDS ─────────────────────────────────────────────────────────────────────
+
+function Cards() {
+  return (
+    <div id="cards" style={S.section}>
+      <h2 style={S.h2}>Cards</h2>
+      <p style={{ ...S.note, marginTop: 0, marginBottom: 20 }}>
+        Three card types — match card surface to section background. Never put a white card on white or a teal card on surface-tint.
+      </p>
+
+      <div style={{ ...S.card, background: 'var(--ov-surface-tint)' }}>
+        <div style={S.cardHd}>White card — sits on surface-tint</div>
+        <div style={{
+          background: '#fff', borderRadius: 14, border: '1px solid rgba(13,31,78,.08)',
+          padding: '28px 32px', maxWidth: 360,
+        }}>
+          <h3 style={{ fontFamily: 'var(--ov-ff-display)', fontSize: 18, letterSpacing: '-0.01em', margin: '0 0 8px', color: 'var(--ov-navy-900)' }}>Card title</h3>
+          <p style={{ margin: 0, fontSize: 14 }}>Standard content card on soft tint sections.</p>
+        </div>
+        <div style={S.note}>
+          <span style={S.mono}>background: &apos;#fff&apos;</span> · <span style={S.mono}>borderRadius: 14</span> · <span style={S.mono}>border: 1px solid rgba(13,31,78,.08)</span>
+        </div>
+      </div>
+
+      <div style={S.card}>
+        <div style={S.cardHd}>Teal-tint card — sits on white</div>
+        <div style={{
+          background: 'rgba(112,186,191,0.2)', borderRadius: 14, border: '1px solid rgba(112,186,191,.25)',
+          padding: '28px 32px', maxWidth: 360,
+        }}>
+          <h3 style={{ fontFamily: 'var(--ov-ff-display)', fontSize: 18, letterSpacing: '-0.01em', margin: '0 0 8px', color: 'var(--ov-navy-900)' }}>Highlight card</h3>
+          <p style={{ margin: 0, fontSize: 14 }}>Feature callouts, tip boxes, secondary content blocks.</p>
+        </div>
+        <div style={S.note}>
+          <span style={S.mono}>background: rgba(112,186,191,0.2)</span> · <span style={S.mono}>borderRadius: 14</span> · teal border
+        </div>
+      </div>
+
+      <div style={{ ...S.card, background: 'var(--ov-navy-1000)' }}>
+        <div style={{ ...S.cardHd, color: 'rgba(255,255,255,0.5)' }}>Dark card — sits on navy</div>
+        <div style={{
+          background: 'rgba(255,255,255,.05)', borderRadius: 16, border: '1px solid rgba(255,255,255,.08)',
+          padding: '28px 32px', maxWidth: 360,
+        }}>
+          <h3 style={{ fontFamily: 'var(--ov-ff-display)', fontSize: 18, letterSpacing: '-0.01em', margin: '0 0 8px', color: '#F2FCFF' }}>On dark</h3>
+          <p style={{ margin: 0, fontSize: 14, color: 'rgba(242,252,255,.7)' }}>Glass-style cards for navy feature bands.</p>
+        </div>
+        <div style={{ ...S.note, color: 'rgba(255,255,255,0.65)' }}>
+          <span style={S.mono}>background: rgba(255,255,255,.05)</span> · <span style={S.mono}>borderRadius: 16</span> · white border at 8%
+        </div>
+      </div>
+
+      <div style={S.card}>
+        <div style={S.cardHd}>Padding scale & card CTAs</div>
+        <div style={S.note}>
+          Compact <span style={S.mono}>20px 24px</span> · Standard <span style={S.mono}>24px 22px 20px</span> · Large <span style={S.mono}>28px 32px</span><br />
+          Titles: use <span style={S.mono}>&lt;h3&gt;</span> with display font ~18–19px.<br />
+          Inside cards: navigation → <span style={S.mono}>TextLink</span>; primary action → <span style={S.mono}>PillGhost</span> / <span style={S.mono}>PillMint</span> — no raw styled buttons.
+        </div>
       </div>
     </div>
   );
@@ -377,44 +506,48 @@ function Pills() {
       <h2 style={S.h2}>Pills & Badges</h2>
 
       <div style={S.card}>
-        <div style={S.cardHd}>Filter pills — ScrollNav tab pattern (ClientResourcesPage)</div>
-        <div style={{ display: 'flex', gap: 4, marginBottom: 16 }}>
-          <button style={{ padding: '14px 20px', border: 'none', fontFamily: 'PP Mori', fontWeight: 600, fontSize: 13, color: '#001F54', background: 'transparent', borderBottom: '3px solid #2494C1', cursor: 'pointer' }}>Downloads</button>
-          <button style={{ padding: '14px 20px', border: 'none', fontFamily: 'PP Mori', fontWeight: 600, fontSize: 13, color: '#001F54', background: 'transparent', borderBottom: '1px solid #e8e5e5', cursor: 'pointer' }}>Rates</button>
-          <button style={{ padding: '14px 20px', border: 'none', fontFamily: 'PP Mori', fontWeight: 600, fontSize: 13, color: '#001F54', background: 'transparent', borderBottom: '1px solid #e8e5e5', cursor: 'pointer' }}>Glossary</button>
+        <div style={S.cardHd}>Tab underline pattern (Contact / Client Resources)</div>
+        <div style={{ display: 'flex', gap: 4, marginBottom: 16, borderBottom: '1px solid #e8e5e5' }}>
+          <button type="button" className="ov-contact-tab" style={{ padding: '14px 20px', border: 'none', fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#001F54', background: 'transparent', borderBottom: '3px solid #2494C1', cursor: 'pointer', marginBottom: -1 }}>Downloads</button>
+          <button type="button" className="ov-contact-tab" style={{ padding: '14px 20px', border: 'none', fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#001F54', background: 'transparent', borderBottom: '1px solid transparent', cursor: 'pointer', marginBottom: -1 }}>Rates</button>
+          <button type="button" className="ov-contact-tab" style={{ padding: '14px 20px', border: 'none', fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#001F54', background: 'transparent', borderBottom: '1px solid transparent', cursor: 'pointer', marginBottom: -1 }}>Glossary</button>
         </div>
-        <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.7 }}>
-          <strong>Active:</strong> border-bottom: 3px solid #2494C1 · bg: rgba(226,241,242,0.6) (on hover)<br />
-          <strong>Inactive:</strong> border-bottom: 1px solid #e8e5e5<br />
-          <strong>Font:</strong> PP Mori 600 · 13px · color: #001F54 · Hover: bg = rgba(226,241,242,0.35)
+        <div style={S.note}>
+          Active: bottom border 3px solid #2494C1 · Inactive: transparent · Font: PP Mori 600 13px · Focus: <span style={S.mono}>.ov-contact-tab:focus-visible</span>
         </div>
       </div>
 
       <div style={S.card}>
-        <div style={S.cardHd}>Hero carousel dots — active / inactive</div>
+        <div style={S.cardHd}>Hero carousel dots</div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-          <div style={{ width: 22, height: 8, borderRadius: 4, background: '#2494C1' }} />
-          <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#CFD5EA' }} />
-          <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#CFD5EA' }} />
-          <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#CFD5EA' }} />
+          <div className="ov-hero-dot" style={{ width: 22, height: 8, borderRadius: 4, background: '#2494C1' }} />
+          <div className="ov-hero-dot" style={{ width: 8, height: 8, borderRadius: '50%', background: '#CFD5EA' }} />
+          <div className="ov-hero-dot" style={{ width: 8, height: 8, borderRadius: '50%', background: '#CFD5EA' }} />
         </div>
-        <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.7 }}>
-          <strong>Active:</strong> 22×8px, border-radius: 4px, bg: #2494C1<br />
-          <strong>Inactive:</strong> 8×8px, border-radius: 50%, bg: #CFD5EA<br />
-          <strong>Hit area:</strong> 44px via pseudo-element inset(-18px) for touch targets
+        <div style={S.note}>
+          Active 22×8 pill · Inactive 8×8 circle · Hit area via <span style={S.mono}>.ov-hero-dot::before</span> inset -18px
         </div>
       </div>
 
       <div style={S.card}>
-        <div style={S.cardHd}>Badge chips — used as eyebrow right element</div>
-        <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
-          <span style={{ fontFamily: 'PP Mori', fontWeight: 600, fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', padding: '3px 9px', borderRadius: 99, background: 'rgba(13,31,78,0.06)', color: '#1A3070' }}>Since 1987</span>
-          <span style={{ fontFamily: 'PP Mori', fontWeight: 600, fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', padding: '3px 9px', borderRadius: 99, background: 'rgba(13,31,78,0.06)', color: '#1A3070' }}>A-Rated</span>
-          <span style={{ fontFamily: 'PP Mori', fontWeight: 600, fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', padding: '3px 9px', borderRadius: 99, background: 'rgba(13,31,78,0.06)', color: '#1A3070' }}>Family-Owned</span>
+        <div style={S.cardHd}>Badge chips</div>
+        <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
+          <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', padding: '3px 9px', borderRadius: 99, background: 'rgba(13,31,78,0.06)', color: '#1A3070' }}>Since 1987</span>
+          <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', padding: '3px 9px', borderRadius: 99, background: 'rgba(13,31,78,0.06)', color: '#1A3070' }}>A-Rated</span>
+          <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', padding: '3px 9px', borderRadius: 99, background: 'rgba(112,186,191,.12)', border: '1px solid rgba(112,186,191,.2)', color: '#70BABF' }}>Strategy term</span>
         </div>
-        <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.7 }}>
-          <strong>Style:</strong> PP Mori 600 · 11px · letter-spacing: 0.06em · uppercase · padding: 3px 9px · border-radius: 99px<br />
-          <strong>Bg:</strong> rgba(13,31,78,0.06) · color: #1A3070 · Used in About dropdown sidebar
+        <div style={S.note}>
+          Light chip for dropdowns / meta · Teal outline chip for strategy terms (product pages)
+        </div>
+      </div>
+
+      <div style={S.card}>
+        <div style={S.cardHd}>PageHero badge prop</div>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(0,31,84,.45)', border: '1px solid rgba(255,255,255,.22)', borderRadius: 200, padding: '5px 12px' }}>
+          <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#F2FCFF' }}>New</span>
+        </div>
+        <div style={S.note}>
+          Optional <span style={S.mono}>badge</span> on PageHero — frosted pill above eyebrow on image heroes
         </div>
       </div>
     </div>
@@ -424,54 +557,55 @@ function Pills() {
 // ── FORMS ─────────────────────────────────────────────────────────────────────
 
 function Forms() {
+  const lightInput = {
+    width: '100%', boxSizing: 'border-box', height: 44, padding: '0 14px', borderRadius: 10,
+    border: '1px solid rgba(107,126,160,0.3)', background: '#fff',
+    fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: 'var(--ov-navy-900)', outline: 'none',
+  };
   return (
     <div id="forms" style={S.section}>
       <h2 style={S.h2}>Forms</h2>
 
       <div style={{ ...S.card, background: 'var(--ov-footer-bg)' }}>
-        <div style={{ ...S.cardHd, color: 'rgba(255,255,255,0.5)' }}>Newsletter input — dark background (Footer.jsx)</div>
+        <div style={{ ...S.cardHd, color: 'rgba(255,255,255,0.5)' }}>Newsletter — dark (Footer)</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 400 }}>
-          <label style={{ fontFamily: 'PP Mori', fontWeight: 600, fontSize: 13, color: '#fff' }}>Email Address</label>
-          <input type="email" placeholder="you@email.com" style={{
+          <label style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#fff' }}>Email Address</label>
+          <input type="email" placeholder="you@email.com" readOnly style={{
             height: 44, padding: '0 14px', borderRadius: 6,
             border: '1px solid rgba(255,255,255,.18)',
             background: 'rgba(255,255,255,.06)', color: '#fff',
-            fontFamily: 'PP Mori', fontSize: 16, outline: 'none',
+            fontFamily: 'var(--ov-ff-sans)', fontSize: 16, outline: 'none',
           }} />
         </div>
-        <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'rgba(255,255,255,.5)', marginTop: 16, lineHeight: 1.7 }}>
-          <strong>Input:</strong> height: 44px · padding: 0 14px · border-radius: 6px<br />
-          <strong>Border:</strong> 1px solid rgba(255,255,255,.18) · bg: rgba(255,255,255,.06)<br />
-          <strong>Placeholder:</strong> color: rgba(255,255,255,.85) via .ov-footer-form-row input::placeholder<br />
-          <strong>Button:</strong> height: 44px · bg: #fff · color: var(--ov-navy-1000) · border-radius: 200px · PP Mori 600 14px
+        <div style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: 'rgba(255,255,255,.5)', marginTop: 16, lineHeight: 1.7 }}>
+          Input height 44 · radius 6 · border rgba(255,255,255,.18) · bg rgba(255,255,255,.06)<br />
+          Submit: white pill · navy text · height 44 · PP Mori 600 14px
         </div>
       </div>
 
       <div style={S.card}>
-        <div style={S.cardHd}>Contact form inputs (light background)</div>
+        <div style={S.cardHd}>Contact / light form inputs</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 400 }}>
           <div>
-            <label style={{ fontFamily: 'PP Mori', fontWeight: 600, fontSize: 13, color: 'var(--ov-navy-900)', display: 'block', marginBottom: 6 }}>Full Name</label>
-            <input type="text" placeholder="Your name" style={{
-              width: '100%', boxSizing: 'border-box', height: 44, padding: '0 14px', borderRadius: 10,
-              border: '1px solid rgba(107,126,160,0.3)', background: '#fff',
-              fontFamily: 'PP Mori', fontSize: 15, color: 'var(--ov-navy-900)', outline: 'none',
-            }} />
+            <label style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: 'var(--ov-navy-900)', display: 'block', marginBottom: 6 }}>Full Name</label>
+            <input type="text" placeholder="Your name" readOnly style={lightInput} />
           </div>
           <div>
-            <label style={{ fontFamily: 'PP Mori', fontWeight: 600, fontSize: 13, color: 'var(--ov-navy-900)', display: 'block', marginBottom: 6 }}>Message</label>
-            <textarea placeholder="Tell us how we can help…" style={{
-              width: '100%', boxSizing: 'border-box', minHeight: 100, padding: '12px 14px', borderRadius: 10,
-              border: '1px solid rgba(107,126,160,0.3)', background: '#fff', resize: 'vertical',
-              fontFamily: 'PP Mori', fontSize: 15, color: 'var(--ov-navy-900)', outline: 'none',
+            <label style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: 'var(--ov-navy-900)', display: 'block', marginBottom: 6 }}>Message</label>
+            <textarea placeholder="Tell us how we can help…" readOnly style={{
+              ...lightInput, height: 'auto', minHeight: 100, padding: '12px 14px', resize: 'vertical',
             }} />
           </div>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+            <input type="checkbox" id="ds-consent" style={{ marginTop: 3 }} />
+            <label htmlFor="ds-consent" style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.5 }}>
+              Consent checkbox pattern (email capture / legal pages)
+            </label>
+          </div>
         </div>
-        <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', marginTop: 16, lineHeight: 1.7 }}>
-          <strong>Input class:</strong> px-[14px] py-[12px] rounded-[10px] border border-[rgba(107,126,160,0.3)] bg-white<br />
-          <strong>Placeholder:</strong> color similar to --ov-navy-900 at 30% opacity<br />
-          <strong>Focus:</strong> border-color: --ov-teal-700 · transition-colors · outline: none<br />
-          <strong>Label:</strong> color: --ov-navy-900 · font-weight: 600 · font-size: 13px · PP Mori
+        <div style={S.note}>
+          Height 44 · padding 0 14px · border-radius 10 · border rgba(107,126,160,0.3) · bg white<br />
+          Label: navy-900 · weight 600 · 13px · Focus: border-color teal-700, outline none
         </div>
       </div>
     </div>
@@ -486,63 +620,65 @@ function Layout() {
       <h2 style={S.h2}>Layout</h2>
 
       <div style={S.card}>
-        <div style={S.cardHd}>.ov-container — max-width + responsive padding</div>
+        <div style={S.cardHd}>.ov-container</div>
         <table style={S.table}>
           <thead><tr><th style={S.th}>Property</th><th style={S.th}>Value</th></tr></thead>
           <tbody>
-            <tr><td style={S.td}>max-width</td><td style={S.td}><span style={{ fontFamily: 'ui-monospace, monospace' }}>var(--ov-container) = 1600px</span> · margin: 0 auto</td></tr>
-            <tr><td style={S.td}>Default padding</td><td style={S.td}><span style={{ fontFamily: 'ui-monospace, monospace' }}>0 var(--ov-gutter) = 0 120px</span></td></tr>
-            <tr><td style={S.td}>≤ 1840px</td><td style={S.td}><span style={{ fontFamily: 'ui-monospace, monospace' }}>0 60px</span></td></tr>
-            <tr><td style={S.td}>≤ 1100px</td><td style={S.td}><span style={{ fontFamily: 'ui-monospace, monospace' }}>0 32px</span></td></tr>
-            <tr><td style={S.td}>≤ 720px</td><td style={S.td}><span style={{ fontFamily: 'ui-monospace, monospace' }}>0 var(--ov-gutter-sm) = 0 16px</span></td></tr>
-            <tr><td style={S.td}>≥ 2000px</td><td style={S.td}><span style={{ fontFamily: 'ui-monospace, monospace' }}>0 200px</span></td></tr>
+            <tr><td style={S.td}>max-width</td><td style={S.td}><span style={S.mono}>var(--ov-container) = 1600px</span> · margin 0 auto</td></tr>
+            <tr><td style={S.td}>Default padding</td><td style={S.td}><span style={S.mono}>0 var(--ov-gutter)</span> = 0 120px</td></tr>
+            <tr><td style={S.td}>≤ 1840px</td><td style={S.td}><span style={S.mono}>0 60px</span></td></tr>
+            <tr><td style={S.td}>≤ 1100px</td><td style={S.td}><span style={S.mono}>0 32px</span></td></tr>
+            <tr><td style={S.td}>≤ 720px</td><td style={S.td}><span style={S.mono}>0 var(--ov-gutter-sm)</span> = 0 16px</td></tr>
+            <tr><td style={S.td}>≥ 2000px</td><td style={S.td}><span style={S.mono}>0 200px</span></td></tr>
           </tbody>
         </table>
       </div>
 
       <div style={S.card}>
-        <div style={S.cardHd}>.ov-hero-wrapper — independent hero layout</div>
+        <div style={S.cardHd}>.ov-hero-wrapper / .ov-hero-card</div>
         <table style={S.table}>
           <thead><tr><th style={S.th}>Property</th><th style={S.th}>Value</th></tr></thead>
           <tbody>
-              <tr><td style={S.td}>Default ({'<'} 1840px)</td><td style={S.td}><span style={{ fontFamily: 'ui-monospace, monospace' }}>max-width: none · margin: 0 · padding: 0 20px</span> — full-width with 20px gutters</td></tr>
-            <tr><td style={S.td}>≥ 1840px</td><td style={S.td}><span style={{ fontFamily: 'ui-monospace, monospace' }}>max-width: 1680px · margin: 0 auto · padding: 0</span> — capped + centered</td></tr>
-            <tr><td style={S.td}>Card (ov-hero-card)</td><td style={S.td}><span style={{ fontFamily: 'ui-monospace, monospace' }}>border-radius: 32px · overflow: hidden</span></td></tr>
-            <tr><td style={S.td}>Card height: default</td><td style={S.td}>800px</td></tr>
-            <tr><td style={S.td}>Card: ≤ 1100px</td><td style={S.td}>580px</td></tr>
-            <tr><td style={S.td}>Card: ≤ 720px</td><td style={S.td}>560px</td></tr>
-            <tr><td style={S.td}>Card: ≤ 480px</td><td style={S.td}>520px</td></tr>
+            <tr><td style={S.td}>Wrapper default</td><td style={S.td}><span style={S.mono}>padding: 0 20px</span> — full-width gutters</td></tr>
+            <tr><td style={S.td}>Wrapper ≥ 1840px</td><td style={S.td}><span style={S.mono}>max-width: 1680px</span> · centered · no side padding</td></tr>
+            <tr><td style={S.td}>Card radius</td><td style={S.td}><span style={S.mono}>border-radius: 32px</span></td></tr>
+            <tr><td style={S.td}>Card height</td><td style={S.td}>800 default · 580 ≤1100 · 560 ≤720 · 520 ≤480</td></tr>
+            <tr><td style={S.td}>Mobile CTAs</td><td style={S.td}>≤720: buttons full-width stack · scrim opacity adjusted</td></tr>
           </tbody>
         </table>
       </div>
 
       <div style={S.card}>
-        <div style={S.cardHd}>Breakpoints</div>
+        <div style={S.cardHd}>Breakpoints & section spacing</div>
         <table style={S.table}>
-          <thead><tr><th style={S.th}>Name</th><th style={S.th}>Width</th><th style={S.th}>What changes</th></tr></thead>
+          <thead><tr><th style={S.th}>Width</th><th style={S.th}>Typical changes</th></tr></thead>
           <tbody>
-            <tr><td style={S.td}>1100px</td><td style={S.td}><span style={{ fontFamily: 'ui-monospace, monospace' }}>max-width: 1100px</span></td><td style={S.td}>Container gutters tighten, hero height drops, content padding adjusts</td></tr>
-            <tr><td style={S.td}>1024px</td><td style={S.td}><span style={{ fontFamily: 'ui-monospace, monospace' }}>max-width: 1024px</span></td><td style={S.td}>Mobile nav toggle (hamburger) becomes visible</td></tr>
-            <tr><td style={S.td}>960px</td><td style={S.td}><span style={{ fontFamily: 'ui-monospace, monospace' }}>max-width: 960px</span></td><td style={S.td}>About page grids stack vertically, products grid tightens</td></tr>
-            <tr><td style={S.td}>720px</td><td style={S.td}><span style={{ fontFamily: 'ui-monospace, monospace' }}>max-width: 720px</span></td><td style={S.td}>Container gutter to 16px, hero scrim changes, nav/hamburger visible</td></tr>
-            <tr><td style={S.td}>480px</td><td style={S.td}><span style={{ fontFamily: 'ui-monospace, monospace' }}>max-width: 480px</span></td><td style={S.td}>Hero height minimum, grids to single column, footer stacking</td></tr>
+            <tr><td style={S.td}>1100px</td><td style={S.td}>Container gutters, hero height</td></tr>
+            <tr><td style={S.td}>1024px</td><td style={S.td}>Hamburger nav · --ov-section-py → 64px</td></tr>
+            <tr><td style={S.td}>960px</td><td style={S.td}>About / product grids stack</td></tr>
+            <tr><td style={S.td}>720px</td><td style={S.td}>Gutter 16px · hero mobile · section-py 48px</td></tr>
+            <tr><td style={S.td}>480px</td><td style={S.td}>Single column · section-py 36px</td></tr>
           </tbody>
         </table>
+        <div style={S.note}>
+          Section padding via <span style={S.mono}>.ov-section &#123; padding: var(--ov-section-py) 0 &#125;</span> · default 80px
+        </div>
       </div>
 
       <div style={S.card}>
-        <div style={S.cardHd}>Section spacing</div>
-        <table style={S.table}>
-          <thead><tr><th style={S.th}>Breakpoint</th><th style={S.th}>--ov-section-py</th></tr></thead>
-          <tbody>
-            <tr><td style={S.td}>Default</td><td style={S.td}>80px</td></tr>
-            <tr><td style={S.td}>≤ 1024px</td><td style={S.td}>64px</td></tr>
-            <tr><td style={S.td}>≤ 720px</td><td style={S.td}>48px</td></tr>
-            <tr><td style={S.td}>≤ 480px</td><td style={S.td}>36px</td></tr>
-          </tbody>
-        </table>
-        <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', marginTop: 12 }}>
-          Applied via <span style={{ fontFamily: 'ui-monospace, monospace' }}>.ov-section &#123; padding: var(--ov-section-py) 0 &#125;</span>
+        <div style={S.cardHd}>Spacing & radii tokens</div>
+        <div style={S.note}>
+          Spacing: <span style={S.mono}>--ov-sp-1</span>…<span style={S.mono}>--ov-sp-10</span> (4 → 65px)<br />
+          Radii: sm 4 · md 6 · lg 10 · xl 12 · pill 200<br />
+          Header: <span style={S.mono}>--ov-header-h: 72px</span>
+        </div>
+      </div>
+
+      <div style={S.card}>
+        <div style={S.cardHd}>Landing-page helpers</div>
+        <div style={S.note}>
+          <span style={S.mono}>.nsg-split</span> / <span style={S.mono}>.nsg-split-reverse</span> — two-column content for National Senior Games (and similar landings); stacks ≤ breakpoint in tokens.css<br />
+          Partner landings (Cetera, LPL) share hero card + navy/teal band patterns via <span style={S.mono}>PartnerLandingPage</span>
         </div>
       </div>
     </div>
@@ -557,83 +693,85 @@ function Patterns() {
       <h2 style={S.h2}>Component Patterns</h2>
 
       <div style={S.card}>
-        <div style={S.cardHd}>Eyebrow — dashed-teal + uppercase label pattern</div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-          <div style={{ width: 18, height: 1, background: 'rgba(112,186,191,.65)', flexShrink: 0 }} />
-          <span style={{ fontFamily: 'PP Mori', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: '#70BABF' }}>
-            Section Label
-          </span>
+        <div style={S.cardHd}>Eyebrow — common.jsx</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 12 }}>
+          <Eyebrow>Default on light</Eyebrow>
+          <div style={{ background: 'var(--ov-navy-1000)', padding: 16, borderRadius: 12 }}>
+            <Eyebrow light style={{ marginBottom: 0 }}>Light on dark</Eyebrow>
+          </div>
         </div>
-        <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.7 }}>
-          <strong>Dash:</strong> 18×1px · bg: rgba(112,186,191,.65) · flexShrink: 0<br />
-          <strong>Text:</strong> PP Mori 600 · 10px · letter-spacing: 1.4px · uppercase · color: #70BABF<br />
-          <strong>Gap:</strong> 8px between dash and text<br />
-          <strong>Source:</strong> Eyebrow component in common.jsx · SlideEyebrow in Hero.jsx
+        <div style={S.note}>
+          Dash 18×1px · text PP Mori 600 · 10px · letter-spacing 1.4px · uppercase<br />
+          <strong>Default:</strong> line + text #2494C1 · <strong>light:</strong> line rgba(112,186,191,.6) · text #70BABF<br />
+          Source: <span style={S.mono}>Eyebrow</span> in common.jsx (Hero / PageHero may inline similar markup)
         </div>
       </div>
 
       <div style={S.card}>
-        <div style={S.cardHd}>PageHero — configurable props</div>
-        <pre style={{ background: 'var(--ov-navy-1000)', color: '#f2fcff', borderRadius: 12, padding: '16px 20px', fontFamily: 'ui-monospace, monospace', fontSize: 13, lineHeight: 1.65, overflowX: 'auto' }}>
-{`<PageHero
+        <div style={S.cardHd}>PageHero — props</div>
+        <pre style={S.pre}>{`<PageHero
   image="assets/hero-couple.jpg"
   imgFocus="65% 35%"
+  badge="Optional badge"
   eyebrow="Leadership"
   title="Experience"
   titleAccent="our leadership team."
   subtitle="Optional subtitle text"
   ctaPrimary="View Profile"
   onPrimary={handler}
-/>`}
-        </pre>
-        <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', marginTop: 12, lineHeight: 1.7 }}>
-          <strong>image:</strong> background image URL · <strong>imgFocus:</strong> CSS background-position (e.g. "65% 35%") — optional, defaults to "center"<br />
-          <strong>eyebrow:</strong> uppercase label with teal dash · <strong>title:</strong> heading text<br />
-          <strong>titleAccent:</strong> italic teal portion after line break · <strong>subtitle:</strong> body text<br />
-          <strong>ctaPrimary:</strong> PillMint button · <strong>ctaSecondary:</strong> PillGhost Light button<br />
-          <strong>imgFocus:</strong> per-image focal point — works at every viewport without breakpoint hacks
+  ctaSecondary="Secondary"
+  onSecondary={handler}
+/>`}</pre>
+        <div style={S.note}>
+          Primary CTA: <span style={S.mono}>PillMint hero</span> · Secondary: <span style={S.mono}>PillGhost light hero</span><br />
+          <span style={S.mono}>imgFocus</span> sets background-position at all breakpoints · badge optional frosted pill
         </div>
       </div>
 
       <div style={S.card}>
-        <div style={S.cardHd}>CTABanner — inline CTA band</div>
-        <pre style={{ background: 'var(--ov-navy-1000)', color: '#f2fcff', borderRadius: 12, padding: '16px 20px', fontFamily: 'ui-monospace, monospace', fontSize: 13, lineHeight: 1.65, overflowX: 'auto' }}>
-{`<CTABanner
-  eyebrow="Get Started"
-  title="Protect your retirement"
-  titleAccent="with confidence."
-  body="Competitive guaranteed rates..."
-  cta="Explore Products"
-  onClick={() => { window.location.hash = 'products'; }}
-/>`}
-        </pre>
-        <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', marginTop: 12, lineHeight: 1.7 }}>
-          Used in light backgrounds — 2-col layout (text left, CTA right). Stacked on mobile.<br />
-          <strong>Eyebrow:</strong> optional · <strong>titleAccent:</strong> italic teal, optional<br />
-          <strong>cta:</strong> PillNavy button · <strong>onClick:</strong> navigation handler
+        <div style={S.cardHd}>CTABanner — live (dark horizontal band)</div>
+        <CTABanner
+          eyebrow="Get Started"
+          title="Protect your retirement"
+          titleAccent="with confidence."
+          body="Competitive guaranteed rates, principal protection, and dedicated service."
+          cta="Explore Products"
+          onClick={() => { window.location.hash = 'products'; }}
+        />
+        <div style={S.note}>
+          Navy rounded band · text left / CTA right · stacks on narrow viewports<br />
+          CTA is <span style={S.mono}>PillMint hero</span> (not PillNavy) · optional eyebrow + italic titleAccent
+        </div>
+      </div>
+
+      <div style={S.card}>
+        <div style={S.cardHd}>CTAPanel — homepage closing band</div>
+        <pre style={S.pre}>{`// CTAPanel.jsx — centered navy section, dual CTAs
+// Eyebrow with lines on both sides · large display H2
+// PillMint hero + PillGhost light hero
+// Use on homepage / full-bleed navy closes (not the horizontal CTABanner)`}</pre>
+        <div style={S.note}>
+          Full-width <span style={S.mono}>var(--ov-navy-1000)</span> · centered max ~720px · dual-audience product/sales CTAs
         </div>
       </div>
 
       <div style={S.card}>
         <div style={S.cardHd}>Divider</div>
-        <div style={{ height: 1, background: 'rgba(13,31,78,0.12)', marginBottom: 12, width: '100%' }} />
-        <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.7 }}>
-          <strong>Class:</strong> inline style or var(--ov-border-soft)<br />
-          <strong>Usage:</strong> Between Product links in dropdown panels, between sections inside content cards<br />
-          <strong>Light bg:</strong> height: 1px · background: rgba(13,31,78,0.12)<br />
-          <strong>Dark bg:</strong> height: 1px · background: rgba(255,255,255,0.12)
+        <div style={{ height: 1, background: 'var(--ov-border-soft)', marginBottom: 12, width: '100%' }} />
+        <div style={S.note}>
+          Light: <span style={S.mono}>var(--ov-border-soft)</span> · Dark: rgba(255,255,255,.12)
         </div>
       </div>
 
       <div style={{ ...S.card, background: 'var(--ov-surface-tint)' }}>
         <div style={S.cardHd}>Section background rhythm</div>
-        <div style={{ fontFamily: 'PP Mori', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.8 }}>
-          <div><span style={{ fontWeight: 600, color: 'var(--ov-navy-900)' }}>bg-white</span> — default page and section background</div>
-          <div><span style={{ fontWeight: 600, color: 'var(--ov-navy-900)' }}>bg: var(--ov-surface-tint)</span> — soft tint (#F1FBFF), this card</div>
-          <div><span style={{ fontWeight: 600, color: 'var(--ov-navy-900)' }}>bg: var(--ov-navy-1000)</span> — hero card / dark feature sections</div>
-          <div><span style={{ fontWeight: 600, color: 'var(--ov-navy-900)' }}>bg: var(--ov-footer-bg)</span> — footer (#001233)</div>
-          <div><span style={{ fontWeight: 600, color: 'var(--ov-navy-900)' }}>bg: rgba(112,186,191,0.2)</span> — teal card / CTA strip</div>
-          <div><span style={{ fontWeight: 600, color: 'var(--ov-navy-900)' }}>bg: var(--ov-surface-cream)</span> — dropdown sidebar / mobile nav bg</div>
+        <div style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: 'var(--ov-grey-600)', lineHeight: 1.8 }}>
+          <div><span style={{ fontWeight: 600, color: 'var(--ov-navy-900)' }}>#fff</span> — default page / section</div>
+          <div><span style={{ fontWeight: 600, color: 'var(--ov-navy-900)' }}>var(--ov-surface-tint)</span> — soft blue-grey bands</div>
+          <div><span style={{ fontWeight: 600, color: 'var(--ov-navy-900)' }}>var(--ov-navy-1000)</span> — hero / dark feature / CTAPanel</div>
+          <div><span style={{ fontWeight: 600, color: 'var(--ov-navy-900)' }}>var(--ov-footer-bg)</span> — footer #001233</div>
+          <div><span style={{ fontWeight: 600, color: 'var(--ov-navy-900)' }}>rgba(112,186,191,0.2)</span> — teal cards / strips on white</div>
+          <div><span style={{ fontWeight: 600, color: 'var(--ov-navy-900)' }}>var(--ov-surface-cream)</span> — dropdowns / mobile nav</div>
         </div>
       </div>
     </div>
@@ -655,23 +793,26 @@ export default function DesignPage() {
 
   return (
     <div style={S.page}>
-      {/* Sidebar */}
-      <nav style={S.sidebar}>
+      <nav style={S.sidebar} aria-label="Design system sections">
         <div style={S.sbTitle}>Jump to</div>
         {SECTIONS.map(s => (
-          <button key={s.id} onClick={() => scrollTo(s.id)} style={S.sbLink(active === s.id)}>
+          <button key={s.id} type="button" onClick={() => scrollTo(s.id)} style={S.sbLink(active === s.id)}>
             {s.label}
           </button>
         ))}
       </nav>
 
-      {/* Content */}
       <div style={S.content}>
+        <p style={{ ...S.note, marginTop: 0, marginBottom: 32 }}>
+          Oceanview design system · route <span style={S.mono}>#design</span> · unlisted internal reference.
+          Prefer tokens.css + shared components over re-implementing styles.
+        </p>
         <Colors />
         <Typography />
         <Buttons />
         <Links />
         <Shadows />
+        <Cards />
         <Pills />
         <Forms />
         <Layout />

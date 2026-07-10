@@ -5,18 +5,18 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-07-09 (Claude Code — review session, no code changes)
-**Active Agent:** Claude Code
-**Last Commit:** e5e4be0 — Update package-lock.json (local uncommitted: NSG page)
-**Working Tree:** Dirty — National Senior Games page added
+**Last Updated:** 2026-07-10 (Grok — Design System page refresh)
+**Active Agent:** Grok
+**Working Tree:** DesignPage.jsx refreshed (may be uncommitted)
 
 ### In Progress
-- (none — NSG landing polished and committed 2026-07-09; see JOURNAL.md. Awaiting client/compliance on: navy H2 + success-message copy, NSGA logo rights, real photography, CTA destinations, nav link, email backend.)
+- (none open from this session)
 
-### Newly completed (2026-07-09)
-- **National Senior Games sponsorship landing** — `#national-senior-games` / `NationalSeniorGamesPage.jsx`. Copy from "Web Copy V2" doc. Unlisted (no nav link yet). Email form is UI-only.
-- Navy intro uses Featured-Products pattern: eyebrow + H2 with italic accent (“purpose, progress and possibility”) + body paragraphs in the navy band (not a white strip under hero).
-- Summary also written into `AGENTS.md` under “Recent work”.
+### Newly completed (2026-07-10)
+- **Design System page** (`#design` / `DesignPage.jsx`) brought up to date with `tokens.css` + live Buttons/Eyebrow/CTABanner. Adds Cards section, PillWhite, full token palettes, corrected patterns (CTABanner uses PillMint; TextLink default navy-600). Still unlisted.
+
+### Prior (2026-07-09)
+- **National Senior Games sponsorship landing** — `#national-senior-games`. Awaiting client/compliance on navy H2 + success copy, NSGA logo, photography, CTAs, nav link, email backend.
 
 ### Newly Unblocked
 - **Animated logo** (ClickUp task 86ag1hvct) — `oceanview-logo-animated.svg` is now attached to the task and ready to implement in `Header.jsx`. Previously blocked waiting on this asset.
