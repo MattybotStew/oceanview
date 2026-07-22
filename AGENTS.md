@@ -28,6 +28,42 @@ Open via URL/hash only. Do not “fix” by adding nav links unless stakeholders
 
 ---
 
+## Current Action Items (2026-07-22 — Claude Code)
+
+### 🎯 Priority Tasks for Matt
+
+**Blocking Haley's 7/25 deadline:**
+- ✅ **Supplied full page list** (53 pages: 51 live + 2 internal) for dev subtask creation
+
+**Implementation backlog (3 tasks):**
+
+1. **Fix spacing below hero section** (affects all pages)
+   - Hero wrapper: `Hero.jsx` line 19 (`marginBottom: 40px`)
+   - PageHero variant: `PageHero.jsx` (similar issue)
+   - Impact: All hero instances touching content below
+   - Test pages: Home, Products, all detail/product pages, professionals, landings
+
+2. **Fix Product page/section issues** (dev handoff reference for Mikko)
+   - Tabbed nav rendering (MYGAs / FIAs tabs)
+   - Product card layout/interaction bugs
+   - Tab switching behavior
+   - Responsive layout on mobile
+   - Files: `ProductsCard.jsx` (homepage), `ProductsPage.jsx` (full page)
+
+3. **Design alternative nav for Product page top** (needs Mae approval)
+   - Create mockup for product family navigation
+   - Current: Two-level sticky nav (categories → product tabs)
+   - Deliverable: Updated prototype after Mae sign-off
+
+**Figma MCP client available:**
+- `figma-get-node.mjs` — extracts design metadata, context, screenshots
+- `figma-mcp-client.mjs` — lists available tools
+- Requires MCP server running on port 3845
+
+**Complete page inventory in `plan.md`** (session artifact)
+
+---
+
 ## Recent work (2026-07-10 — Grok)
 
 ### WPBakery design system package
