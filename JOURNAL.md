@@ -2,6 +2,23 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-07-22 — Composer
+- Updated `AGENTS.md` action items: product-nav constraints (product-first, full titles, content frozen), five options listed, `#products-filter-test` documented; live `#products` stays default until Mae sign-off.
+
+## 2026-07-22 — Composer
+- **`#products-filter-test`** — full Products page with option 5 nav (parent category filter chips + product tabs). Same catalog as `#products` via `navVariant="parent-filter"`. Live `#products` still default two-level nav.
+
+## 2026-07-22 — Composer
+- **`#product-tab-examples` rebuilt** — 5 product-first sticky tab ideas only (full titles). Same catalog body under each. No instructional copy on page. Live `#products` unchanged.
+  - 1 Grouped strip · 2 Product row + parent eyebrow · 3 Labeled product groups · 4 Category prefix · 5 Products + parent filter
+
+## 2026-07-22 — Composer
+- **Product nav Variant A locked** — inline accordion spine (later superseded by product-first 5-option board above).
+  - `ProductAccordionNav.jsx` remains in repo unused by the examples page.
+
+## 2026-07-22 — Composer
+- **Product tab examples** — initial 5 unrelated concepts + wiring (superseded).
+
 ## 2026-07-10 — Grok
 - **#nav-dropdowns** responsive: Desktop / Mobile / Both tabs; auto-picks view from live breakpoint (1025px). Mobile phone-frame drawers use `MobileNavContent` (full expanded + per-section). Desktop panels scroll / stack ≤720px. Exports: `MobileNavContent`, `NAV_ITEMS`, `AUD_ITEMS`.
 

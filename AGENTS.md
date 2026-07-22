@@ -20,6 +20,8 @@ These are **real pages** with hash routes, but they are **not** in header/footer
 |-------|-----------|---------|
 | `#design` | `DesignPage.jsx` | Internal design system + WPBakery how-to |
 | `#nav-dropdowns` | `NavDropdownsPage.jsx` | All desktop mega-menus open/stacked (review handoff) |
+| `#product-tab-examples` | `ProductTabExamplesPage.jsx` | Five product-first sticky tab ideas (full titles); catalog body identical under each |
+| `#products-filter-test` | `ProductsPage` (`navVariant="parent-filter"`) | Full products page test with option 5 nav (parent filter + product tabs) |
 | `#cetera-landing` | `CeteraLandingPage.jsx` | Partner landing |
 | `#lpl-landing` | `LPLLandingPage.jsx` | Partner landing |
 | `#national-senior-games` | `NationalSeniorGamesPage.jsx` | Sponsorship landing |
@@ -28,7 +30,7 @@ Open via URL/hash only. Do not “fix” by adding nav links unless stakeholders
 
 ---
 
-## Current Action Items (2026-07-22 — Claude Code)
+## Current Action Items (2026-07-22 — Composer)
 
 ### 🎯 Priority Tasks for Matt
 
@@ -50,10 +52,17 @@ Open via URL/hash only. Do not “fix” by adding nav links unless stakeholders
    - Responsive layout on mobile
    - Files: `ProductsCard.jsx` (homepage), `ProductsPage.jsx` (full page)
 
-3. **Design alternative nav for Product page top** (needs Mae approval)
-   - Create mockup for product family navigation
-   - Current: Two-level sticky nav (categories → product tabs)
-   - Deliverable: Updated prototype after Mae sign-off
+3. **Product page top nav — in review** (needs Mae approval)
+   - **Constraint:** product tabs are the focus; full product/category titles; page content below must not change (nav chrome only)
+   - **Board:** `#product-tab-examples` — five product-first sticky tab ideas:
+     1. Grouped strip (category dividers + all products)
+     2. Product row + parent eyebrow
+     3. Labeled product groups
+     4. Category prefix on products
+     5. Products + parent filter chips
+   - **Full-page test of option 5:** `#products-filter-test` → `ProductsPage` with `navVariant="parent-filter"` (same catalog as live `#products`)
+   - **Live `#products`:** still default two-level sticky nav — do not swap until Mae signs off
+   - Unused leftover: `ProductAccordionNav.jsx` (parent-accordion experiment; not on examples board)
 
 **Figma MCP client available:**
 - `figma-get-node.mjs` — extracts design metadata, context, screenshots
@@ -61,6 +70,17 @@ Open via URL/hash only. Do not “fix” by adding nav links unless stakeholders
 - Requires MCP server running on port 3845
 
 **Complete page inventory in `plan.md`** (session artifact)
+
+---
+
+## Recent work (2026-07-22 — Composer)
+
+### Product sticky-nav exploration
+
+- Rebuilt `#product-tab-examples` around **product-first** options (not category-first accordion).
+- Full titles only (e.g. “Fixed Annuities with Flexibility”, “Harbourview MYGA”).
+- Identical mock catalog under each of the five tab shells.
+- Wired `#products-filter-test` for real-page review of option 5 without touching live `#products`.
 
 ---
 

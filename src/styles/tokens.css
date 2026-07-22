@@ -881,6 +881,48 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ============================================================
+   PRODUCTS PAGE — Mobile Optimizations
+   ============================================================ */
+
+/* Mobile nav: reduce sticky nav height; add scroll affordance gradient */
+@media (max-width: 899px) {
+  /* Chip row: add gradient fade indicator on right */
+  [role="tablist"] [role="tab"] {
+    padding: 10px 14px !important;
+    font-size: 12px !important;
+    min-width: 140px !important;
+  }
+  
+  /* Product tabs: make smaller on mobile */
+  [style*="overflowX"][style*="auto"] > button {
+    min-width: 90px !important;
+    padding: 0 16px !important;
+    font-size: 12px !important;
+    height: 48px !important;
+  }
+
+  /* Reduce scroll margin for mobile nav */
+  [style*="scrollMarginTop"] { scroll-margin-top: 160px !important; }
+}
+
+/* Scroll affordance: gradient fade on horizontal scroll containers */
+[style*="overflowX"][style*="auto"] {
+  position: relative;
+}
+
+[style*="overflowX"][style*="auto"]::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.8));
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* ============================================================
    TICKER BAR COMPONENT
    ============================================================ */
 

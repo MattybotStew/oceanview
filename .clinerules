@@ -5,13 +5,18 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-07-10 (Grok — #design page WPBakery how-to)
-**Active Agent:** Grok
+**Last Updated:** 2026-07-22 (Composer — agents sync + products-filter-test)
+**Active Agent:** Composer
 
 ### In Progress
-- (none)
+- Mae review: product-first tab options + `#products-filter-test` (option 5). Live `#products` stays default until sign-off.
 
-### Newly completed (2026-07-10)
+### Newly completed (2026-07-22)
+- `#product-tab-examples` — 5 product-first sticky tab demos (full titles; same body under each).
+- `#products-filter-test` — full products page with `navVariant="parent-filter"`.
+- `AGENTS.md` updated with constraints, option list, and test route.
+
+### Prior (2026-07-10)
 - **#design** = WPBakery how-to (top) + design system with `ov-*` callouts; package in `docs/wpbakery/`.
 - Unlisted routes intentional. See `AGENTS.md`.
 

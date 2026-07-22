@@ -8,16 +8,16 @@ import { Eyebrow } from './common.jsx'
 const PS = {
   // ── Two-level sticky nav ───────────────────────────────────────────────────
   navOuter:     { background: "#fff", position: "sticky", top: "var(--ov-header-h, 72px)", zIndex: 50, boxShadow: "0 1px 0 #e8e5e5" },
-  catRow:       { display: "flex", overflowX: "auto", WebkitOverflowScrolling: "touch" },
-  catTab:       { flex: "1 0 0", minWidth: 160, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, padding: "14px 12px 15px", textDecoration: "none", transition: "border-color .15s" },
-  catTabActive: { borderBottom: "3px solid #2494C1", paddingBottom: 19 },
+  catRow:       { display: "flex", overflowX: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none" },
+  catTab:       { flex: "1 0 0", minWidth: 160, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, padding: "14px 12px 15px", textDecoration: "none", transition: "border-color .15s, background .15s", border: 0, background: "transparent", cursor: "pointer" },
+  catTabActive: { borderBottom: "3px solid var(--ov-teal-600)", paddingBottom: 12, background: "rgba(36,148,193,0.08)" },
   catTabInact:  { borderBottom: "1px solid #e8e5e5" },
-  catLabel:     { fontFamily: "var(--ov-ff-display)", fontWeight: 800, fontSize: "clamp(11px,1vw,13px)", letterSpacing: ".04em", textTransform: "uppercase", color: "#233D7C", textAlign: "center", lineHeight: 1.1, whiteSpace: "nowrap" },
-  catSub:       { fontFamily: "var(--ov-ff-sans)", fontWeight: 400, fontSize: "clamp(11px,.9vw,13px)", color: "rgba(51,51,51,0.7)", textAlign: "center", lineHeight: 1.2, whiteSpace: "nowrap" },
-  prdRow:       { display: "flex", borderBottom: "1px solid #e8e5e5", overflowX: "auto", WebkitOverflowScrolling: "touch" },
-  prdTab:       { flex: "1 0 0", minWidth: 100, height: 51, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 24px", borderRight: "1px solid #e8e5e5", fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "#001F54", textDecoration: "none", whiteSpace: "nowrap", transition: "background .15s" },
-  prdTabActive: { background: "rgba(226,241,242,0.6)" },
-  prdTabInact:  { background: "transparent" },
+  catLabel:     { fontFamily: "var(--ov-ff-display)", fontWeight: 800, fontSize: "clamp(11px,1vw,13px)", letterSpacing: ".04em", textTransform: "uppercase", color: "var(--ov-navy-600)", textAlign: "center", lineHeight: 1.1, whiteSpace: "nowrap" },
+  catSub:       { fontFamily: "var(--ov-ff-sans)", fontWeight: 400, fontSize: "clamp(11px,.9vw,13px)", color: "var(--ov-grey-600)", textAlign: "center", lineHeight: 1.2, whiteSpace: "nowrap" },
+  prdRow:       { display: "flex", borderBottom: "1px solid #e8e5e5", overflowX: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", position: "relative" },
+  prdTab:       { flex: "1 0 0", minWidth: 100, height: 51, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 24px", borderRight: "1px solid #e8e5e5", fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 13, color: "var(--ov-navy-1000)", textDecoration: "none", whiteSpace: "nowrap", transition: "background .15s, border-color .15s", border: 0, background: "transparent", cursor: "pointer" },
+  prdTabActive: { background: "rgba(36,148,193,0.12)", borderBottom: "3px solid var(--ov-teal-600)" },
+  prdTabInact:  { background: "transparent", borderBottom: "3px solid transparent" },
 
   // ── Shared section styles ──────────────────────────────────────────────────
   sectionWhite: { background: "#fff" },
@@ -29,25 +29,25 @@ const PS = {
   introImg:  { width: "100%", aspectRatio: "4/3", borderRadius: 20, objectFit: "cover", objectPosition: "center top", display: "block", flexShrink: 0 },
   introText: { display: "flex", flexDirection: "column", gap: 20, flex: 1 },
 
-  h2:      { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(26px, 3vw, 40px)", color: "#0D1F4E", letterSpacing: "-0.025em", lineHeight: 1.12, margin: 0 },
-  h2Dark:  { color: "#F2FCFF" },
-  body:    { fontFamily: "var(--ov-ff-sans)", fontSize: 15, color: "#4A5568", lineHeight: 1.65, margin: 0 },
-  bodyDark:{ fontFamily: "var(--ov-ff-sans)", fontSize: 15, color: "rgba(242,252,255,.65)", lineHeight: 1.65, margin: 0 },
+  h2:      { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(26px, 3vw, 40px)", color: "var(--ov-navy-900)", letterSpacing: "-0.025em", lineHeight: 1.12, margin: 0 },
+  h2Dark:  { color: "var(--ov-surface-tint-2)" },
+  body:    { fontFamily: "var(--ov-ff-sans)", fontSize: 15, color: "var(--ov-grey-600)", lineHeight: 1.65, margin: 0 },
+  bodyDark:{ fontFamily: "var(--ov-ff-sans)", fontSize: 15, color: "rgba(242,252,255,.68)", lineHeight: 1.65, margin: 0 },
 
   // ── Product cards ──────────────────────────────────────────────────────────
   cardsGrid:   { display: "flex", flexDirection: "column", gap: 24 },
-  card:        { background: "#fff", border: "1px solid rgba(13,31,78,.08)", borderRadius: 16, padding: "28px 32px 32px", display: "flex", flexDirection: "column", gap: 16, boxShadow: "0 2px 12px rgba(13,31,78,.04)", height: "100%", boxSizing: "border-box" },
+  card:        { background: "#fff", border: "1px solid var(--ov-border-soft)", borderRadius: 16, padding: "clamp(24px, 5vw, 32px)", display: "flex", flexDirection: "column", gap: 16, boxShadow: "0 2px 12px rgba(13,31,78,.04)", height: "100%", boxSizing: "border-box" },
   cardHeader:  { display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, flexWrap: "wrap" },
-  cardEyebrow: { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1", marginBottom: 8 },
-  cardH3:      { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(18px, 1.8vw, 22px)", color: "#0D1F4E", letterSpacing: "-0.015em", lineHeight: 1.2, margin: 0 },
-  cardBody:    { fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "#4A5568", lineHeight: 1.65, margin: 0, flex: 1 },
-  rateBadge:   { background: "var(--ov-surface-tint)", border: "1px solid rgba(36,148,193,.2)", borderRadius: 8, padding: "8px 14px", flexShrink: 0, textAlign: "right" },
-  rateBadgeVal:{ fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: 22, color: "var(--ov-teal-600)", lineHeight: 1 },
-  rateBadgeLbl:{ fontFamily: "var(--ov-ff-sans)", fontSize: 11, color: "#4A5568", marginTop: 3, whiteSpace: "nowrap" },
-  cardBullets: { background: "rgba(112,186,191,.12)", borderRadius: 10, padding: "14px 18px" },
-  cbLabel:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "#2494C1", marginBottom: 10 },
-  cbItem:      { display: "flex", gap: 8, alignItems: "flex-start", padding: "7px 0", borderTop: "1px solid rgba(36,148,193,.10)" },
-  cbText:      { fontFamily: "var(--ov-ff-sans)", fontSize: 13, color: "#4A5568", lineHeight: 1.5, margin: 0 },
+  cardEyebrow: { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "var(--ov-teal-600)", marginBottom: 4 },
+  cardH3:      { fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(18px, 1.8vw, 22px)", color: "var(--ov-navy-900)", letterSpacing: "-0.015em", lineHeight: 1.2, margin: 0 },
+  cardBody:    { fontFamily: "var(--ov-ff-sans)", fontSize: 14, color: "var(--ov-grey-600)", lineHeight: 1.65, margin: 0, flex: 1 },
+  rateBadge:   { background: "var(--ov-surface-tint)", border: "1px solid var(--ov-border-soft)", borderRadius: 10, padding: "clamp(6px, 1vw, 10px) clamp(10px, 2vw, 14px)", flexShrink: 0, textAlign: "right", display: "flex", flexDirection: "column", gap: 2 },
+  rateBadgeVal:{ fontFamily: "var(--ov-ff-display)", fontWeight: 400, fontSize: "clamp(18px, 2vw, 22px)", color: "var(--ov-teal-600)", lineHeight: 1 },
+  rateBadgeLbl:{ fontFamily: "var(--ov-ff-sans)", fontSize: "clamp(9px, 1vw, 11px)", color: "var(--ov-grey-600)", whiteSpace: "nowrap" },
+  cardBullets: { background: "rgba(36,148,193,.08)", borderRadius: 10, padding: "clamp(12px, 2vw, 16px)" },
+  cbLabel:     { fontFamily: "var(--ov-ff-sans)", fontWeight: 600, fontSize: 10, letterSpacing: "1.2px", textTransform: "uppercase", color: "var(--ov-teal-600)", marginBottom: 8 },
+  cbItem:      { display: "flex", gap: 8, alignItems: "flex-start", padding: "clamp(6px, 1vw, 8px) 0", borderTop: "1px solid rgba(36,148,193,.10)" },
+  cbText:      { fontFamily: "var(--ov-ff-sans)", fontSize: 13, color: "var(--ov-grey-600)", lineHeight: 1.5, margin: 0 },
 };
 
 const CHECK = (
@@ -63,10 +63,10 @@ function FeatureList({ features, dark }) {
       {features.map((f, i) => (
         <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", padding: "10px 0", borderTop: i > 0 ? `1px solid ${dark ? "rgba(255,255,255,.08)" : "rgba(36,148,193,.12)"}` : "none" }}>
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ flexShrink: 0, marginTop: 2 }}>
-            <circle cx="7" cy="7" r="6.5" stroke={dark ? "#70BABF" : "#2494C1"} strokeOpacity={dark ? "0.5" : "0.3"}/>
-            <path d="M4.5 7L6.5 9L9.5 5" stroke={dark ? "#70BABF" : "#2494C1"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <circle cx="7" cy="7" r="6.5" stroke={dark ? "var(--ov-teal-400)" : "var(--ov-teal-600)"} strokeOpacity={dark ? "0.6" : "0.4"}/>
+            <path d="M4.5 7L6.5 9L9.5 5" stroke={dark ? "var(--ov-teal-400)" : "var(--ov-teal-600)"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          <span style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 14, lineHeight: 1.6, color: dark ? "rgba(242,252,255,.72)" : "#4A5568" }}>{f}</span>
+          <span style={{ fontFamily: "var(--ov-ff-sans)", fontSize: 14, lineHeight: 1.6, color: dark ? "rgba(242,252,255,.72)" : "var(--ov-grey-600)" }}>{f}</span>
         </div>
       ))}
     </div>
@@ -77,34 +77,37 @@ function ProductCard({ eyebrow, heading, body, bullets, rate, rateTerm, href, da
   const cardOverride = dark
     ? { background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.08)', boxShadow: 'none' }
     : tint
-    ? { background: 'rgba(112,186,191,0.2)', border: '1px solid rgba(112,186,191,.25)', boxShadow: 'none' }
+    ? { background: 'rgba(36,148,193,0.08)', border: '1px solid rgba(36,148,193,.15)', boxShadow: 'none' }
     : {};
   return (
     <div style={{ ...PS.card, ...cardOverride }}>
       <div style={PS.cardHeader}>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ ...PS.cardEyebrow, ...(dark && { color: '#70BABF' }) }}>{eyebrow}</div>
-          <h3 style={{ ...PS.cardH3, ...(dark && { color: '#F2FCFF' }) }}>{heading}</h3>
+          <div style={{ ...PS.cardEyebrow, ...(dark && { color: 'var(--ov-teal-400)' }) }}>{eyebrow}</div>
+          <h3 style={{ ...PS.cardH3, ...(dark && { color: 'var(--ov-surface-tint-2)' }) }}>{heading}</h3>
         </div>
-        {rate && (
+        {rate ? (
           <div style={{ ...PS.rateBadge, ...(dark && { background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.12)' }) }}>
-            <div style={{ ...PS.rateBadgeVal, ...(dark && { color: '#70BABF' }) }}>{rate}</div>
-            <div style={{ ...PS.rateBadgeLbl, ...(dark && { color: 'rgba(242,252,255,.55)' }) }}>{rateTerm}</div>
+            <div style={{ ...PS.rateBadgeVal, ...(dark && { color: 'var(--ov-teal-400)' }) }}>{rate}</div>
+            <div style={{ ...PS.rateBadgeLbl, ...(dark && { color: 'rgba(242,252,255,.65)' }) }}>{rateTerm}</div>
           </div>
+        ) : (
+          // Invisible spacer to maintain consistent layout when badge is absent
+          <div style={{ width: 80, height: 60, flexShrink: 0 }} />
         )}
       </div>
-      <p style={{ ...PS.cardBody, ...(dark && { color: 'rgba(242,252,255,.65)' }) }}>{body}</p>
+      <p style={{ ...PS.cardBody, ...(dark && { color: 'rgba(242,252,255,.68)' }) }}>{body}</p>
       <div style={{ ...PS.cardBullets, ...(dark && { background: 'rgba(255,255,255,.06)' }) }}>
-        <div style={{ ...PS.cbLabel, ...(dark && { color: '#70BABF' }) }}>Ideal for individuals who</div>
+        <div style={{ ...PS.cbLabel, ...(dark && { color: 'var(--ov-teal-400)' }) }}>Ideal for individuals who</div>
         {bullets.map((b, i) => (
           <div key={i} style={{ ...PS.cbItem, ...(dark && { borderTop: '1px solid rgba(255,255,255,.08)' }) }}>
-            {CHECK}<p style={{ ...PS.cbText, ...(dark && { color: 'rgba(242,252,255,.65)' }) }}>{b}</p>
+            {CHECK}<p style={{ ...PS.cbText, ...(dark && { color: 'rgba(242,252,255,.68)' }) }}>{b}</p>
           </div>
         ))}
       </div>
       {href && <TextLink
         style={{ marginTop: "auto", paddingTop: 8, fontSize: 13 }}
-        color={dark ? '#70BABF' : undefined}
+        color={dark ? 'var(--ov-teal-400)' : undefined}
         onClick={() => { window.location.hash = href.replace('#',''); window.scrollTo({top:0,behavior:'instant'}); }}
       >Learn more</TextLink>}
     </div>
@@ -188,6 +191,7 @@ const CATEGORIES = [
 ];
 
 const SCROLL_MARGIN = "240px";
+const SCROLL_MARGIN_FILTER = "200px";
 
 const NAV_PRODUCTS = [
   { label: "Harbourview MYGA",           href: "#prd-harbourview-myga",      cat: "fixed-annuities" },
@@ -199,25 +203,112 @@ const NAV_PRODUCTS = [
   { label: "Topsider",                   href: "#prd-topsider",         cat: "fixed-indexed" },
 ];
 
+const FILTER_NAV = {
+  chipRow: {
+    display: "flex",
+    gap: 8,
+    padding: "12px 0 10px",
+    overflowX: "auto",
+    WebkitOverflowScrolling: "touch",
+    scrollbarWidth: "none",
+    borderBottom: "1px solid #e8e5e5",
+    position: "relative",
+  },
+  // Gradient fade indicator for scroll (applied via CSS in tokens)
+  chip: {
+    flex: "0 0 auto",
+    padding: "8px 16px",
+    borderRadius: 999,
+    border: "1px solid var(--ov-border-soft)",
+    background: "#fff",
+    fontFamily: "var(--ov-ff-sans)",
+    fontWeight: 600,
+    fontSize: 13,
+    color: "var(--ov-navy-1000)",
+    cursor: "pointer",
+    whiteSpace: "nowrap",
+    transition: "all .15s",
+  },
+  chipOn: {
+    borderColor: "var(--ov-teal-600)",
+    background: "rgba(36,148,193,0.12)",
+    color: "var(--ov-navy-900)",
+  },
+};
+
+function scrollToId(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 // ── Page ─────────────────────────────────────────────────────────────────────
-export default function ProductsPage() {
+/** @param {{ navVariant?: 'default' | 'parent-filter' }} props */
+export default function ProductsPage({ navVariant = "default" }) {
+  const isFilter = navVariant === "parent-filter";
   const [activeProduct, setActiveProduct] = useState("prd-harbourview-myga");
   const activeCategory = NAV_PRODUCTS.find(p => p.href === `#${activeProduct}`)?.cat ?? "fixed-annuities";
+  const [filterCat, setFilterCat] = useState("fixed-annuities");
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 900 : false);
+  const [expandedCategory, setExpandedCategory] = useState(isFilter ? "fixed-annuities" : null);
 
+  // Detect mobile viewport
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 900);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Adjust scroll margin based on viewport
+  const scrollMargin = isMobile ? "160px" : (isFilter ? "200px" : "240px");
+
+  // Improved intersection observer for scroll-spy
   useEffect(() => {
     const ids = NAV_PRODUCTS.map(p => p.href.slice(1));
     const observers = ids.map(id => {
       const el = document.getElementById(id);
       if (!el) return null;
+      // Mobile: -10% to -80%; Desktop: -30% to -60%
+      const rootMargin = isMobile ? "-10% 0px -80% 0px" : "-30% 0px -60% 0px";
       const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveProduct(id); },
-        { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveProduct(id);
+            const cat = NAV_PRODUCTS.find(p => p.href === `#${id}`)?.cat;
+            if (cat) {
+              setFilterCat(cat);
+              // Auto-expand category on mobile when scrolling
+              if (isFilter && isMobile) {
+                setExpandedCategory(cat);
+              }
+            }
+          }
+        },
+        { rootMargin, threshold: 0 }
       );
       obs.observe(el);
       return obs;
     });
     return () => observers.forEach(o => o?.disconnect());
-  }, []);
+  }, [isMobile, isFilter]);
+
+  const filteredProducts = isFilter
+    ? NAV_PRODUCTS.filter(p => p.cat === filterCat)
+    : NAV_PRODUCTS;
+
+  const handleCategoryClick = (catId) => {
+    setFilterCat(catId);
+    setExpandedCategory(isMobile ? null : catId);
+    // Scroll to first product in category
+    const firstProduct = NAV_PRODUCTS.find(p => p.cat === catId);
+    if (firstProduct) {
+      setTimeout(() => scrollToId(firstProduct.href.slice(1)), 0);
+    }
+  };
+
+  const handleProductClick = (href) => {
+    setActiveProduct(href.slice(1));
+    scrollToId(href.slice(1));
+  };
 
   return (
     <main>
@@ -230,39 +321,94 @@ export default function ProductsPage() {
         ctaPrimary="Compare Products"
       />
 
-      {/* ── Two-level sticky nav ─────────────────────────────────────────── */}
-      <nav style={PS.navOuter} aria-label="Products">
-        <div className="ov-container">
-          <div style={PS.catRow}>
-            {CATEGORIES.map(cat => {
-              const isActive = cat.id === activeCategory;
-              return (
-                <a key={cat.id} href={cat.href} style={{ ...PS.catTab, ...(isActive ? PS.catTabActive : PS.catTabInact) }}>
-                  <span style={PS.catLabel}>{cat.label}</span>
-                  <span style={PS.catSub}>{cat.sub}</span>
-                </a>
-              );
-            })}
+      {isFilter ? (
+        <nav style={PS.navOuter} aria-label="Products">
+          <div className="ov-container">
+            {/* Category chips */}
+            <div style={FILTER_NAV.chipRow} role="tablist" aria-label="Product categories">
+              {CATEGORIES.map(cat => {
+                const on = cat.id === filterCat;
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={on}
+                    style={{ ...FILTER_NAV.chip, ...(on ? FILTER_NAV.chipOn : {}) }}
+                    onClick={() => handleCategoryClick(cat.id)}
+                  >
+                    {cat.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Product tabs (filtered) */}
+            <div style={PS.prdRow}>
+              {filteredProducts.map(p => {
+                const isActive = `#${activeProduct}` === p.href;
+                return (
+                  <button
+                    key={p.href}
+                    type="button"
+                    style={{
+                      ...PS.prdTab,
+                      ...(isActive ? PS.prdTabActive : PS.prdTabInact),
+                    }}
+                    onClick={() => handleProductClick(p.href)}
+                  >
+                    {p.label}
+                  </button>
+                );
+              })}
+            </div>
           </div>
-          <div style={PS.prdRow}>
-            {NAV_PRODUCTS.map(p => {
-              const isActive = `#${activeProduct}` === p.href;
-              return (
-                <a key={p.href} href={p.href}
-                  style={{ ...PS.prdTab, ...(isActive ? PS.prdTabActive : PS.prdTabInact) }}
-                  onMouseEnter={e => { if (!isActive) e.currentTarget.style.background = "rgba(226,241,242,0.35)"; }}
-                  onMouseLeave={e => { if (!isActive) e.currentTarget.style.background = "transparent"; }}
-                >
-                  {p.label}
-                </a>
-              );
-            })}
+        </nav>
+      ) : (
+        <nav style={PS.navOuter} aria-label="Products">
+          <div className="ov-container">
+            <div style={PS.catRow}>
+              {CATEGORIES.map(cat => {
+                const isActive = cat.id === activeCategory;
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    style={{ ...PS.catTab, ...(isActive ? PS.catTabActive : PS.catTabInact) }}
+                    onClick={() => {
+                      const catEl = document.getElementById(cat.href.slice(1));
+                      if (catEl) catEl.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }}
+                  >
+                    <span style={PS.catLabel}>{cat.label}</span>
+                    <span style={PS.catSub}>{cat.sub}</span>
+                  </button>
+                );
+              })}
+            </div>
+            <div style={PS.prdRow}>
+              {NAV_PRODUCTS.map(p => {
+                const isActive = `#${activeProduct}` === p.href;
+                return (
+                  <button
+                    key={p.href}
+                    type="button"
+                    style={{ ...PS.prdTab, ...(isActive ? PS.prdTabActive : PS.prdTabInact) }}
+                    onClick={() => handleProductClick(p.href)}
+                    onMouseEnter={e => { if (!isActive && !isMobile) e.currentTarget.style.background = "rgba(36,148,193,0.06)"; }}
+                    onMouseLeave={e => { if (!isActive && !isMobile) e.currentTarget.style.background = "transparent"; }}
+                  >
+                    {p.label}
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      )}
 
       {/* ══ 1 — Fixed Annuities (white) ══════════════════════════════════ */}
-      <section id="prd-cat-fixed-annuities" style={{ ...PS.sectionWhite, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
+      <section id="prd-cat-fixed-annuities" style={{ ...PS.sectionWhite, scrollMarginTop: scrollMargin }} className="ov-section prd-section">
         <div className="ov-container">
           <div style={PS.introRow} className="prd-intro-row prd-intro-img-right">
             <img src="assets/family.png" alt="Family planning retirement" loading="lazy" style={PS.introImg} className="prd-intro-img"/>
@@ -276,15 +422,15 @@ export default function ProductsPage() {
             </div>
           </div>
           <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-2col">
-            <div id="prd-harbourview-myga" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.harbourviewMYGA} tint /></div>
-            <div id="prd-horizon-myga"            style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.horizonMYGA} tint /></div>
-            <div id="prd-sky-harbourview-myga"    style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.skyHarbourviewMYGA} tint /></div>
+            <div id="prd-harbourview-myga" style={{ scrollMarginTop: scrollMargin }}><ProductCard {...PRODUCTS.harbourviewMYGA} tint /></div>
+            <div id="prd-horizon-myga"            style={{ scrollMarginTop: scrollMargin }}><ProductCard {...PRODUCTS.horizonMYGA} tint /></div>
+            <div id="prd-sky-harbourview-myga"    style={{ scrollMarginTop: scrollMargin }}><ProductCard {...PRODUCTS.skyHarbourviewMYGA} tint /></div>
           </div>
         </div>
       </section>
 
       {/* ══ 2 — Fixed Annuities with Flexibility (dark navy) ════════════ */}
-      <section id="prd-cat-fixed-with-flex" style={{ ...PS.sectionDark, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
+      <section id="prd-cat-fixed-with-flex" style={{ ...PS.sectionDark, scrollMarginTop: scrollMargin }} className="ov-section prd-section">
         <div className="ov-container">
           <div style={PS.introRow} className="prd-intro-row prd-intro-img-left">
             <img src="assets/older-couple-1.png" alt="Couple planning retirement with flexibility" loading="lazy" style={PS.introImg} className="prd-intro-img"/>
@@ -298,14 +444,14 @@ export default function ProductsPage() {
             </div>
           </div>
           <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-2col">
-            <div id="prd-current-rate"    style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.currentRate} dark /></div>
-            <div id="prd-harbourview-fia" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.harbourviewFIA} dark /></div>
+            <div id="prd-current-rate"    style={{ scrollMarginTop: scrollMargin }}><ProductCard {...PRODUCTS.currentRate} dark /></div>
+            <div id="prd-harbourview-fia" style={{ scrollMarginTop: scrollMargin }}><ProductCard {...PRODUCTS.harbourviewFIA} dark /></div>
           </div>
         </div>
       </section>
 
       {/* ══ 3 — Fixed Indexed Annuities (tint) ══════════════════════════ */}
-      <section id="prd-cat-fixed-indexed" style={{ ...PS.sectionTint, scrollMarginTop: SCROLL_MARGIN }} className="ov-section prd-section">
+      <section id="prd-cat-fixed-indexed" style={{ ...PS.sectionTint, scrollMarginTop: scrollMargin }} className="ov-section prd-section">
         <div className="ov-container">
           <div style={PS.introRow} className="prd-intro-row prd-intro-img-right">
             <img src="assets/lighthouse.jpg" alt="Fixed indexed annuities" loading="lazy" style={PS.introImg} className="prd-intro-img"/>
@@ -320,8 +466,8 @@ export default function ProductsPage() {
             </div>
           </div>
           <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-2col">
-            <div id="prd-caplock"   style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.capLock}/></div>
-            <div id="prd-topsider" style={{ scrollMarginTop: SCROLL_MARGIN }}><ProductCard {...PRODUCTS.topsider}/></div>
+            <div id="prd-caplock"   style={{ scrollMarginTop: scrollMargin }}><ProductCard {...PRODUCTS.capLock}/></div>
+            <div id="prd-topsider" style={{ scrollMarginTop: scrollMargin }}><ProductCard {...PRODUCTS.topsider}/></div>
           </div>
         </div>
       </section>
