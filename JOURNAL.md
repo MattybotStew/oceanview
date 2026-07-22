@@ -3,6 +3,13 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 ## 2026-07-22 — Composer
+- **`#products-filter-test` mobile nav** — option 5 sticky nav no longer dual-scrolls or crushes labels on phone:
+  - Category: full-width picker dropdown (full titles) instead of horizontal chips
+  - Product tabs: content-sized / grow-to-fill, horizontal scroll when needed; active tab scrolls into view
+  - Removed brittle `[style*=overflowX]` CSS overrides in `tokens.css`; class-based fade on scroller only
+  - Desktop chips unchanged; live `#products` untouched
+
+## 2026-07-22 — Composer
 - Updated `AGENTS.md` action items: product-nav constraints (product-first, full titles, content frozen), five options listed, `#products-filter-test` documented; live `#products` stays default until Mae sign-off.
 
 ## 2026-07-22 — Composer

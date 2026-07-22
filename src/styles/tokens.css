@@ -884,42 +884,32 @@ a { color: inherit; text-decoration: none; }
    PRODUCTS PAGE — Mobile Optimizations
    ============================================================ */
 
-/* Mobile nav: reduce sticky nav height; add scroll affordance gradient */
 @media (max-width: 899px) {
-  /* Chip row: add gradient fade indicator on right */
-  [role="tablist"] [role="tab"] {
-    padding: 10px 14px !important;
-    font-size: 12px !important;
-    min-width: 140px !important;
-  }
-  
-  /* Product tabs: make smaller on mobile */
-  [style*="overflowX"][style*="auto"] > button {
-    min-width: 90px !important;
-    padding: 0 16px !important;
-    font-size: 12px !important;
-    height: 48px !important;
-  }
+  /* Default (non-filter) product tabs: keep readable; allow horizontal scroll */
+  .prd-section { scroll-margin-top: 160px; }
 
-  /* Reduce scroll margin for mobile nav */
-  [style*="scrollMarginTop"] { scroll-margin-top: 160px !important; }
+  /* Hide scrollbars on the product tab scroller */
+  .prd-filter-products--scroll {
+    -ms-overflow-style: none;
+  }
+  .prd-filter-products--scroll::-webkit-scrollbar { display: none; }
 }
 
-/* Scroll affordance: gradient fade on horizontal scroll containers */
-[style*="overflowX"][style*="auto"] {
+/* Scroll affordance: gradient fade pinned to the non-scrolling wrapper edge
+   (must NOT live on the scroller itself, or it drifts with the content). */
+.prd-filter-products-wrap {
   position: relative;
 }
-
-[style*="overflowX"][style*="auto"]::after {
+.prd-filter-products-wrap--fade::after {
   content: '';
   position: absolute;
   right: 0;
   top: 0;
   bottom: 0;
-  width: 24px;
-  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.8));
+  width: 28px;
+  background: linear-gradient(to right, rgba(255,255,255,0), #fff);
   pointer-events: none;
-  opacity: 0.6;
+  z-index: 1;
 }
 
 /* ============================================================

@@ -61,6 +61,10 @@ Open via URL/hash only. Do not “fix” by adding nav links unless stakeholders
      4. Category prefix on products
      5. Products + parent filter chips
    - **Full-page test of option 5:** `#products-filter-test` → `ProductsPage` with `navVariant="parent-filter"` (same catalog as live `#products`)
+     - **Mobile:** category = full-width dropdown picker; product tabs content-sized / grow-to-fill with horizontal scroll (no crushed labels)
+     - **Desktop:** parent filter chips + product tabs (unchanged)
+     - **Mobile:** category = full-width dropdown picker; product tabs content-sized / grow-to-fill with horizontal scroll (no crushed labels)
+     - **Desktop:** parent filter chips + product tabs (unchanged)
    - **Live `#products`:** still default two-level sticky nav — do not swap until Mae signs off
    - Unused leftover: `ProductAccordionNav.jsx` (parent-accordion experiment; not on examples board)
 

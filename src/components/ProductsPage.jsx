@@ -1,5 +1,5 @@
 // ProductsPage.jsx — Products catalog
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import PageHero from './PageHero.jsx'
 import CTABanner from './CTABanner.jsx'
 import { TextLink } from './Buttons.jsx'
@@ -214,7 +214,6 @@ const FILTER_NAV = {
     borderBottom: "1px solid #e8e5e5",
     position: "relative",
   },
-  // Gradient fade indicator for scroll (applied via CSS in tokens)
   chip: {
     flex: "0 0 auto",
     padding: "8px 16px",
@@ -234,6 +233,105 @@ const FILTER_NAV = {
     background: "rgba(36,148,193,0.12)",
     color: "var(--ov-navy-900)",
   },
+  // Mobile: full-width category picker (avoids crushed 3-col labels)
+  pickerWrap: {
+    position: "relative",
+    borderBottom: "1px solid #e8e5e5",
+  },
+  pickerBtn: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 12,
+    padding: "14px 4px",
+    border: 0,
+    background: "transparent",
+    cursor: "pointer",
+    textAlign: "left",
+  },
+  pickerLabel: {
+    fontFamily: "var(--ov-ff-sans)",
+    fontWeight: 400,
+    fontSize: 11,
+    letterSpacing: "0.06em",
+    textTransform: "uppercase",
+    color: "var(--ov-grey-600)",
+    marginBottom: 2,
+  },
+  pickerValue: {
+    fontFamily: "var(--ov-ff-sans)",
+    fontWeight: 600,
+    fontSize: 15,
+    color: "var(--ov-navy-900)",
+    lineHeight: 1.3,
+  },
+  pickerMenu: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: "100%",
+    zIndex: 60,
+    background: "#fff",
+    border: "1px solid var(--ov-border-soft)",
+    borderRadius: 12,
+    boxShadow: "0 8px 24px rgba(13,31,78,.12)",
+    padding: 6,
+    marginTop: 4,
+  },
+  pickerOption: {
+    width: "100%",
+    display: "block",
+    padding: "12px 14px",
+    border: 0,
+    borderRadius: 8,
+    background: "transparent",
+    fontFamily: "var(--ov-ff-sans)",
+    fontWeight: 600,
+    fontSize: 14,
+    color: "var(--ov-navy-1000)",
+    cursor: "pointer",
+    textAlign: "left",
+    lineHeight: 1.35,
+  },
+  pickerOptionOn: {
+    background: "rgba(36,148,193,0.12)",
+    color: "var(--ov-navy-900)",
+  },
+  // Mobile product row: content-sized tabs that scroll (never crush labels)
+  prdRowMobile: {
+    display: "flex",
+    overflowX: "auto",
+    WebkitOverflowScrolling: "touch",
+    scrollbarWidth: "none",
+    borderBottom: "1px solid #e8e5e5",
+    scrollSnapType: "x proximity",
+    gap: 0,
+  },
+  prdTabMobile: {
+    flex: "1 0 auto",
+    height: 48,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "0 18px",
+    border: 0,
+    borderRight: "1px solid #e8e5e5",
+    borderBottom: "3px solid transparent",
+    background: "transparent",
+    fontFamily: "var(--ov-ff-sans)",
+    fontWeight: 600,
+    fontSize: 13,
+    color: "var(--ov-navy-1000)",
+    cursor: "pointer",
+    whiteSpace: "nowrap",
+    scrollSnapAlign: "start",
+    transition: "background .15s, border-color .15s",
+  },
+  prdTabMobileOn: {
+    background: "rgba(36,148,193,0.12)",
+    borderBottomColor: "var(--ov-teal-600)",
+  },
 };
 
 function scrollToId(id) {
@@ -249,17 +347,41 @@ export default function ProductsPage({ navVariant = "default" }) {
   const activeCategory = NAV_PRODUCTS.find(p => p.href === `#${activeProduct}`)?.cat ?? "fixed-annuities";
   const [filterCat, setFilterCat] = useState("fixed-annuities");
   const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 900 : false);
-  const [expandedCategory, setExpandedCategory] = useState(isFilter ? "fixed-annuities" : null);
+  const [catMenuOpen, setCatMenuOpen] = useState(false);
+  const productTabRefs = useRef({});
+  const productRowRef = useRef(null);
+  const pickerRef = useRef(null);
 
   // Detect mobile viewport
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 900);
+    const handleResize = () => {
+      const mobile = window.innerWidth < 900;
+      setIsMobile(mobile);
+      if (!mobile) setCatMenuOpen(false);
+    };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Adjust scroll margin based on viewport
-  const scrollMargin = isMobile ? "160px" : (isFilter ? "200px" : "240px");
+  // Close category menu on outside tap / Escape
+  useEffect(() => {
+    if (!catMenuOpen) return;
+    const onPointer = (e) => {
+      if (pickerRef.current && !pickerRef.current.contains(e.target)) setCatMenuOpen(false);
+    };
+    const onKey = (e) => { if (e.key === "Escape") setCatMenuOpen(false); };
+    document.addEventListener("pointerdown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [catMenuOpen]);
+
+  // Adjust scroll margin based on viewport + sticky nav stack
+  const scrollMargin = isMobile
+    ? (isFilter ? "200px" : "160px")
+    : (isFilter ? "200px" : "240px");
 
   // Improved intersection observer for scroll-spy
   useEffect(() => {
@@ -274,13 +396,7 @@ export default function ProductsPage({ navVariant = "default" }) {
           if (entry.isIntersecting) {
             setActiveProduct(id);
             const cat = NAV_PRODUCTS.find(p => p.href === `#${id}`)?.cat;
-            if (cat) {
-              setFilterCat(cat);
-              // Auto-expand category on mobile when scrolling
-              if (isFilter && isMobile) {
-                setExpandedCategory(cat);
-              }
-            }
+            if (cat) setFilterCat(cat);
           }
         },
         { rootMargin, threshold: 0 }
@@ -291,16 +407,25 @@ export default function ProductsPage({ navVariant = "default" }) {
     return () => observers.forEach(o => o?.disconnect());
   }, [isMobile, isFilter]);
 
+  // Keep the active product tab visible in the horizontal scroller
+  useEffect(() => {
+    if (!isFilter) return;
+    const btn = productTabRefs.current[activeProduct];
+    if (btn && typeof btn.scrollIntoView === "function") {
+      btn.scrollIntoView({ behavior: "smooth", inline: "nearest", block: "nearest" });
+    }
+  }, [activeProduct, filterCat, isFilter, isMobile]);
+
   const filteredProducts = isFilter
     ? NAV_PRODUCTS.filter(p => p.cat === filterCat)
     : NAV_PRODUCTS;
 
   const handleCategoryClick = (catId) => {
     setFilterCat(catId);
-    setExpandedCategory(isMobile ? null : catId);
-    // Scroll to first product in category
+    setCatMenuOpen(false);
     const firstProduct = NAV_PRODUCTS.find(p => p.cat === catId);
     if (firstProduct) {
+      setActiveProduct(firstProduct.href.slice(1));
       setTimeout(() => scrollToId(firstProduct.href.slice(1)), 0);
     }
   };
@@ -322,45 +447,98 @@ export default function ProductsPage({ navVariant = "default" }) {
       />
 
       {isFilter ? (
-        <nav style={PS.navOuter} aria-label="Products">
+        <nav style={PS.navOuter} className="prd-filter-nav" aria-label="Products">
           <div className="ov-container">
-            {/* Category chips */}
-            <div style={FILTER_NAV.chipRow} role="tablist" aria-label="Product categories">
-              {CATEGORIES.map(cat => {
-                const on = cat.id === filterCat;
-                return (
-                  <button
-                    key={cat.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={on}
-                    style={{ ...FILTER_NAV.chip, ...(on ? FILTER_NAV.chipOn : {}) }}
-                    onClick={() => handleCategoryClick(cat.id)}
-                  >
-                    {cat.label}
-                  </button>
-                );
-              })}
-            </div>
+            {isMobile ? (
+              /* Mobile: full-width category picker + scrollable product tabs */
+              <div ref={pickerRef} style={FILTER_NAV.pickerWrap} className="prd-filter-picker">
+                <button
+                  type="button"
+                  style={FILTER_NAV.pickerBtn}
+                  aria-haspopup="listbox"
+                  aria-expanded={catMenuOpen}
+                  aria-label="Product category"
+                  onClick={() => setCatMenuOpen(o => !o)}
+                >
+                  <span>
+                    <div style={FILTER_NAV.pickerLabel}>Category</div>
+                    <div style={FILTER_NAV.pickerValue}>
+                      {CATEGORIES.find(c => c.id === filterCat)?.label}
+                    </div>
+                  </span>
+                  <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true" style={{ flexShrink: 0, transform: catMenuOpen ? "rotate(180deg)" : "none", transition: "transform .15s" }}>
+                    <path d="M1 1.5L6 6.5L11 1.5" stroke="var(--ov-navy-900)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+                {catMenuOpen && (
+                  <div style={FILTER_NAV.pickerMenu} role="listbox" aria-label="Product categories">
+                    {CATEGORIES.map(cat => {
+                      const on = cat.id === filterCat;
+                      return (
+                        <button
+                          key={cat.id}
+                          type="button"
+                          role="option"
+                          aria-selected={on}
+                          style={{ ...FILTER_NAV.pickerOption, ...(on ? FILTER_NAV.pickerOptionOn : {}) }}
+                          onClick={() => handleCategoryClick(cat.id)}
+                        >
+                          {cat.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            ) : (
+              /* Desktop: pill filter chips */
+              <div style={FILTER_NAV.chipRow} className="prd-filter-chips" role="tablist" aria-label="Product categories">
+                {CATEGORIES.map(cat => {
+                  const on = cat.id === filterCat;
+                  return (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={on}
+                      style={{ ...FILTER_NAV.chip, ...(on ? FILTER_NAV.chipOn : {}) }}
+                      onClick={() => handleCategoryClick(cat.id)}
+                    >
+                      {cat.label}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
 
-            {/* Product tabs (filtered) */}
-            <div style={PS.prdRow}>
-              {filteredProducts.map(p => {
-                const isActive = `#${activeProduct}` === p.href;
-                return (
-                  <button
-                    key={p.href}
-                    type="button"
-                    style={{
-                      ...PS.prdTab,
-                      ...(isActive ? PS.prdTabActive : PS.prdTabInact),
-                    }}
-                    onClick={() => handleProductClick(p.href)}
-                  >
-                    {p.label}
-                  </button>
-                );
-              })}
+            {/* Product tabs (filtered) — content-sized on mobile so labels never crush.
+                Fade lives on the non-scrolling wrapper so it stays pinned to the edge. */}
+            <div className={isMobile ? "prd-filter-products-wrap prd-filter-products-wrap--fade" : undefined}>
+              <div
+                ref={productRowRef}
+                style={isMobile ? FILTER_NAV.prdRowMobile : PS.prdRow}
+                className={isMobile ? "prd-filter-products prd-filter-products--scroll" : "prd-filter-products"}
+              >
+                {filteredProducts.map(p => {
+                  const isActive = `#${activeProduct}` === p.href;
+                  const id = p.href.slice(1);
+                  return (
+                    <button
+                      key={p.href}
+                      type="button"
+                      ref={el => { productTabRefs.current[id] = el; }}
+                      style={
+                        isMobile
+                          ? { ...FILTER_NAV.prdTabMobile, ...(isActive ? FILTER_NAV.prdTabMobileOn : {}) }
+                          : { ...PS.prdTab, ...(isActive ? PS.prdTabActive : PS.prdTabInact) }
+                      }
+                      onClick={() => handleProductClick(p.href)}
+                    >
+                      {p.label}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </nav>

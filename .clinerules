@@ -5,13 +5,14 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-07-22 (Composer — agents sync + products-filter-test)
+**Last Updated:** 2026-07-22 (Composer — mobile filter-nav UX)
 **Active Agent:** Composer
 
 ### In Progress
 - Mae review: product-first tab options + `#products-filter-test` (option 5). Live `#products` stays default until sign-off.
 
 ### Newly completed (2026-07-22)
+- `#products-filter-test` **mobile nav UX**: category dropdown picker + non-crushing product tabs (scroll/grow); desktop chips unchanged.
 - `#product-tab-examples` — 5 product-first sticky tab demos (full titles; same body under each).
 - `#products-filter-test` — full products page with `navVariant="parent-filter"`.
 - `AGENTS.md` updated with constraints, option list, and test route.
