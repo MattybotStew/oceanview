@@ -3,3 +3,8 @@
 node_modules/
 dist/
 .DS_Store
+
+# figma-pipeline generated artifacts
+figma-output.json
+src/figma/
+.env
