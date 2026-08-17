@@ -1180,11 +1180,70 @@ a { color: inherit; text-decoration: none; }
   .pwn-resources-grid { grid-template-columns: 1fr !important; }
   .pwn-articles-grid  { grid-template-columns: 1fr !important; }
   .pwn-steps-grid     { grid-template-columns: repeat(2, 1fr) !important; }
+  .ov-hero-card.pwn-hero { height: 650px; }
 }
 @media (max-width: 540px) {
   .pwn-steps-grid { grid-template-columns: 1fr !important; }
 }
+
+/* Tall-content hero: two body paragraphs + labeled dual CTAs exceed fixed card height */
+@media (max-width: 720px) {
+  .ov-hero-card.pwn-hero {
+    height: auto !important;
+    min-height: 560px;
+    padding-bottom: 64px;
+  }
+  .ov-hero-card.pwn-hero .ov-hero-content {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    transform: none;
+    width: calc(100% - 48px);
+    max-width: none;
+    margin: 0 auto;
+    padding: 36px 0 16px;
+    gap: 14px;
+  }
+  .ov-hero-card.pwn-hero .pwn-hero-bg {
+    background-position: 65% center !important;
+  }
+  .pwn-hero-body {
+    gap: 12px !important;
+  }
+  .pwn-hero-ctas {
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100%;
+  }
+  .pwn-hero-cta {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    align-items: stretch !important;
+    gap: 6px !important;
+  }
+  .pwn-hero-cta .ov-btn {
+    width: 100%;
+  }
+}
 @media (max-width: 480px) {
-  .pwn-hero-cta { flex: 1 1 100% !important; width: 100% !important; min-width: 0 !important; }
+  .ov-hero-card.pwn-hero {
+    padding-bottom: 68px;
+  }
+  .ov-hero-card.pwn-hero .ov-hero-content {
+    width: calc(100% - 40px);
+    padding: 28px 0 8px;
+    gap: 10px;
+  }
+  .pwn-hero-body {
+    gap: 10px !important;
+  }
+  .pwn-hero-ctas {
+    gap: 8px !important;
+  }
+  .pwn-hero-cta {
+    gap: 4px !important;
+  }
 }
 

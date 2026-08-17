@@ -32,6 +32,13 @@ const DOWNLOADS = {
   toolkit: assetUrl('assets/downloads/retirement-protection-toolkit.pdf'),
 }
 
+// Free Unsplash photography: Fa1znL9snyY, DQdilc0v6u8, and bCdAVooTNm0.
+const CAMPAIGN_IMAGES = {
+  hero:     assetUrl('assets/pwn-hero-beach.jpg'),
+  planning: assetUrl('assets/pwn-retirement-planning.jpg'),
+  advisor:  assetUrl('assets/pwn-advisor-conversation.jpg'),
+}
+
 const handleDownload = (key) => {
   const url = DOWNLOADS[key]
   if (url) window.open(url, '_blank', 'noopener,noreferrer')
@@ -87,11 +94,12 @@ export default function ProtectionForWhatsNextPage() {
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <div className="ov-hero-wrapper" style={{ marginBottom: 40 }}>
         <section style={{ paddingTop: 20, paddingBottom: 0 }}>
-          <div className="ov-hero-card" style={{ background: 'var(--ov-navy-1000)' }}>
+          <div className="ov-hero-card pwn-hero" style={{ background: 'var(--ov-navy-1000)' }}>
             <div
+              className="pwn-hero-bg"
               style={{
                 position: 'absolute', inset: 0,
-                backgroundImage: `url(${assetUrl('assets/hero-beach-couple.jpg')})`,
+                backgroundImage: `url(${CAMPAIGN_IMAGES.hero})`,
                 backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0,
               }}
             />
@@ -116,7 +124,7 @@ export default function ProtectionForWhatsNextPage() {
                 Better retirement conversations begin with{' '}
                 <em style={S.accent}>better questions.</em>
               </h1>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: '58ch' }}>
+              <div className="pwn-hero-body" style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: '58ch' }}>
                 <p style={{ ...S.bodyDark, fontSize: 'clamp(14px,1.4vw,17px)' }}>
                   Retirement planning often focuses on how savings can grow. Protection matters, too.
                 </p>
@@ -126,7 +134,7 @@ export default function ProtectionForWhatsNextPage() {
                   what they can rely on and what may deserve a closer look.
                 </p>
               </div>
-              <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', alignItems: 'flex-start' }}>
+              <div className="pwn-hero-ctas" style={{ display: 'flex', gap: 18, flexWrap: 'wrap', alignItems: 'flex-start' }}>
                 <div className="pwn-hero-cta" style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-start' }}>
                   <PillMint hero onClick={() => handleDownload('guide')}>Download the Conversation Guide</PillMint>
                   <span style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 11, color: 'rgba(242,252,255,.6)' }}>For financial professional use only</span>
@@ -238,8 +246,8 @@ export default function ProtectionForWhatsNextPage() {
               </div>
             </div>
             <img
-              src={assetUrl('assets/older-couple-1.png')}
-              alt="Couple reviewing retirement planning materials"
+              src={CAMPAIGN_IMAGES.planning}
+              alt="Retired couple reviewing financial documents together at home"
               style={{ width: '100%', aspectRatio: '4/3', objectFit: 'cover', borderRadius: 20, display: 'block' }}
             />
           </div>
@@ -254,8 +262,8 @@ export default function ProtectionForWhatsNextPage() {
             className="nsg-split nsg-split-reverse"
           >
             <img
-              src={assetUrl('assets/hero-couple.jpg')}
-              alt="Financial professional meeting with clients"
+              src={CAMPAIGN_IMAGES.advisor}
+              alt="Financial professional guiding clients through a conversation"
               style={{ width: '100%', aspectRatio: '4/3', objectFit: 'cover', borderRadius: 20, display: 'block' }}
             />
             <div>
