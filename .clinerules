@@ -24,6 +24,7 @@
   - **Hero wave clearance** — 650px page-specific card at 721–900px and 68px bottom padding at ≤480px keep the second CTA label above the shaper
   - **Campaign imagery** — localized four free Unsplash images for the hero, three split sections, and How to Use It (`public/assets/pwn-*.jpg`); source IDs are documented in the page component
   - **Section backgrounds (Figma handoff)** — Two resources → navy; Why It Matters → white; How Advisors Use It → surface tint; four-step Ask/Listen/Clarify/Connect restored on white pillar grid (`.lpl-pillars-grid`)
+  - **Cleanup** — removed dead `.pwn-steps-grid` CSS from `tokens.css` (the four-step grid now uses `.lpl-pillars-grid`)
 
 ### Newly completed (2026-07-22)
 - `#products-filter-test` **mobile nav UX**: category dropdown picker + non-crushing product tabs (scroll/grow); desktop chips unchanged.

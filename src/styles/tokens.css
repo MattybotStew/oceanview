@@ -1179,11 +1179,7 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 900px) {
   .pwn-resources-grid { grid-template-columns: 1fr !important; }
   .pwn-articles-grid  { grid-template-columns: 1fr !important; }
-  .pwn-steps-grid     { grid-template-columns: repeat(2, 1fr) !important; }
   .ov-hero-card.pwn-hero { height: 650px; }
-}
-@media (max-width: 540px) {
-  .pwn-steps-grid { grid-template-columns: 1fr !important; }
 }
 
 /* Tall-content hero: two body paragraphs + labeled dual CTAs exceed fixed card height */
