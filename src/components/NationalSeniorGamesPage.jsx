@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { PillMint, PillGhost } from './Buttons.jsx'
-import { Eyebrow } from './common.jsx'
+import { Eyebrow, assetUrl } from './common.jsx'
 import CTABanner from './CTABanner.jsx'
 import HeroShaper from './HeroShaper.jsx'
 import { Check } from 'lucide-react'
@@ -220,7 +220,7 @@ export default function NationalSeniorGamesPage() {
               style={{
                 position: 'absolute',
                 inset: 0,
-                backgroundImage: 'url(assets/hero-beach-couple.jpg)',
+                backgroundImage: `url(${assetUrl('assets/hero-beach-couple.jpg')})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 zIndex: 0,
@@ -240,7 +240,7 @@ export default function NationalSeniorGamesPage() {
               style={{
                 position: 'absolute',
                 inset: 0,
-                backgroundImage: 'url(assets/Noise.png)',
+                backgroundImage: `url(${assetUrl('assets/Noise.png')})`,
                 backgroundRepeat: 'repeat',
                 backgroundSize: '200px',
                 opacity: 0.6,
@@ -335,7 +335,7 @@ export default function NationalSeniorGamesPage() {
               </div>
             </div>
             <img
-              src="assets/couple-walking.png"
+              src={assetUrl('assets/couple-walking.png')}
               alt="Active adults enjoying an outdoor walk"
               style={{
                 width: '100%',
@@ -362,7 +362,7 @@ export default function NationalSeniorGamesPage() {
             className="nsg-split nsg-split-reverse"
           >
             <img
-              src="assets/family.png"
+              src={assetUrl('assets/family.png')}
               alt="Family celebrating together"
               style={{
                 width: '100%',
@@ -437,7 +437,7 @@ export default function NationalSeniorGamesPage() {
             {/* Placeholder brand image (shared with About page) — swap for NSG-specific or
                 client-approved photography when assets arrive. */}
             <img
-              src="assets/lighthouse.jpg"
+              src={assetUrl('assets/lighthouse.jpg')}
               alt="Lighthouse on the coastline"
               style={{
                 width: '100%',

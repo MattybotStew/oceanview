@@ -15,6 +15,22 @@ const FEATURED = {
 
 const POSTS = [
   {
+    category: "Education",
+    date: "Sep 1, 2026",
+    title: "Retirement Protection Starts with Better Questions",
+    excerpt: "Use Oceanview's Conversation Guide and client Checkup to uncover priorities, clarify tradeoffs and move toward a more meaningful retirement-planning discussion.",
+    img: "assets/older-couple-1.png",
+    href: "#blog-retirement-protection-agent",
+  },
+  {
+    category: "Education",
+    date: "Sep 1, 2026",
+    title: "Five Questions to Ask About Protecting Your Retirement Plan",
+    excerpt: "Reflect on predictable income, market uncertainty, changing interest rates, longevity and the role of different portions of your savings.",
+    img: "assets/family.png",
+    href: "#blog-retirement-protection-client",
+  },
+  {
     category: "Product Updates",
     date: "Jun 2, 2026",
     title: "Harbourview FIA Now Available in All 50 States",

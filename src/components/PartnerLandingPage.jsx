@@ -1,5 +1,5 @@
 import { PillMint, PillGhost } from './Buttons.jsx'
-import { Eyebrow } from './common.jsx'
+import { Eyebrow, assetUrl } from './common.jsx'
 import CTABanner from './CTABanner.jsx'
 import {
   ShieldCheck, Eye, Zap, Star,
@@ -101,9 +101,9 @@ export default function PartnerLandingPage({ data }) {
       <div className="ov-hero-wrapper" style={{ marginBottom: 40 }}>
         <section style={{ paddingTop: 20, paddingBottom: 0 }}>
           <div className="ov-hero-card" style={{ background: 'var(--ov-navy-1000)' }}>
-            <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${hero.image})`, backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }} />
+            <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${assetUrl(hero.image)})`, backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }} />
             <div className="ov-hero-scrim" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(85deg, rgba(0,31,84,.82) 0%, rgba(0,31,84,.4) 60%, transparent 100%)', zIndex: 1 }} />
-            <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(assets/Noise.png)', backgroundRepeat: 'repeat', backgroundSize: '200px', opacity: 0.6, pointerEvents: 'none', zIndex: 2 }} />
+            <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${assetUrl('assets/Noise.png')})`, backgroundRepeat: 'repeat', backgroundSize: '200px', opacity: 0.6, pointerEvents: 'none', zIndex: 2 }} />
             <HeroShaper />
             <div className="ov-hero-content" style={{ zIndex: 3 }}>
               <Eyebrow light>{hero.eyebrow}</Eyebrow>
@@ -140,7 +140,7 @@ export default function PartnerLandingPage({ data }) {
               style={{ ...S.introRow, marginTop: i > 0 ? 72 : 0 }}
               className={`prd-intro-row ${p.imageRight ? 'prd-intro-img-right' : ''}`}
             >
-              <img src={p.image} alt={p.imageAlt} style={S.introImg} className="prd-intro-img" />
+              <img src={assetUrl(p.image)} alt={p.imageAlt} style={S.introImg} className="prd-intro-img" />
               <div style={S.introText}>
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
@@ -207,7 +207,7 @@ export default function PartnerLandingPage({ data }) {
               <PillMint onClick={() => { window.location.hash = 'case-studies' }} style={{ alignSelf: 'flex-start' }}>Read Their Story</PillMint>
             </div>
             <div style={{ width: '38%', flexShrink: 0 }} className="lpl-case-img">
-              <img src={caseStudy.image} alt="Couple enjoying retirement" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              <img src={assetUrl(caseStudy.image)} alt="Couple enjoying retirement" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             </div>
           </div>
         </div>

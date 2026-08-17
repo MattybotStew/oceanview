@@ -25,6 +25,7 @@ These are **real pages** with hash routes, but they are **not** in header/footer
 | `#cetera-landing` | `CeteraLandingPage.jsx` | Partner landing |
 | `#lpl-landing` | `LPLLandingPage.jsx` | Partner landing |
 | `#national-senior-games` | `NationalSeniorGamesPage.jsx` | Sponsorship landing |
+| `#protection-for-whats-next` | `ProtectionForWhatsNextPage.jsx` | September 2026 advisor campaign (Guide + Checkup) |
 
 Open via URL/hash only. Do not “fix” by adding nav links unless stakeholders request it.
 
@@ -143,3 +144,5 @@ When tokens/components change in React, update the WPBakery CSS too and bump the
 - Email form is client-side success only
 - CTA destinations and assets still open to stakeholder confirm
 - Navy H2 + form success message may need compliance confirm
+
+@FIGMA.md

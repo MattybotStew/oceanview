@@ -5,11 +5,20 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-07-22 (Composer — mobile filter-nav UX)
+**Last Updated:** 2026-08-17 (Composer — Protection campaign landing polish)
 **Active Agent:** Composer
 
 ### In Progress
 - Mae review: product-first tab options + `#products-filter-test` (option 5). Live `#products` stays default until sign-off.
+
+### Newly completed (2026-08-17)
+- **`#protection-for-whats-next`** campaign landing — full parity pass with other landings:
+  - Two photo split sections (reuses `.nsg-split` responsive classes)
+  - `CTABanner` closing CTA (replaces plain navy band)
+  - PDF downloads wired via `assetUrl()` → `public/assets/downloads/*.pdf` (stub PDFs until final assets ship)
+  - Agent + client blog articles: `#blog-retirement-protection-agent`, `#blog-retirement-protection-client`
+  - `assetUrl()` helper in `common.jsx`; applied to all landing pages (Partner, NSG, Protection)
+  - Articles section card contrast fix (navy band + white/dark cards)
 
 ### Newly completed (2026-07-22)
 - `#products-filter-test` **mobile nav UX**: category dropdown picker + non-crushing product tabs (scroll/grow); desktop chips unchanged.

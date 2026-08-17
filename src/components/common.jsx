@@ -1,5 +1,12 @@
 // ── Shared component primitives used across multiple pages ──────────────────
 
+/** Resolve a public/ asset path against Vite's BASE_URL (/oceanview/ on GitHub Pages). */
+export function assetUrl(path) {
+  if (!path || /^https?:\/\//.test(path) || path.startsWith('data:')) return path
+  const normalized = path.replace(/^\/?/, '')
+  return `${import.meta.env.BASE_URL}${normalized}`
+}
+
 export function Eyebrow({ light, children, style }) {
   const lineColor    = light ? 'rgba(112,186,191,.6)' : '#2494C1'
   const textColor    = light ? '#70BABF' : '#2494C1'

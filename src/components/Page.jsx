@@ -24,8 +24,11 @@ import ContactPage from './ContactPage.jsx'
 import LPLLandingPage from './LPLLandingPage.jsx'
 import CeteraLandingPage from './CeteraLandingPage.jsx'
 import NationalSeniorGamesPage from './NationalSeniorGamesPage.jsx'
+import ProtectionForWhatsNextPage from './ProtectionForWhatsNextPage.jsx'
 import BlogPage from './BlogPage.jsx'
 import BlogArticlePage from './BlogArticlePage.jsx'
+import BlogProtectionAgentArticlePage from './BlogProtectionAgentArticlePage.jsx'
+import BlogProtectionClientArticlePage from './BlogProtectionClientArticlePage.jsx'
 import HarbourviewFIAPage from './HarbourviewFIAPage.jsx'
 import HarbourviewMYGAPage from './HarbourviewMYGAPage.jsx'
 import SkyHarbourviewMYGAPage from './SkyHarbourviewMYGAPage.jsx'
@@ -77,7 +80,7 @@ const STUB_ROUTES = {
 const ROUTE_TO_NAV = {
   "about": "About", "products": "Products",
   "client-resources": "Client Resources", "insights": "Insights",
-  "faq": "FAQ", "blog": "Blog", "blog-annuity-timing": "Blog", "leadership": "About", "board": "About", "newsroom": "About",
+  "faq": "FAQ", "blog": "Blog", "blog-annuity-timing": "Blog", "blog-retirement-protection-agent": "Blog", "blog-retirement-protection-client": "Blog", "leadership": "About", "board": "About", "newsroom": "About",
   "white-papers": "Insights", "case-studies": "Client Resources",
   "retirement-risk": "Insights", "life-events": "Insights",
   "rrs-market-risk": "Insights", "rrs-inflation-risk": "Insights",
@@ -91,16 +94,18 @@ const ROUTE_TO_NAV = {
   "professionals": "Professionals", "sales-tools": "Professionals",
   "agent-faqs": "Professionals", "lpl-landing": "Professionals", "cetera-landing": "Professionals",
   "national-senior-games": "",
+  "protection-for-whats-next": "",
 };
 
 const PAGE_ROUTES = new Set([
   "", "home", "products", "about", "client-resources", "insights", "faq",
-  "blog", "blog-annuity-timing", "leadership", "board", "newsroom", "white-papers", "case-studies",
+  "blog", "blog-annuity-timing", "blog-retirement-protection-agent", "blog-retirement-protection-client", "leadership", "board", "newsroom", "white-papers", "case-studies",
   "retirement-risk", "life-events", "downloads", "brochures", "our-story", "individuals", "state-approval",
   "rrs-market-risk", "rrs-inflation-risk", "rrs-longevity-risk", "rrs-interest-rate-risk",
   "les-approaching-retirement", "les-market-volatility", "les-financial-windfall", "les-career-transitions",
   "professionals", "sales-tools", "agent-faqs",
   "contact", "lpl-landing", "cetera-landing", "national-senior-games",
+  "protection-for-whats-next",
   "disclaimers", "privacy", "terms", "accessibility", "agent-portal", "design", "nav-dropdowns", "product-tab-examples", "products-filter-test",
   // product pages — canonical routes
   "harbourview-myga", "horizon-myga", "sky-harbourview-myga",
@@ -173,6 +178,8 @@ export default function Page() {
       "faq": "FAQ — Oceanview",
       "blog": "Blog — Oceanview",
       "blog-annuity-timing": "When Is the Best Time to Consider Buying an Annuity? — Oceanview",
+      "blog-retirement-protection-agent": "Retirement Protection Starts with Better Questions — Oceanview",
+      "blog-retirement-protection-client": "Five Questions to Ask About Protecting Your Retirement Plan — Oceanview",
       "leadership": "Leadership — Oceanview",
       "board": "Board of Directors — Oceanview",
       "newsroom": "Newsroom — Oceanview",
@@ -204,6 +211,7 @@ export default function Page() {
       "russell-strategy": "Russell 2000 Crediting Strategy — Harbourview FIA — Oceanview",
       "nasdaq-strategy": "Nasdaq-100 Crediting Strategy — Harbourview FIA — Oceanview",
       "national-senior-games": "Oceanview Life | Proud Sponsor of the National Senior Games Association",
+      "protection-for-whats-next": "Protection for What's Next | Oceanview Life",
       "design": "Design System — Oceanview",
       "nav-dropdowns": "Nav Dropdowns Showcase — Oceanview",
       "product-tab-examples": "Product Tabs — Oceanview",
@@ -219,6 +227,8 @@ export default function Page() {
       "faq": "Frequently asked questions about Oceanview annuities, products, account management, and company information.",
       "blog": "Articles and perspectives on retirement planning, annuities, and financial security from Oceanview.",
       "blog-annuity-timing": "A practical look at when it makes sense to consider buying an annuity, from approaching retirement to reassessing income needs.",
+      "blog-retirement-protection-agent": "Use Oceanview's Retirement Protection Conversation Guide and Checkup to ask better questions, uncover priorities and earn permission for a deeper planning discussion.",
+      "blog-retirement-protection-client": "Five educational questions to help you reflect on predictable income, market uncertainty, interest rates, longevity and the role of your savings in retirement.",
       "leadership": "Meet Oceanview's executive leadership team — decades of experience in insurance and financial services.",
       "board": "Oceanview's board of directors brings deep expertise in finance, risk management, and regulatory compliance.",
       "newsroom": "Press releases, media coverage, and company announcements from Oceanview Life and Annuity.",
@@ -229,6 +239,7 @@ export default function Page() {
       "agent-portal": "Secure login for licensed Oceanview agents — manage client accounts, submit new business, and access sales tools.",
       "fia-overview": "Explore Oceanview's Fixed Indexed Annuity line — Harbourview FIA, CapLock, and Topsider — index-linked growth with zero-floor principal protection.",
       "national-senior-games": "Oceanview Life and Annuity Company is proud to sponsor the National Senior Games Association and celebrate active aging, community, competition and the long game in life and retirement.",
+      "protection-for-whats-next": "Use Oceanview's Retirement Protection Conversation Guide and client Checkup to ask better questions, uncover retirement priorities and identify where a deeper conversation may help.",
       "design": "Oceanview Design System and WPBakery how-to — tokens, components, and docs/wpbakery classes for the WordPress build-out.",
       "nav-dropdowns": "All desktop header mega-menus open and stacked for design review — About, Products, Client Resources, Insights.",
       "product-tab-examples": "Five product-first sticky tab ideas for the Products page — full titles, identical catalog under each option.",
@@ -312,9 +323,12 @@ export default function Page() {
       case "contact":           return <ContactPage />;
       case "blog":               return <BlogPage />;
       case "blog-annuity-timing": return <BlogArticlePage />;
+      case "blog-retirement-protection-agent": return <BlogProtectionAgentArticlePage />;
+      case "blog-retirement-protection-client": return <BlogProtectionClientArticlePage />;
       case "lpl-landing":        return <LPLLandingPage />;
       case "cetera-landing":     return <CeteraLandingPage />;
       case "national-senior-games": return <NationalSeniorGamesPage />;
+      case "protection-for-whats-next": return <ProtectionForWhatsNextPage />;
       case "faq":               return <FAQPage />;
       case "leadership":        return <LeadershipPage />;
       default:                  return <HomePage goto={goto} />;

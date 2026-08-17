@@ -2,6 +2,9 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-08-17 — Composer
+- **`#protection-for-whats-next` parity pass** — split photo sections (`.nsg-split`), `CTABanner` closing, PDF downloads wired to `public/assets/downloads/` (stub PDFs), agent/client blog articles (`#blog-retirement-protection-agent`, `#blog-retirement-protection-client`), article CTAs linked, `assetUrl()` on all landing pages.
+
 ## 2026-07-22 — Composer
 - **`#products-filter-test` mobile nav** — option 5 sticky nav no longer dual-scrolls or crushes labels on phone:
   - Category: full-width picker dropdown (full titles) instead of horizontal chips
