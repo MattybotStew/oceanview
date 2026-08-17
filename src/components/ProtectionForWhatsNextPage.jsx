@@ -32,11 +32,12 @@ const DOWNLOADS = {
   toolkit: assetUrl('assets/downloads/retirement-protection-toolkit.pdf'),
 }
 
-// Free Unsplash photography: Fa1znL9snyY, DQdilc0v6u8, and bCdAVooTNm0.
+// Free Unsplash photography: Fa1znL9snyY, DQdilc0v6u8, bCdAVooTNm0, and XIdcEnBVHfI.
 const CAMPAIGN_IMAGES = {
-  hero:     assetUrl('assets/pwn-hero-beach.jpg'),
-  planning: assetUrl('assets/pwn-retirement-planning.jpg'),
-  advisor:  assetUrl('assets/pwn-advisor-conversation.jpg'),
+  hero:       assetUrl('assets/pwn-hero-beach.jpg'),
+  planning:   assetUrl('assets/pwn-retirement-planning.jpg'),
+  advisor:    assetUrl('assets/pwn-advisor-conversation.jpg'),
+  transition: assetUrl('assets/pwn-client-conversation.jpg'),
 }
 
 const handleDownload = (key) => {
@@ -150,14 +151,14 @@ export default function ProtectionForWhatsNextPage() {
       </div>
 
       {/* ── Two resources ─────────────────────────────────────────────────── */}
-      <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
+      <section style={{ background: 'var(--ov-navy-1000)' }} className="ov-section">
         <div className="ov-container">
           <div style={{ maxWidth: 620, marginBottom: 44 }}>
-            <Eyebrow>For Financial Professionals</Eyebrow>
-            <h2 style={{ ...S.h2, marginBottom: 12 }}>
-              Two resources. One <em style={S.accentBlue}>better conversation.</em>
+            <Eyebrow light>For Financial Professionals</Eyebrow>
+            <h2 style={{ ...S.h2Light, marginBottom: 12 }}>
+              Two resources. One <em style={S.accent}>better conversation.</em>
             </h2>
-            <p style={S.body}>The Conversation Guide and Checkup are designed to work together.</p>
+            <p style={S.bodyDark}>The Conversation Guide and Checkup are designed to work together.</p>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, alignItems: 'stretch' }} className="pwn-resources-grid">
@@ -220,25 +221,25 @@ export default function ProtectionForWhatsNextPage() {
       </section>
 
       {/* ── Why protection conversations matter ───────────────────────────── */}
-      <section style={{ background: 'var(--ov-navy-1000)' }} className="ov-section">
+      <section style={{ background: '#fff' }} className="ov-section">
         <div className="ov-container">
           <div
             style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'center' }}
             className="nsg-split"
           >
             <div>
-              <Eyebrow light>Why It Matters</Eyebrow>
-              <h2 style={{ ...S.h2Light, marginBottom: 18 }}>
+              <Eyebrow>Why It Matters</Eyebrow>
+              <h2 style={{ ...S.h2, marginBottom: 18 }}>
                 Protection belongs in the{' '}
-                <em style={S.accent}>retirement conversation.</em>
+                <em style={S.accentBlue}>retirement conversation.</em>
               </h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                <p style={S.bodyDark}>
+                <p style={S.body}>
                   Clients often arrive with questions about returns and allocation. The Conversation Guide
                   helps you shift the discussion toward what they understand clearly, what they can rely on
                   and where additional planning may help — without rushing to a product.
                 </p>
-                <p style={S.bodyDark}>
+                <p style={S.body}>
                   The Checkup gives clients a simple, educational way to reflect on predictable income,
                   market uncertainty, interest rates, longevity and the role of different portions of their
                   savings.
@@ -255,7 +256,7 @@ export default function ProtectionForWhatsNextPage() {
       </section>
 
       {/* ── Built for your next client meeting ────────────────────────────── */}
-      <section style={{ background: '#fff' }} className="ov-section">
+      <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
         <div className="ov-container">
           <div
             style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'center' }}
@@ -291,40 +292,37 @@ export default function ProtectionForWhatsNextPage() {
         </div>
       </section>
 
-      {/* ── Ask. Listen. Clarify. Connect. ───────────────────────────────── */}
-      <section style={{ background: 'var(--ov-navy-1000)' }} className="ov-section">
+      {/* ── Ask. Listen. Clarify. Connect. + Five questions ──────────────── */}
+      <section style={{ background: '#fff' }} className="ov-section">
         <div className="ov-container">
-          <div style={{ maxWidth: 620, marginBottom: 44 }}>
-            <Eyebrow light>Four-Step Process</Eyebrow>
-            <h2 style={{ ...S.h2Light, marginBottom: 12 }}>
-              Ask. Listen. Clarify. <em style={S.accent}>Connect.</em>
+          <div style={{ marginBottom: 48, maxWidth: 620 }}>
+            <Eyebrow>Four-Step Process</Eyebrow>
+            <h2 style={{ ...S.h2, marginBottom: 14 }}>
+              Ask. Listen. Clarify. <em style={S.accentBlue}>Connect.</em>
             </h2>
-            <p style={S.bodyDark}>
+            <p style={S.body}>
               Use a simple four-step process to keep the conversation centered on the client.
             </p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }} className="pwn-steps-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 64 }} className="lpl-pillars-grid">
             {[
               { Icon: MessageSquare, title: 'Ask', body: 'Use the Checkup question as written.' },
               { Icon: Ear,           title: 'Listen', body: 'Notice uncertainty, assumptions and competing priorities.' },
               { Icon: HelpCircle,    title: 'Clarify', body: 'Ask one follow-up question before discussing possible solutions.' },
               { Icon: Link2,         title: 'Connect', body: 'Reflect what you heard and ask permission to explore strategies that may address the client\u2019s concern.' },
             ].map((s) => (
-              <div key={s.title} style={S.darkCard}>
-                <div style={{ width: 44, height: 44, borderRadius: 10, background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <s.Icon size={20} color="#70BABF" strokeWidth={1.75} />
+              <div key={s.title} style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: '24px 0', borderTop: '2px solid rgba(36,148,193,.2)' }}>
+                <div style={S.iconTile}>
+                  <s.Icon size={20} color="#2494C1" strokeWidth={1.75} />
                 </div>
-                <h3 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 22, color: '#F2FCFF', letterSpacing: '-0.01em', margin: 0 }}>{s.title}</h3>
-                <p style={S.bodyDark}>{s.body}</p>
+                <div>
+                  <h3 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 19, color: '#0D1F4E', letterSpacing: '-0.01em', lineHeight: 1.2, margin: '0 0 8px' }}>{s.title}</h3>
+                  <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13.5, color: '#4A5568', lineHeight: 1.65, margin: 0 }}>{s.body}</p>
+                </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* ── Five questions to explore ────────────────────────────────────── */}
-      <section style={{ background: '#fff' }} className="ov-section">
-        <div className="ov-container">
           <div style={{ maxWidth: 680, marginBottom: 44 }}>
             <Eyebrow>Five Questions to Explore</Eyebrow>
             <h2 style={{ ...S.h2, marginBottom: 12 }}>
@@ -385,44 +383,54 @@ export default function ProtectionForWhatsNextPage() {
       {/* ── Use one question ──────────────────────────────────────────────── */}
       <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
         <div className="ov-container">
-          <div style={{ maxWidth: 680 }}>
-            <Eyebrow>How to Use It</Eyebrow>
-            <h2 style={{ ...S.h2, marginBottom: 16 }}>
-              Use one question to earn a <em style={S.accentBlue}>better next conversation.</em>
-            </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <p style={S.body}>
-                The client does not need to complete all five questions at once. Begin with the topic
-                most relevant to the client&rsquo;s current situation. Listen for what matters most,
-                clarify the priority and ask whether it would be helpful to compare possible approaches.
+          <div
+            style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'center' }}
+            className="nsg-split"
+          >
+            <div>
+              <Eyebrow>How to Use It</Eyebrow>
+              <h2 style={{ ...S.h2, marginBottom: 16 }}>
+                Use one question to earn a <em style={S.accentBlue}>better next conversation.</em>
+              </h2>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                <p style={S.body}>
+                  The client does not need to complete all five questions at once. Begin with the topic
+                  most relevant to the client&rsquo;s current situation. Listen for what matters most,
+                  clarify the priority and ask whether it would be helpful to compare possible approaches.
+                </p>
+              </div>
+
+              <p style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.09em', textTransform: 'uppercase', color: '#2494C1', margin: '28px 0 12px' }}>
+                Suggested transition
               </p>
-            </div>
-
-            <p style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.09em', textTransform: 'uppercase', color: '#2494C1', margin: '28px 0 12px' }}>
-              Suggested transition
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <div style={{ background: '#fff', border: '1px solid rgba(112,186,191,.25)', borderLeft: '3px solid #2494C1', borderRadius: 10, padding: '14px 18px' }}>
-                <p style={{ fontFamily: 'var(--ov-ff-display)', fontSize: 16, fontStyle: 'italic', color: '#0D1F4E', lineHeight: 1.6, margin: 0 }}>
-                  &ldquo;What I am hearing is that protecting <em style={{ color: '#2494C1' }}>[priority]</em> is especially important to you. Is that accurate?&rdquo;
-                </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <div style={{ background: '#fff', border: '1px solid rgba(112,186,191,.25)', borderLeft: '3px solid #2494C1', borderRadius: 10, padding: '14px 18px' }}>
+                  <p style={{ fontFamily: 'var(--ov-ff-display)', fontSize: 16, fontStyle: 'italic', color: '#0D1F4E', lineHeight: 1.6, margin: 0 }}>
+                    &ldquo;What I am hearing is that protecting <em style={{ color: '#2494C1' }}>[priority]</em> is especially important to you. Is that accurate?&rdquo;
+                  </p>
+                </div>
+                <div style={{ background: '#fff', border: '1px solid rgba(112,186,191,.25)', borderLeft: '3px solid #2494C1', borderRadius: 10, padding: '14px 18px' }}>
+                  <p style={{ fontFamily: 'var(--ov-ff-display)', fontSize: 16, fontStyle: 'italic', color: '#0D1F4E', lineHeight: 1.6, margin: 0 }}>
+                    &ldquo;Would it be helpful to compare a few strategies designed to address that concern?&rdquo;
+                  </p>
+                </div>
               </div>
-              <div style={{ background: '#fff', border: '1px solid rgba(112,186,191,.25)', borderLeft: '3px solid #2494C1', borderRadius: 10, padding: '14px 18px' }}>
-                <p style={{ fontFamily: 'var(--ov-ff-display)', fontSize: 16, fontStyle: 'italic', color: '#0D1F4E', lineHeight: 1.6, margin: 0 }}>
-                  &ldquo;Would it be helpful to compare a few strategies designed to address that concern?&rdquo;
-                </p>
+
+              <p style={{ ...S.body, marginTop: 24, maxWidth: '68ch' }}>
+                Before deciding whether anything fits, review the potential benefits, tradeoffs,
+                liquidity, time horizon, guarantees and costs.
+              </p>
+
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 28 }}>
+                <PillMint onClick={() => handleDownload('guide')}>Download the Conversation Guide</PillMint>
+                <PillGhost onClick={() => handleDownload('checkup')}>Share the Client Checkup</PillGhost>
               </div>
             </div>
-
-            <p style={{ ...S.body, marginTop: 24, maxWidth: '68ch' }}>
-              Before deciding whether anything fits, review the potential benefits, tradeoffs,
-              liquidity, time horizon, guarantees and costs.
-            </p>
-
-            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 28 }}>
-              <PillMint onClick={() => handleDownload('guide')}>Download the Conversation Guide</PillMint>
-              <PillGhost onClick={() => handleDownload('checkup')}>Share the Client Checkup</PillGhost>
-            </div>
+            <img
+              src={CAMPAIGN_IMAGES.transition}
+              alt="Retired couple reviewing retirement planning together at home"
+              style={{ width: '100%', aspectRatio: '4/3', objectFit: 'cover', borderRadius: 20, display: 'block' }}
+            />
           </div>
         </div>
       </section>

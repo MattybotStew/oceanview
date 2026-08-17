@@ -5,7 +5,7 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-08-17 (GPT-5.6 Sol — Protection campaign imagery)
+**Last Updated:** 2026-08-17 (Composer — Protection section backgrounds + Why Oceanview pillars)
 **Active Agent:** Composer
 
 ### In Progress
@@ -22,7 +22,8 @@
   - **Hero mobile fix** — `.pwn-hero` modifier on card: auto/min-height card, top-aligned content, stacked full-width CTAs at ≤720px (global `.ov-hero-card` unchanged for partner landings)
   - **Hero spacing tighten** — reduced vertical gaps/padding at ≤720px and ≤480px via `.pwn-hero-body`, `.pwn-hero-ctas`, `.pwn-hero-cta` overrides
   - **Hero wave clearance** — 650px page-specific card at 721–900px and 68px bottom padding at ≤480px keep the second CTA label above the shaper
-  - **Campaign imagery** — localized three free Unsplash images for the hero, retirement-planning split, and advisor-conversation split (`public/assets/pwn-*.jpg`); source IDs are documented in the page component
+  - **Campaign imagery** — localized four free Unsplash images for the hero, three split sections, and How to Use It (`public/assets/pwn-*.jpg`); source IDs are documented in the page component
+  - **Section backgrounds (Figma handoff)** — Two resources → navy; Why It Matters → white; How Advisors Use It → surface tint; four-step Ask/Listen/Clarify/Connect restored on white pillar grid (`.lpl-pillars-grid`)
 
 ### Newly completed (2026-07-22)
 - `#products-filter-test` **mobile nav UX**: category dropdown picker + non-crushing product tabs (scroll/grow); desktop chips unchanged.

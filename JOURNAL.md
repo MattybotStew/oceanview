@@ -3,6 +3,11 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 ## 2026-08-17 — Composer
+- **Protection section backgrounds + four-step pillars** — per Figma handoff: Two resources → navy; Why It Matters → white; How Advisors Use It → surface tint; Ask/Listen/Clarify/Connect restored with white pillar-grid styling (`.lpl-pillars-grid`, icon tiles + top borders).
+- **Protection campaign imagery (GPT-5.6 Sol)** — replaced reused landing-page photos with three localized, free Unsplash images: an active senior couple for the hero, a retired couple reviewing finances, and an advisor-led client conversation. Source IDs are recorded in `ProtectionForWhatsNextPage.jsx`; desktop/mobile hero crops verified.
+- **Protection hero wave clearance (GPT-5.6 Sol)** — raised the page-specific hero to 650px at 721–900px and restored 68px bottom padding at ≤480px. Measured second-label clearance: 76px at 430px, 84px at 720px, and 35px at 820px; desktop and `#lpl-landing` remain unchanged.
+- **Protection hero spacing tighten** — reduced vertical gaps/padding at ≤720px and ≤480px (`.pwn-hero-body`, content gap/padding, card padding-bottom, CTA gaps). Verified 390/720/1440px; `#lpl-landing` unchanged.
+- **Protection hero mobile fix** — `.pwn-hero` / `.pwn-hero-ctas` classes on `#protection-for-whats-next`; `tokens.css` overrides at ≤720px (auto height, top-aligned content, stacked full-width CTAs). Verified 390/720/1440px; `#lpl-landing` unchanged at 390px.
 - **`#protection-for-whats-next` parity pass** — split photo sections (`.nsg-split`), `CTABanner` closing, PDF downloads wired to `public/assets/downloads/` (stub PDFs), agent/client blog articles (`#blog-retirement-protection-agent`, `#blog-retirement-protection-client`), article CTAs linked, `assetUrl()` on all landing pages.
 
 ## 2026-07-22 — Composer
