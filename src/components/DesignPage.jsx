@@ -465,7 +465,7 @@ function Typography() {
     ['.ov-eyebrow class', '--ov-fz-eyebrow', 'PP Mori', '16px', '600', '1.0', '0.10em, uppercase'],
     ['Eyebrow component', 'inline', 'PP Mori', '10px', '600', '1', '1.4px, uppercase'],
     ['Hero Title', 'inline', 'PP Editorial New', 'clamp(28px, 8vw, 63px)', '800', '1.1', '0'],
-    ['PageHero Title', 'inline', 'PP Editorial New', 'clamp(28px, 4vw, 63px)', '800', '1.1', '0'],
+    ['PageHero Title', 'inline', 'PP Editorial New', 'clamp(28px, 5.5vw, 63px)', '800', '1.1', '0'],
   ];
 
   return (

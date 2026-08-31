@@ -5,11 +5,18 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-08-17 (Composer — Protection section backgrounds + Why Oceanview pillars)
-**Active Agent:** Composer
+**Last Updated:** 2026-08-31 (Grok — subpage hero title scale alignment)
+**Active Agent:** Grok
 
 ### In Progress
 - Mae review: product-first tab options + `#products-filter-test` (option 5). Live `#products` stays default until sign-off.
+
+### Newly completed (2026-08-31)
+- **Subpage hero titles aligned** (home unchanged):
+  - Photo-card (`PageHero` + LPL/Cetera/NSG/Protection): `clamp(28px, 5.5vw, 63px)` / weight 800. Landings dropped the 72px / 400 campaign scale.
+  - Centered text: Contact + legal now use the shared `clamp(32px, 4.5vw, 62px)` / 400 recipe.
+  - Blog article titles stay 42px (article headlines, not page heroes).
+  - WPBakery `.ov-hero-title` + `#design` type table synced.
 
 ### Newly completed (2026-08-17)
 - **`#protection-for-whats-next`** campaign landing — full parity pass with other landings:

@@ -35,7 +35,7 @@ export default function LegalPage({ title, subtitle, copyright, children }) {
       <section style={{ background: '#fff', padding: '80px 0 64px', textAlign: 'center' }}>
         <div className="ov-container">
           <Eyebrow style={{ justifyContent: 'center' }}>Legal</Eyebrow>
-          <h1 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(32px,4.5vw,56px)', letterSpacing: '-0.025em', lineHeight: 1.08, color: '#0D1F4E', margin: '0 auto 20px', maxWidth: '20ch' }}>
+          <h1 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(32px,4.5vw,62px)', letterSpacing: '-0.025em', lineHeight: 1.08, color: '#0D1F4E', margin: '0 auto 20px', maxWidth: '20ch' }}>
             {title}
           </h1>
           <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 'clamp(14px,1.3vw,16px)', lineHeight: 1.65, color: '#4A5568', margin: '0 auto', maxWidth: '52ch' }}>

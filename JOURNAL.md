@@ -2,6 +2,13 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-08-31 — Grok
+- **Subpage hero title scale** — applied the type audit recommendations (home out of scope):
+  - `PageHero` preferred size `4vw` → `5.5vw` so tablet titles don’t collapse; cap stays 63px / weight 800.
+  - Partner + campaign photo-card heroes (LPL, Cetera, NSG, Protection) now match `PageHero` instead of 72px / 400.
+  - Contact (64px) and legal (56px) folded into the centered-text recipe: `clamp(32px, 4.5vw, 62px)` / 400.
+  - Blog articles left at 42px. WPBakery `.ov-hero-title` + Design page type table updated.
+
 ## 2026-08-17 — Composer
 - **Protection section backgrounds + four-step pillars** — per Figma handoff: Two resources → navy; Why It Matters → white; How Advisors Use It → surface tint; Ask/Listen/Clarify/Connect restored with white pillar-grid styling (`.lpl-pillars-grid`, icon tiles + top borders).
 - **Protection campaign imagery (GPT-5.6 Sol)** — replaced reused landing-page photos with three localized, free Unsplash images: an active senior couple for the hero, a retired couple reviewing finances, and an advisor-led client conversation. Source IDs are recorded in `ProtectionForWhatsNextPage.jsx`; desktop/mobile hero crops verified.

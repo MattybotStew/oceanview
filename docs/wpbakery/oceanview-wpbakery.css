@@ -6,7 +6,7 @@
  *
  * How to use
  * 1. Enqueue in the child theme (or WPBakery Custom CSS if small):
- *      wp_enqueue_style( 'oceanview-ds', get_stylesheet_directory_uri() . '/oceanview-wpbakery.css', [], '1.0' );
+ *      wp_enqueue_style( 'oceanview-ds', get_stylesheet_directory_uri() . '/oceanview-wpbakery.css', [], '1.1' );
  * 2. On WPBakery elements, set "Extra class name" / "Element ID" to the classes below.
  * 3. Prefer these classes over one-off Design Options so the site stays consistent.
  *
@@ -529,7 +529,7 @@ button.ov-btn,
 .ov-hero-title {
   font-family: var(--ov-ff-display);
   font-weight: 800;
-  font-size: clamp(28px, 4vw, 63px);
+  font-size: clamp(28px, 5.5vw, 63px);
   line-height: 1.1;
   color: #F2FCFF;
   margin: 0;

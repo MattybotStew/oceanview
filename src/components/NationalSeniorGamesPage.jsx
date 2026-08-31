@@ -8,11 +8,10 @@ import { Check } from 'lucide-react'
 const S = {
   h1: {
     fontFamily: 'var(--ov-ff-display)',
-    fontWeight: 400,
-    fontSize: 'clamp(38px,5.5vw,72px)',
+    fontWeight: 800,
+    fontSize: 'clamp(28px, 5.5vw, 63px)',
     color: '#F2FCFF',
-    letterSpacing: '-0.03em',
-    lineHeight: 1.03,
+    lineHeight: 1.1,
     margin: 0,
   },
   h2: {

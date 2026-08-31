@@ -10,7 +10,7 @@ import HeroShaper from './HeroShaper.jsx'
 
 // ── Shared styles ─────────────────────────────────────────────────────────────
 const S = {
-  h1:       { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(38px,5.5vw,72px)', color: '#F2FCFF', letterSpacing: '-0.03em', lineHeight: 1.03, margin: 0 },
+  h1:       { fontFamily: 'var(--ov-ff-display)', fontWeight: 800, fontSize: 'clamp(28px, 5.5vw, 63px)', color: '#F2FCFF', lineHeight: 1.1, margin: 0 },
   h2:       { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(26px, 3vw, 40px)', color: '#0D1F4E', letterSpacing: '-0.025em', lineHeight: 1.12, margin: 0 },
   h2Light:  { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(26px, 3vw, 40px)', color: '#F2FCFF', letterSpacing: '-0.025em', lineHeight: 1.12, margin: 0 },
   accent:   { fontStyle: 'italic', color: '#70BABF' },
