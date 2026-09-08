@@ -67,6 +67,7 @@ import SP500StrategyPage from './SP500StrategyPage.jsx'
 import RussellStrategyPage from './RussellStrategyPage.jsx'
 import NasdaqStrategyPage from './NasdaqStrategyPage.jsx'
 import BrochuresPage from './BrochuresPage.jsx'
+import AlzheimersAwarenessPage from './AlzheimersAwarenessPage.jsx'
 
 const STUB_ROUTES = {
   // Top-level nav
@@ -95,6 +96,7 @@ const ROUTE_TO_NAV = {
   "agent-faqs": "Professionals", "lpl-landing": "Professionals", "cetera-landing": "Professionals",
   "national-senior-games": "",
   "protection-for-whats-next": "",
+  "alzheimers-awareness": "",
 };
 
 const PAGE_ROUTES = new Set([
@@ -106,6 +108,7 @@ const PAGE_ROUTES = new Set([
   "professionals", "sales-tools", "agent-faqs",
   "contact", "lpl-landing", "cetera-landing", "national-senior-games",
   "protection-for-whats-next",
+  "alzheimers-awareness",
   "disclaimers", "privacy", "terms", "accessibility", "agent-portal", "design", "nav-dropdowns", "product-tab-examples", "products-filter-test",
   // product pages — canonical routes
   "harbourview-myga", "horizon-myga", "sky-harbourview-myga",
@@ -212,6 +215,7 @@ export default function Page() {
       "nasdaq-strategy": "Nasdaq-100 Crediting Strategy — Harbourview FIA — Oceanview",
       "national-senior-games": "Oceanview Life | Proud Sponsor of the National Senior Games Association",
       "protection-for-whats-next": "Protection for What's Next | Oceanview Life",
+      "alzheimers-awareness": "Financial Planning for Alzheimer's & Dementia | Oceanview",
       "design": "Design System — Oceanview",
       "nav-dropdowns": "Nav Dropdowns Showcase — Oceanview",
       "product-tab-examples": "Product Tabs — Oceanview",
@@ -240,6 +244,7 @@ export default function Page() {
       "fia-overview": "Explore Oceanview's Fixed Indexed Annuity line — Harbourview FIA, CapLock, and Topsider — index-linked growth with zero-floor principal protection.",
       "national-senior-games": "Oceanview Life and Annuity Company is proud to sponsor the National Senior Games Association and celebrate active aging, community, competition and the long game in life and retirement.",
       "protection-for-whats-next": "Use Oceanview's Retirement Protection Conversation Guide and client Checkup to ask better questions, uncover retirement priorities and identify where a deeper conversation may help.",
+      "alzheimers-awareness": "Learn practical steps to plan for Alzheimer's and dementia, from legal documents and care costs to financial safeguards, retirement resources and next steps.",
       "design": "Oceanview Design System and WPBakery how-to — tokens, components, and docs/wpbakery classes for the WordPress build-out.",
       "nav-dropdowns": "All desktop header mega-menus open and stacked for design review — About, Products, Client Resources, Insights.",
       "product-tab-examples": "Five product-first sticky tab ideas for the Products page — full titles, identical catalog under each option.",
@@ -329,6 +334,7 @@ export default function Page() {
       case "cetera-landing":     return <CeteraLandingPage />;
       case "national-senior-games": return <NationalSeniorGamesPage />;
       case "protection-for-whats-next": return <ProtectionForWhatsNextPage />;
+      case "alzheimers-awareness": return <AlzheimersAwarenessPage />;
       case "faq":               return <FAQPage />;
       case "leadership":        return <LeadershipPage />;
       default:                  return <HomePage goto={goto} />;
@@ -350,7 +356,7 @@ export default function Page() {
       <div id="main-content" tabIndex={-1} style={{ outline: "none" }}>
         {renderPage()}
       </div>
-      <Footer hideSignup={route === "national-senior-games"} />
+      <Footer hideSignup={route === "national-senior-games" || route === "alzheimers-awareness"} />
       <BackToTop />
     </>
   );

@@ -2,6 +2,24 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+
+## 2026-09-08 — Cline
+- **`#alzheimers-awareness` white-paper landing** — turned the staging WP "Alzheimer's Awareness / The Financial Impact of Alzheimer's" white-paper page into a consumer campaign landing (`AlzheimersAwarenessPage.jsx`), modeled on Protection-for-What's-Next / National Senior Games.
+  - Sections: `.pwn-hero` photo-card hero (dual CTAs → download PDF / scroll to `#steps`) → white "Why planning matters" split (family.png placeholder) → tint stats (5.8M / 14M / $305B / $777B, `.lpl-pillars-grid`) → navy five-essential-steps rows (neutral descriptors + "not advice" note) → tint download + phone (1-833-656-7455) with white resource card → consumer email capture (`#contact`) → `CTABanner` → grey disclosures + sources.
+  - Fully wired in `Page.jsx` (`ROUTE_TO_NAV: ""`, `PAGE_ROUTES`, switch, `titles`/`descriptions`, footer `hideSignup` true). Unlisted by design.
+  - Stub PDF `public/assets/downloads/alzheimers-awareness-white-paper.pdf` (replace with the real compliance file).
+  - Reused existing responsive classes; **no `tokens.css` change**.
+  - Verified: `npm run build` clean; Playwright 1440px + 390px renders with correct title/H1, `#steps` present, no horizontal overflow, no console errors.
+  - **Note:** Fixed a pre-existing broken duplicate `<section>` line in `PageHero.jsx` (uncommitted WIP) that was blocking the build.
+  - **REBUILT content from the source docx** — replaced the earlier white-paper framing with the real `Oceanview_Alzheimers_Dementia_Web_Copy_Only.docx` ("Planning Ahead for Alzheimer's and Dementia — A Practical Guide to Financial Readiness", updated Sept 2026). Now: hero (real H1 + tagline + educational note) → six-question clarity split → new stats (7+ million / Nearly 13M / $409B / 19B+ hours) → 10-chapter "What's inside" preview grid (`#inside`) → 3 planning-principle quotes (navy) → "How Oceanview may support the broader plan" + annuity-fit teal card + printable-guide resource card → "Help is available" (real orgs + helplines 800-272-3900 / 800-677-1116) → consumer email → CTABanner → full disclosures + sources [1–10].
+  - Updated meta title/description in `Page.jsx` to the doc's SEO title + meta description.
+  - Build clean; Playwright 1440px + 390px: 4 stat cards, 10 chapter cards, 3 principle cards, tel links present, no overflow, no console errors.
+  - **REBUILT to standard landing skeleton** — stakeholder asked that "all sections be the sections we always use." Removed the bespoke 10-chapter card grid, help-org grid, and principles band. Page now mirrors the National Senior Games section set & rhythm: photo-card hero → navy intro (six-questions checklist) → white image-text split → tint stat cards → white "What's inside" split (`#inside`) → tint "Oceanview support" split → white email capture → navy closing statement → CTABanner → grey disclosures + sources. Verified build + Playwright at 1440px/390px (10 sections, no overflow, no console errors).
+  - **Photography**: localized 4 free Unsplash images as `public/assets/ova-*.jpg` and wired into the hero + 3 image splits (hero couple-on-pathway `Cc10IJDoj78`; family `Ul4CxTdRG_A`; planning-docs `photo-1450101499163-c8848c66ca85`; later-life finances `photo-1576477987917-9d056d379228`). Source IDs in the component header. Build + Playwright confirm all 4 load at 1440/390px, no overflow, no console errors.
+
+
+
+
 ## 2026-08-31 — Grok
 - **Subpage hero title scale** — applied the type audit recommendations (home out of scope):
   - `PageHero` preferred size `4vw` → `5.5vw` so tablet titles don’t collapse; cap stays 63px / weight 800.

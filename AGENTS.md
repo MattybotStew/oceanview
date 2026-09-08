@@ -26,6 +26,7 @@ These are **real pages** with hash routes, but they are **not** in header/footer
 | `#lpl-landing` | `LPLLandingPage.jsx` | Partner landing |
 | `#national-senior-games` | `NationalSeniorGamesPage.jsx` | Sponsorship landing |
 | `#protection-for-whats-next` | `ProtectionForWhatsNextPage.jsx` | September 2026 advisor campaign (Guide + Checkup) |
+| `#alzheimers-awareness` | `AlzheimersAwarenessPage.jsx` | Consumer "Planning Ahead for Alzheimer's and Dementia" guide landing (download PDF + email capture; content from docx web copy) |
 
 Open via URL/hash only. Do not “fix” by adding nav links unless stakeholders request it.
 

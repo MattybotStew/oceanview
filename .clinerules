@@ -5,11 +5,22 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-08-31 (Grok — subpage hero title scale alignment)
-**Active Agent:** Grok
+**Last Updated:** 2026-09-08 (Cline — Alzheimer's & Dementia guide landing)
+**Active Agent:** Cline
 
 ### In Progress
 - Mae review: product-first tab options + `#products-filter-test` (option 5). Live `#products` stays default until sign-off.
+- `#alzheimers-awareness` landing built (design sign-off pending).
+
+### Newly completed (2026-09-08)
+- **`#alzheimers-awareness`** — consumer "Planning Ahead for Alzheimer's and Dementia" guide landing (`AlzheimersAwarenessPage.jsx`), content sourced from `Oceanview_Alzheimers_Dementia_Web_Copy_Only.docx` (web copy only) in `~/Downloads/`. Built on the **standard landing skeleton** (mirrors National Senior Games / Protection section set & rhythm) — no bespoke article/card-grid sections. Sections: photo-card hero (`.ov-hero-card.pwn-hero`, H1 + subhead + tagline + "Updated Sept 2026" + educational note, dual CTAs → download PDF / scroll `#inside`) → **navy intro** (headline + who-it's-for + six-questions checklist) → **white image-text split** "Why planning matters" (`.nsg-split-reverse`) → **tint stat cards** (7+ million / Nearly 13M / $409B / 19B+ hrs, `.lpl-pillars-grid`) → **white split** "What's inside" (`#inside`, 10-chapter checklist) → **tint split** "How Oceanview may support the broader plan" (`.nsg-split-reverse`, annuity-fit bullets) → **white email capture** → **navy closing statement** ("Planning ahead is *an act of care.*") → **CTABanner** → **grey disclosures + sources [1–10]**.
+  - Wired in `Page.jsx` (import, `PAGE_ROUTES`, `ROUTE_TO_NAV: ""`, switch case, `titles`/`descriptions`, footer `hideSignup` true).
+  - Stub PDF `public/assets/downloads/alzheimers-awareness-white-paper.pdf` (replace with real file).
+  - Reused existing responsive classes (`.nsg-split`, `.lpl-pillars-grid`, `.pwn-hero`) — no `tokens.css` changes needed.
+  - Build clean; Playwright smoke at 1440px + 390px: correct title/H1, `#steps` present, no horizontal overflow, no console errors.
+  - **Unlisted** by design (consumer/guide destination), consistent with Protection/NSG.
+  - Later same-day pass: replaced the earlier bespoke 10-chapter card grid, "Help is available" org grid, and principles band with the **standard landing section set** (image-text splits + stat band + email + closing statement) at stakeholder request.
+  - **Photography pass**: localized 4 free Unsplash images into `public/assets/ova-*.jpg` (hero = couple on pathway; family selfie; documents signing; later-life finances), wired into the hero + 3 image splits. Source photo IDs documented at the top of the component. Unsplash license = no attribution required.
 
 ### Newly completed (2026-08-31)
 - **Subpage hero titles aligned** (home unchanged):
@@ -186,6 +197,7 @@ Surface:  #F1FBFF  (ov-surface-tint)
 | #nasdaq-strategy | NasdaqStrategyPage.jsx | ✅ Complete |
 | #brochures | BrochuresPage.jsx | ✅ Complete |
 | #national-senior-games | NationalSeniorGamesPage.jsx | ✅ Complete (unlisted; no nav link) |
+| #alzheimers-awareness | AlzheimersAwarenessPage.jsx | ✅ Complete (unlisted; consumer Alzheimer's & dementia guide landing; uses docx web copy) |
 
 ---
 
