@@ -40,6 +40,12 @@ const S = {
 // Stub PDF lives in public/assets/downloads/ — replace with the final printable guide when it ships.
 const PDF_URL = assetUrl('assets/downloads/alzheimers-awareness-white-paper.pdf')
 
+// Shared card / link fragments for the "Help & resources" section.
+const whiteCard = { background: '#fff', border: '1px solid rgba(13,31,78,.07)', borderRadius: 14, padding: '24px 24px 22px', display: 'flex', flexDirection: 'column', gap: 14, boxShadow: '0 2px 8px rgba(13,31,78,.04)', height: '100%', boxSizing: 'border-box' }
+const cardTitle = { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 19, color: '#0D1F4E', letterSpacing: '-0.01em', margin: 0 }
+const extLink = { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#0D1F4E', textDecoration: 'underline', textUnderlineOffset: '3px', textDecorationColor: 'rgba(36,148,193,.5)' }
+const phoneLink = { fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#2494C1', textDecoration: 'none' }
+
 const scrollToId = (id) => {
   const el = document.getElementById(id)
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -54,18 +60,18 @@ const STATS = [
   { value: '19B+ hours', label: 'of unpaid care provided by family and friends \u2014 valued at more than $446 billion.' },
 ]
 
-// Ten chapter topics from the guide's "In this guide" contents.
+// Ten chapter topics from the guide's "In this guide" contents — with a short descriptor each.
 const GUIDE_TOPICS = [
-  'Start planning early',
-  'Build your team',
-  'Legal & health care documents',
-  'Care & costs',
-  'Local care worksheet',
-  'Organize finances',
-  'Financial safeguards',
-  'Retirement resources',
-  'Beneficiaries & action plan',
-  'Help & resources',
+  { title: 'Start planning early', note: 'Choose decision-makers and prepare documents before help is urgently needed — before a diagnosis or after one.' },
+  { title: 'Build your team', note: 'Trusted family, financial, legal and care professionals who know their responsibilities.' },
+  { title: 'Legal & health care documents', note: 'Power of attorney, health care proxy, advance directive and living trust.' },
+  { title: 'Care & costs', note: 'The care continuum, what Medicare does and doesn\u2019t cover, and potential sources of funding.' },
+  { title: 'Local care worksheet', note: 'Turn national averages into a local estimate of care costs.' },
+  { title: 'Organize finances', note: 'Create an inventory, simplify accounts and set up secure digital access.' },
+  { title: 'Financial safeguards', note: 'Alerts, trusted contacts and awareness of the warning signs of fraud.' },
+  { title: 'Retirement resources', note: 'Predictable income, accessible reserves and long-term resources.' },
+  { title: 'Beneficiaries & action plan', note: 'Coordinate designations with the estate plan, then follow the 30-day action plan.' },
+  { title: 'Help & resources', note: 'Alzheimer\u2019s Association, NIA, Medicare, Eldercare Locator, CFPB and local professionals.' },
 ]
 
 // The six questions the guide says a thoughtful plan can help answer (navy intro).
@@ -350,8 +356,13 @@ export default function AlzheimersAwarenessPage() {
                   health care documents in place, to organizing and protecting the financial household.
                 </p>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 28px', marginBottom: 32 }} className="lpl-pillars-grid">
-                {GUIDE_TOPICS.map((t) => <CheckItem key={t}>{t}</CheckItem>)}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px 28px', marginBottom: 32 }} className="lpl-pillars-grid">
+                {GUIDE_TOPICS.map((g) => (
+                  <div key={g.title} style={{ borderLeft: '3px solid rgba(36,148,193,.4)', padding: '2px 0 2px 14px' }}>
+                    <p style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 14.5, color: '#0D1F4E', lineHeight: 1.3, margin: '0 0 4px' }}>{g.title}</p>
+                    <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 12.5, color: '#6B7280', lineHeight: 1.55, margin: 0 }}>{g.note}</p>
+                  </div>
+                ))}
               </div>
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 <PillMint onClick={handleDownload}>
@@ -397,6 +408,19 @@ export default function AlzheimersAwarenessPage() {
                 </p>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 24px' }}>
                   {['Retirement accumulation', 'A source of predictable income', 'Certain guarantees that may help protect value', 'Longevity planning'].map((t) => <CheckItem key={t}>{t}</CheckItem>)}
+                </div>
+                <div style={{ borderTop: '1px solid rgba(13,31,78,.08)', marginTop: 8, paddingTop: 16 }}>
+                  <p style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#6B7280', margin: '0 0 10px', letterSpacing: '.02em' }}>
+                    An annuity is not
+                  </p>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px 24px' }}>
+                    {['Long-term care insurance', 'Health insurance', 'A replacement for liquid emergency savings', 'A guarantee that all care costs will be covered', 'Appropriate for every person or every asset'].map((t) => (
+                      <div key={t} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+                        <span style={{ color: '#C94F42', fontFamily: 'var(--ov-ff-sans)', fontWeight: 700, fontSize: 13, lineHeight: 1.5 }}>&times;</span>
+                        <span style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: '#6B7280', lineHeight: 1.5 }}>{t}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 12, color: '#6B7280', margin: 0 }}>
                   Product references in this guide are examples, not recommendations.
@@ -473,6 +497,68 @@ export default function AlzheimersAwarenessPage() {
             cta="Download printable guide (PDF)"
             onClick={handleDownload}
           />
+        </div>
+      </section>
+
+      {/* ── Help & resources ─────────────────────────────────────────────── */}
+      <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
+        <div className="ov-container">
+          <div style={{ maxWidth: 640, marginBottom: 40 }}>
+            <Eyebrow>Help Is Available</Eyebrow>
+            <h2 style={{ ...S.h2, marginBottom: 12 }}>
+              No family should navigate this <em style={S.accentBlue}>alone.</em>
+            </h2>
+            <p style={S.body}>
+              These organizations offer information, education and practical support. Reach out to them,
+              alongside qualified local professionals, for guidance tailored to your situation.
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18 }} className="ov-blog-grid">
+            <div style={{ ...whiteCard, gap: 10 }}>
+              <h3 style={{ ...cardTitle }}>Alzheimer&rsquo;s Association</h3>
+              <p style={{ ...S.body, fontSize: 14 }}>Information, education, local services and confidential support, available 24/7.</p>
+              <div style={{ marginTop: 'auto', paddingTop: 6, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <a href="https://www.alz.org/" target="_blank" rel="noopener noreferrer" style={extLink}>alz.org</a>
+                <a href="tel:8002723900" style={phoneLink}>Helpline 800-272-3900</a>
+              </div>
+            </div>
+            <div style={{ ...whiteCard, gap: 10 }}>
+              <h3 style={{ ...cardTitle }}>National Institute on Aging</h3>
+              <p style={{ ...S.body, fontSize: 14 }}>Science-based information about Alzheimer&rsquo;s, legal and financial planning, caregiving and advance care planning.</p>
+              <div style={{ marginTop: 'auto', paddingTop: 6 }}>
+                <a href="https://www.nia.nih.gov/health/legal-and-financial-planning" target="_blank" rel="noopener noreferrer" style={extLink}>nia.nih.gov</a>
+              </div>
+            </div>
+            <div style={{ ...whiteCard, gap: 10 }}>
+              <h3 style={{ ...cardTitle }}>Medicare</h3>
+              <p style={{ ...S.body, fontSize: 14 }}>Information about covered medical and skilled care services and the limits of custodial long-term care coverage.</p>
+              <div style={{ marginTop: 'auto', paddingTop: 6 }}>
+                <a href="https://www.medicare.gov/coverage/long-term-care" target="_blank" rel="noopener noreferrer" style={extLink}>medicare.gov</a>
+              </div>
+            </div>
+            <div style={{ ...whiteCard, gap: 10 }}>
+              <h3 style={{ ...cardTitle }}>Eldercare Locator</h3>
+              <p style={{ ...S.body, fontSize: 14 }}>Connections to local aging and community resources.</p>
+              <div style={{ marginTop: 'auto', paddingTop: 6, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <a href="https://eldercare.acl.gov/" target="_blank" rel="noopener noreferrer" style={extLink}>eldercare.acl.gov</a>
+                <a href="tel:8006771116" style={phoneLink}>Helpline 800-677-1116</a>
+              </div>
+            </div>
+            <div style={{ ...whiteCard, gap: 10 }}>
+              <h3 style={{ ...cardTitle }}>Consumer Financial Protection Bureau</h3>
+              <p style={{ ...S.body, fontSize: 14 }}>Resources addressing fraud, financial exploitation and managing another person&rsquo;s money.</p>
+              <div style={{ marginTop: 'auto', paddingTop: 6 }}>
+                <a href="https://www.consumerfinance.gov/consumer-tools/managing-someone-elses-money/" target="_blank" rel="noopener noreferrer" style={extLink}>consumerfinance.gov</a>
+              </div>
+            </div>
+            <div style={{ ...whiteCard, gap: 10 }}>
+              <h3 style={{ ...cardTitle }}>Qualified Local Professionals</h3>
+              <p style={{ ...S.body, fontSize: 14 }}>Elder law attorneys, financial professionals, tax professionals, care managers and health care providers can address individual needs.</p>
+              <div style={{ marginTop: 'auto', paddingTop: 6 }}>
+                <a href="#contact" style={extLink}>Talk with a licensed professional</a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -16,6 +16,8 @@ Shared session log for all AI agents. Newest entries at the top.
   - Build clean; Playwright 1440px + 390px: 4 stat cards, 10 chapter cards, 3 principle cards, tel links present, no overflow, no console errors.
   - **REBUILT to standard landing skeleton** — stakeholder asked that "all sections be the sections we always use." Removed the bespoke 10-chapter card grid, help-org grid, and principles band. Page now mirrors the National Senior Games section set & rhythm: photo-card hero → navy intro (six-questions checklist) → white image-text split → tint stat cards → white "What's inside" split (`#inside`) → tint "Oceanview support" split → white email capture → navy closing statement → CTABanner → grey disclosures + sources. Verified build + Playwright at 1440px/390px (10 sections, no overflow, no console errors).
   - **Photography**: localized 4 free Unsplash images as `public/assets/ova-*.jpg` and wired into the hero + 3 image splits (hero couple-on-pathway `Cc10IJDoj78`; family `Ul4CxTdRG_A`; planning-docs `photo-1450101499163-c8848c66ca85`; later-life finances `photo-1576477987917-9d056d379228`). Source IDs in the component header. Build + Playwright confirm all 4 load at 1440/390px, no overflow, no console errors.
+  - **Level A content QA pass** — closes the main QA gaps while keeping it a landing: (1) "What's inside" now lists all 10 chapters with short real descriptors; (2) Oceanview section now balances "may help with" with the doc's "An annuity is **not**…" list; (3) added a standard "Help & resources" tint section with external links (alz.org, nia.nih.gov, medicare.gov, eldercare.acl.gov, consumerfinance.gov) + helplines. Build + Playwright verified at 1440/390px (no overflow/console errors).
+
 
 
 

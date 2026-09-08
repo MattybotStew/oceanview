@@ -21,6 +21,7 @@
   - **Unlisted** by design (consumer/guide destination), consistent with Protection/NSG.
   - Later same-day pass: replaced the earlier bespoke 10-chapter card grid, "Help is available" org grid, and principles band with the **standard landing section set** (image-text splits + stat band + email + closing statement) at stakeholder request.
   - **Photography pass**: localized 4 free Unsplash images into `public/assets/ova-*.jpg` (hero = couple on pathway; family selfie; documents signing; later-life finances), wired into the hero + 3 image splits. Source photo IDs documented at the top of the component. Unsplash license = no attribution required.
+  - **Level A content QA pass**: (1) enriched the "What's inside" 10-chapter list with short real descriptors; (2) added the doc's "An annuity is **not** …" balance list beside "may help with" in the Oceanview section; (3) added a standard "Help & resources" tint section (Alzheimer's Assn, NIA, Medicare, Eldercare Locator, CFPB, local pros) with external links + helplines (800-272-3900 / 800-677-1116). Build + Playwright clean at 1440/390px.
 
 ### Newly completed (2026-08-31)
 - **Subpage hero titles aligned** (home unchanged):
