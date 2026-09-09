@@ -3,6 +3,13 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 
+## 2026-09-09 — Composer (Home V2 responsive fixes)
+
+- **Stats strip** — 2-column layout from 900px (was 720px) to fix cramped tablet cells.
+- **§5 pillars** — single column at 860px with other home grids.
+- **Hero CTAs** — removed `width: auto` override so mobile stacks full-width at ≤480px.
+
+
 ## 2026-09-09 — Composer (Home typography polish — Refined + Editorial)
 
 - **Scoped type system** — `.home-v2-page` classes in `tokens.css`: display, h2, lead, accents, card titles, product subheads, editorial pillars.

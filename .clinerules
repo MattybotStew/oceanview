@@ -5,7 +5,7 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-09-09 (Composer — Home typography polish)
+**Last Updated:** 2026-09-09 (Composer — Home V2 responsive fixes)
 **Active Agent:** Composer
 
 ### In Progress
@@ -13,6 +13,7 @@
 - `#alzheimers-awareness` landing built (design sign-off pending).
 - **Homepage V2 live** — `#` / `#home` / `#home-v2` → `HomeV2Page.jsx`. Previous home at `#home-legacy` → `HomePage.jsx`.
 - **Home typography polish** — scoped `.home-v2-*` type classes; accent italics, display moments, editorial pillar grid.
+- **Home responsive** — stats 2-col @900px; pillars 1-col @860px; hero CTAs full-width @480px.
 
 ### Newly completed (2026-09-09 — global ticker removed)
 - **`TickerBar`** removed from `Page.jsx` shell on all routes. Header-only sticky chrome. Component file retained but unused.
