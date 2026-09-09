@@ -5,7 +5,7 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-09-09 (Composer — Home V2 committed `b7ae108`)
+**Last Updated:** 2026-09-09 (Composer — Home V2 prod hero image)
 **Active Agent:** Composer
 
 ### In Progress
@@ -19,7 +19,7 @@
 - **Light StatsStrip** — `StatsStrip variant="light"` on `#home-v2` (white bg); live home keeps default navy.
 - **Hero spacing fix** — removed `marginBottom: 40` from `Hero.jsx` and `PageHero.jsx`.
 - **Scoped CSS** — `.home-v2-page` card-CTA overrides + `.ov-stats-grid--light` mobile dividers in `tokens.css`.
-- **Loose end:** WP prod hero image (`home-v2-hero.jpg`) not yet added — still on carousel slide assets.
+- **Prod hero image** — `public/assets/home-v2-hero.jpg` from prod `https://oceanviewprod.wpengine.com/wp-content/uploads/2020/04/home-hero.jpg`; `#home-v2` passes `Hero slideOverride={{ image: 'assets/home-v2-hero.jpg' }}`. Live home unchanged.
 
 ### Newly completed (2026-09-08)
 - **`#alzheimers-awareness`** — consumer "Planning Ahead for Alzheimer's and Dementia" guide landing (`AlzheimersAwarenessPage.jsx`), content sourced from `Oceanview_Alzheimers_Dementia_Web_Copy_Only.docx` (web copy only) in `~/Downloads/`. Built on the **standard landing skeleton** (mirrors National Senior Games / Protection section set & rhythm) — no bespoke article/card-grid sections. Sections: photo-card hero (`.ov-hero-card.pwn-hero`, H1 + subhead + tagline + "Updated Sept 2026" + educational note, dual CTAs → download PDF / scroll `#inside`) → **navy intro** (headline + who-it's-for + six-questions checklist) → **white image-text split** "Why planning matters" (`.nsg-split-reverse`) → **tint stat cards** (7+ million / Nearly 13M / $409B / 19B+ hrs, `.lpl-pillars-grid`) → **white split** "What's inside" (`#inside`, 10-chapter checklist) → **tint split** "How Oceanview may support the broader plan" (`.nsg-split-reverse`, annuity-fit bullets) → **white email capture** → **navy closing statement** ("Planning ahead is *an act of care.*") → **CTABanner** → **grey disclosures + sources [1–10]**.

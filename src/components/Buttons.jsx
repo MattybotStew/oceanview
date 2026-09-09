@@ -17,8 +17,8 @@ function Btn({ variant = "mint", size = "sm", children, onClick, type = "button"
   );
 }
 
-export function PillMint({ children, hero, onClick, style, type, disabled }) {
-  return <Btn variant="mint" size={hero ? "lg" : "sm"} onClick={onClick} style={style} type={type} disabled={disabled}>{children}</Btn>;
+export function PillMint({ children, hero, onClick, style, type, disabled, className }) {
+  return <Btn variant="mint" size={hero ? "lg" : "sm"} onClick={onClick} style={style} type={type} disabled={disabled} className={className}>{children}</Btn>;
 }
 
 export function PillNavy({ children, hero, onClick, style, type, disabled }) {

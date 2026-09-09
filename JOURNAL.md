@@ -3,6 +3,13 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 
+## 2026-09-09 — Composer (Home V2 — card CTA width fix)
+
+- **`#home-v2` card CTAs:** Audience + retirement-resources `PillMint` buttons were stretching full card width (~460px). Root cause: `PillMint` did not forward `className`, so scoped `.home-v2-card-cta` rules in `tokens.css` (`align-self: flex-start; width: auto`) never applied; flex-column cards default to `align-items: stretch`.
+- **Fix:** `Buttons.jsx` — `PillMint` now passes `className` through to `Btn`. No global `.ov-btn` changes.
+- **Verified:** `npm run build` clean.
+
+
 ## 2026-09-09 — Composer (Home V2 — prod hero image)
 
 - **`#home-v2` hero image:** Downloaded prod slide 1 background from `https://oceanviewprod.wpengine.com/wp-content/uploads/2020/04/home-hero.jpg` → `public/assets/home-v2-hero.jpg` (1440×585 JPEG). Wired via `Hero` `slideOverride={{ image: 'assets/home-v2-hero.jpg' }}` on `HomeV2Page` only; live `#` / `#home` carousel still uses `assets/hero-couple.jpg`.
