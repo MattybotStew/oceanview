@@ -1,6 +1,6 @@
 // HomePage.jsx — Live homepage (frozen). Do NOT edit for the new V2 design.
-// New homepage work lives in HomeV2Page.jsx on the unlisted #home-v2 route.
-// See AGENTS.md / .clinerules for the constraint: live # / #home stays unchanged
+// Previous homepage — retained at #home-legacy for reference.
+// Live home is HomeV2Page.jsx at # / #home.
 // until sign-off. Shared Hero / tokens stay for inner pages.
 import Hero from './Hero.jsx'
 import Highlights from './Highlights.jsx'

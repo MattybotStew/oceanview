@@ -2,12 +2,12 @@
 
 **Purpose:** Single decision log both agents read **before** editing homepage code.  
 **Review surface:** `#home-v2` → [`src/components/HomeV2Page.jsx`](../src/components/HomeV2Page.jsx)  
-**Live home (frozen until sign-off):** `#` / `#home` → [`src/components/HomePage.jsx`](../src/components/HomePage.jsx)  
+**Live home:** `#` / `#home` / `#home-v2` → [`HomeV2Page.jsx`](../src/components/HomeV2Page.jsx). Legacy: `#home-legacy` → [`HomePage.jsx`](../src/components/HomePage.jsx)  
 **Brand reference:** React design system ([`tokens.css`](../src/styles/tokens.css), [`DESIGN.md`](../DESIGN.md), [`DesignPage.jsx`](../src/components/DesignPage.jsx)) + [WP prod](https://oceanviewprod.wpengine.com/)
 
 **Merged audit plan:** `.cursor/plans/homepage_on-brand_audit_240744d9.plan.md`
 
-**Status:** Phase 1 **shipped** — S1-A on-brand polish landed 2026-09-09 (Composer).
+**Status:** **Cutover complete** — `#` / `#home` / `#home-v2` → `HomeV2Page` (2026-09-09). Previous home at `#home-legacy`.
 
 ---
 
@@ -67,7 +67,7 @@
 | A7 | Closing `CTABanner` Get Started not Current Rates | ❌ **fork** | Draft §7 is View Rates closer → **S1** |
 | A8 | One newsletter only | ✅ **locked** | Inline draft §8 form on V2; `hideSignup` on `#home-v2` (no footer duplicate) |
 | A9 | Card CTAs content-width | ✅ | Shipped `63d7fc6` |
-| A10 | Live `#` frozen until sign-off | ✅ | |
+| A10 | Live `#` frozen until sign-off | ✅ **superseded** | Cutover 2026-09-09 — V2 is live index |
 | A11 | Fix product names (Harbourview FIA / CapLock — not Crescendo) | ✅ | Correctness; applies even under S1-A |
 | A12 | View Rates → `#client-resources?tab=rates` | ✅ | |
 | A13 | Fix empty `<em>` from `titleAccent: ''` | ✅ | |

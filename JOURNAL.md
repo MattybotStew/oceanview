@@ -3,6 +3,13 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 
+## 2026-09-09 — Composer (Home V2 cutover — new index)
+
+- **`#` / `#home` / `#home-v2`** now render `HomeV2Page.jsx` (draft S1-A homepage).
+- **`#home-legacy`** retains previous `HomePage.jsx` (carousel hero, prod-parity layout) for reference.
+- Footer `hideSignup` applies to all V2 home routes.
+
+
 ## 2026-09-09 — Composer (Remove global market ticker)
 
 - **`Page.jsx`** — removed `TickerBar` from the global shell (all routes). Sticky header is now Header-only; scroll-hide ticker listener removed. `TickerBar.jsx` kept in repo but unused.

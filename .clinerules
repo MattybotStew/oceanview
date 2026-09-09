@@ -5,13 +5,13 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-09-09 (Composer — global ticker removed)
+**Last Updated:** 2026-09-09 (Composer — Home V2 cutover to index)
 **Active Agent:** Composer
 
 ### In Progress
 - Mae review: product-first tab options + `#products-filter-test` (option 5). Live `#products` stays default until sign-off.
 - `#alzheimers-awareness` landing built (design sign-off pending).
-- **Homepage V2 review** — `#home-v2` S1-A draft structure + on-brand polish (Phase 1); awaiting sign-off before cutover. Live `#` / `#home` (`HomePage.jsx`) frozen.
+- **Homepage V2 live** — `#` / `#home` / `#home-v2` → `HomeV2Page.jsx`. Previous home at `#home-legacy` → `HomePage.jsx`.
 
 ### Newly completed (2026-09-09 — global ticker removed)
 - **`TickerBar`** removed from `Page.jsx` shell on all routes. Header-only sticky chrome. Component file retained but unused.

@@ -1,5 +1,5 @@
-// HomeV2Page.jsx — New homepage review surface (unlisted #home-v2).
-// Copy sourced from "Oceanview Homepage copy draft[32].docx". Live # / #home frozen.
+// HomeV2Page.jsx — Live homepage (# / #home / #home-v2).
+// Copy sourced from "Oceanview Homepage copy draft[32].docx". Previous home: #home-legacy.
 import { useState } from 'react'
 import Hero from './Hero.jsx'
 import StatsStrip from './StatsStrip.jsx'

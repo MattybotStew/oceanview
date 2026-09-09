@@ -102,7 +102,7 @@
 
 51. Design (`#design`) — Internal design system + WPBakery how-to
 52. Nav Dropdowns (`#nav-dropdowns`) — All mega-menus stacked for review
-53. Home V2 (`#home-v2`) — New homepage review surface; live home stays `#` / `#home` until sign-off
+53. Home (`#` / `#home` / `#home-v2`) — Live homepage (`HomeV2Page.jsx`); previous home at `#home-legacy`
 
 ---
 
@@ -111,7 +111,8 @@
 | Page | Route | Component | Type |
 |------|-------|-----------|------|
 | Home | `#` or `#home` | HomePage | Hero + Sections |
-| Home V2 (review) | `#home-v2` | HomeV2Page | Unlisted — prod-parity hero/stats/products/about/CTA + wireframe audience/resources |
+| Home (live) | `#` / `#home` / `#home-v2` | HomeV2Page | Draft S1-A homepage — in main nav via logo |
+| Home (legacy) | `#home-legacy` | HomePage | Unlisted — previous carousel/prod-parity home |
 | Products | `#products` | ProductsPage | Tabbed catalog |
 | About | `#about` | Stub | Sub-nav link |
 | Leadership | `#leadership` | LeadershipPage | Detail |
@@ -143,7 +144,7 @@
 
 - **Stub routes:** Routes like `#about`, `#client-resources`, `#insights`, `#professionals` are navigation stubs that don't render pages; they trigger sub-nav dropdowns in Header.jsx
 - **Dynamic routes:** Product detail pages share `ProductDetailPage` component with different props based on route
-- **Internal / review pages:** `#design`, `#nav-dropdowns`, `#product-tab-examples`, `#products-filter-test`, and `#home-v2` are intentionally unlisted (by design)
+- **Internal / review pages:** `#design`, `#nav-dropdowns`, `#product-tab-examples`, `#products-filter-test`, and `#home-legacy` are intentionally unlisted (by design)
 - **All pages use:** Consistent header, footer, layout grid (`ov-container`), spacing tokens (`ov-section`)
 - **Responsive:** Mobile nav collapses to hamburger; all pages have mobile breakpoints
 
