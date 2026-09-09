@@ -251,7 +251,7 @@ export default function Hero({ onPrimary, onSecondary, staticSlide, slideOverrid
           ) : null}
         </h1>
         <p style={heroStyles.body}>{slide.body}</p>
-        <div style={heroStyles.ctas}>
+        <div className="ov-hero-ctas" style={heroStyles.ctas}>
           <PillMint hero onClick={onPrimary}>{slide.ctaPrimary}</PillMint>
           <PillGhost light hero onClick={onSecondary}>{slide.ctaSecondary}</PillGhost>
         </div>

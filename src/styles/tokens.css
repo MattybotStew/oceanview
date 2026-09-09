@@ -410,20 +410,32 @@ a { color: inherit; text-decoration: none; }
     width: calc(100% - 48px);
     max-width: none;
     gap: 20px;
+    align-items: stretch;
+    padding: 32px 24px !important;
   }
   .ov-hero-scrim {
     background: rgba(0,31,84,0.65) !important;
+  }
+  .ov-hero-content > p {
+    max-width: none !important;
+  }
+  .ov-hero-content .ov-hero-ctas {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ov-hero-content .ov-hero-ctas .ov-btn {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 
 @media (max-width: 480px) {
   .ov-hero-content {
-    width: calc(100% - 40px);
+    width: calc(100% - 32px);
     gap: 16px;
-  }
-  .ov-hero-content .ov-btn {
-    flex: 1 1 100%;
-    width: 100%;
+    padding: 28px 20px !important;
   }
 }
 

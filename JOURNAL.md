@@ -3,6 +3,12 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 
+## 2026-09-09 — Composer (Hero mobile layout)
+
+- **`ov-hero-ctas`** wrapper class; mobile padding override (`32px 24px` / `28px 20px`).
+- Hero text + buttons share equal width; full-width stacked CTAs at ≤720px.
+
+
 ## 2026-09-09 — Composer (Home V2 responsive fixes)
 
 - **Stats strip** — 2-column layout from 900px (was 720px) to fix cramped tablet cells.
