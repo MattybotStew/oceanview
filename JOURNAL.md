@@ -3,23 +3,18 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 
-## 2026-09-09 — Composer (Home V2 — static hero + white StatsStrip)
+## 2026-09-09 — Composer (Home V2 shipped — `b7ae108`)
 
-- **`#home-v2` static hero:** `Hero.jsx` optional `staticSlide` prop; `HomeV2Page` passes `staticSlide={0}` — first slide only, no dots/arrows/auto-advance/carousel a11y. Live `#` / `#home` keeps full 4-slide carousel.
-- **`#home-v2` StatsStrip:** added `variant="light"` on `StatsStrip.jsx` (white bg, teal values, navy labels, grey detail, faint dividers). Color tokens aligned with `#alzheimers-awareness` tint stat cards — no existing horizontal light trust bar elsewhere. Live `#` / `#home` keeps default navy variant unchanged.
-- **CSS:** `.ov-stats-grid--light` mobile divider overrides in `tokens.css`.
-- **Verified:** `npm run build` clean; desktop browser check on `#home-v2`.
+**Committed & pushed:** unlisted `#home-v2` homepage review surface. Live `#` / `#home` (`HomePage.jsx`) frozen until stakeholder sign-off.
 
-
-## 2026-09-09 — Composer (Homepage V2 — prod parity rework)
-
-**Reworked `#home-v2` against prod** (https://oceanviewprod.wpengine.com/). Live `#` / `#home` unchanged.
-
-- **Design review:** Prod order = hero slider → Highlights → navy StatsStrip (trust stats) → ProductsCard → AboutBlock → CTABanner + footer signup. Prior V2 used bespoke PageHero, pill trust bar, custom navy product cards, pillars, rates CTA, inline email — none matched prod.
-- **HomeV2Page.jsx now:** reuses `Hero`, `StatsStrip` (navy trust banner — pill bar removed), `ProductsCard`, `AboutBlock`, `CTABanner` unchanged. Wireframe-only blocks kept with prod card styling: audience routing (replaces Highlights position) + retirement resources (tint band). Removed: custom trust pill, PageHero, annuity-options band, Why Oceanview pillars, rates CTA band, inline Stay Informed (footer signup restored).
-- **Buttons:** `.home-v2-card-cta` + scoped override so card/hero CTAs stay content-width on mobile (no full-width pills).
-- **Verified:** `npm run build` clean.
-- **Still differs from prod:** Highlights replaced by audience routing; retirement resources section added; StatsStrip moved directly under hero (prod has Highlights first). Sign-off before cutover.
+- **Prod-parity rework:** `HomeV2Page.jsx` reuses live homepage components (`Hero`, `StatsStrip`, `ProductsCard`, `AboutBlock`, `CTABanner`). Wireframe-only blocks (audience routing + retirement resources) use prod card styling. Live home extracted to `HomePage.jsx`.
+- **Static hero:** `Hero.jsx` optional `staticSlide` prop; `#home-v2` passes `staticSlide={0}` (first slide only, no carousel chrome). Live home keeps full 4-slide carousel.
+- **Light StatsStrip:** `StatsStrip variant="light"` on `#home-v2` (white bg, teal values, navy labels). Live home keeps default navy variant.
+- **Spacing fix:** removed hero `marginBottom: 40` from `Hero.jsx` and `PageHero.jsx` (global spacing cleanup).
+- **CSS:** scoped `.home-v2-page` rules + `.ov-stats-grid--light` mobile dividers in `tokens.css`.
+- **Routing:** `#home-v2` wired in `Page.jsx` (unlisted — no nav link). Documented in AGENTS.md, CLAUDE.md, PAGES.md.
+- **No WP prod hero image yet** — still using existing carousel slide assets; add `home-v2-hero.jpg` when asset is ready.
+- **Still differs from prod:** Highlights replaced by audience routing; retirement resources section added; StatsStrip directly under hero (prod has Highlights first). Sign-off before cutover.
 
 
 ## 2026-09-08 — Cline

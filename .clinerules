@@ -5,18 +5,21 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-09-09 (Composer — Homepage V2 static hero)
+**Last Updated:** 2026-09-09 (Composer — Home V2 committed `b7ae108`)
 **Active Agent:** Composer
 
 ### In Progress
 - Mae review: product-first tab options + `#products-filter-test` (option 5). Live `#products` stays default until sign-off.
 - `#alzheimers-awareness` landing built (design sign-off pending).
-- **Homepage V2 review** — wireframe content live on `#home-v2`; awaiting stakeholder sign-off before cutover. Live `#` / `#home` (`HomePage.jsx`) frozen.
+- **Homepage V2 review** — `#home-v2` shipped for stakeholder review (`b7ae108`); awaiting sign-off before cutover. Live `#` / `#home` (`HomePage.jsx`) frozen.
 
-### Newly completed (2026-09-09)
-- **Homepage V2 static hero** — `Hero.jsx` optional `staticSlide` prop; `#home-v2` uses `staticSlide={0}` (first slide only, no carousel chrome). Live `#` / `#home` keeps full 4-slide carousel.
-- **Homepage V2 prod-parity rework** — `HomeV2Page.jsx` reuses live homepage components (`Hero`, `StatsStrip`, `ProductsCard`, `AboutBlock`, `CTABanner`) for prod-matching sections. `#home-v2` uses `StatsStrip variant="light"` (white bg); live `#` / `#home` keeps default navy. Wireframe-only: audience routing + retirement resources (Highlights card styling). Scoped `.home-v2-page` prevents full-width card CTAs on mobile. Live home untouched.
-- **Homepage V2 scaffold** — live home extracted to `HomePage.jsx`; unlisted `#home-v2` wired in `Page.jsx` (no nav link).
+### Newly completed (2026-09-09 — committed `b7ae108`)
+- **Homepage V2 review surface** — unlisted `#home-v2` route with prod-parity components. Live home extracted to `HomePage.jsx` (do not edit for V2 work).
+- **Static hero** — `Hero.jsx` optional `staticSlide` prop; `#home-v2` uses `staticSlide={0}` (first slide only). Live `#` / `#home` keeps full 4-slide carousel.
+- **Light StatsStrip** — `StatsStrip variant="light"` on `#home-v2` (white bg); live home keeps default navy.
+- **Hero spacing fix** — removed `marginBottom: 40` from `Hero.jsx` and `PageHero.jsx`.
+- **Scoped CSS** — `.home-v2-page` card-CTA overrides + `.ov-stats-grid--light` mobile dividers in `tokens.css`.
+- **Loose end:** WP prod hero image (`home-v2-hero.jpg`) not yet added — still on carousel slide assets.
 
 ### Newly completed (2026-09-08)
 - **`#alzheimers-awareness`** — consumer "Planning Ahead for Alzheimer's and Dementia" guide landing (`AlzheimersAwarenessPage.jsx`), content sourced from `Oceanview_Alzheimers_Dementia_Web_Copy_Only.docx` (web copy only) in `~/Downloads/`. Built on the **standard landing skeleton** (mirrors National Senior Games / Protection section set & rhythm) — no bespoke article/card-grid sections. Sections: photo-card hero (`.ov-hero-card.pwn-hero`, H1 + subhead + tagline + "Updated Sept 2026" + educational note, dual CTAs → download PDF / scroll `#inside`) → **navy intro** (headline + who-it's-for + six-questions checklist) → **white image-text split** "Why planning matters" (`.nsg-split-reverse`) → **tint stat cards** (7+ million / Nearly 13M / $409B / 19B+ hrs, `.lpl-pillars-grid`) → **white split** "What's inside" (`#inside`, 10-chapter checklist) → **tint split** "How Oceanview may support the broader plan" (`.nsg-split-reverse`, annuity-fit bullets) → **white email capture** → **navy closing statement** ("Planning ahead is *an act of care.*") → **CTABanner** → **grey disclosures + sources [1–10]**.

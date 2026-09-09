@@ -111,6 +111,7 @@
 | Page | Route | Component | Type |
 |------|-------|-----------|------|
 | Home | `#` or `#home` | HomePage | Hero + Sections |
+| Home V2 (review) | `#home-v2` | HomeV2Page | Unlisted — prod-parity hero/stats/products/about/CTA + wireframe audience/resources |
 | Products | `#products` | ProductsPage | Tabbed catalog |
 | About | `#about` | Stub | Sub-nav link |
 | Leadership | `#leadership` | LeadershipPage | Detail |
