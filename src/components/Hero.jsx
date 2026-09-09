@@ -233,10 +233,20 @@ export default function Hero({ onPrimary, onSecondary, staticSlide, slideOverrid
       <div className="ov-hero-content" style={heroStyles.content}>
         <SlideEyebrow light={slide.eyebrowLight}>{slide.eyebrow}</SlideEyebrow>
         <h1 className="ov-hero-title" style={heroStyles.h1}>
-          {slide.titleLines.map((line, i) => (
-            <span key={i}>{line}<br /></span>
-          ))}
-          {slide.titleAccent ? (
+          {slide.titleLines.map((line, i) => {
+            const isLast = i === slide.titleLines.length - 1
+            const inlineAccent = slide.inlineAccent && slide.titleAccent
+            return (
+              <span key={i}>
+                {line}
+                {!isLast && <br />}
+                {isLast && inlineAccent && (
+                  <> <em style={{ fontStyle: 'italic', color: '#70BABF' }}>{slide.titleAccent}</em></>
+                )}
+              </span>
+            )
+          })}
+          {slide.titleAccent && !slide.inlineAccent ? (
             <em style={{ fontStyle: 'italic', color: '#70BABF' }}>{slide.titleAccent}</em>
           ) : null}
         </h1>

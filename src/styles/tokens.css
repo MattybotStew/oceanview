@@ -1250,7 +1250,142 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
-/* ── Home V2 (#home-v2) ─────────────────────────────────────────────────── */
+/* ── Home V2 (live homepage) ──────────────────────────────────────────────── */
+.home-v2-page .home-v2-intro { max-width: 62ch; }
+.home-v2-page .home-v2-intro--center {
+  max-width: 52ch;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.home-v2-page .home-v2-h2 {
+  font-family: var(--ov-ff-display);
+  font-weight: 400;
+  font-size: clamp(30px, 3.6vw, 48px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--ov-navy-900);
+  margin: 0 0 20px;
+}
+.home-v2-page .home-v2-h2--dark { color: #F2FCFF; }
+.home-v2-page .home-v2-display {
+  font-family: var(--ov-ff-display);
+  font-weight: 800;
+  font-size: clamp(36px, 4.2vw, 56px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--ov-navy-900);
+  margin: 0 0 20px;
+}
+.home-v2-page .home-v2-display--signup {
+  font-size: clamp(28px, 3vw, 42px);
+  letter-spacing: -0.025em;
+  margin-bottom: 16px;
+}
+
+.home-v2-page .home-v2-lead {
+  font-family: var(--ov-ff-sans);
+  font-size: var(--ov-fz-body-lg);
+  line-height: 1.65;
+  color: var(--ov-grey-600);
+  margin: 0 0 32px;
+}
+.home-v2-page .home-v2-lead--dark { color: rgba(242, 252, 255, 0.82); }
+.home-v2-page .home-v2-lead--flush { margin-bottom: 0; }
+
+.home-v2-page .home-v2-accent--light { font-style: italic; color: var(--ov-teal-600); }
+.home-v2-page .home-v2-accent--dark { font-style: italic; color: var(--ov-teal-300); }
+
+.home-v2-page .home-v2-card {
+  background: #F1FBFF;
+  border-radius: 16px;
+  padding: 28px 30px 32px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(13, 31, 78, 0.08);
+}
+.home-v2-page .home-v2-card--white { background: #fff; }
+.home-v2-page .home-v2-card--dark {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.home-v2-page .home-v2-card-title {
+  font-family: var(--ov-ff-display);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  color: var(--ov-navy-800);
+  margin: 0 0 16px;
+}
+.home-v2-page .home-v2-card-title--bold {
+  font-weight: 800;
+  font-size: 22px;
+}
+.home-v2-page .home-v2-card-title--dark { color: #F2FCFF; }
+.home-v2-page .home-v2-card-title--resource {
+  font-weight: 800;
+  font-size: 20px;
+}
+.home-v2-page .home-v2-card-title--pillar {
+  font-size: 19px;
+  margin-bottom: 8px;
+}
+
+.home-v2-page .home-v2-card-body {
+  font-family: var(--ov-ff-sans);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ov-grey-600);
+  margin: 0 0 24px;
+  flex: 1;
+}
+.home-v2-page .home-v2-card-body--sm {
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+.home-v2-page .home-v2-card-body--pillar {
+  font-size: 13.5px;
+  line-height: 1.65;
+  margin-bottom: 0;
+}
+.home-v2-page .home-v2-card-body--dark { color: rgba(242, 252, 255, 0.82); }
+
+.home-v2-page .home-v2-product-subhead {
+  font-family: var(--ov-ff-display);
+  font-weight: 800;
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.3;
+  color: #70BABF;
+  margin: 0 0 12px;
+}
+
+.home-v2-page .home-v2-pillar {
+  background: #fff;
+  padding: 24px 0 0;
+  border-top: 2px solid rgba(36, 148, 193, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+}
+
+.home-v2-page .ov-hero-scrim {
+  background: linear-gradient(85deg, rgba(0, 31, 84, 1) 0%, rgba(0, 31, 84, 0.62) 60%, transparent 100%) !important;
+}
+
+.home-v2-page .ov-hero-content p {
+  font-size: clamp(15px, 1.4vw, 18px);
+}
+
+.home-v2-page .ov-stats-grid--light > div > div:first-child {
+  font-size: clamp(24px, 2.8vw, 38px);
+}
+
 .home-v2-page .home-v2-card-cta {
   align-self: flex-start;
   width: auto;
@@ -1261,6 +1396,9 @@ a { color: inherit; text-decoration: none; }
   .home-v2-resource-grid { grid-template-columns: 1fr !important; }
 }
 @media (max-width: 720px) {
+  .home-v2-page .ov-hero-scrim {
+    background: rgba(0, 31, 84, 0.88) !important;
+  }
   .home-v2-page .ov-hero-content .ov-btn {
     width: auto !important;
   }

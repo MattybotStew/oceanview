@@ -5,13 +5,14 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-09-09 (Composer — Home V2 cutover to index)
+**Last Updated:** 2026-09-09 (Composer — Home typography polish)
 **Active Agent:** Composer
 
 ### In Progress
 - Mae review: product-first tab options + `#products-filter-test` (option 5). Live `#products` stays default until sign-off.
 - `#alzheimers-awareness` landing built (design sign-off pending).
 - **Homepage V2 live** — `#` / `#home` / `#home-v2` → `HomeV2Page.jsx`. Previous home at `#home-legacy` → `HomePage.jsx`.
+- **Home typography polish** — scoped `.home-v2-*` type classes; accent italics, display moments, editorial pillar grid.
 
 ### Newly completed (2026-09-09 — global ticker removed)
 - **`TickerBar`** removed from `Page.jsx` shell on all routes. Header-only sticky chrome. Component file retained but unused.

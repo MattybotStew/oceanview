@@ -3,6 +3,14 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 
+## 2026-09-09 — Composer (Home typography polish — Refined + Editorial)
+
+- **Scoped type system** — `.home-v2-page` classes in `tokens.css`: display, h2, lead, accents, card titles, product subheads, editorial pillars.
+- **Phase 1 (Refined):** mint/teal `<em>` accents on hero + all section H2s; CTABanner `title`/`titleAccent` split; 18px leads; 800-weight audience + resource titles; brighter dark-band body copy.
+- **Phase 2 (Editorial):** centered §3 display intro; pillar top-border grid; 800 italic product subheads; larger stats values; signup display H2.
+- **Hero:** accent restored on “the retirement ahead.”; slightly larger hero body via CSS.
+
+
 ## 2026-09-09 — Composer (Home V2 cutover — new index)
 
 - **`#` / `#home` / `#home-v2`** now render `HomeV2Page.jsx` (draft S1-A homepage).
