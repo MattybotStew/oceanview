@@ -5,13 +5,21 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-09-09 (Composer — Home V2 prod hero image)
+**Last Updated:** 2026-09-09 (Composer — global ticker removed)
 **Active Agent:** Composer
 
 ### In Progress
 - Mae review: product-first tab options + `#products-filter-test` (option 5). Live `#products` stays default until sign-off.
 - `#alzheimers-awareness` landing built (design sign-off pending).
-- **Homepage V2 review** — `#home-v2` shipped for stakeholder review (`b7ae108`); awaiting sign-off before cutover. Live `#` / `#home` (`HomePage.jsx`) frozen.
+- **Homepage V2 review** — `#home-v2` S1-A draft structure + on-brand polish (Phase 1); awaiting sign-off before cutover. Live `#` / `#home` (`HomePage.jsx`) frozen.
+
+### Newly completed (2026-09-09 — global ticker removed)
+- **`TickerBar`** removed from `Page.jsx` shell on all routes. Header-only sticky chrome. Component file retained but unused.
+
+### Newly completed (2026-09-09 — Phase 1 S1-A)
+- **Reconciliation locked** — `docs/HOMEPAGE_RECONCILIATION.md`: S1-A draft structure, light draft stats, inline newsletter + `hideSignup` on `#home-v2`.
+- **Foundation:** Highlights navy-900 (A2); Eyebrow 11px/0.1em (A3); `.ov-eyebrow` teal on light + `--light` variant (A4); Hero empty accent fix (A13).
+- **V2:** rates hash `?tab=rates` (A12); `.lpl-pillars-grid` on §5; product grid responsive; footer signup hidden on `#home-v2`.
 
 ### Newly completed (2026-09-09 — committed `b7ae108`)
 - **Homepage V2 review surface** — unlisted `#home-v2` route with prod-parity components. Live home extracted to `HomePage.jsx` (do not edit for V2 work).
@@ -20,6 +28,11 @@
 - **Hero spacing fix** — removed `marginBottom: 40` from `Hero.jsx` and `PageHero.jsx`.
 - **Scoped CSS** — `.home-v2-page` card-CTA overrides + `.ov-stats-grid--light` mobile dividers in `tokens.css`.
 - **Prod hero image** — `public/assets/home-v2-hero.jpg` from prod `https://oceanviewprod.wpengine.com/wp-content/uploads/2020/04/home-hero.jpg`; `#home-v2` passes `Hero slideOverride={{ image: 'assets/home-v2-hero.jpg' }}`. Live home unchanged.
+
+### Newly completed (2026-09-09 — copy draft applied)
+- **`#home-v2` full copy** — `HomeV2Page.jsx` now carries all 8 sections from `Oceanview Homepage copy draft[32].docx` (hero, trust bar, audience routing, dark-blue products, Why Oceanview pillars, retirement resources, CTA band, newsletter). Live `#` / `#home` untouched.
+- **`StatsStrip.jsx`** — added optional `stats` prop (defaults to existing `STATS`; `detail` now optional). Non-breaking.
+- **Placeholders kept:** `$XX.X Billion` Total Assets (needs Finance/Legal figure); `*` asterisks on AM Best / Total Assets have no footnote text yet. Draft §9 (footer reorg) is sitewide and out of scope.
 
 ### Newly completed (2026-09-08)
 - **`#alzheimers-awareness`** — consumer "Planning Ahead for Alzheimer's and Dementia" guide landing (`AlzheimersAwarenessPage.jsx`), content sourced from `Oceanview_Alzheimers_Dementia_Web_Copy_Only.docx` (web copy only) in `~/Downloads/`. Built on the **standard landing skeleton** (mirrors National Senior Games / Protection section set & rhythm) — no bespoke article/card-grid sections. Sections: photo-card hero (`.ov-hero-card.pwn-hero`, H1 + subhead + tagline + "Updated Sept 2026" + educational note, dual CTAs → download PDF / scroll `#inside`) → **navy intro** (headline + who-it's-for + six-questions checklist) → **white image-text split** "Why planning matters" (`.nsg-split-reverse`) → **tint stat cards** (7+ million / Nearly 13M / $409B / 19B+ hrs, `.lpl-pillars-grid`) → **white split** "What's inside" (`#inside`, 10-chapter checklist) → **tint split** "How Oceanview may support the broader plan" (`.nsg-split-reverse`, annuity-fit bullets) → **white email capture** → **navy closing statement** ("Planning ahead is *an act of care.*") → **CTABanner** → **grey disclosures + sources [1–10]**.

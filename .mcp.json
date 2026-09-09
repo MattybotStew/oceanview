@@ -3,6 +3,10 @@
     "html.to.design": {
       "type": "streamableHttp",
       "url": "https://mcp.to.design"
+    },
+    "figma": {
+      "type": "http",
+      "url": "https://mcp.figma.com/mcp"
     }
   }
 }

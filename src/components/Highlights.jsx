@@ -8,7 +8,7 @@ const highlightStyles = {
     fontWeight: 400,
     fontSize: "clamp(36px, 4.2vw, 60px)",
     lineHeight: 1.1,
-    color: "#233D7C",
+    color: "var(--ov-navy-900)",
     textAlign: "center",
     letterSpacing: "-1.14px",
     margin: "0 0 56px",

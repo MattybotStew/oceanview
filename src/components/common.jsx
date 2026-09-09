@@ -17,8 +17,8 @@ export function Eyebrow({ light, children, style }) {
       <span style={{
         fontFamily: 'var(--ov-ff-sans)',
         fontWeight: 600,
-        fontSize: 10,
-        letterSpacing: '1.4px',
+        fontSize: 11,
+        letterSpacing: '0.1em',
         textTransform: 'uppercase',
         color: textColor,
       }}>

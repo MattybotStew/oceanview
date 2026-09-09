@@ -30,8 +30,8 @@ export function PillWhite({ children, hero, onClick, style, type, disabled }) {
 }
 
 // light prop = ghost-light variant (for dark / image backgrounds)
-export function PillGhost({ children, hero, light, onClick, style, type, disabled }) {
-  return <Btn variant={light ? "ghost-light" : "ghost"} size={hero ? "lg" : "sm"} onClick={onClick} style={style} type={type} disabled={disabled}>{children}</Btn>;
+export function PillGhost({ children, hero, light, onClick, style, type, disabled, className }) {
+  return <Btn variant={light ? "ghost-light" : "ghost"} size={hero ? "lg" : "sm"} onClick={onClick} style={style} type={type} disabled={disabled} className={className}>{children}</Btn>;
 }
 
 export function TextLink({ children, onClick, color, style }) {

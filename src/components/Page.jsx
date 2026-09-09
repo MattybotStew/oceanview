@@ -1,6 +1,5 @@
 // Page.jsx — Top-level shell: hash router + global header/CTA/footer
 import { useState, useEffect } from 'react'
-import TickerBar from './TickerBar.jsx'
 import Header from './Header.jsx'
 import HomePage from './HomePage.jsx'
 import Footer from './Footer.jsx'
@@ -122,7 +121,6 @@ export default function Page() {
   const getRoute = () => ((window.location.hash.replace("#", "").split("?")[0]) || "home").toLowerCase();
 
   const [route, setRoute] = useState(getRoute);
-  const [scrolled, setScrolled] = useState(false);
   const [hashVersion, setHashVersion]   = useState(0);  // bumped on every hash change to force re-render when only query param changes
 
   useEffect(() => {
@@ -135,12 +133,6 @@ export default function Page() {
     };
     window.addEventListener("hashchange", onHash);
     return () => window.removeEventListener("hashchange", onHash);
-  }, []);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   // Dynamic page title + meta description
@@ -321,19 +313,12 @@ export default function Page() {
   return (
     <>
       <div style={{ position: "sticky", top: 0, zIndex: 100 }}>
-        <div style={{
-          overflow: "hidden",
-          maxHeight: scrolled ? 0 : 32,
-          transition: "max-height 0.25s ease",
-        }}>
-          <TickerBar />
-        </div>
         <Header active={ROUTE_TO_NAV[route] || ""} onNav={goto} />
       </div>
       <div id="main-content" tabIndex={-1} style={{ outline: "none" }}>
         {renderPage()}
       </div>
-      <Footer hideSignup={route === "national-senior-games" || route === "alzheimers-awareness"} />
+      <Footer hideSignup={route === "national-senior-games" || route === "alzheimers-awareness" || route === "home-v2"} />
       <BackToTop />
     </>
   );

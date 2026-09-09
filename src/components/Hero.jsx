@@ -3,11 +3,13 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { PillMint, PillGhost } from './Buttons.jsx'
 import HeroShaper from './HeroShaper.jsx'
 
-function SlideEyebrow({ children }) {
+function SlideEyebrow({ children, light }) {
+  const lineColor = light ? 'rgba(255,255,255,.65)' : 'rgba(112,186,191,.65)'
+  const textColor = light ? '#F2FCFF' : '#70BABF'
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-      <div style={{ width: 18, height: 1, background: 'rgba(112,186,191,.65)', flexShrink: 0 }} />
-      <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: '#70BABF' }}>
+      <div style={{ width: 18, height: 1, background: lineColor, flexShrink: 0 }} />
+      <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: textColor }}>
         {children}
       </span>
     </div>
@@ -229,12 +231,14 @@ export default function Hero({ onPrimary, onSecondary, staticSlide, slideOverrid
       <div style={heroStyles.noise} />
 
       <div className="ov-hero-content" style={heroStyles.content}>
-        <SlideEyebrow>{slide.eyebrow}</SlideEyebrow>
+        <SlideEyebrow light={slide.eyebrowLight}>{slide.eyebrow}</SlideEyebrow>
         <h1 className="ov-hero-title" style={heroStyles.h1}>
           {slide.titleLines.map((line, i) => (
             <span key={i}>{line}<br /></span>
           ))}
-          <em style={{ fontStyle: 'italic', color: '#70BABF' }}>{slide.titleAccent}</em>
+          {slide.titleAccent ? (
+            <em style={{ fontStyle: 'italic', color: '#70BABF' }}>{slide.titleAccent}</em>
+          ) : null}
         </h1>
         <p style={heroStyles.body}>{slide.body}</p>
         <div style={heroStyles.ctas}>

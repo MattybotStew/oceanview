@@ -3,6 +3,40 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 
+## 2026-09-09 — Composer (Remove global market ticker)
+
+- **`Page.jsx`** — removed `TickerBar` from the global shell (all routes). Sticky header is now Header-only; scroll-hide ticker listener removed. `TickerBar.jsx` kept in repo but unused.
+
+
+## 2026-09-09 — Composer (Home V2 §8 signup — footer-style split on white)
+
+- **`#home-v2` Stay Informed** — replaced centered pill form with footer-style split: copy left, Name + Email + Sign Up row + consent right; white background; responsive stack via `.nsg-split` / `.home-v2-signup-form`.
+
+
+## 2026-09-09 — Composer (Home V2 StatsStrip light variant tweak)
+
+- **`StatsStrip variant="light"`** — stat values now `var(--ov-navy-900)` (was teal); cells center-aligned for `#home-v2` trust bar.
+
+
+## 2026-09-09 — Composer (Home V2 Phase 1 — S1-A on-brand polish)
+
+- **Reconciliation locked:** Matt chose S1-A (draft structure), light draft stats below hero, inline §8 newsletter + footer `hideSignup` on `#home-v2`. See `docs/HOMEPAGE_RECONCILIATION.md`.
+- **Foundation fixes (shared):** `Highlights.jsx` heading `#233D7C` → `var(--ov-navy-900)` (A2, touches live `#`); `common.jsx` `Eyebrow` 11px / 0.1em (A3); `tokens.css` `.ov-eyebrow` default teal on light + new `.ov-eyebrow--light` for dark (A4); `Hero.jsx` skips empty `<em>` when `titleAccent` is blank (A13).
+- **`#home-v2` wiring:** `Page.jsx` footer `hideSignup` for `home-v2` (A8); hero + CTABanner View Rates → `client-resources?tab=rates` (A12); §5 pillars use `.lpl-pillars-grid`; product grid responsive at 860px.
+- **Live `#` unchanged** except Highlights heading color (A2 bug fix via shared component).
+- **Still open:** D4 formally noted; compliance placeholders (`$XX.X Billion`, AM Best footnotes) — Phase 2.
+
+
+## 2026-09-09 — Composer (Home V2 — full copy draft applied)
+
+- **`#home-v2` now carries the full copy from `Oceanview Homepage copy draft[32].docx`** (8 sections), replacing the earlier prod-parity/wireframe copy. Live `#` / `#home` (`HomePage.jsx`) untouched.
+- **Sections (top→bottom):** (1) Hero — new copy via `Hero slideOverride` (eyebrow "FIXED & FIXED INDEXED ANNUITIES", headline "Clear annuity solutions for the retirement ahead.", CTAs "Explore Annuity Options" / "View Rates"); (2) Trust bar — `StatsStrip variant="light"` with new 4 stats (`A (Excellent)` / `$XX.X Billion` / `Focused on Annuities` / `Broad Distribution`); (3) audience routing (unchanged copy); (4) dark-blue products section (Fixed Annuities + Fixed Indexed Annuities cards, replaces `ProductsCard`); (5) Why Oceanview 4 pillars (replaces `AboutBlock`); (6) retirement resources (updated copy); (7) CTA band "See what's current." / View Current Rates; (8) newsletter email capture (new in-page form, client-side only).
+- **`StatsStrip.jsx`** — added optional `stats` prop (defaults to existing `STATS`; `detail` now optional). Non-breaking; live home's default navy strip unchanged.
+- **Placeholders kept deliberately:** `$XX.X Billion` Total Assets (no source figure in repo — needs Finance/Legal); `Rated by AM Best*` / `Total Assets*` asterisks have no footnote text yet.
+- **Verified:** `npm run build` clean; Playwright 1440px — all 8 sections render, no horizontal overflow; live `#` still shows original hero + stats.
+- **Out of scope:** draft §9 (footer reorg) is sitewide and left untouched.
+
+
 ## 2026-09-09 — Composer (Home V2 — card CTA width fix)
 
 - **`#home-v2` card CTAs:** Audience + retirement-resources `PillMint` buttons were stretching full card width (~460px). Root cause: `PillMint` did not forward `className`, so scoped `.home-v2-card-cta` rules in `tokens.css` (`align-self: flex-start; width: auto`) never applied; flex-column cards default to `align-items: stretch`.

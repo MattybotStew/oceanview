@@ -18,15 +18,18 @@ const THEMES = {
   light: {
     sectionBg: "#fff",
     gridClass: "ov-stats-grid ov-stats-grid--light",
-    valueColor: "var(--ov-teal-600)",
+    valueColor: "var(--ov-navy-900)",
     labelColor: "var(--ov-navy-900)",
     detailColor: "var(--ov-grey-600)",
     dividerColor: "var(--ov-border-faint)",
+    textAlign: "center",
+    alignItems: "center",
   },
 };
 
-export default function StatsStrip({ variant = "default" }) {
+export default function StatsStrip({ variant = "default", stats }) {
   const t = THEMES[variant] ?? THEMES.default;
+  const items = stats || STATS;
 
   return (
     <section style={{ background: t.sectionBg }}>
@@ -36,13 +39,15 @@ export default function StatsStrip({ variant = "default" }) {
           gridTemplateColumns: "repeat(4, 1fr)",
           gap: 0,
         }} className={t.gridClass}>
-          {STATS.map((s, i) => (
+          {items.map((s, i) => (
             <div key={s.label} style={{
               padding: "52px 40px",
               borderLeft: i > 0 ? `1px solid ${t.dividerColor}` : "none",
               display: "flex",
               flexDirection: "column",
               gap: 6,
+              textAlign: t.textAlign,
+              alignItems: t.alignItems,
             }}>
               <div style={{
                 fontFamily: "var(--ov-ff-display)",
@@ -65,14 +70,16 @@ export default function StatsStrip({ variant = "default" }) {
               }}>
                 {s.label}
               </div>
-              <div style={{
-                fontFamily: "var(--ov-ff-sans)",
-                fontSize: 13,
-                color: t.detailColor,
-                lineHeight: 1.5,
-              }}>
-                {s.detail}
-              </div>
+              {s.detail ? (
+                <div style={{
+                  fontFamily: "var(--ov-ff-sans)",
+                  fontSize: 13,
+                  color: t.detailColor,
+                  lineHeight: 1.5,
+                }}>
+                  {s.detail}
+                </div>
+              ) : null}
             </div>
           ))}
         </div>

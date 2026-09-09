@@ -249,7 +249,10 @@
   font-weight: 600;
   letter-spacing: var(--ov-ls-eyebrow);
   text-transform: uppercase;
-  color: var(--ov-fg-on-dark);
+  color: var(--ov-teal-600);
+}
+.ov-eyebrow--light {
+  color: var(--ov-teal-300);
 }
 
 .ov-p, .ov-body {
@@ -1254,6 +1257,7 @@ a { color: inherit; text-decoration: none; }
 }
 @media (max-width: 860px) {
   .home-v2-audience-grid,
+  .home-v2-product-grid,
   .home-v2-resource-grid { grid-template-columns: 1fr !important; }
 }
 @media (max-width: 720px) {
@@ -1263,5 +1267,11 @@ a { color: inherit; text-decoration: none; }
   .home-v2-page .home-v2-card-cta {
     width: auto !important;
   }
+  .home-v2-signup-form { flex-wrap: wrap !important; }
+  .home-v2-signup-form input { flex: 1 1 calc(50% - 6px) !important; }
+  .home-v2-signup-form .ov-btn { flex: 1 1 100% !important; width: 100% !important; }
+}
+@media (max-width: 480px) {
+  .home-v2-signup-form input { flex: 1 1 100% !important; }
 }
 
