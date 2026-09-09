@@ -162,7 +162,7 @@ const heroSlides = [
   },
 ];
 
-export default function Hero({ onPrimary, onSecondary, staticSlide }) {
+export default function Hero({ onPrimary, onSecondary, staticSlide, slideOverride }) {
   const isStatic = staticSlide != null;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -194,7 +194,7 @@ export default function Hero({ onPrimary, onSecondary, staticSlide }) {
   };
 
   const slideIndex = isStatic ? staticSlide : currentSlide;
-  const slide = heroSlides[slideIndex];
+  const slide = { ...heroSlides[slideIndex], ...slideOverride };
 
   const heroCard = (
     <div

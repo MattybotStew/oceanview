@@ -94,7 +94,12 @@ export default function HomeV2Page({ goto }) {
   return (
     <main className="home-v2-page">
       {/* Static hero — first slide only (live home keeps full carousel) */}
-      <Hero staticSlide={0} onPrimary={() => go('products')} onSecondary={() => go('contact')} />
+      <Hero
+        staticSlide={0}
+        slideOverride={{ image: 'assets/home-v2-hero.jpg' }}
+        onPrimary={() => go('products')}
+        onSecondary={() => go('contact')}
+      />
 
       {/* V2: white stats strip (trust / proof — light variant for hero handoff) */}
       <StatsStrip variant="light" />

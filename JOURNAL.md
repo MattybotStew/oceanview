@@ -3,6 +3,12 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 
+## 2026-09-09 — Composer (Home V2 — prod hero image)
+
+- **`#home-v2` hero image:** Downloaded prod slide 1 background from `https://oceanviewprod.wpengine.com/wp-content/uploads/2020/04/home-hero.jpg` → `public/assets/home-v2-hero.jpg` (1440×585 JPEG). Wired via `Hero` `slideOverride={{ image: 'assets/home-v2-hero.jpg' }}` on `HomeV2Page` only; live `#` / `#home` carousel still uses `assets/hero-couple.jpg`.
+- **Verified:** `npm run build` clean.
+
+
 ## 2026-09-09 — Composer (Home V2 shipped — `b7ae108`)
 
 **Committed & pushed:** unlisted `#home-v2` homepage review surface. Live `#` / `#home` (`HomePage.jsx`) frozen until stakeholder sign-off.
@@ -13,7 +19,7 @@ Shared session log for all AI agents. Newest entries at the top.
 - **Spacing fix:** removed hero `marginBottom: 40` from `Hero.jsx` and `PageHero.jsx` (global spacing cleanup).
 - **CSS:** scoped `.home-v2-page` rules + `.ov-stats-grid--light` mobile dividers in `tokens.css`.
 - **Routing:** `#home-v2` wired in `Page.jsx` (unlisted — no nav link). Documented in AGENTS.md, CLAUDE.md, PAGES.md.
-- **No WP prod hero image yet** — still using existing carousel slide assets; add `home-v2-hero.jpg` when asset is ready.
+- **Prod hero image:** added in follow-up — `public/assets/home-v2-hero.jpg` from prod `home-hero.jpg` (see entry above).
 - **Still differs from prod:** Highlights replaced by audience routing; retirement resources section added; StatsStrip directly under hero (prod has Highlights first). Sign-off before cutover.
 
 
