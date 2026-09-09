@@ -3,6 +3,25 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 
+## 2026-09-09 — Composer (Home V2 — static hero + white StatsStrip)
+
+- **`#home-v2` static hero:** `Hero.jsx` optional `staticSlide` prop; `HomeV2Page` passes `staticSlide={0}` — first slide only, no dots/arrows/auto-advance/carousel a11y. Live `#` / `#home` keeps full 4-slide carousel.
+- **`#home-v2` StatsStrip:** added `variant="light"` on `StatsStrip.jsx` (white bg, teal values, navy labels, grey detail, faint dividers). Color tokens aligned with `#alzheimers-awareness` tint stat cards — no existing horizontal light trust bar elsewhere. Live `#` / `#home` keeps default navy variant unchanged.
+- **CSS:** `.ov-stats-grid--light` mobile divider overrides in `tokens.css`.
+- **Verified:** `npm run build` clean; desktop browser check on `#home-v2`.
+
+
+## 2026-09-09 — Composer (Homepage V2 — prod parity rework)
+
+**Reworked `#home-v2` against prod** (https://oceanviewprod.wpengine.com/). Live `#` / `#home` unchanged.
+
+- **Design review:** Prod order = hero slider → Highlights → navy StatsStrip (trust stats) → ProductsCard → AboutBlock → CTABanner + footer signup. Prior V2 used bespoke PageHero, pill trust bar, custom navy product cards, pillars, rates CTA, inline email — none matched prod.
+- **HomeV2Page.jsx now:** reuses `Hero`, `StatsStrip` (navy trust banner — pill bar removed), `ProductsCard`, `AboutBlock`, `CTABanner` unchanged. Wireframe-only blocks kept with prod card styling: audience routing (replaces Highlights position) + retirement resources (tint band). Removed: custom trust pill, PageHero, annuity-options band, Why Oceanview pillars, rates CTA band, inline Stay Informed (footer signup restored).
+- **Buttons:** `.home-v2-card-cta` + scoped override so card/hero CTAs stay content-width on mobile (no full-width pills).
+- **Verified:** `npm run build` clean.
+- **Still differs from prod:** Highlights replaced by audience routing; retirement resources section added; StatsStrip moved directly under hero (prod has Highlights first). Sign-off before cutover.
+
+
 ## 2026-09-08 — Cline
 - **`#alzheimers-awareness` white-paper landing** — turned the staging WP "Alzheimer's Awareness / The Financial Impact of Alzheimer's" white-paper page into a consumer campaign landing (`AlzheimersAwarenessPage.jsx`), modeled on Protection-for-What's-Next / National Senior Games.
   - Sections: `.pwn-hero` photo-card hero (dual CTAs → download PDF / scroll to `#steps`) → white "Why planning matters" split (family.png placeholder) → tint stats (5.8M / 14M / $305B / $777B, `.lpl-pillars-grid`) → navy five-essential-steps rows (neutral descriptors + "not advice" note) → tint download + phone (1-833-656-7455) with white resource card → consumer email capture (`#contact`) → `CTABanner` → grey disclosures + sources.

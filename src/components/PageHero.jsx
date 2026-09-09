@@ -4,7 +4,7 @@ import HeroShaper from './HeroShaper.jsx'
 
 export default function PageHero({ image, imgFocus, badge, eyebrow, title, titleAccent, subtitle, ctaPrimary, onPrimary, ctaSecondary, onSecondary }) {
   return (
-    <div className="ov-hero-wrapper" style={{ marginBottom: 40 }}>
+    <div className="ov-hero-wrapper" style={{ }}>
       <section style={{ paddingTop: 20, paddingBottom: 0 }}>
         <div
           className="ov-hero-card"

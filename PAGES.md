@@ -96,12 +96,13 @@
 
 ---
 
-## Internal / Unlisted Pages (2)
+## Internal / Unlisted Pages (3)
 
 *These are real pages with hash routes but intentionally NOT in header/footer nav:*
 
 51. Design (`#design`) — Internal design system + WPBakery how-to
 52. Nav Dropdowns (`#nav-dropdowns`) — All mega-menus stacked for review
+53. Home V2 (`#home-v2`) — New homepage review surface; live home stays `#` / `#home` until sign-off
 
 ---
 
@@ -141,7 +142,7 @@
 
 - **Stub routes:** Routes like `#about`, `#client-resources`, `#insights`, `#professionals` are navigation stubs that don't render pages; they trigger sub-nav dropdowns in Header.jsx
 - **Dynamic routes:** Product detail pages share `ProductDetailPage` component with different props based on route
-- **Internal pages:** `#design` and `#nav-dropdowns` are intentionally unlisted (by design)
+- **Internal / review pages:** `#design`, `#nav-dropdowns`, `#product-tab-examples`, `#products-filter-test`, and `#home-v2` are intentionally unlisted (by design)
 - **All pages use:** Consistent header, footer, layout grid (`ov-container`), spacing tokens (`ov-section`)
 - **Responsive:** Mobile nav collapses to hamburger; all pages have mobile breakpoints
 

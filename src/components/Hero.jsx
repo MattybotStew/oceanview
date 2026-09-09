@@ -16,7 +16,7 @@ function SlideEyebrow({ children }) {
 
 const heroStyles = {
   wrapper: {
-    marginBottom: 40,
+    // marginBottom: 40, // Removed for spacing fix
   },
   section: {
     paddingTop: 20,
@@ -162,7 +162,8 @@ const heroSlides = [
   },
 ];
 
-export default function Hero({ onPrimary, onSecondary }) {
+export default function Hero({ onPrimary, onSecondary, staticSlide }) {
+  const isStatic = staticSlide != null;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [paused, setPaused] = useState(false);
   const intervalRef = useRef(null);
@@ -172,12 +173,12 @@ export default function Hero({ onPrimary, onSecondary }) {
   const prev = () => setCurrentSlide(s => (s - 1 + heroSlides.length) % heroSlides.length);
 
   useEffect(() => {
-    if (paused) return;
+    if (isStatic || paused) return;
     intervalRef.current = setInterval(() => {
       setCurrentSlide(s => (s + 1) % heroSlides.length);
     }, 6000);
     return () => clearInterval(intervalRef.current);
-  }, [paused]);
+  }, [paused, isStatic]);
 
   const handlePrev = useCallback(() => { prev(); setPaused(true); setTimeout(() => setPaused(false), 6000); }, []);
   const handleNext = useCallback(() => { next(); setPaused(true); setTimeout(() => setPaused(false), 6000); }, []);
@@ -192,82 +193,110 @@ export default function Hero({ onPrimary, onSecondary }) {
     else handleNext();
   };
 
-  const slide = heroSlides[currentSlide];
+  const slideIndex = isStatic ? staticSlide : currentSlide;
+  const slide = heroSlides[slideIndex];
+
+  const heroCard = (
+    <div
+      className="ov-hero-card"
+      style={heroStyles.card}
+      {...(!isStatic && { onTouchStart, onTouchEnd })}
+    >
+      {isStatic ? (
+        <div className="ov-hero-bg" style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: `url(${slide.image})`,
+          backgroundSize: "cover",
+          backgroundPosition: slide.imgFocus || "center",
+          zIndex: 0,
+        }} />
+      ) : (
+        heroSlides.map((s, idx) => (
+          <div key={idx} className="ov-hero-bg" style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: `url(${s.image})`,
+            backgroundSize: "cover",
+            backgroundPosition: s.imgFocus || "center",
+            opacity: idx === currentSlide ? 1 : 0,
+            transition: "opacity 0.6s ease-in-out",
+            zIndex: 0,
+          }} />
+        ))
+      )}
+      <div style={heroStyles.scrim} className="ov-hero-scrim" />
+      <div style={heroStyles.noise} />
+
+      <div className="ov-hero-content" style={heroStyles.content}>
+        <SlideEyebrow>{slide.eyebrow}</SlideEyebrow>
+        <h1 className="ov-hero-title" style={heroStyles.h1}>
+          {slide.titleLines.map((line, i) => (
+            <span key={i}>{line}<br /></span>
+          ))}
+          <em style={{ fontStyle: 'italic', color: '#70BABF' }}>{slide.titleAccent}</em>
+        </h1>
+        <p style={heroStyles.body}>{slide.body}</p>
+        <div style={heroStyles.ctas}>
+          <PillMint hero onClick={onPrimary}>{slide.ctaPrimary}</PillMint>
+          <PillGhost light hero onClick={onSecondary}>{slide.ctaSecondary}</PillGhost>
+        </div>
+      </div>
+
+      <HeroShaper />
+    </div>
+  );
 
   return (
     <div className="ov-hero-wrapper" style={heroStyles.wrapper}>
       <section
         className="ov-hero-section"
         style={heroStyles.section}
-        aria-roledescription="carousel"
-        aria-label="Featured announcements"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
+        {...(isStatic
+          ? { 'aria-label': 'Hero' }
+          : {
+              'aria-roledescription': 'carousel',
+              'aria-label': 'Featured announcements',
+              onMouseEnter: () => setPaused(true),
+              onMouseLeave: () => setPaused(false),
+            })}
       >
-        <div aria-live="polite" aria-atomic="true" style={{
-          position: "absolute", width: 1, height: 1, padding: 0,
-          margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)",
-          whiteSpace: "nowrap", border: 0,
-        }}>
-          {`Slide ${currentSlide + 1} of ${heroSlides.length}: ${slide.titleLines.join(' ')} ${slide.titleAccent}`}
-        </div>
-
-        <div className="ov-hero-card" style={heroStyles.card} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
-          {heroSlides.map((s, idx) => (
-            <div key={idx} className="ov-hero-bg" style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage: `url(${s.image})`,
-              backgroundSize: "cover",
-              backgroundPosition: s.imgFocus || "center",
-              opacity: idx === currentSlide ? 1 : 0,
-              transition: "opacity 0.6s ease-in-out",
-              zIndex: 0,
-            }} />
-          ))}
-          <div style={heroStyles.scrim} className="ov-hero-scrim" />
-          <div style={heroStyles.noise} />
-
-          <div className="ov-hero-content" style={heroStyles.content}>
-            <SlideEyebrow>{slide.eyebrow}</SlideEyebrow>
-            <h1 className="ov-hero-title" style={heroStyles.h1}>
-              {slide.titleLines.map((line, i) => (
-                <span key={i}>{line}<br /></span>
-              ))}
-              <em style={{ fontStyle: 'italic', color: '#70BABF' }}>{slide.titleAccent}</em>
-            </h1>
-            <p style={heroStyles.body}>{slide.body}</p>
-            <div style={heroStyles.ctas}>
-              <PillMint hero onClick={onPrimary}>{slide.ctaPrimary}</PillMint>
-              <PillGhost light hero onClick={onSecondary}>{slide.ctaSecondary}</PillGhost>
-            </div>
+        {!isStatic && (
+          <div aria-live="polite" aria-atomic="true" style={{
+            position: "absolute", width: 1, height: 1, padding: 0,
+            margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)",
+            whiteSpace: "nowrap", border: 0,
+          }}>
+            {`Slide ${currentSlide + 1} of ${heroSlides.length}: ${slide.titleLines.join(' ')} ${slide.titleAccent}`}
           </div>
+        )}
 
-          <HeroShaper />
-        </div>
+        {heroCard}
 
-        <div style={heroStyles.dotsContainer}>
-          <button onClick={handlePrev} style={heroStyles.arrowBtn} aria-label="Previous slide">
-            <svg width="12.6" height="12.6" viewBox="0 0 16 16" fill="none">
-              <path d="M10 4L6 8L10 12" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-          {heroSlides.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleDot(idx)}
-              className="ov-hero-dot"
-              style={idx === currentSlide ? { ...heroStyles.dot, ...heroStyles.dotActive, position: "relative" } : { ...heroStyles.dot, position: "relative" }}
-              aria-label={`Go to slide ${idx + 1}`}
-              aria-current={idx === currentSlide ? "slide" : undefined}
-            />
-          ))}
-          <button onClick={handleNext} style={heroStyles.arrowBtn} aria-label="Next slide">
-            <svg width="12.6" height="12.6" viewBox="0 0 16 16" fill="none">
-              <path d="M6 4L10 8L6 12" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-        </div>
+        {!isStatic && (
+          <div style={heroStyles.dotsContainer}>
+            <button onClick={handlePrev} style={heroStyles.arrowBtn} aria-label="Previous slide">
+              <svg width="12.6" height="12.6" viewBox="0 0 16 16" fill="none">
+                <path d="M10 4L6 8L10 12" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+            {heroSlides.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleDot(idx)}
+                className="ov-hero-dot"
+                style={idx === currentSlide ? { ...heroStyles.dot, ...heroStyles.dotActive, position: "relative" } : { ...heroStyles.dot, position: "relative" }}
+                aria-label={`Go to slide ${idx + 1}`}
+                aria-current={idx === currentSlide ? "slide" : undefined}
+              />
+            ))}
+            <button onClick={handleNext} style={heroStyles.arrowBtn} aria-label="Next slide">
+              <svg width="12.6" height="12.6" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4L10 8L6 12" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        )}
       </section>
     </div>
   );

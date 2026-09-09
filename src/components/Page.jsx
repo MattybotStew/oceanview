@@ -2,12 +2,7 @@
 import { useState, useEffect } from 'react'
 import TickerBar from './TickerBar.jsx'
 import Header from './Header.jsx'
-import Hero from './Hero.jsx'
-import Highlights from './Highlights.jsx'
-import ProductsCard from './ProductsCard.jsx'
-import AboutBlock from './AboutBlock.jsx'
-import StatsStrip from './StatsStrip.jsx'
-import CTABanner from './CTABanner.jsx'
+import HomePage from './HomePage.jsx'
 import Footer from './Footer.jsx'
 import BackToTop from './BackToTop.jsx'
 import FAQPage from './FAQPage.jsx'
@@ -68,6 +63,7 @@ import RussellStrategyPage from './RussellStrategyPage.jsx'
 import NasdaqStrategyPage from './NasdaqStrategyPage.jsx'
 import BrochuresPage from './BrochuresPage.jsx'
 import AlzheimersAwarenessPage from './AlzheimersAwarenessPage.jsx'
+import HomeV2Page from './HomeV2Page.jsx'
 
 const STUB_ROUTES = {
   // Top-level nav
@@ -97,6 +93,7 @@ const ROUTE_TO_NAV = {
   "national-senior-games": "",
   "protection-for-whats-next": "",
   "alzheimers-awareness": "",
+  "home-v2": "",
 };
 
 const PAGE_ROUTES = new Set([
@@ -109,6 +106,7 @@ const PAGE_ROUTES = new Set([
   "contact", "lpl-landing", "cetera-landing", "national-senior-games",
   "protection-for-whats-next",
   "alzheimers-awareness",
+  "home-v2",
   "disclaimers", "privacy", "terms", "accessibility", "agent-portal", "design", "nav-dropdowns", "product-tab-examples", "products-filter-test",
   // product pages — canonical routes
   "harbourview-myga", "horizon-myga", "sky-harbourview-myga",
@@ -119,30 +117,6 @@ const PAGE_ROUTES = new Set([
   "harbourview", "sky-harbourview", "fia-harbourview",
   ...Object.keys(STUB_ROUTES),
 ]);
-
-function HomePage({ goto }) {
-  return (
-    <main>
-      <Hero onPrimary={() => goto("products")} onSecondary={() => goto("contact")} />
-      <Highlights />
-      <StatsStrip />
-      <ProductsCard />
-      <AboutBlock />
-      <section className="ov-section" style={{ background: "#fff" }}>
-        <div className="ov-container">
-          <CTABanner
-            eyebrow="Get Started"
-            title="Protect your retirement"
-            titleAccent="with confidence."
-            body="Competitive guaranteed rates, principal protection, and a dedicated service team — backed by an A (Excellent) A.M. Best rating."
-            cta="Explore Products"
-            onClick={() => { window.location.hash = 'products'; }}
-          />
-        </div>
-      </section>
-    </main>
-  );
-}
 
 export default function Page() {
   const getRoute = () => ((window.location.hash.replace("#", "").split("?")[0]) || "home").toLowerCase();
@@ -220,6 +194,7 @@ export default function Page() {
       "nav-dropdowns": "Nav Dropdowns Showcase — Oceanview",
       "product-tab-examples": "Product Tabs — Oceanview",
       "products-filter-test": "Products (Filter Nav Test) — Oceanview",
+      "home-v2": "New Homepage Review — Oceanview",
     };
     const descriptions = {
       "": "Oceanview Life and Annuity offers fixed and fixed-indexed annuities designed to protect and grow your retirement savings. A-rated by A.M. Best.",
@@ -249,6 +224,7 @@ export default function Page() {
       "nav-dropdowns": "All desktop header mega-menus open and stacked for design review — About, Products, Client Resources, Insights.",
       "product-tab-examples": "Five product-first sticky tab ideas for the Products page — full titles, identical catalog under each option.",
       "products-filter-test": "Test Products page with option 5 nav — parent category filter chips + product tabs. Same catalog as #products.",
+      "home-v2": "Review surface for the new Oceanview homepage design. Live home at # / #home is unchanged.",
     };
     document.title = titles[route] || "Oceanview Life and Annuity";
     let meta = document.querySelector('meta[name="description"]');
@@ -335,6 +311,7 @@ export default function Page() {
       case "national-senior-games": return <NationalSeniorGamesPage />;
       case "protection-for-whats-next": return <ProtectionForWhatsNextPage />;
       case "alzheimers-awareness": return <AlzheimersAwarenessPage />;
+      case "home-v2":            return <HomeV2Page goto={goto} />;
       case "faq":               return <FAQPage />;
       case "leadership":        return <LeadershipPage />;
       default:                  return <HomePage goto={goto} />;
