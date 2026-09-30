@@ -47,7 +47,6 @@ const data = {
         imageAlt: 'Family planning for the future',
         imageRight: false,
         ctaLabel: 'Learn More About MYGAs',
-        comingSoon: true,
       },
     ],
   },
@@ -62,10 +61,15 @@ const data = {
     salesDeskPhone: '18558057684',
     salesDeskPhoneFormatted: '1-855-805-7684',
     categories: [
-      { heading: 'Client Brochures', Icon: FileText,  items: [{ label: 'Client Brochure', title: 'Harbourview FIA Client Brochure' }] },
+      { heading: 'Client Brochures', Icon: FileText,  items: [
+        { label: 'Client Brochure', title: 'Harbourview FIA Client Brochure' },
+        { label: 'Client Brochure', title: 'Oceanview Horizon MYGA Client Brochure' },
+      ]},
       { heading: 'Rate Sheets',      Icon: BarChart2, items: [
         { label: 'Rate Sheet',             title: 'Harbourview FIA Client Rate Sheet' },
         { label: 'Rate Sheet — California', title: 'Harbourview FIA Client Rate Sheet (CA)' },
+        { label: 'Rate Sheet',             title: 'Oceanview Horizon MYGA Client Rate Sheet' },
+        { label: 'Rate Sheet — California', title: 'Oceanview Horizon MYGA Client Rate Sheet - California' },
       ]},
       { heading: 'Sales Tools',      Icon: Layers,    items: [
         { label: 'Allocation Strategy',   title: 'Anchoring Allocations' },

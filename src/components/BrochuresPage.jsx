@@ -1,7 +1,30 @@
+import { useState } from 'react'
 import { PillGhost } from './Buttons.jsx'
 import CTABanner from './CTABanner.jsx'
 import { Eyebrow } from './common.jsx'
-import { Shield, TrendingUp, BarChart2, ArrowUpFromLine, RefreshCw } from 'lucide-react'
+import { Shield, TrendingUp, BarChart2, ArrowUpFromLine, RefreshCw, Download } from 'lucide-react'
+import { PRODUCT_GROUPS, DISCLOSURE_DOCS, SERVICE_FORM_GROUPS } from './DownloadsPage.jsx'
+
+const DOC_TABS = [
+  { id: 'brochures', label: 'Brochures' },
+  { id: 'specs', label: 'Product Spec Sheets' },
+  { id: 'packs', label: 'App Packs' },
+  { id: 'other', label: 'Other' },
+]
+
+const SPEC_ROWS = PRODUCT_GROUPS.flatMap(g =>
+  g.items.filter(item => item.label === 'Product Spec Sheet').map(item => ({ ...item, group: g.name }))
+)
+
+const APP_PACK_ROWS = [
+  { label: 'MYGA', title: 'MYGA Application Packet' },
+  { label: 'FIA', title: 'FIA Application Packet' },
+]
+
+const OTHER_ROWS = [
+  ...DISCLOSURE_DOCS,
+  ...SERVICE_FORM_GROUPS.flatMap(g => g.forms.map(title => ({ label: g.heading, title }))),
+]
 
 const S = {
   h2:   { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(26px,3vw,40px)', letterSpacing: '-0.025em', lineHeight: 1.12, margin: 0 },
@@ -96,7 +119,24 @@ const FIA_BROCHURES = [
   },
 ]
 
+function DocRow({ label, title, group }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24, padding: '16px 20px', background: '#fff', border: '1px solid rgba(13,31,78,.09)', borderRadius: 10 }}>
+      <div>
+        <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.1px', textTransform: 'uppercase', color: '#2494C1', marginBottom: 4 }}>{group ? `${group} · ${label}` : label}</div>
+        <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 14, color: '#0D1F4E', lineHeight: 1.35 }}>{title}</div>
+      </div>
+      <button type="button" style={{ display: 'flex', alignItems: 'center', gap: 7, background: 'none', border: '1.5px solid rgba(36,148,193,.3)', borderRadius: 8, padding: '8px 16px', fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#2494C1', cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0 }}>
+        <Download size={13} strokeWidth={2} />
+        PDF
+      </button>
+    </div>
+  )
+}
+
 export default function BrochuresPage() {
+  const [tab, setTab] = useState('brochures')
+
   return (
     <main>
 
@@ -116,6 +156,41 @@ export default function BrochuresPage() {
         </div>
       </section>
 
+      <div style={{ background: '#fff', position: 'sticky', top: 'var(--ov-header-h, 72px)', zIndex: 50, boxShadow: '0 1px 0 #e8e5e5' }}>
+        <div className="ov-container">
+          <div role="tablist" aria-label="Document categories" style={{ display: 'flex', borderBottom: '1px solid #e8e5e5', overflowX: 'auto' }}>
+            {DOC_TABS.map(t => (
+              <button
+                key={t.id}
+                role="tab"
+                aria-selected={tab === t.id}
+                type="button"
+                onClick={() => setTab(t.id)}
+                style={{
+                  flex: '1 0 auto',
+                  minWidth: 140,
+                  height: 51,
+                  border: 'none',
+                  borderRight: '1px solid #e8e5e5',
+                  background: tab === t.id ? 'rgba(226,241,242,0.6)' : 'transparent',
+                  fontFamily: 'var(--ov-ff-sans)',
+                  fontWeight: 600,
+                  fontSize: 13,
+                  color: '#001F54',
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                  padding: '0 20px',
+                }}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {tab === 'brochures' && (
+      <>
       {/* Fixed Annuities */}
       <section style={{ background: '#fff' }} className="ov-section">
         <div className="ov-container">
@@ -147,6 +222,18 @@ export default function BrochuresPage() {
           </div>
         </div>
       </section>
+      </>
+      )}
+
+      {tab !== 'brochures' && (
+        <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
+          <div className="ov-container" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {(tab === 'specs' ? SPEC_ROWS : tab === 'packs' ? APP_PACK_ROWS : OTHER_ROWS).map(row => (
+              <DocRow key={row.title} {...row} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="ov-section" style={{ background: '#fff' }}>

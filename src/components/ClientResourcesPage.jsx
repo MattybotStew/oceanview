@@ -86,7 +86,7 @@ const dlSectionHead = {
   letterSpacing: "-0.02em", lineHeight: 1.2, margin: "0 0 16px",
 };
 
-function DownloadsTab() {
+export function DownloadsTab() {
   return (
     <div style={S.section}>
       <Eyebrow>Product Brochures</Eyebrow>
@@ -279,7 +279,7 @@ function FIARates() {
   );
 }
 
-function RatesTab() {
+export function RatesTab() {
   const [sub, setSub] = useState("MYGA Rates");
 
   return (

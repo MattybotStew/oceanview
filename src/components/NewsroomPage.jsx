@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import { PillNavy, PillGhost } from './Buttons.jsx'
 import PageHero from './PageHero.jsx'
 import CTABanner from './CTABanner.jsx'
+import { DownloadsTab, RatesTab } from './ClientResourcesPage.jsx'
 
 const TABS = [
   { id: 'all',               label: 'All' },
@@ -235,6 +236,28 @@ export default function NewsroomPage() {
           <button style={S.pageBtn}>Newer Posts →</button>
         </div>
       </div>
+
+      <section className="ov-section" style={{ background: 'var(--ov-surface-tint)' }}>
+        <div className="ov-container">
+          <p style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: '#2494C1', margin: '0 0 8px' }}>From client resources</p>
+          <h2 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(26px,3vw,40px)', color: '#0D1F4E', letterSpacing: '-0.025em', margin: '0 0 12px' }}>Rates, downloads, and compliance</h2>
+          <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: '#4A5568', lineHeight: 1.65, margin: '0 0 8px', maxWidth: '62ch' }}>
+            Current rate tables and document downloads are the same sections used on Client Resources.
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              handleTabChange('compliance-corner')
+              document.getElementById('newsroom-tab-compliance-corner')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            }}
+            style={{ background: 'none', border: 'none', padding: 0, fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 14, color: '#2494C1', cursor: 'pointer', marginBottom: 8 }}
+          >
+            Open Compliance Corner
+          </button>
+          <RatesTab />
+          <DownloadsTab />
+        </div>
+      </section>
 
       <section className="ov-section" style={{ background: '#fff' }}>
         <div className="ov-container">

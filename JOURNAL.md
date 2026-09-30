@@ -3,6 +3,19 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 
+## 2026-09-30 — Grok (LPL GitHub Pages)
+
+- Horizon MYGA resource titles aligned to the temp LPL page, including the California rate sheet. Coming Soon stays off. Published to GitHub Pages.
+
+
+## 2026-09-29 — Grok (prototype UI: LPL, newsroom, brochures)
+
+- **`#lpl-landing`** — Horizon MYGA no longer `comingSoon`; brochure and rate-sheet rows added.
+- **`#newsroom`** — embeds exported `RatesTab` and `DownloadsTab` from Client Resources, plus a link into the Compliance Corner filter.
+- **`#brochures`** — sticky tabs: Brochures, Product Spec Sheets, App Packs, Other. Specs and other docs come from `DownloadsPage` exports.
+- Product-page Figma redesigns and new Renewal Rates / LevelCap pages were not in this pass.
+
+
 ## 2026-09-09 — Composer (Hero mobile layout)
 
 - **`ov-hero-ctas`** wrapper class; mobile padding override (`32px 24px` / `28px 20px`).

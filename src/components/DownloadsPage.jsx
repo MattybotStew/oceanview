@@ -70,7 +70,7 @@ function FormGroup({ heading, forms }) {
 }
 
 // ── Data ──────────────────────────────────────────────────────────────────────
-const PRODUCT_GROUPS = [
+export const PRODUCT_GROUPS = [
   {
     name: 'Harbourview FIA',
     tag: 'FIA',
@@ -116,13 +116,13 @@ const PRODUCT_GROUPS = [
   },
 ]
 
-const DISCLOSURE_DOCS = [
+export const DISCLOSURE_DOCS = [
   { label: 'State Disclosure — CA',     title: 'California Annuity Disclosure Document' },
   { label: 'State Disclosure — Non-CA', title: 'Non-California Annuity Disclosure Document' },
   { label: 'Sales Approach',            title: 'The New 60/40 Approach — Consumer Guide' },
 ]
 
-const SERVICE_FORM_GROUPS = [
+export const SERVICE_FORM_GROUPS = [
   {
     heading: 'Beneficiary',
     forms: [
