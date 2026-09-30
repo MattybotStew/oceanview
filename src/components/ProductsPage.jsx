@@ -168,6 +168,13 @@ const PRODUCTS = {
     body: "Offers the opportunity for interest credits based on the performance of a market index, while providing protection of principal from market downturns.",
     bullets: ["Are seeking growth potential linked to a market index", "Value protection of principal from market downturns", "Prefer a balanced, long-term accumulation approach", "Want multiple crediting options within a structured framework"],
   },
+  levelCap: {
+    href: "#levelcap",
+    eyebrow: "LevelCap", rate: "X.XX%", rateTerm: "S&P 500 cap (placeholder)",
+    heading: "Steady cap. Full term.",
+    body: "With selected Cap Rate Guarantee Strategies, the applicable cap rate is established at policy issue and remains unchanged for the full 5- or 7-year surrender-charge period.",
+    bullets: ["A cap known at issue on selected guarantee strategies", "No annual cap re-declarations on those strategies", "S&P 500, Nasdaq-100, and Russell 2000 Cap Rate Guarantee choices", "Indexed interest is not guaranteed and can be zero"],
+  },
   capLock: {
     href: "#caplock",
     eyebrow: "CapLock", rate: "11.0%", rateTerm: "Index Cap (Bonus)",
@@ -187,7 +194,7 @@ const PRODUCTS = {
 const CATEGORIES = [
   { id: "fixed-annuities", label: "Fixed Annuities",                  sub: "Predictable growth · guaranteed interest",             href: "#prd-cat-fixed-annuities" },
   { id: "fixed-with-flex", label: "Fixed Annuities with Flexibility", sub: "Guaranteed today · growth potential",                   href: "#prd-cat-fixed-with-flex" },
-  { id: "fixed-indexed",   label: "Fixed Indexed Annuities",          sub: "CapLock · Topsider",                                    href: "#prd-cat-fixed-indexed" },
+  { id: "fixed-indexed",   label: "Fixed Indexed Annuities",          sub: "CapLock · LevelCap · Topsider",                         href: "#prd-cat-fixed-indexed" },
 ];
 
 const SCROLL_MARGIN = "240px";
@@ -200,6 +207,7 @@ const NAV_PRODUCTS = [
   { label: "Current Rate Fixed Annuity", href: "#prd-current-rate",          cat: "fixed-with-flex" },
   { label: "Harbourview FIA",            href: "#prd-harbourview-fia",  cat: "fixed-with-flex" },
   { label: "CapLock",                    href: "#prd-caplock",          cat: "fixed-indexed" },
+  { label: "LevelCap",                   href: "#prd-levelcap",         cat: "fixed-indexed" },
   { label: "Topsider",                   href: "#prd-topsider",         cat: "fixed-indexed" },
 ];
 
@@ -645,6 +653,7 @@ export default function ProductsPage({ navVariant = "default" }) {
           </div>
           <div style={{ ...PS.cardsGrid, marginTop: 56 }} className="prd-cards-grid prd-cards-2col">
             <div id="prd-caplock"   style={{ scrollMarginTop: scrollMargin }}><ProductCard {...PRODUCTS.capLock}/></div>
+            <div id="prd-levelcap"  style={{ scrollMarginTop: scrollMargin }}><ProductCard {...PRODUCTS.levelCap}/></div>
             <div id="prd-topsider" style={{ scrollMarginTop: scrollMargin }}><ProductCard {...PRODUCTS.topsider}/></div>
           </div>
         </div>

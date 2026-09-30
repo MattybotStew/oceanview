@@ -62,6 +62,7 @@ export const NAV_DROPDOWNS = {
         body: "Index-linked interest credits with a zero-percent floor — growth potential with principal protection.",
         links: [
           { label: "CapLock™ FIA", href: "#caplock",   desc: "Guaranteed cap rate locked for the entire surrender charge period — no annual resets, no uncertainty." },
+          { label: "LevelCap™ FIA", href: "#levelcap", desc: "Steady cap for the full 5- or 7-year surrender-charge period on selected Cap Rate Guarantee Strategies." },
           { label: "Topsider FIA", href: "#topsider",  desc: "Upside-focused index crediting strategies within a structured, protected framework built for accumulation." },
         ],
         cta: { label: "Compare the full FIA line", href: "#fia-overview" },

@@ -2,6 +2,32 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-09-30 — Grok (LevelCap and CapLock hero images)
+
+- `#levelcap` hero is the staging content photo (couple in the tide), `public/assets/levelcap-hero.png`. Staging `og:image` was the reused Russell 2000 file and was not used.
+- `#caplock` hero is the staging `ov-hero-card` background (woman biking), `public/assets/caplock-hero.png`. Copy unchanged.
+- Confirmed `http://localhost:5175/oceanview/assets/levelcap-hero.png` returns 200. Sky Harbourview hero renders the beach couple.
+
+
+## 2026-09-30 — Grok (Harbourview FIA hero image)
+
+- `#harbourview-fia` hero is the staging page background (senior group selfie), saved as `public/assets/harbourview-fia-hero.jpg`, `imgFocus` `38% 40%`. Staging `og:image` (`FIA-Hero1.jpg`) was not used. Copy unchanged.
+
+## 2026-09-30 — Grok (Harbourview MYGA hero image)
+
+- `#harbourview-myga` hero is the staging page background (`AdobeStock_460547435-scaled.jpeg`), saved as `public/assets/harbourview-myga-hero.jpg`, `imgFocus` `center`. Staging `og:image` (`Image-MYGA1.jpg`) was not used. Copy unchanged.
+
+## 2026-09-30 — Grok (Sky Harbourview hero image)
+
+- `#sky-harbourview-myga` hero is the staging page background (beach couple), saved as `public/assets/sky-harbourview-hero.jpg`, `imgFocus` `78% 42%`. Open Graph photo saved as `public/assets/sky-harbourview-og.jpg` and not used on the page. Copy unchanged.
+
+## 2026-09-30 — Grok (CurrentRate hero image)
+
+- Pulled the CurrentRate MYGA page hero from `https://oceanviewstg.wpengine.com/products/currentrate-myga/` (WPBakery background image of two women hiking). Saved as `public/assets/current-rate-hero.jpg`. `#current-rate-fia` `image` now points at `assets/current-rate-hero.jpg`. Staging `og:image` is the site-wide Russell 2000 file and was not used.
+
+## 2026-09-30 — Grok (LevelCap FIA page)
+
+- `#levelcap` → `LevelCapFIAPage.jsx` on the product-detail shell. Copy follows the LevelCap draft (docx wins over staging). Rate is `X.XX%` with Effective [DATE]. Surrender schedule from the draft: 5-year 9-8-7-6-5, 7-year 9-8-7-6-5-4-3. No brochure download card. Nav added beside CapLock (header, footer, products, FIA overview, client resources, product-tab examples).
 
 ## 2026-09-30 — Grok (CapLock missing sections)
 

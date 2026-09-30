@@ -7,7 +7,7 @@ const PRODUCT = {
   heroTitle: "Your cap. Your term. Locked.",
   heroSubtitle: "CapLock removes the uncertainty of changing caps by guaranteeing your declared cap rate for the entire surrender charge period.",
   tagline: "Your cap. Your term. Locked. CapLock removes the uncertainty of changing caps by guaranteeing your declared cap rate for the entire surrender charge period.",
-  image: "assets/lighthouse.jpg",
+  image: "assets/caplock-hero.png",
   heroCtaLabel: "View Current Rates",
   heroPrimaryId: "current-rates",
   heroCtaSecondary: "Download Brochure",

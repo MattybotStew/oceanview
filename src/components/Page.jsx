@@ -29,6 +29,7 @@ import SkyHarbourviewMYGAPage from './SkyHarbourviewMYGAPage.jsx'
 import HorizonMYGAPage from './HorizonMYGAPage.jsx'
 import CurrentRateFIAPage from './CurrentRateFIAPage.jsx'
 import CapLockFIAPage from './CapLockFIAPage.jsx'
+import LevelCapFIAPage from './LevelCapFIAPage.jsx'
 import TopsiderFIAPage from './TopsiderFIAPage.jsx'
 import BoardPage from './BoardPage.jsx'
 import NewsroomPage from './NewsroomPage.jsx'
@@ -113,7 +114,7 @@ const PAGE_ROUTES = new Set([
   // product pages — canonical routes
   "harbourview-myga", "horizon-myga", "sky-harbourview-myga",
   "current-rate-fia", "harbourview-fia",
-  "caplock", "topsider", "fia-overview",
+  "caplock", "levelcap", "topsider", "fia-overview",
   "sp500-strategy", "russell-strategy", "nasdaq-strategy",
   // legacy aliases kept for any existing links
   "harbourview", "sky-harbourview", "fia-harbourview",
@@ -178,6 +179,7 @@ export default function Page() {
       "terms": "Terms of Use — Oceanview",
       "accessibility": "Accessibility — Oceanview",
       "agent-portal":  "Agent Portal — Oceanview",
+      "levelcap": "LevelCap FIA — Oceanview",
       "fia-overview": "Fixed Indexed Annuities — Oceanview",
       "sp500-strategy": "S&P 500 Crediting Strategy — Harbourview FIA — Oceanview",
       "russell-strategy": "Russell 2000 Crediting Strategy — Harbourview FIA — Oceanview",
@@ -212,7 +214,8 @@ export default function Page() {
       "individuals": "Retirement solutions for individuals — explore how Oceanview annuities can protect and grow your savings.",
       "accessibility": "Oceanview Life and Annuity is committed to making OceanviewLife.com accessible to everyone, in line with WCAG 2.0 AA standards.",
       "agent-portal": "Secure login for licensed Oceanview agents — manage client accounts, submit new business, and access sales tools.",
-      "fia-overview": "Explore Oceanview's Fixed Indexed Annuity line — Harbourview FIA, CapLock, and Topsider — index-linked growth with zero-floor principal protection.",
+      "levelcap": "LevelCap Fixed Indexed Annuity keeps the declared cap level for the full 5- or 7-year surrender-charge period on selected Cap Rate Guarantee Strategies.",
+      "fia-overview": "Explore Oceanview's Fixed Indexed Annuity line — Harbourview FIA, CapLock, LevelCap, and Topsider — index-linked growth with zero-floor principal protection.",
       "national-senior-games": "Oceanview Life and Annuity Company is proud to sponsor the National Senior Games Association and celebrate active aging, community, competition and the long game in life and retirement.",
       "protection-for-whats-next": "Use Oceanview's Retirement Protection Conversation Guide and client Checkup to ask better questions, uncover retirement priorities and identify where a deeper conversation may help.",
       "alzheimers-awareness": "Learn practical steps to plan for Alzheimer's and dementia, from legal documents and care costs to financial safeguards, retirement resources and next steps.",
@@ -257,6 +260,7 @@ export default function Page() {
       case "harbourview-fia":       return <HarbourviewFIAPage />;
       case "fia-harbourview":       return <HarbourviewFIAPage />;       // legacy alias
       case "caplock":               return <CapLockFIAPage />;
+      case "levelcap":              return <LevelCapFIAPage />;
       case "topsider":              return <TopsiderFIAPage />;
       case "fia-overview":          return <FIAOverviewPage />;
       case "sp500-strategy":        return <SP500StrategyPage />;

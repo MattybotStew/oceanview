@@ -220,7 +220,7 @@ function RateGuaranteeSection({ rateGuarantee }) {
 // ── Sidebar ───────────────────────────────────────────────────────────────────
 const ALL_NAV_SECTIONS = [
   { id: 'current-rates',       label: 'Current rates',               key: 'currentRates'        },
-  { id: 'what-is',             label: 'What is CapLock FIA',         key: 'whatIs'              },
+  { id: 'what-is',             label: 'What is this product',        key: 'whatIs'              },
   { id: 'contract-provides',   label: 'What your contract provides', key: 'contractProvides'    },
   { id: 'what-locks',          label: 'What is locked',              key: 'lockSplit'           },
   { id: 'how-it-works',        label: 'How it works',                key: 'howItWorks'          },
@@ -277,7 +277,18 @@ function Sidebar({ navSections, active, onNav }) {
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 export default function ProductDetailPage({ product }) {
-  const navSections = ALL_NAV_SECTIONS.filter(s => !!product[s.key])
+  const tailBlocks = product.tailBlocks || []
+  const navSections = [
+    ...ALL_NAV_SECTIONS.filter(s => !!product[s.key]).map(s => ({
+      ...s,
+      label: product.navLabels?.[s.key] || s.label,
+    })),
+    ...tailBlocks.map(block => ({ id: block.id, label: block.navLabel || block.heading })),
+  ].map(s => (
+    s.key === 'whatIs' && product.categoryShort
+      ? { ...s, label: `What is ${product.categoryShort}` }
+      : s
+  ))
 
   const [activeTab, setActiveTab]         = useState(0)
   const [activeSection, setActiveSection] = useState(navSections[0]?.id || 'contract-provides')
@@ -586,6 +597,40 @@ export default function ProductDetailPage({ product }) {
                 </div>
                 {incomeOptions.disclaimer && <p style={S.disclaimer}>{incomeOptions.disclaimer}</p>}
               </section>
+
+              {tailBlocks.map(block => (
+                <section key={block.id} id={`pdt-${block.id}`} style={{ scrollMarginTop: 160 }}>
+                  <SectionHead eyebrow={block.eyebrow} heading={block.heading} sub={block.sub} />
+                  {block.paragraphs && (
+                    <div style={{ ...S.card, padding: '8px 28px 16px', marginBottom: block.items || block.columns ? 16 : 0 }}>
+                      {block.paragraphs.map((p, i) => (
+                        <p key={i} style={{ ...S.itemBody, margin: '14px 0' }}>{p}</p>
+                      ))}
+                    </div>
+                  )}
+                  {block.columns && (
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: block.items ? 16 : 0 }} className="lpl-pillars-grid">
+                      {block.columns.map(col => (
+                        <div key={col.title} style={{ ...S.card, padding: '24px 28px' }}>
+                          <div style={{ ...S.itemTitle, marginBottom: 8 }}>{col.title}</div>
+                          {col.kicker && <p style={{ ...S.itemBody, color: '#0D1F4E', fontWeight: 600, margin: '0 0 8px' }}>{col.kicker}</p>}
+                          <p style={S.itemBody}>{col.body}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {block.items && (
+                    <div style={S.card}>
+                      <div style={{ padding: '8px 28px' }}>
+                        {block.items.map((item, i) => (
+                          <DefinitionItem key={item.title} {...item} last={i === block.items.length - 1} />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {block.footnote && <p style={S.footnote}>{block.footnote}</p>}
+                </section>
+              ))}
 
             </div>
           </div>

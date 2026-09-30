@@ -44,6 +44,7 @@ const BROCHURE_GROUPS = [
     label: "Fixed Indexed Annuities",
     items: [
       { name: "CapLock Fixed Indexed",  desc: "Guaranteed cap rates and participation choices — zero market risk.",                     route: "caplock" },
+      { name: "LevelCap Fixed Indexed", desc: "Cap stays level for the full surrender-charge period on selected Cap Rate Guarantee Strategies.", route: "levelcap" },
       { name: "Topsider FIA",           desc: "Upside-focused index crediting strategies within a structured, protected framework.",    route: "topsider" },
     ],
   },

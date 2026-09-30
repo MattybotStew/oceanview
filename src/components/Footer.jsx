@@ -294,6 +294,7 @@ export default function Footer({ hideSignup = false }) {
         { label: 'Current Rate Fixed Annuity', href: '#current-rate-fia'     },
         { label: 'Harbourview FIA',            href: '#harbourview-fia'       },
         { label: 'CapLock',                    href: '#caplock'               },
+        { label: 'LevelCap',                   href: '#levelcap'              },
         { label: 'Topsider',                   href: '#topsider'              },
       ],
     },

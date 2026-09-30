@@ -16,6 +16,7 @@ const PRODUCTS = [
   { id: 'current-rate', label: 'Current Rate Fixed Annuity', cat: 'fixed-with-flex' },
   { id: 'harbourview-fia', label: 'Harbourview FIA', cat: 'fixed-with-flex' },
   { id: 'caplock', label: 'CapLock', cat: 'fixed-indexed' },
+  { id: 'levelcap', label: 'LevelCap', cat: 'fixed-indexed' },
   { id: 'topsider', label: 'Topsider', cat: 'fixed-indexed' },
 ]
 

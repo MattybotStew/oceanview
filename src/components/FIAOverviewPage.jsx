@@ -44,6 +44,13 @@ const FIA_LINE = [
     route: 'caplock',
   },
   {
+    eyebrow: 'Level Cap',
+    title: 'LevelCap™ FIA',
+    tagline: 'Steady cap. Full term. With selected Cap Rate Guarantee Strategies, the applicable cap stays unchanged for the full 5- or 7-year surrender-charge period.',
+    features: ['Cap established at issue on selected strategies', 'No annual cap re-declarations on those strategies', 'Indexed interest still depends on index performance'],
+    route: 'levelcap',
+  },
+  {
     eyebrow: 'Upside-Focused',
     title: 'Topsider FIA',
     tagline: 'Upside-focused growth potential within a structured, protected framework — index-linked interest crediting with a zero-percent floor on every strategy.',
@@ -66,7 +73,7 @@ export default function FIAOverviewPage() {
             Fixed Indexed Annuities
           </h1>
           <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 'clamp(15px,1.4vw,17px)', lineHeight: 1.65, color: '#4A5568', margin: '0 auto', maxWidth: '54ch' }}>
-            Index-linked growth potential with a zero-percent floor — three products built for different ways clients want to balance upside and certainty.
+            Index-linked growth potential with a zero-percent floor — four products built for different ways clients want to balance upside and certainty.
           </p>
         </div>
       </section>
@@ -115,7 +122,7 @@ export default function FIAOverviewPage() {
       <section style={{ background: 'var(--ov-navy-1000)' }} className="ov-section">
         <div className="ov-container">
           <div style={{ marginBottom: 56 }}>
-            <Eyebrow light>Three Products, One Line</Eyebrow>
+            <Eyebrow light>Four Products, One Line</Eyebrow>
             <h2 style={{ ...S.h2Light, marginBottom: 14 }}>
               Find the right fit <em style={S.accent}>for your client.</em>
             </h2>
@@ -123,7 +130,7 @@ export default function FIAOverviewPage() {
               Every Oceanview FIA shares the same zero-floor protection — they differ in how upside is structured.
             </p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }} className="ov-risk-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24 }} className="ov-risk-grid">
             {FIA_LINE.map((p, i) => (
               <div key={i} style={{ background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 16, padding: '28px 28px 32px', display: 'flex', flexDirection: 'column', gap: 18 }}>
                 <div>
