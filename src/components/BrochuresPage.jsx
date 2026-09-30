@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { PillGhost } from './Buttons.jsx'
+import { PillGhost, PillWhite } from './Buttons.jsx'
 import CTABanner from './CTABanner.jsx'
 import { Eyebrow } from './common.jsx'
 import { Shield, TrendingUp, BarChart2, ArrowUpFromLine, RefreshCw, Download } from 'lucide-react'
@@ -21,9 +21,9 @@ const APP_PACK_ROWS = [
   { label: 'FIA', title: 'FIA Application Packet' },
 ]
 
-const OTHER_ROWS = [
-  ...DISCLOSURE_DOCS,
-  ...SERVICE_FORM_GROUPS.flatMap(g => g.forms.map(title => ({ label: g.heading, title }))),
+const OTHER_GROUPS = [
+  { heading: 'Disclosures & General', rows: DISCLOSURE_DOCS.map(d => ({ title: d.title })) },
+  ...SERVICE_FORM_GROUPS.map(g => ({ heading: g.heading, rows: g.forms.map(title => ({ title })) })),
 ]
 
 const S = {
@@ -65,7 +65,9 @@ function BrochureCard({ icon: Icon, tag, title, body, dark, tint }) {
         <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13.5, color: dark ? 'rgba(242,252,255,.65)' : '#4A5568', lineHeight: 1.6, margin: 0 }}>{body}</p>
       </div>
       <div style={{ paddingTop: 4 }}>
-        <PillGhost light={dark} style={{ fontSize: 13 }}>Download PDF</PillGhost>
+        {dark
+          ? <PillWhite style={{ fontSize: 13 }}>Download PDF</PillWhite>
+          : <PillGhost style={{ fontSize: 13 }}>Download PDF</PillGhost>}
       </div>
     </div>
   )
@@ -90,21 +92,24 @@ const MYGA_BROCHURES = [
     title: 'Sky Harbourview MYGA Product Brochure',
     body: 'An overview of the Sky Harbourview MYGA — guaranteed returns, tax-deferred growth, and a death benefit for beneficiaries included at no additional cost.',
   },
+]
+
+const FLEX_BROCHURES = [
   {
     icon: RefreshCw,
-    tag: 'Fixed Annuity',
+    tag: 'Fixed Annuities with Flexibility',
     title: 'Current Rate Fixed Annuity Brochure',
     body: 'An overview of the Current Rate Fixed Annuity — guaranteed interest today with the flexibility to adjust your growth approach as retirement goals evolve.',
+  },
+  {
+    icon: TrendingUp,
+    tag: 'Fixed Annuities with Flexibility',
+    title: 'Harbourview Fixed Indexed Annuity Brochure',
+    body: 'An overview of the Harbourview FIA — index-linked interest crediting with 100% principal protection, multiple crediting strategies, and flexible term options.',
   },
 ]
 
 const FIA_BROCHURES = [
-  {
-    icon: TrendingUp,
-    tag: 'Fixed Indexed Annuity',
-    title: 'Harbourview Fixed Indexed Annuity Brochure',
-    body: 'An overview of the Harbourview FIA — index-linked interest crediting with 100% principal protection, multiple crediting strategies, and flexible term options.',
-  },
   {
     icon: BarChart2,
     tag: 'Fixed Indexed Annuity',
@@ -123,7 +128,7 @@ function DocRow({ label, title, group }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24, padding: '16px 20px', background: '#fff', border: '1px solid rgba(13,31,78,.09)', borderRadius: 10 }}>
       <div>
-        <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.1px', textTransform: 'uppercase', color: '#2494C1', marginBottom: 4 }}>{group ? `${group} · ${label}` : label}</div>
+        {(group || label) && <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.1px', textTransform: 'uppercase', color: '#2494C1', marginBottom: 4 }}>{group ? `${group} · ${label}` : label}</div>}
         <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 14, color: '#0D1F4E', lineHeight: 1.35 }}>{title}</div>
       </div>
       <button type="button" style={{ display: 'flex', alignItems: 'center', gap: 7, background: 'none', border: '1.5px solid rgba(36,148,193,.3)', borderRadius: 8, padding: '8px 16px', fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#2494C1', cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0 }}>
@@ -189,8 +194,7 @@ export default function BrochuresPage() {
         </div>
       </div>
 
-      {tab === 'brochures' && (
-      <>
+      <div role="tabpanel" id="brochures-panel-brochures" hidden={tab !== 'brochures'}>
       {/* Fixed Annuities */}
       <section style={{ background: '#fff' }} className="ov-section">
         <div className="ov-container">
@@ -203,6 +207,21 @@ export default function BrochuresPage() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18 }} className="lpl-pillars-grid">
             {MYGA_BROCHURES.map(b => <BrochureCard key={b.title} {...b} tint />)}
+          </div>
+        </div>
+      </section>
+
+      <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
+        <div className="ov-container">
+          <div style={{ marginBottom: 40 }}>
+            <Eyebrow>Fixed Annuities with Flexibility</Eyebrow>
+            <h2 style={{ ...S.h2, color: '#0D1F4E', marginBottom: 10 }}>Flexible growth brochures</h2>
+            <p style={{ ...S.lede, color: '#4A5568' }}>
+              Current Rate and Harbourview FIA — the same grouping used in the product navigation.
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18 }} className="lpl-pillars-grid">
+            {FLEX_BROCHURES.map(b => <BrochureCard key={b.title} {...b} tint />)}
           </div>
         </div>
       </section>
@@ -222,18 +241,32 @@ export default function BrochuresPage() {
           </div>
         </div>
       </section>
-      </>
-      )}
+      </div>
 
-      {tab !== 'brochures' && (
+      {[['specs', SPEC_ROWS], ['packs', APP_PACK_ROWS]].map(([id, rows]) => (
+        <div key={id} role="tabpanel" id={`brochures-panel-${id}`} hidden={tab !== id}>
+          <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
+            <div className="ov-container" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {rows.map(row => <DocRow key={row.title} {...row} />)}
+            </div>
+          </section>
+        </div>
+      ))}
+
+      <div role="tabpanel" id="brochures-panel-other" hidden={tab !== 'other'}>
         <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
-          <div className="ov-container lpl-pillars-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18 }}>
-            {(tab === 'specs' ? SPEC_ROWS : tab === 'packs' ? APP_PACK_ROWS : OTHER_ROWS).map(row => (
-              <DocRow key={row.title} {...row} />
+          <div className="ov-container" style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+            {OTHER_GROUPS.map(group => (
+              <div key={group.heading}>
+                <h2 style={{ ...S.h2, fontSize: 22, color: '#0D1F4E', marginBottom: 12 }}>{group.heading}</h2>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {group.rows.map(row => <DocRow key={row.title} title={row.title} />)}
+                </div>
+              </div>
             ))}
           </div>
         </section>
-      )}
+      </div>
 
       {/* CTA */}
       <section className="ov-section" style={{ background: '#fff' }}>
