@@ -83,20 +83,6 @@ export const PRODUCT_GROUPS = [
     ],
   },
   {
-    name: 'Topsider FIA',
-    tag: 'FIA',
-    items: [
-      { label: 'Product Spec Sheet', title: 'Topsider FIA Product Spec Sheet' },
-    ],
-  },
-  {
-    name: 'Current Rate Fixed Annuity',
-    tag: 'FIA',
-    items: [
-      { label: 'Product Spec Sheet', title: 'Current Rate Fixed Annuity Product Spec Sheet' },
-    ],
-  },
-  {
     name: 'CapLock FIA',
     tag: 'FIA',
     items: [

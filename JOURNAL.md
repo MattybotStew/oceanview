@@ -3,6 +3,27 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 
+## 2026-09-30 — Grok (CapLock page code)
+
+- `#caplock` keeps the product-page shell. New optional body blocks on `ProductDetailPage`: current rates, guaranteed vs not, five steps, 9% example. Surrender, riders, income, and end of term stay. Other products are unchanged until they pass those fields.
+
+
+## 2026-09-30 — Grok (CapLock shell)
+
+- CapLock Figma direction: keep ProductDetailPage shell (hero, stats, sticky nav, CTA). New body blocks are Current Rates, Guaranteed vs Not, 5 steps, and the 9% example. Surrender, riders, income, and end-of-term stay. Same layout for Harbourview FIA, LevelCap, and Renewal Rates. https://www.figma.com/design/fe7PYQtVJ2pNZ1VR6lznWz/2026-Oceanview-Design?node-id=9018-32
+
+
+## 2026-09-30 — Grok (CapLock page mockup)
+
+- Figma mockup for `/products/caplock-fixed-indexed-annuity/` from the ticket section list, beside the old `capslock` capture. Copy draft file is not in the repo, so body copy is structural. https://www.figma.com/design/fe7PYQtVJ2pNZ1VR6lznWz/2026-Oceanview-Design?node-id=9016-32
+
+
+## 2026-09-30 — Grok (brochure handoff)
+
+- Spec Sheets stays at the five files already in the library. Topsider FIA and Current Rate have brochures only; the Spec Sheets tab says so instead of inventing rows. FIA brochure buttons are solid white (`PillWhite`) on the navy band. Other tab is grouped under category subheads.
+- Captured `#brochures` into the 2026 Oceanview Design file with a dev-note frame: https://www.figma.com/design/fe7PYQtVJ2pNZ1VR6lznWz/2026-Oceanview-Design?node-id=9011-32
+
+
 ## 2026-09-30 — Grok (brochures nits)
 
 - `#brochures` title is “Brochures, Applications & Forms”. FIA Download PDF uses `PillGhost light` (white on navy). Brochure cards and spec/app/other rows use existing `lpl-pillars-grid` (4 columns, 2 at 860px, 1 at 480px).

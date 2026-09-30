@@ -172,7 +172,11 @@ function RateGuaranteeSection({ rateGuarantee }) {
 
 // ── Sidebar ───────────────────────────────────────────────────────────────────
 const ALL_NAV_SECTIONS = [
+  { id: 'current-rates',       label: 'Current rates',               key: 'currentRates'        },
   { id: 'contract-provides',   label: 'What your contract provides', key: 'contractProvides'    },
+  { id: 'what-locks',          label: 'What is locked',              key: 'lockSplit'           },
+  { id: 'how-it-works',        label: 'How it works',                key: 'howItWorks'          },
+  { id: 'simple-example',      label: 'A simple example',            key: 'simpleExample'       },
   { id: 'rate-guarantee',      label: 'Guaranteed rate details',     key: 'rateGuarantee'       },
   { id: 'crediting-strategies',label: 'Choose your growth approach', key: 'creditingStrategies' },
   { id: 'key-terms',           label: 'Key terms and specifications', key: 'keyTerms'            },
@@ -225,7 +229,7 @@ export default function ProductDetailPage({ product }) {
   const navSections = ALL_NAV_SECTIONS.filter(s => !!product[s.key])
 
   const [activeTab, setActiveTab]         = useState(0)
-  const [activeSection, setActiveSection] = useState('contract-provides')
+  const [activeSection, setActiveSection] = useState(navSections[0]?.id || 'contract-provides')
 
   useEffect(() => {
     const ids = navSections.map(s => s.id)
@@ -247,7 +251,7 @@ export default function ProductDetailPage({ product }) {
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const { stats, contractProvides, rateGuarantee, creditingStrategies, keyTerms, surrenderSchedule, riders, surrenderOptions, incomeOptions, cta } = product
+  const { stats, contractProvides, currentRates, lockSplit, howItWorks, simpleExample, rateGuarantee, creditingStrategies, keyTerms, surrenderSchedule, riders, surrenderOptions, incomeOptions, cta } = product
 
   return (
     <main>
@@ -257,10 +261,12 @@ export default function ProductDetailPage({ product }) {
         image={product.image}
         imgFocus={product.imgFocus}
         badge={product.categoryShort || product.category}
-        title={product.name}
-        subtitle={product.tagline}
+        title={product.heroTitle || product.name}
+        subtitle={product.heroSubtitle || product.tagline}
         ctaPrimary={product.heroCtaLabel || 'Explore Strategies'}
-        onPrimary={() => scrollTo('crediting-strategies')}
+        onPrimary={() => scrollTo(product.heroPrimaryId || 'crediting-strategies')}
+        ctaSecondary={product.heroCtaSecondary}
+        onSecondary={() => { if (product.heroSecondaryHash) window.location.hash = product.heroSecondaryHash }}
       />
 
       {/* ── Stats bar ─────────────────────────────────────────────────── */}
@@ -297,6 +303,16 @@ export default function ProductDetailPage({ product }) {
 
             <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 72 }}>
 
+              {currentRates && (
+                <section id="pdt-current-rates" style={{ scrollMarginTop: 160 }}>
+                  <SectionHead eyebrow={currentRates.eyebrow} heading={currentRates.heading} sub={currentRates.sub} />
+                  <div style={{ ...S.card, background: 'var(--ov-navy-1000)', border: 'none', padding: '28px 32px' }}>
+                    <div style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(40px,5vw,64px)', color: '#70BABF', letterSpacing: '-0.03em', lineHeight: 1 }}>{currentRates.rate}</div>
+                    <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: 'rgba(242,252,255,.75)', margin: '12px 0 0' }}>{currentRates.detail}</p>
+                  </div>
+                </section>
+              )}
+
               {/* 1 — What your contract provides */}
               <section id="pdt-contract-provides" style={{ scrollMarginTop: 160 }}>
                 <SectionHead {...contractProvides} />
@@ -310,6 +326,48 @@ export default function ProductDetailPage({ product }) {
                 </div>
                 {contractProvides.download && <DownloadRow {...contractProvides.download} />}
               </section>
+
+              {lockSplit && (
+                <section id="pdt-what-locks" style={{ scrollMarginTop: 160 }}>
+                  <SectionHead eyebrow={lockSplit.eyebrow} heading={lockSplit.heading} sub={lockSplit.sub} />
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }} className="lpl-pillars-grid">
+                    {[lockSplit.guaranteed, lockSplit.notGuaranteed].map(col => (
+                      <div key={col.title} style={{ ...S.card, padding: '24px 28px' }}>
+                        <div style={{ ...S.itemTitle, marginBottom: 8 }}>{col.title}</div>
+                        <p style={S.itemBody}>{col.body}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {howItWorks && (
+                <section id="pdt-how-it-works" style={{ scrollMarginTop: 160 }}>
+                  <SectionHead eyebrow={howItWorks.eyebrow} heading={howItWorks.heading} sub={howItWorks.sub} />
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                    {howItWorks.steps.map((step, i) => (
+                      <div key={step} style={{ ...S.card, padding: '16px 20px', display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+                        <span style={{ fontFamily: 'var(--ov-ff-display)', fontSize: 20, color: '#2494C1', lineHeight: 1.2 }}>{i + 1}</span>
+                        <p style={{ ...S.itemBody, margin: 0 }}>{step}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {simpleExample && (
+                <section id="pdt-simple-example" style={{ scrollMarginTop: 160 }}>
+                  <SectionHead eyebrow={simpleExample.eyebrow} heading={simpleExample.heading} sub={simpleExample.sub} />
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }} className="lpl-pillars-grid">
+                    {simpleExample.scenarios.map(s => (
+                      <div key={s.title} style={{ ...S.card, padding: '20px 22px' }}>
+                        <div style={{ ...S.itemTitle, marginBottom: 8 }}>{s.title}</div>
+                        <p style={S.itemBody}>{s.body}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
 
               {/* 2 — Guaranteed rate (MYGAs) */}
               {rateGuarantee && (

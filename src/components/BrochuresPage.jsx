@@ -243,15 +243,26 @@ export default function BrochuresPage() {
       </section>
       </div>
 
-      {[['specs', SPEC_ROWS], ['packs', APP_PACK_ROWS]].map(([id, rows]) => (
-        <div key={id} role="tabpanel" id={`brochures-panel-${id}`} hidden={tab !== id}>
-          <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
-            <div className="ov-container" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {rows.map(row => <DocRow key={row.title} {...row} />)}
+      <div role="tabpanel" id="brochures-panel-specs" hidden={tab !== 'specs'}>
+        <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
+          <div className="ov-container" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <p style={{ ...S.lede, color: '#0D1F4E', background: '#fff', border: '1px solid rgba(13,31,78,.09)', borderRadius: 10, padding: '14px 18px' }}>
+              Topsider FIA and Current Rate Fixed Annuity have brochures and no product spec sheet in this library. Confirm with the client whether those files exist before adding rows.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {SPEC_ROWS.map(row => <DocRow key={row.title} {...row} />)}
             </div>
-          </section>
-        </div>
-      ))}
+          </div>
+        </section>
+      </div>
+
+      <div role="tabpanel" id="brochures-panel-packs" hidden={tab !== 'packs'}>
+        <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
+          <div className="ov-container" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {APP_PACK_ROWS.map(row => <DocRow key={row.title} {...row} />)}
+          </div>
+        </section>
+      </div>
 
       <div role="tabpanel" id="brochures-panel-other" hidden={tab !== 'other'}>
         <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">

@@ -4,9 +4,52 @@ const PRODUCT = {
   category: "Fixed Indexed Annuity",
   categoryShort: "CapLock™ FIA",
   name: "Oceanview CapLock™ Fixed Indexed Annuity",
+  heroTitle: "Your cap. Your term. Locked.",
+  heroSubtitle: "CapLock removes the uncertainty of changing caps by guaranteeing your declared cap rate for the entire surrender charge period.",
   tagline: "Your cap. Your term. Locked. CapLock removes the uncertainty of changing caps by guaranteeing your declared cap rate for the entire surrender charge period.",
   image: "assets/lighthouse.jpg",
-  heroCtaLabel: "View Strategies",
+  heroCtaLabel: "View Current Rates",
+  heroPrimaryId: "current-rates",
+  heroCtaSecondary: "Download Brochure",
+  heroSecondaryHash: "brochures",
+
+  currentRates: {
+    eyebrow: "Current rates",
+    heading: "Current CapLock FIA Rates",
+    sub: "Declared cap for the S&P 500 Cap Rate Guarantee strategy. Replace X.XX% and the effective date from the live rate sheet.",
+    rate: "X.XX%",
+    detail: "S&P 500 cap · 5-year and 7-year · Effective date to be confirmed",
+  },
+
+  lockSplit: {
+    eyebrow: "What CapLock locks",
+    heading: "Guaranteed vs not guaranteed",
+    guaranteed: { title: "Guaranteed — the cap", body: "The cap rate on a Cap Rate Guarantee strategy is declared once at issue and does not reset each year during the surrender charge period." },
+    notGuaranteed: { title: "Not guaranteed — the outcome", body: "Index performance is not guaranteed. Indexed interest can be zero in a down or flat year. The cap limits the credit. It does not promise a credit." },
+  },
+
+  howItWorks: {
+    eyebrow: "How CapLock works",
+    heading: "Five steps",
+    steps: [
+      "Choose a 5- or 7-year term and allocate your premium.",
+      "Select a Cap Rate Guarantee strategy, another crediting strategy, or the fixed account.",
+      "Each year, index change is measured on that strategy’s method.",
+      "Interest is credited up to the locked cap. A negative index year credits zero.",
+      "At the end of the surrender period, Guaranteed Cap funds move to non-guaranteed strategies at then-current rates.",
+    ],
+  },
+
+  simpleExample: {
+    eyebrow: "Illustration",
+    heading: "A simple example",
+    sub: "Shown with a 9% cap. This is not a projection and not the current rate.",
+    scenarios: [
+      { title: "Index +5%", body: "Credit 5%. The gain is under the cap." },
+      { title: "Index +14%", body: "Credit 9%. The gain stops at the cap." },
+      { title: "Index flat or down", body: "Credit 0%. The floor is zero." },
+    ],
+  },
 
   stats: [
     { value: "$20K",          label: "Min. Premium",        sectionId: 'key-terms'           },
