@@ -209,8 +209,8 @@ export default function RenewalRatesPage() {
             }}
           >
             <img
-              src={assetUrl('assets/harbourview-fia-hero.jpg')}
-              alt="Harbourview fixed index annuity"
+              src={assetUrl('assets/harbourview-myga-hero.jpg')}
+              alt="Couple preparing a meal together in the kitchen"
               style={{
                 width: '100%',
                 minHeight: 280,
