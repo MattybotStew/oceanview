@@ -16,9 +16,20 @@ const PRODUCT = {
   currentRates: {
     eyebrow: "Current rates",
     heading: "Current CapLock FIA Rates",
-    sub: "Declared cap for the S&P 500 Cap Rate Guarantee strategy. Replace X.XX% and the effective date from the live rate sheet.",
+    sub: "Declared cap for the S&P 500 Cap Rate Guarantee strategy. Both terms show the same placeholder until the live rate sheet is wired.",
+    terms: ["5-Year", "7-Year"],
     rate: "X.XX%",
-    detail: "S&P 500 cap · 5-year and 7-year · Effective date to be confirmed",
+    detail: "S&P 500 Cap Rate Guarantee · placeholder, not a live rate",
+    effectiveDate: "REPLACE FROM LIVE RATE SHEET — Effective date: Month DD, YYYY",
+  },
+
+  whatIs: {
+    eyebrow: "Product overview",
+    heading: "What is CapLock FIA?",
+    paragraphs: [
+      "Oceanview CapLock is a fixed indexed annuity. You choose a 5-year or 7-year surrender charge period and allocate premium among index strategies and a fixed account.",
+      "On a Cap Rate Guarantee strategy, the cap is declared once at issue and stays in place for that surrender charge period. Index-linked interest, if any, is credited up to that cap. A down or flat index year credits zero. Your premium is protected from market loss; the cap does not promise a credit.",
+    ],
   },
 
   lockSplit: {
@@ -48,6 +59,46 @@ const PRODUCT = {
       { title: "Index +5%", body: "Credit 5%. The gain is under the cap." },
       { title: "Index +14%", body: "Credit 9%. The gain stops at the cap." },
       { title: "Index flat or down", body: "Credit 0%. The floor is zero." },
+    ],
+  },
+
+  whyGuaranteedCap: {
+    eyebrow: "Why it exists",
+    heading: "Why a guaranteed cap matters",
+    sub: "On many indexed strategies the cap can be declared again each year. CapLock’s Cap Rate Guarantee strategies do not reset the cap during the surrender charge period.",
+    worthExploring: {
+      heading: "When CapLock may be worth exploring",
+      intro: "You may value…",
+      bullets: [
+        "Knowing the cap on a Cap Rate Guarantee strategy for the full 5- or 7-year surrender charge period.",
+        "Principal protection with a zero floor when the index is flat or down.",
+        "A choice of S&P 500, Nasdaq-100, and Russell 2000 Cap Rate Guarantee strategies, plus other strategies and a fixed account.",
+        "Penalty-free access of up to 10% of contract value each year after year one, and a death benefit equal to account value.",
+      ],
+    },
+  },
+
+  capDistinction: {
+    complianceLabel: "Important distinction",
+    heading: "The cap is guaranteed. Indexed interest is not.",
+    body: "Guaranteeing the cap means the limit on how much index-linked interest can be credited does not change during the surrender charge period. It does not mean interest will be credited, and it does not mean the index will rise.",
+    protection: {
+      title: "Protection",
+      body: "Negative index performance does not reduce contract premium. The interest floor on these strategies is zero.",
+    },
+    tradeoff: {
+      title: "Tradeoff",
+      body: "Gains above the cap are not credited. In a year the index does not rise enough, indexed interest can be zero even though the cap itself is locked.",
+    },
+  },
+
+  allocationWarning: {
+    eyebrow: "Allocation warning",
+    heading: "You cannot move back into a Cap Rate Guarantee strategy",
+    body: "Cap Rate Guarantee funds are available only at application. Once you have moved out of a Cap Rate Guarantee strategy, you cannot move back into it. The same limit is listed under key terms. This callout is the decision point before that row.",
+    questions: [
+      "Consider: can you leave the allocation in place for the surrender charge period?",
+      "Consider: are you comfortable that indexed interest can be zero?",
     ],
   },
 

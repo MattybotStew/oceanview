@@ -3,6 +3,13 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 
+## 2026-09-30 — Grok (CapLock missing sections)
+
+- Optional `ProductDetailPage` fields: `whatIs`, `whyGuaranteedCap`, `capDistinction`, `allocationWarning`. Current rates can take a 5-Year / 7-Year toggle and an effective-date line. CapLock uses them; other products omit the fields. Key-terms allocation row stays. Strategy row white background left as-is.
+- Copy is structural (no live rates). Figma note beside the CapLock mockup: https://www.figma.com/design/fe7PYQtVJ2pNZ1VR6lznWz/2026-Oceanview-Design?node-id=9019-4565
+- Nodes 9018:32 and 9018:142 were not in the file. The live mockup on “new pages” is `capsLock` (9015:9645).
+
+
 ## 2026-09-30 — Grok (CapLock page code)
 
 - `#caplock` keeps the product-page shell. New optional body blocks on `ProductDetailPage`: current rates, guaranteed vs not, five steps, 9% example. Surrender, riders, income, and end of term stay. Other products are unchanged until they pass those fields.

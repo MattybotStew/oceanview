@@ -71,7 +71,7 @@ function StrategyRow({ name, term, last }) {
   }
   const tc = termColors[term] || { bg: 'rgba(13,31,78,.06)', color: '#4A5568' }
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: last ? 'none' : '1px solid rgba(13,31,78,.07)', gap: 16 }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', background: '#fff', borderBottom: last ? 'none' : '1px solid rgba(13,31,78,.07)', gap: 16 }}>
       <span style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 14, color: '#0D1F4E' }}>{name}</span>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
         <span style={{ background: tc.bg, color: tc.color, borderRadius: 200, padding: '4px 12px', fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.02em', whiteSpace: 'nowrap' }}>{term}</span>
@@ -140,6 +140,53 @@ function DownloadRow({ title, sub }) {
 }
 
 // ── Rate Guarantee (MYGA) ─────────────────────────────────────────────────────
+function CurrentRatesBlock({ currentRates }) {
+  const terms = currentRates.terms || []
+  const [term, setTerm] = useState(terms[0] || '')
+  const rate = (currentRates.ratesByTerm && currentRates.ratesByTerm[term]) || currentRates.rate
+  return (
+    <>
+      <SectionHead eyebrow={currentRates.eyebrow} heading={currentRates.heading} sub={currentRates.sub} />
+      {terms.length > 0 && (
+        <div role="tablist" aria-label="Surrender term" style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+          {terms.map(t => {
+            const on = t === term
+            return (
+              <button
+                key={t}
+                type="button"
+                role="tab"
+                aria-selected={on}
+                onClick={() => setTerm(t)}
+                style={{
+                  border: `1.5px solid ${on ? '#2494C1' : 'rgba(13,31,78,.15)'}`,
+                  background: on ? '#2494C1' : '#fff',
+                  color: on ? '#fff' : '#0D1F4E',
+                  borderRadius: 200,
+                  padding: '8px 18px',
+                  fontFamily: 'var(--ov-ff-sans)',
+                  fontWeight: 600,
+                  fontSize: 13,
+                  cursor: 'pointer',
+                }}
+              >{t}</button>
+            )
+          })}
+        </div>
+      )}
+      <div style={{ ...S.card, background: 'var(--ov-navy-1000)', border: 'none', padding: '28px 32px' }}>
+        <div style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(40px,5vw,64px)', color: '#70BABF', letterSpacing: '-0.03em', lineHeight: 1 }}>{rate}</div>
+        <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: 'rgba(242,252,255,.75)', margin: '12px 0 0' }}>{currentRates.detail}</p>
+        {currentRates.effectiveDate && (
+          <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13, fontWeight: 600, color: '#E1C43B', margin: '16px 0 0', letterSpacing: '.01em' }}>
+            {currentRates.effectiveDate}
+          </p>
+        )}
+      </div>
+    </>
+  )
+}
+
 function RateGuaranteeSection({ rateGuarantee }) {
   return (
     <>
@@ -173,10 +220,14 @@ function RateGuaranteeSection({ rateGuarantee }) {
 // ── Sidebar ───────────────────────────────────────────────────────────────────
 const ALL_NAV_SECTIONS = [
   { id: 'current-rates',       label: 'Current rates',               key: 'currentRates'        },
+  { id: 'what-is',             label: 'What is CapLock FIA',         key: 'whatIs'              },
   { id: 'contract-provides',   label: 'What your contract provides', key: 'contractProvides'    },
   { id: 'what-locks',          label: 'What is locked',              key: 'lockSplit'           },
   { id: 'how-it-works',        label: 'How it works',                key: 'howItWorks'          },
   { id: 'simple-example',      label: 'A simple example',            key: 'simpleExample'       },
+  { id: 'why-guaranteed-cap',  label: 'Why a guaranteed cap matters', key: 'whyGuaranteedCap'   },
+  { id: 'cap-vs-interest',     label: 'Cap vs indexed interest',     key: 'capDistinction'      },
+  { id: 'allocation-warning',  label: 'Allocation warning',          key: 'allocationWarning'   },
   { id: 'rate-guarantee',      label: 'Guaranteed rate details',     key: 'rateGuarantee'       },
   { id: 'crediting-strategies',label: 'Choose your growth approach', key: 'creditingStrategies' },
   { id: 'key-terms',           label: 'Key terms and specifications', key: 'keyTerms'            },
@@ -251,7 +302,7 @@ export default function ProductDetailPage({ product }) {
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const { stats, contractProvides, currentRates, lockSplit, howItWorks, simpleExample, rateGuarantee, creditingStrategies, keyTerms, surrenderSchedule, riders, surrenderOptions, incomeOptions, cta } = product
+  const { stats, contractProvides, currentRates, whatIs, lockSplit, howItWorks, simpleExample, whyGuaranteedCap, capDistinction, allocationWarning, rateGuarantee, creditingStrategies, keyTerms, surrenderSchedule, riders, surrenderOptions, incomeOptions, cta } = product
 
   return (
     <main>
@@ -305,10 +356,17 @@ export default function ProductDetailPage({ product }) {
 
               {currentRates && (
                 <section id="pdt-current-rates" style={{ scrollMarginTop: 160 }}>
-                  <SectionHead eyebrow={currentRates.eyebrow} heading={currentRates.heading} sub={currentRates.sub} />
-                  <div style={{ ...S.card, background: 'var(--ov-navy-1000)', border: 'none', padding: '28px 32px' }}>
-                    <div style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(40px,5vw,64px)', color: '#70BABF', letterSpacing: '-0.03em', lineHeight: 1 }}>{currentRates.rate}</div>
-                    <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: 'rgba(242,252,255,.75)', margin: '12px 0 0' }}>{currentRates.detail}</p>
+                  <CurrentRatesBlock currentRates={currentRates} />
+                </section>
+              )}
+
+              {whatIs && (
+                <section id="pdt-what-is" style={{ scrollMarginTop: 160 }}>
+                  <SectionHead eyebrow={whatIs.eyebrow} heading={whatIs.heading} sub={whatIs.sub} />
+                  <div style={{ ...S.card, padding: '8px 28px 16px' }}>
+                    {whatIs.paragraphs.map((p, i) => (
+                      <p key={i} style={{ ...S.itemBody, margin: '14px 0' }}>{p}</p>
+                    ))}
                   </div>
                 </section>
               )}
@@ -369,6 +427,62 @@ export default function ProductDetailPage({ product }) {
                 </section>
               )}
 
+              {whyGuaranteedCap && (
+                <section id="pdt-why-guaranteed-cap" style={{ scrollMarginTop: 160 }}>
+                  <SectionHead eyebrow={whyGuaranteedCap.eyebrow} heading={whyGuaranteedCap.heading} sub={whyGuaranteedCap.sub} />
+                  {whyGuaranteedCap.worthExploring && (
+                    <div style={{ ...S.card, padding: '24px 28px' }}>
+                      <div style={{ ...S.itemTitle, marginBottom: 6 }}>{whyGuaranteedCap.worthExploring.heading}</div>
+                      {whyGuaranteedCap.worthExploring.intro && (
+                        <p style={{ ...S.itemBody, margin: '0 0 8px' }}>{whyGuaranteedCap.worthExploring.intro}</p>
+                      )}
+                      {whyGuaranteedCap.worthExploring.bullets.map((b, i) => (
+                        <CheckItem key={b} body={b} first={i === 0} />
+                      ))}
+                    </div>
+                  )}
+                </section>
+              )}
+
+              {capDistinction && (
+                <section id="pdt-cap-vs-interest" style={{ scrollMarginTop: 160 }}>
+                  <div style={{ border: '2px solid #8B6F00', borderRadius: 12, background: '#FFF8E6', padding: '28px 28px 8px' }}>
+                    <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 700, fontSize: 11, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#8B6F00', marginBottom: 10 }}>
+                      {capDistinction.complianceLabel || 'Important distinction'}
+                    </div>
+                    <h2 style={{ ...S.sectionH2, marginBottom: 12 }}>{capDistinction.heading}</h2>
+                    <p style={{ ...S.itemBody, color: '#0D1F4E', margin: '0 0 20px' }}>{capDistinction.body}</p>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 20 }} className="lpl-pillars-grid">
+                      {[capDistinction.protection, capDistinction.tradeoff].map(col => (
+                        <div key={col.title} style={{ background: '#fff', border: '1px solid rgba(139,111,0,.35)', borderRadius: 10, padding: '18px 20px' }}>
+                          <div style={{ ...S.itemTitle, marginBottom: 8 }}>{col.title}</div>
+                          <p style={S.itemBody}>{col.body}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </section>
+              )}
+
+              {allocationWarning && (
+                <section id="pdt-allocation-warning" style={{ scrollMarginTop: 160 }}>
+                  <div style={{ borderLeft: '4px solid #B45309', background: '#FFF7ED', borderRadius: 12, padding: '24px 28px', border: '1px solid rgba(180,83,9,.35)', borderLeftWidth: 4 }}>
+                    <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 700, fontSize: 11, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#B45309', marginBottom: 8 }}>
+                      {allocationWarning.eyebrow || 'Allocation warning'}
+                    </div>
+                    <h2 style={{ ...S.sectionH2, fontSize: 'clamp(20px,2vw,26px)' }}>{allocationWarning.heading}</h2>
+                    <p style={{ ...S.itemBody, color: '#0D1F4E', margin: '12px 0 0' }}>{allocationWarning.body}</p>
+                    {allocationWarning.questions && (
+                      <ul style={{ margin: '16px 0 0', paddingLeft: 18 }}>
+                        {allocationWarning.questions.map(q => (
+                          <li key={q} style={{ ...S.itemBody, color: '#0D1F4E', marginBottom: 8 }}>{q}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </section>
+              )}
+
               {/* 2 — Guaranteed rate (MYGAs) */}
               {rateGuarantee && (
                 <section id="pdt-rate-guarantee" style={{ scrollMarginTop: 160 }}>
@@ -396,7 +510,7 @@ export default function ProductDetailPage({ product }) {
                     >{tab.label}</button>
                   ))}
                 </div>
-                <div style={{ border: '1px solid rgba(13,31,78,.09)', borderTop: 'none', borderRadius: '0 0 10px 10px', overflow: 'hidden' }}>
+                <div style={{ background: '#fff', border: '1px solid rgba(13,31,78,.09)', borderTop: 'none', borderRadius: '0 0 10px 10px', overflow: 'hidden' }}>
                   {creditingStrategies.tabs[activeTab].strategies.map((s, i) => (
                     <StrategyRow key={s.name} {...s} last={i === creditingStrategies.tabs[activeTab].strategies.length - 1} />
                   ))}
