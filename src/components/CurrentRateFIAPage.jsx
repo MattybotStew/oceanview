@@ -13,6 +13,11 @@ const PRODUCT = {
   heroCtaSecondary: "Download Product Brochure",
   heroSecondaryHash: "brochures",
 
+  insertAfter: {
+    howItWorks: ["rateGuarantee"],
+    keyTerms: ["simpleExample"],
+  },
+
   navLabels: {
     currentRates: "Current CurrentRate MYGA Rate",
     contractProvides: "Why Consider CurrentRate MYGA?",
@@ -24,7 +29,6 @@ const PRODUCT = {
     allocationWarning: "You Don’t Have to Predict Where Rates Are Going",
     simpleExample: "CurrentRate MYGA or Harbourview MYGA?",
     keyTerms: "CurrentRate MYGA At a Glance",
-    riders: "Riders / Waivers",
     surrenderOptions: "What Happens After Five Years?",
     incomeOptions: "Accessing Your Money",
   },
@@ -199,18 +203,9 @@ const PRODUCT = {
       { label: "Free Withdrawals", value: "After first contract year, up to 10% of prior contract anniversary value annually" },
       { label: "Market Value Adjustment", value: "Applies where applicable to withdrawals subject to surrender charges; not applicable in California" },
       { label: "Riders / Waivers", value: "No nursing home or terminal illness riders" },
-      { label: "Death Benefit", value: "If the owner dies before annuity payments begin, the named beneficiary or beneficiaries receive the applicable death benefit. The death benefit is the greater of contract value without surrender charges, or Minimum Surrender Value. The death benefit is not subject to a surrender charge. Taxes may apply." },
+      { label: "Death Benefit", value: "Greater of contract value without surrender charges or Minimum Surrender Value, subject to contract terms" },
     ],
     download: { title: "Product Disclosure", sub: "Forms & documents and state availability" },
-  },
-
-  riders: {
-    eyebrow: "Riders / Waivers",
-    heading: "Riders / Waivers",
-    sub: "CurrentRate MYGA does not include the waiver riders offered on some other Oceanview contracts.",
-    items: [
-      { title: "No nursing home or terminal illness riders", body: "No nursing home or terminal illness riders." },
-    ],
   },
 
   surrenderOptions: {
@@ -236,6 +231,7 @@ const PRODUCT = {
       { title: "Surrender Charges", body: "CurrentRate is designed as a long-term retirement product. If you surrender the contract or withdraw more than the available free-withdrawal amount during the surrender-charge period, a surrender charge may apply. The amount received upon a full surrender is the contract’s Cash Surrender Value as determined according to the contract." },
       { title: "What is an MVA?", body: "For applicable contracts, a Market Value Adjustment may apply during the surrender-charge period when the contract is surrendered or a withdrawal exceeds the available free-withdrawal amount. An MVA can increase or decrease the surrender value depending on changes in market interest rates and the formula described in the contract. The MVA does not apply upon death, annuitization or after the surrender-charge period. MVA provisions do not apply in California." },
       { title: "Required Minimum Distributions", body: "For contracts funded with tax-qualified money, Required Minimum Distributions taken after the first contract year are not subject to surrender charges, subject to contract terms." },
+      { title: "Death Benefit", body: "If the owner dies before annuity payments begin, the named beneficiary or beneficiaries receive the applicable death benefit. The death benefit is the greater of contract value without surrender charges, or Minimum Surrender Value. The death benefit is not subject to a surrender charge. Taxes may apply." },
     ],
     disclaimer: "Important Information. This material is intended for general educational purposes and does not provide individualized investment, tax or legal advice or recommend the purchase or replacement of any financial product. CurrentRate® MYGA is a five-year single premium deferred annuity designed for long-term retirement purposes. Product features, rates, guarantees, limitations, surrender provisions, form numbers and availability may vary by state. The first-contract-year interest rate is declared at issue and guaranteed for that contract year. Beginning in the second contract year, the credited interest rate is determined annually using the methodology defined in the contract, including a market-based component tied to the 1-Year U.S. Treasury Rate plus a guaranteed spread. Credited rates after the first contract year may increase or decrease and are not guaranteed to increase. They may be lower than the first-year declared rate. The credited rate will not be less than the guaranteed minimum interest rate specified in the contract. The interest-crediting methodology does not guarantee that credited rates will track, match or move in direct proportion to changes in interest rates. Refer to the contract for complete interest-crediting provisions. Guarantees are subject to the claims-paying ability of Oceanview Life and Annuity Company. Withdrawals in excess of applicable free-withdrawal amounts may be subject to surrender charges and a Market Value Adjustment. An MVA may increase or decrease the amount received depending on market interest-rate changes and the contract formula. MVA provisions do not apply in California. Withdrawals reduce contract value and may have tax consequences. Taxable distributions may be subject to ordinary income tax. Certain taxable distributions before age 59½ may also be subject to an additional federal tax unless an exception applies. Annuities purchased within an IRA or another tax-qualified retirement arrangement do not provide additional tax deferral because the underlying account is already tax-deferred. Other contractual guarantees and insurance features should be evaluated independently. Oceanview Life and Annuity Company and its representatives do not provide tax or legal advice. Consult qualified tax and legal professionals regarding your individual circumstances. CurrentRate is not available in New York or Vermont. Annuities are products of the insurance industry. They are not guaranteed by a bank or credit union, are not insured by the FDIC, NCUA/NCUSIF or any other federal government agency, are not deposits and may lose value. CurrentRate fixed annuity contracts, including form ICC26 OLA SPDA – CurrentRate or state variations, are issued by Oceanview Life and Annuity Company, 1331 17th Street, Suite 1050, Denver, CO 80202. In California, Oceanview does business as Oceanview Life and Annuity Insurance Company.",
   },
@@ -279,10 +275,17 @@ const PRODUCT = {
       eyebrow: "For Financial Professionals",
       heading: "CurrentRate MYGA Resources",
       sub: "Access materials to support product evaluation and the client conversation.",
-      items: [
-        { title: "Current Rate Information", body: "Product Brochure, Product Disclosure, Forms & Documents, and State Availability." },
-        { title: "Compare CurrentRate & Harbourview", body: "Client Conversation Tools and CurrentRate Training." },
-        { title: "Discuss a Case With Sales", body: "Agent Portal." },
+      links: [
+        { label: "Current Rate Information", hash: "client-resources?tab=rates" },
+        { label: "Product Brochure", hash: "brochures" },
+        { label: "Product Disclosure", hash: "downloads" },
+        { label: "Forms & Documents", hash: "brochures" },
+        { label: "State Availability", hash: "state-approval" },
+        { label: "Compare CurrentRate & Harbourview", hash: "client-resources?tab=comparisons" },
+        { label: "Client Conversation Tools", hash: "downloads" },
+        { label: "CurrentRate Training", hash: "downloads" },
+        { label: "Discuss a Case With Sales", hash: "contact" },
+        { label: "Agent Portal", hash: "agent-portal" },
       ],
     },
   ],

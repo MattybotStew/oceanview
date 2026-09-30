@@ -64,7 +64,7 @@ const S = {
   },
 }
 
-export default function CTABanner({ eyebrow, title, titleAccent, body, cta = 'Get Started', onClick }) {
+export default function CTABanner({ eyebrow, title, titleAccent, body, cta = 'Get Started', onClick, secondary }) {
   return (
     <div style={S.wrap}>
       <div style={S.left}>
@@ -80,7 +80,10 @@ export default function CTABanner({ eyebrow, title, titleAccent, body, cta = 'Ge
         </h2>
         {body && <p style={S.body}>{body}</p>}
       </div>
-      <PillMint hero onClick={onClick} style={{ flexShrink: 0 }}>{cta}</PillMint>
+      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center', flexShrink: 0 }}>
+        <PillMint hero onClick={onClick}>{cta}</PillMint>
+        {secondary}
+      </div>
     </div>
   )
 }

@@ -63,6 +63,7 @@ import RussellStrategyPage from './RussellStrategyPage.jsx'
 import NasdaqStrategyPage from './NasdaqStrategyPage.jsx'
 import BrochuresPage from './BrochuresPage.jsx'
 import AlzheimersAwarenessPage from './AlzheimersAwarenessPage.jsx'
+import RenewalRatesPage from './RenewalRatesPage.jsx'
 import HomeV2Page from './HomeV2Page.jsx'
 
 const STUB_ROUTES = {
@@ -93,6 +94,7 @@ const ROUTE_TO_NAV = {
   "national-senior-games": "",
   "protection-for-whats-next": "",
   "alzheimers-awareness": "",
+  "renewal-rates": "",
   "home-v2": "",
   "home-legacy": "",
 };
@@ -109,6 +111,7 @@ const PAGE_ROUTES = new Set([
   "contact", "lpl-landing", "cetera-landing", "national-senior-games",
   "protection-for-whats-next",
   "alzheimers-awareness",
+  "renewal-rates",
   "home-v2", "home-legacy",
   "disclaimers", "privacy", "terms", "accessibility", "agent-portal", "design", "nav-dropdowns", "product-tab-examples", "products-filter-test",
   // product pages — canonical routes
@@ -187,6 +190,7 @@ export default function Page() {
       "national-senior-games": "Oceanview Life | Proud Sponsor of the National Senior Games Association",
       "protection-for-whats-next": "Protection for What's Next | Oceanview Life",
       "alzheimers-awareness": "Financial Planning for Alzheimer's & Dementia | Oceanview",
+      "renewal-rates": "Harbourview FIA Renewal Rates | Oceanview Life",
       "design": "Design System — Oceanview",
       "nav-dropdowns": "Nav Dropdowns Showcase — Oceanview",
       "product-tab-examples": "Product Tabs — Oceanview",
@@ -219,6 +223,7 @@ export default function Page() {
       "national-senior-games": "Oceanview Life and Annuity Company is proud to sponsor the National Senior Games Association and celebrate active aging, community, competition and the long game in life and retirement.",
       "protection-for-whats-next": "Use Oceanview's Retirement Protection Conversation Guide and client Checkup to ask better questions, uncover retirement priorities and identify where a deeper conversation may help.",
       "alzheimers-awareness": "Learn practical steps to plan for Alzheimer's and dementia, from legal documents and care costs to financial safeguards, retirement resources and next steps.",
+      "renewal-rates": "Explore Oceanview’s historical Harbourview FIA renewal cap-rate experience, how renewal rates are reviewed, and what financial professionals should consider beyond the initial rate.",
       "design": "Oceanview Design System and WPBakery how-to — tokens, components, and docs/wpbakery classes for the WordPress build-out.",
       "nav-dropdowns": "All desktop header mega-menus open and stacked for design review — About, Products, Client Resources, Insights.",
       "product-tab-examples": "Five product-first sticky tab ideas for the Products page — full titles, identical catalog under each option.",
@@ -312,6 +317,7 @@ export default function Page() {
       case "national-senior-games": return <NationalSeniorGamesPage />;
       case "protection-for-whats-next": return <ProtectionForWhatsNextPage />;
       case "alzheimers-awareness": return <AlzheimersAwarenessPage />;
+      case "renewal-rates": return <RenewalRatesPage />;
       case "home":
       case "home-v2":            return <HomeV2Page goto={goto} />;
       case "home-legacy":        return <HomePage goto={goto} />;

@@ -210,7 +210,14 @@ const PRODUCT = {
       { year: 9,  charges: [null,  null,  null,  "2%"]  },
       { year: 10, charges: [null,  null,  null,  "1%"]  },
     ],
-    footnote: "A Market Value Adjustment may apply to withdrawals that are subject to surrender charges. The MVA can increase or decrease the surrender value of an applicable withdrawal depending on changes in market interest rates and the formula described in the contract. The MVA does not apply in California.",
+    footnote: "Surrender-charge percentages may vary by state.",
+    mva: {
+      heading: "What is an MVA?",
+      body: "A Market Value Adjustment may apply to withdrawals that are subject to surrender charges. The MVA can increase or decrease the surrender value of an applicable withdrawal depending on changes in market interest rates and the formula described in the contract.",
+      note: "The MVA does not apply in California.",
+      linkLabel: "Learn More About Market Value Adjustments",
+      hash: "client-resources?tab=glossary",
+    },
   },
 
   riders: {
@@ -233,6 +240,7 @@ const PRODUCT = {
       { title: "Harbourview FIA — Broader Strategy Choice", body: "A broader menu of indexes and interest-crediting approaches provides more ways to structure an allocation. May be worth considering when the priority is: “I want more choice in how the indexed portion of my money can earn interest.”" },
       { title: "CapLock FIA — Greater Predictability Around the Cap", body: "Selected Cap Rate Guarantee Strategies establish the applicable cap at issue and keep it unchanged for the full surrender-charge period. May be worth considering when the priority is: “I want to know an important crediting term from the start.”" },
     ],
+    link: { label: "Compare Harbourview & CapLock", hash: "caplock" },
   },
 
   incomeOptions: {
@@ -246,6 +254,61 @@ const PRODUCT = {
     ],
     disclaimer: "This material is intended for general educational purposes and does not provide individualized investment, tax or legal advice or recommend the purchase or replacement of any financial product. Harbourview Fixed Indexed Annuity is a single-premium deferred fixed indexed annuity designed for long-term retirement purposes. Product features, crediting strategies, rates, caps, participation rates, guarantees, surrender provisions, form numbers and availability may vary by state. Funds allocated to an index-linked strategy do not directly participate in or invest in the stock market or any index. Index performance does not include dividends that may be paid on securities comprising an index. Indexed interest depends on the performance of the selected index, applicable crediting strategy and contract terms and may be zero. Caps, participation rates and other crediting terms may limit the amount of indexed interest credited. Positive index performance does not guarantee that interest will be credited. Protection from negative index performance applies to the applicable indexed-interest calculation and should not be interpreted to mean that every withdrawal or surrender will return the full contract value. Withdrawals, surrender charges, a Market Value Adjustment and other contract provisions can affect the amount received. Certain caps, participation rates and other crediting terms may change according to the contract and are subject to applicable contractual minimums and maximums. Guarantees are subject to the claims-paying ability of Oceanview Life and Annuity Company. Withdrawals in excess of applicable free-withdrawal amounts may be subject to surrender charges and a Market Value Adjustment. An MVA may increase or decrease the amount received depending on market interest-rate changes and the contract formula. MVA provisions do not apply in California. The Terminal Illness and Nursing Home Confinement Waivers are subject to the eligibility requirements, definitions, timing provisions, documentation requirements and claim approval stated in the contract. Withdrawals reduce contract value and may affect future interest and other benefits. Taxable distributions may be subject to ordinary income tax. Certain taxable distributions before age 59½ may also be subject to an additional federal tax unless an exception applies. Annuities purchased within an IRA or another tax-qualified retirement arrangement do not provide additional tax deferral because the underlying account is already tax-deferred. Other contractual guarantees and insurance features should be evaluated independently. Oceanview Life and Annuity Company and its representatives do not provide tax or legal advice. Consult qualified tax and legal professionals regarding individual circumstances. Annuities are products of the insurance industry. They are not guaranteed by a bank or credit union, are not insured by the FDIC, NCUA/NCUSIF or any other federal government agency, are not deposits and may lose value. Harbourview Fixed Indexed Annuity contracts, including generic policy form ICC19 OLA FIA and state variations, are issued by Oceanview Life and Annuity Company, 1331 17th Street, Suite 1050, Denver, CO 80202. In California, Oceanview does business as Oceanview Life and Annuity Insurance Company.",
   },
+
+  sectionOrder: ["creditingStrategies", "rateGuarantee", "simpleExample"],
+
+  navLabels: {
+    creditingStrategies: "Crediting approaches",
+    rateGuarantee: "Choosing a strategy",
+    simpleExample: "Understand the cap",
+  },
+
+  tailBlocks: [
+    {
+      id: "understand-fias",
+      navLabel: "Want to Understand FIAs First?",
+      eyebrow: "Annuities, Explained",
+      heading: "Want to Understand FIAs First?",
+      sub: "Learn how FIAs use market indexes as part of an interest-crediting calculation, how caps and participation rates work, what protection means and what to understand before choosing a strategy.",
+      links: [
+        { label: "How Fixed Indexed Annuities Work", detail: "Learn How Fixed Indexed Annuities Work", hash: "fia-overview" },
+      ],
+    },
+    {
+      id: "retirement-situations",
+      navLabel: "Have a Retirement Situation in Mind?",
+      eyebrow: "Retirement Planning in Practice",
+      heading: "Have a Retirement Situation in Mind?",
+      cards: [
+        {
+          title: "“I want protection from market downturns. Do I have to give up growth potential?”",
+          body: "Explore the tradeoff between downside protection and continued interest-crediting potential—and the role an FIA may play in that conversation.",
+          cta: "Explore This Situation",
+          hash: "les-market-volatility",
+        },
+        {
+          title: "“I want certainty and growth potential. Do I have to choose one?”",
+          body: "Explore whether different portions of retirement savings may be able to serve different roles rather than requiring every dollar to do the same job.",
+          cta: "Explore This Situation",
+          hash: "retirement-risk",
+        },
+      ],
+    },
+    {
+      id: "fia-resources",
+      navLabel: "Harbourview FIA Resources",
+      eyebrow: "For Financial Professionals",
+      heading: "Harbourview FIA Resources",
+      sub: "Access materials to support product evaluation and the client conversation.",
+      links: [
+        { label: "Current Rate Sheet", detail: "Current caps, participation rates, and fixed rates", hash: "client-resources?tab=rates" },
+        { label: "Product Spec Sheet", detail: "Contract specifications and state availability", hash: "brochures" },
+        { label: "Client Brochure", detail: "Harbourview FIA product brochure", hash: "brochures" },
+        { label: "Crediting Strategy Materials", detail: "Strategy descriptions for the client conversation", hash: "client-resources?tab=downloads" },
+        { label: "Forms & Documents", detail: "Applications and forms", hash: "brochures" },
+      ],
+    },
+  ],
 
   cta: {
     heading: "Why Oceanview?",

@@ -2,11 +2,12 @@ import ProductDetailPage from './ProductDetailPage.jsx'
 
 const PRODUCT = {
   category: "Multi-Year Guaranteed Annuity",
-  categoryShort: "MYGA",
+  categoryShort: "Sky Harbourview MYGA",
   name: "Sky Harbourview Multi-Year Guaranteed Annuity",
-  heroTitle: "Sky Harbourview MYGA",
-  heroSubtitle: "Multi-year rate certainty through participating banks and credit unions.",
+  heroTitle: "Multi-year rate certainty through participating banks and credit unions.",
+  heroSubtitle: "Sky Harbourview Multi-Year Guaranteed Annuity provides a guaranteed interest rate for the guarantee period selected at issue—helping give a portion of retirement savings a more predictable accumulation path.",
   tagline: "Multi-year rate certainty through participating banks and credit unions.",
+  insertAfter: { howItWorks: ["riders"] },
   image: "assets/couple-walking.png",
   heroCtaLabel: "View Current Rates",
   heroPrimaryId: "current-rates",
@@ -269,8 +270,15 @@ const PRODUCT = {
       eyebrow: "For financial professionals",
       heading: "Sky Harbourview MYGA Resources",
       sub: "Access materials to support product evaluation and the client conversation.",
-      paragraphs: [
-        "Current Rate Sheet. Product Spec Sheet. Client Brochure. Forms & Documents. State Availability. Annuities, Explained. Client Conversation Tools. Contact Oceanview Sales.",
+      links: [
+        { label: "Current Rate Sheet", hash: "client-resources?tab=rates" },
+        { label: "Product Spec Sheet", hash: "brochures" },
+        { label: "Client Brochure", hash: "brochures" },
+        { label: "Forms & Documents", hash: "brochures" },
+        { label: "State Availability", hash: "state-approval" },
+        { label: "Annuities, Explained", hash: "insights" },
+        { label: "Client Conversation Tools", hash: "sales-tools" },
+        { label: "Contact Oceanview Sales", hash: "contact" },
       ],
     },
     {

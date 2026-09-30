@@ -187,6 +187,59 @@ function CurrentRatesBlock({ currentRates }) {
   )
 }
 
+function ExampleSection({ simpleExample }) {
+  return (
+    <section id="pdt-simple-example" style={{ scrollMarginTop: 160 }}>
+      <SectionHead eyebrow={simpleExample.eyebrow} heading={simpleExample.heading} sub={simpleExample.sub} />
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }} className="lpl-pillars-grid">
+        {simpleExample.scenarios.map(s => (
+          <div key={s.title} style={{ ...S.card, padding: '20px 22px' }}>
+            <div style={{ ...S.itemTitle, marginBottom: 8 }}>{s.title}</div>
+            <p style={S.itemBody}>{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function CreditingStrategiesBlock({ creditingStrategies, activeTab, setActiveTab }) {
+  return (
+    <>
+      <SectionHead {...creditingStrategies} />
+      <div className="pdt-strategy-tabs" style={{ display: 'flex', background: '#fff', border: '1px solid rgba(13,31,78,.09)', borderRadius: '10px 10px 0 0', overflow: 'hidden', marginBottom: 0 }}>
+        {creditingStrategies.tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            onClick={() => setActiveTab(i)}
+            style={{
+              flex: 1, padding: '14px 8px', border: 'none', borderBottom: `2px solid ${activeTab === i ? '#2494C1' : 'transparent'}`,
+              background: activeTab === i ? 'rgba(36,148,193,.05)' : 'none',
+              fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13,
+              color: activeTab === i ? '#2494C1' : '#6B7280', cursor: 'pointer',
+              transition: 'all .15s', whiteSpace: 'nowrap',
+            }}
+          >{tab.label}</button>
+        ))}
+      </div>
+      <div style={{ background: '#fff', border: '1px solid rgba(13,31,78,.09)', borderTop: 'none', borderRadius: '0 0 10px 10px', overflow: 'hidden' }}>
+        {creditingStrategies.tabs[activeTab].strategies.map((s, i) => (
+          <StrategyRow key={s.name} {...s} last={i === creditingStrategies.tabs[activeTab].strategies.length - 1} />
+        ))}
+      </div>
+      {creditingStrategies.strategyLinks && creditingStrategies.strategyLinks.length > 0 && (
+        <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 20 }}>
+          {creditingStrategies.strategyLinks.map((link, i) => (
+            <TextLink key={i} onClick={() => { window.location.hash = link.href.replace('#', ''); window.scrollTo({ top: 0, behavior: 'instant' }) }}>
+              {link.label}
+            </TextLink>
+          ))}
+        </div>
+      )}
+    </>
+  )
+}
+
 function RateGuaranteeSection({ rateGuarantee }) {
   return (
     <>
@@ -237,6 +290,66 @@ const ALL_NAV_SECTIONS = [
   { id: 'income-options',      label: 'Income payment options',       key: 'incomeOptions'       },
 ]
 
+function goHash(hash) {
+  if (!hash) return
+  window.location.hash = String(hash).replace(/^#/, '')
+}
+
+/** Move listed section keys to the slot of the last of them, in the given order. */
+function applySectionOrder(sections, order) {
+  if (!order?.length) return sections
+  const keys = new Set(order)
+  const lastIdx = sections.reduce((acc, s, i) => (keys.has(s.key) ? i : acc), -1)
+  if (lastIdx < 0) return sections
+  const picked = order.map(k => sections.find(s => s.key === k)).filter(Boolean)
+  const out = []
+  let inserted = false
+  sections.forEach((s, i) => {
+    if (keys.has(s.key)) return
+    if (!inserted && i > lastIdx) {
+      out.push(...picked)
+      inserted = true
+    }
+    out.push(s)
+  })
+  if (!inserted) out.push(...picked)
+  return out
+}
+
+/** Place listed section keys immediately after another section. Used per product. */
+function insertSectionsAfter(sections, insertAfter) {
+  if (!insertAfter) return sections
+  let out = sections
+  for (const [afterKey, keys] of Object.entries(insertAfter)) {
+    if (!keys?.length) continue
+    const moving = new Set(keys)
+    const picked = keys.map(k => out.find(s => s.key === k)).filter(Boolean)
+    const rest = out.filter(s => !moving.has(s.key))
+    const idx = rest.findIndex(s => s.key === afterKey)
+    if (idx < 0 || !picked.length) continue
+    rest.splice(idx + 1, 0, ...picked)
+    out = rest
+  }
+  return out
+}
+
+function RidersSection({ riders }) {
+  if (!riders) return null
+  return (
+    <section id="pdt-riders" style={{ scrollMarginTop: 160 }}>
+      <SectionHead {...riders} />
+      <div style={S.card}>
+        <div style={{ padding: '8px 28px' }}>
+          {riders.items.map((item, i) => (
+            <DefinitionItem key={item.title} {...item} last={i === riders.items.length - 1} />
+          ))}
+        </div>
+      </div>
+      {riders.footnote && <p style={S.footnote}>{riders.footnote}</p>}
+    </section>
+  )
+}
+
 function Sidebar({ navSections, active, onNav }) {
   return (
     <aside style={{ width: 300, flexShrink: 0, position: 'sticky', top: 'calc(var(--ov-header-h, 72px) + 24px)', alignSelf: 'flex-start' }}>
@@ -278,23 +391,24 @@ function Sidebar({ navSections, active, onNav }) {
 // ── Main page ─────────────────────────────────────────────────────────────────
 export default function ProductDetailPage({ product }) {
   const tailBlocks = product.tailBlocks || []
-  const navSections = [
+  const navSections = applySectionOrder([
     ...ALL_NAV_SECTIONS.filter(s => !!product[s.key]).map(s => ({
       ...s,
       label: product.navLabels?.[s.key] || s.label,
     })),
     ...tailBlocks.map(block => ({ id: block.id, label: block.navLabel || block.heading })),
-  ].map(s => (
+  ], product.sectionOrder)
+  const orderedNav = insertSectionsAfter(navSections, product.insertAfter).map(s => (
     s.key === 'whatIs' && product.categoryShort
       ? { ...s, label: `What is ${product.categoryShort}` }
       : s
   ))
 
   const [activeTab, setActiveTab]         = useState(0)
-  const [activeSection, setActiveSection] = useState(navSections[0]?.id || 'contract-provides')
+  const [activeSection, setActiveSection] = useState(orderedNav[0]?.id || 'contract-provides')
 
   useEffect(() => {
-    const ids = navSections.map(s => s.id)
+    const ids = orderedNav.map(s => s.id)
     const observers = ids.map(id => {
       const el = document.getElementById(`pdt-${id}`)
       if (!el) return null
@@ -314,6 +428,9 @@ export default function ProductDetailPage({ product }) {
   }
 
   const { stats, contractProvides, currentRates, whatIs, lockSplit, howItWorks, simpleExample, whyGuaranteedCap, capDistinction, allocationWarning, rateGuarantee, creditingStrategies, keyTerms, surrenderSchedule, riders, surrenderOptions, incomeOptions, cta } = product
+  const deferred = new Set(product.sectionOrder || [])
+  const afterHow = product.insertAfter?.howItWorks || []
+  const movedKeys = new Set(Object.values(product.insertAfter || {}).flat())
 
   return (
     <main>
@@ -361,7 +478,7 @@ export default function ProductDetailPage({ product }) {
         <div className="ov-container">
           <div style={{ display: 'flex', gap: 64, alignItems: 'flex-start' }} className="pdt-layout">
 
-            <Sidebar navSections={navSections} active={activeSection} onNav={scrollTo} />
+            <Sidebar navSections={orderedNav} active={activeSection} onNav={scrollTo} />
 
             <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 72 }}>
 
@@ -424,18 +541,20 @@ export default function ProductDetailPage({ product }) {
                 </section>
               )}
 
-              {simpleExample && (
-                <section id="pdt-simple-example" style={{ scrollMarginTop: 160 }}>
-                  <SectionHead eyebrow={simpleExample.eyebrow} heading={simpleExample.heading} sub={simpleExample.sub} />
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }} className="lpl-pillars-grid">
-                    {simpleExample.scenarios.map(s => (
-                      <div key={s.title} style={{ ...S.card, padding: '20px 22px' }}>
-                        <div style={{ ...S.itemTitle, marginBottom: 8 }}>{s.title}</div>
-                        <p style={S.itemBody}>{s.body}</p>
-                      </div>
-                    ))}
-                  </div>
-                </section>
+              {afterHow.map(key => {
+                if (key === 'riders') return <RidersSection key={key} riders={riders} />
+                if (key === 'rateGuarantee' && rateGuarantee) {
+                  return (
+                    <section key={key} id="pdt-rate-guarantee" style={{ scrollMarginTop: 160 }}>
+                      <RateGuaranteeSection rateGuarantee={rateGuarantee} />
+                    </section>
+                  )
+                }
+                return null
+              })}
+
+              {simpleExample && !deferred.has('simpleExample') && !movedKeys.has('simpleExample') && (
+                <ExampleSection simpleExample={simpleExample} />
               )}
 
               {whyGuaranteedCap && (
@@ -495,47 +614,39 @@ export default function ProductDetailPage({ product }) {
               )}
 
               {/* 2 — Guaranteed rate (MYGAs) */}
-              {rateGuarantee && (
+              {rateGuarantee && !deferred.has('rateGuarantee') && !movedKeys.has('rateGuarantee') && (
                 <section id="pdt-rate-guarantee" style={{ scrollMarginTop: 160 }}>
                   <RateGuaranteeSection rateGuarantee={rateGuarantee} />
                 </section>
               )}
 
               {/* 3 — Choose your growth approach (FIAs) */}
-              {creditingStrategies && <section id="pdt-crediting-strategies" style={{ scrollMarginTop: 160 }}>
-                <SectionHead {...creditingStrategies} />
+              {creditingStrategies && !deferred.has('creditingStrategies') && (
+                <section id="pdt-crediting-strategies" style={{ scrollMarginTop: 160 }}>
+                  <CreditingStrategiesBlock creditingStrategies={creditingStrategies} activeTab={activeTab} setActiveTab={setActiveTab} />
+                </section>
+              )}
 
-                {/* Index tabs */}
-                <div className="pdt-strategy-tabs" style={{ display: 'flex', background: '#fff', border: '1px solid rgba(13,31,78,.09)', borderRadius: '10px 10px 0 0', overflow: 'hidden', marginBottom: 0 }}>
-                  {creditingStrategies.tabs.map((tab, i) => (
-                    <button
-                      key={tab.label}
-                      onClick={() => setActiveTab(i)}
-                      style={{
-                        flex: 1, padding: '14px 8px', border: 'none', borderBottom: `2px solid ${activeTab === i ? '#2494C1' : 'transparent'}`,
-                        background: activeTab === i ? 'rgba(36,148,193,.05)' : 'none',
-                        fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13,
-                        color: activeTab === i ? '#2494C1' : '#6B7280', cursor: 'pointer',
-                        transition: 'all .15s', whiteSpace: 'nowrap',
-                      }}
-                    >{tab.label}</button>
-                  ))}
-                </div>
-                <div style={{ background: '#fff', border: '1px solid rgba(13,31,78,.09)', borderTop: 'none', borderRadius: '0 0 10px 10px', overflow: 'hidden' }}>
-                  {creditingStrategies.tabs[activeTab].strategies.map((s, i) => (
-                    <StrategyRow key={s.name} {...s} last={i === creditingStrategies.tabs[activeTab].strategies.length - 1} />
-                  ))}
-                </div>
-                {creditingStrategies.strategyLinks && creditingStrategies.strategyLinks.length > 0 && (
-                  <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 20 }}>
-                    {creditingStrategies.strategyLinks.map((link, i) => (
-                      <TextLink key={i} onClick={() => { window.location.hash = link.href.replace('#', ''); window.scrollTo({ top: 0, behavior: 'instant' }) }}>
-                        {link.label}
-                      </TextLink>
-                    ))}
-                  </div>
-                )}
-              </section>}
+              {(product.sectionOrder || []).map(key => {
+                if (key === 'creditingStrategies' && creditingStrategies) {
+                  return (
+                    <section key={key} id="pdt-crediting-strategies" style={{ scrollMarginTop: 160 }}>
+                      <CreditingStrategiesBlock creditingStrategies={creditingStrategies} activeTab={activeTab} setActiveTab={setActiveTab} />
+                    </section>
+                  )
+                }
+                if (key === 'rateGuarantee' && rateGuarantee) {
+                  return (
+                    <section key={key} id="pdt-rate-guarantee" style={{ scrollMarginTop: 160 }}>
+                      <RateGuaranteeSection rateGuarantee={rateGuarantee} />
+                    </section>
+                  )
+                }
+                if (key === 'simpleExample' && simpleExample) {
+                  return <ExampleSection key={key} simpleExample={simpleExample} />
+                }
+                return null
+              })}
 
               {/* 4 — Key terms */}
               <section id="pdt-key-terms" style={{ scrollMarginTop: 160 }}>
@@ -550,27 +661,35 @@ export default function ProductDetailPage({ product }) {
                 {keyTerms.download && <DownloadRow {...keyTerms.download} />}
               </section>
 
+              {(product.insertAfter?.keyTerms || []).includes('simpleExample') && simpleExample && (
+                <ExampleSection simpleExample={simpleExample} />
+              )}
+
               {/* 4 — Surrender charge schedule */}
               {surrenderSchedule && (
                 <section id="pdt-surrender-schedule" style={{ scrollMarginTop: 160 }}>
                   <SectionHead {...surrenderSchedule} />
                   <SurrenderScheduleTable terms={surrenderSchedule.terms} rows={surrenderSchedule.rows} />
                   {surrenderSchedule.footnote && <p style={S.footnote}>{surrenderSchedule.footnote}</p>}
+                  {surrenderSchedule.mva && (
+                    <div style={{ marginTop: 20, padding: '24px 28px', background: '#fff', border: '1px solid rgba(36,148,193,.28)', borderRadius: 12 }}>
+                      <h3 style={{ ...S.sectionH2, fontSize: 'clamp(20px,2vw,26px)' }}>{surrenderSchedule.mva.heading}</h3>
+                      <p style={{ ...S.itemBody, margin: '12px 0 0' }}>{surrenderSchedule.mva.body}</p>
+                      {surrenderSchedule.mva.note && (
+                        <p style={{ ...S.itemBody, color: '#0D1F4E', fontWeight: 600, margin: '12px 0 0' }}>{surrenderSchedule.mva.note}</p>
+                      )}
+                      {surrenderSchedule.mva.linkLabel && (
+                        <div style={{ marginTop: 16 }}>
+                          <TextLink onClick={() => goHash(surrenderSchedule.mva.hash)}>{surrenderSchedule.mva.linkLabel}</TextLink>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </section>
               )}
 
-              {/* 5 — Riders */}
-              <section id="pdt-riders" style={{ scrollMarginTop: 160 }}>
-                <SectionHead {...riders} />
-                <div style={S.card}>
-                  <div style={{ padding: '8px 28px' }}>
-                    {riders.items.map((item, i) => (
-                      <DefinitionItem key={item.title} {...item} last={i === riders.items.length - 1} />
-                    ))}
-                  </div>
-                </div>
-                {riders.footnote && <p style={S.footnote}>{riders.footnote}</p>}
-              </section>
+              {/* 5 — Riders (default slot; skipped when a product promotes this block earlier) */}
+              {!afterHow.includes('riders') && <RidersSection riders={riders} />}
 
               {/* 6 — Surrender options */}
               <section id="pdt-surrender-options" style={{ scrollMarginTop: 160 }}>
@@ -583,6 +702,11 @@ export default function ProductDetailPage({ product }) {
                   </div>
                 </div>
                 {surrenderOptions.footnote && <p style={S.footnote}>{surrenderOptions.footnote}</p>}
+                {surrenderOptions.link && (
+                  <div style={{ marginTop: 16 }}>
+                    <TextLink onClick={() => goHash(surrenderOptions.link.hash)}>{surrenderOptions.link.label}</TextLink>
+                  </div>
+                )}
               </section>
 
               {/* 7 — Income options */}
@@ -626,6 +750,37 @@ export default function ProductDetailPage({ product }) {
                           <DefinitionItem key={item.title} {...item} last={i === block.items.length - 1} />
                         ))}
                       </div>
+                    </div>
+                  )}
+                  {block.cards && (
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginTop: block.paragraphs || block.columns || block.items ? 16 : 0 }} className="lpl-pillars-grid">
+                      {block.cards.map(card => (
+                        <div key={card.title} style={{ ...S.card, padding: '24px 28px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+                          <div style={S.itemTitle}>{card.title}</div>
+                          {card.body && <p style={{ ...S.itemBody, margin: 0 }}>{card.body}</p>}
+                          {card.hash && (
+                            <TextLink onClick={() => goHash(card.hash)}>{card.cta || 'Learn more'}</TextLink>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {block.links && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: block.paragraphs || block.columns || block.items || block.cards ? 16 : 0 }}>
+                      {block.links.map(link => (
+                        <button
+                          key={link.label}
+                          type="button"
+                          onClick={() => goHash(link.hash)}
+                          style={{ ...S.card, padding: '18px 22px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, textAlign: 'left', cursor: 'pointer', width: '100%' }}
+                        >
+                          <span>
+                            <span style={{ display: 'block', ...S.itemTitle }}>{link.label}</span>
+                            {link.detail && <span style={{ display: 'block', ...S.itemBody, marginTop: 4 }}>{link.detail}</span>}
+                          </span>
+                          <ChevronRight size={16} color="#2494C1" />
+                        </button>
+                      ))}
                     </div>
                   )}
                   {block.footnote && <p style={S.footnote}>{block.footnote}</p>}

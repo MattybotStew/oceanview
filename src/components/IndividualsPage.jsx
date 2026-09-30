@@ -1,284 +1,343 @@
 import { useState } from 'react'
-import { ShieldCheck, Clock, TrendingUp, Check } from 'lucide-react'
-import { PillMint, PillGhost } from './Buttons.jsx'
-import CTABanner from './CTABanner.jsx'
+import Hero from './Hero.jsx'
 import { Eyebrow } from './common.jsx'
+import { PillMint, PillGhost, TextLink } from './Buttons.jsx'
 
-const S = {
-  h2:               { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(28px,3.2vw,44px)', color: '#0D1F4E', letterSpacing: '-0.025em', lineHeight: 1.12, margin: 0 },
-  h2Light:          { fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(28px,3.2vw,44px)', color: '#F2FCFF', letterSpacing: '-0.025em', lineHeight: 1.12, margin: 0 },
-  accent:           { fontStyle: 'italic', color: '#70BABF' },
-  accentBlue:       { fontStyle: 'italic', color: '#2494C1' },
-  body:             { fontFamily: 'var(--ov-ff-sans)', fontSize: 16, color: '#4A5568', lineHeight: 1.75, margin: 0 },
-  bodyDark:         { fontFamily: 'var(--ov-ff-sans)', fontSize: 16, color: 'rgba(242,252,255,.65)', lineHeight: 1.75, margin: 0 },
-  iconTile:         { width: 48, height: 48, borderRadius: 12, background: 'rgba(36,148,193,.10)', border: '1px solid rgba(36,148,193,.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+function go(hash) {
+  window.location.hash = hash
 }
 
-function FeatureList({ items, dark }) {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
-      {items.map((item, i) => (
-        <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: '10px 0', borderTop: i > 0 ? `1px solid ${dark ? 'rgba(255,255,255,.08)' : 'rgba(36,148,193,.12)'}` : 'none' }}>
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ flexShrink: 0, marginTop: 3 }}>
-            <circle cx="7" cy="7" r="6.5" stroke={dark ? '#70BABF' : '#2494C1'} strokeOpacity={dark ? '.5' : '.3'} />
-            <path d="M4.5 7L6.5 9L9.5 5" stroke={dark ? '#70BABF' : '#2494C1'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          <span style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 15, lineHeight: 1.6, color: dark ? 'rgba(242,252,255,.72)' : '#4A5568' }}>{item}</span>
-        </div>
-      ))}
-    </div>
-  )
-}
+const TRUST = [
+  { value: 'A (Excellent)', label: 'AM Best Financial Strength Rating*' },
+  { value: '$XX.X Billion', label: 'Total Assets*' },
+  { value: 'Focused on Annuities', label: 'Fixed & Fixed Indexed Solutions' },
+]
 
-// ── Concern cards ─────────────────────────────────────────────────────────────
-const CONCERNS = [
+const ANNUITIES = [
   {
-    Icon: Clock,
-    heading: 'Will my savings last?',
-    body: 'The risk of outliving your money is real — and growing. Americans are living longer, and traditional savings vehicles weren\'t designed for 20- or 30-year retirements. An annuity can provide income that lasts as long as you do.',
+    title: 'Harbourview MYGA',
+    body: 'Lock in a guaranteed rate for a defined period. Choose from multiple guarantee periods for predictable interest, principal protection and tax-deferred accumulation, subject to contract terms.',
+    cta: 'Explore Harbourview MYGA',
+    hash: 'harbourview-myga',
   },
   {
-    Icon: TrendingUp,
-    heading: 'What if markets drop?',
-    body: 'A market downturn early in retirement can permanently reduce your income. Fixed and fixed indexed annuities provide guaranteed growth or a zero-percent floor on losses — so your retirement savings don\'t go backwards.',
+    title: 'CurrentRate MYGA',
+    body: 'Start with certainty. Adjust with rates over time. Receive a declared first-year interest rate. Beginning in year two, the annual rate is determined using the contract-defined 1-Year U.S. Treasury component plus a 1.00% guaranteed spread, subject to the contract’s guaranteed minimum.',
+    cta: 'Explore CurrentRate MYGA',
+    hash: 'current-rate-fia',
   },
   {
-    Icon: ShieldCheck,
-    heading: 'Is my money safe?',
-    body: 'Annuity contracts are backed by the financial strength of the issuing insurance company. Oceanview holds an A (Excellent) rating from A.M. Best, reflecting our balance-sheet strength and long history of meeting obligations to policyholders.',
+    title: 'Harbourview FIA',
+    body: 'Protection with a broader choice of interest-crediting strategies. Protect principal from losses caused by negative index performance while maintaining the opportunity to earn interest through a range of index-linked and fixed-interest strategies, subject to contract terms.',
+    cta: 'Explore Harbourview FIA',
+    hash: 'harbourview-fia',
+  },
+  {
+    title: 'CapLock FIA',
+    body: 'Know your cap from the start. Select from Cap Rate Guarantee Strategies that establish the applicable cap rate at issue and keep it unchanged for the full 5- or 7-year surrender-charge period. Indexed interest, if any, depends on index performance and contract terms.',
+    cta: 'Explore CapLock FIA',
+    hash: 'caplock',
   },
 ]
 
-// ── Email signup ──────────────────────────────────────────────────────────────
-const inputStyle = {
-  fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: '#0D1F4E',
-  border: '1.5px solid rgba(13,31,78,.15)', borderRadius: 10,
-  padding: '12px 16px', outline: 'none', width: '100%',
-  boxSizing: 'border-box', background: '#fff',
-  transition: 'border-color .15s, box-shadow .15s',
+const RATES = [
+  {
+    title: 'Harbourview MYGA',
+    label: 'Current APY',
+    rate: 'X.XX%',
+    term: '[Select Guarantee Period]',
+    note: null,
+  },
+  {
+    title: 'CurrentRate MYGA',
+    label: 'Current First-Year Declared Rate',
+    rate: 'X.XX%',
+    term: '5-Year Contract',
+    note: 'Beginning in year two, the annual rate is determined using the contract-defined 1-Year U.S. Treasury component plus a 1.00% guaranteed spread, subject to the guaranteed minimum.',
+  },
+  {
+    title: 'Harbourview FIA',
+    label: 'Current S&P 500 Annual Point-to-Point Cap Rate',
+    rate: 'X.XX%',
+    term: '[Select 3-, 5-, 7- or 10-Year Term]',
+    note: 'The cap is the maximum indexed interest that may be credited for the applicable strategy and crediting period. It is not a guaranteed rate of return. Indexed interest depends on S&P 500 performance and contract terms.',
+  },
+  {
+    title: 'CapLock FIA',
+    label: 'Current Guaranteed S&P 500 Annual Point-to-Point Cap Rate',
+    rate: 'X.XX%',
+    term: '[Select 5- or 7-Year Term]',
+    note: 'The applicable Cap Rate Guarantee Strategy cap is established at issue and remains unchanged for the full surrender-charge period. The cap is not a guaranteed rate of return; indexed interest depends on S&P 500 performance and contract terms.',
+  },
+]
+
+const PILLARS = [
+  {
+    title: 'Straightforward by Design',
+    body: 'Understand what is guaranteed, what can change and how your contract works.',
+  },
+  {
+    title: 'Competitive Value',
+    body: 'Competitive rates and product features designed to address different long-term retirement needs.',
+  },
+  {
+    title: 'Financial Strength',
+    body: 'Oceanview is rated A (Excellent) by AM Best.* Financial strength is an important consideration because annuity guarantees depend on the claims-paying ability of the issuing insurance company.',
+  },
+]
+
+const MORE = [
+  {
+    title: 'I have a retirement situation in mind.',
+    body: 'Explore real-world questions about maturities, market risk, timelines, income, family goals and other retirement decisions.',
+    cta: 'Retirement Planning in Practice',
+    hash: 'life-events',
+  },
+  {
+    title: 'I want to understand how annuities work.',
+    body: 'Explore plain-language guides to annuities, MYGAs, FIAs, guarantees, withdrawals and other important concepts.',
+    cta: 'Annuities, Explained',
+    hash: 'insights',
+  },
+  {
+    title: 'I’m looking for planning tools.',
+    body: 'Explore checklists, guides and practical resources designed to support deeper retirement-planning conversations.',
+    cta: 'Planning Guides & Tools',
+    hash: 'client-resources',
+  },
+]
+
+const NEXT = [
+  { label: 'View Current Rates', hash: 'client-resources?tab=rates', primary: true },
+  { label: 'Explore Oceanview Annuities', hash: 'products' },
+  { label: 'Client Portal', hash: 'contact' },
+]
+
+const card = {
+  background: '#fff',
+  border: '1px solid rgba(13,31,78,.07)',
+  borderRadius: 16,
+  padding: '28px 24px',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 12,
+}
+
+const h3 = {
+  fontFamily: 'var(--ov-ff-display)',
+  fontWeight: 400,
+  fontSize: 22,
+  color: '#0D1F4E',
+  letterSpacing: '-0.015em',
+  lineHeight: 1.2,
+  margin: 0,
+}
+
+const body = {
+  fontFamily: 'var(--ov-ff-sans)',
+  fontSize: 15,
+  color: '#4A5568',
+  lineHeight: 1.7,
+  margin: 0,
 }
 
 function EmailSignup() {
-  const [form, setForm]     = useState({ firstName: '', lastName: '', email: '', consent: false })
-  const [done, setDone]     = useState(false)
-  const [focused, setFocus] = useState(null)
-  const set = k => e => setForm(f => ({ ...f, [k]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }))
-  const focus = k => ({ onFocus: () => setFocus(k), onBlur: () => setFocus(null), style: { ...inputStyle, ...(focused === k ? { borderColor: '#2494C1', boxShadow: '0 0 0 3px rgba(36,148,193,.12)' } : {}) } })
+  const [email, setEmail] = useState('')
+  const [done, setDone] = useState(false)
 
-  if (done) return (
-    <div style={{ textAlign: 'center', padding: '32px 0', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
-      <div style={{ width: 52, height: 52, borderRadius: '50%', background: 'rgba(36,148,193,.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Check size={24} color="#2494C1" strokeWidth={2.5} />
-      </div>
-      <p style={{ fontFamily: 'var(--ov-ff-display)', fontSize: 22, color: '#0D1F4E', letterSpacing: '-0.01em', margin: 0 }}>You're on the list.</p>
-      <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 14, color: '#4A5568', margin: 0 }}>We'll be in touch with retirement planning insights and rate updates.</p>
-    </div>
-  )
+  if (done) {
+    return (
+      <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 15, color: 'var(--ov-navy-800)', margin: 0 }}>
+        Thanks — you’re signed up.
+      </p>
+    )
+  }
 
   return (
-    <form onSubmit={e => { e.preventDefault(); setDone(true) }} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-        {[['firstName', 'First Name'], ['lastName', 'Last Name']].map(([k, label]) => (
-          <div key={k} style={{ display: 'flex', flexDirection: 'column', gap: 6, flex: '1 1 140px' }}>
-            <label style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.08em', textTransform: 'uppercase', color: '#4A5568' }}>{label}</label>
-            <input required type="text" value={form[k]} onChange={set(k)} {...focus(k)} />
-          </div>
-        ))}
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        <label style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.08em', textTransform: 'uppercase', color: '#4A5568' }}>Email</label>
-        <input required type="email" value={form.email} onChange={set('email')} {...focus('email')} />
-      </div>
-      <label style={{ display: 'flex', gap: 10, alignItems: 'flex-start', cursor: 'pointer' }}>
-        <input required type="checkbox" checked={form.consent} onChange={set('consent')} style={{ marginTop: 3, flexShrink: 0, accentColor: '#2494C1' }} />
-        <span style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: '#4A5568', lineHeight: 1.55 }}>
-          I agree to receive communications from Oceanview Life and Annuity. I understand I can unsubscribe at any time.
-        </span>
-      </label>
-      <PillMint type="submit" style={{ alignSelf: 'flex-start' }}>Join the List</PillMint>
+    <form
+      onSubmit={(e) => { e.preventDefault(); if (email) setDone(true) }}
+      style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}
+      aria-label="Stay informed"
+    >
+      <label htmlFor="individuals-email" className="sr-only">Email Address</label>
+      <input
+        id="individuals-email"
+        type="email"
+        required
+        autoComplete="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email Address"
+        style={{
+          flex: '1 1 220px',
+          minWidth: 0,
+          height: 47,
+          padding: '12px 16px',
+          borderRadius: 8,
+          border: '1px solid rgba(13,31,78,.15)',
+          background: '#fff',
+          fontFamily: 'var(--ov-ff-sans)',
+          fontSize: 14,
+          color: 'var(--ov-navy-900)',
+          outline: 'none',
+          boxSizing: 'border-box',
+        }}
+      />
+      <PillMint type="submit" style={{ height: 47, flexShrink: 0 }}>Sign Up</PillMint>
     </form>
   )
 }
 
-// ── Page ──────────────────────────────────────────────────────────────────────
 export default function IndividualsPage() {
   return (
     <main>
+      <Hero
+        staticSlide={0}
+        slideOverride={{
+          eyebrow: '',
+          eyebrowLight: true,
+          titleLines: ['Fixed annuity solutions for the retirement you’re building.'],
+          titleAccent: '',
+          inlineAccent: false,
+          body: 'Explore Oceanview fixed and fixed indexed annuities designed to provide different approaches to predictability, protection and interest-crediting potential.',
+          ctaPrimary: 'View Current Rates',
+          ctaSecondary: 'Explore Annuities',
+          image: 'assets/hero-couple.jpg',
+        }}
+        onPrimary={() => go('client-resources?tab=rates')}
+        onSecondary={() => go('products')}
+      />
 
-      {/* Hero */}
-      <section style={{ background: '#fff', padding: '80px 0 64px', textAlign: 'center' }}>
+      <section style={{ background: '#fff' }}>
         <div className="ov-container">
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 20 }}>
-            <div style={{ width: 18, height: 1, background: '#2494C1', flexShrink: 0 }} />
-            <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: '#2494C1' }}>Personal Planning</span>
-          </div>
-          <h1 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(32px,4.5vw,62px)', letterSpacing: '-0.025em', lineHeight: 1.08, color: '#0D1F4E', margin: '0 auto 24px', maxWidth: '20ch' }}>
-            Retirement savings you can count on.
-          </h1>
-          <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 'clamp(15px,1.4vw,17px)', lineHeight: 1.65, color: '#4A5568', margin: '0 auto 36px', maxWidth: '52ch' }}>
-            Oceanview annuities offer guaranteed growth, principal protection, and tax-deferred accumulation — simple, dependable tools for securing your retirement income.
-          </p>
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <PillMint hero onClick={() => { window.location.hash = 'products' }}>Explore Products</PillMint>
-            <PillGhost onClick={() => { window.location.hash = 'contact' }}>Talk to Us</PillGhost>
-          </div>
-        </div>
-      </section>
-
-      {/* Common concerns */}
-      <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
-        <div className="ov-container">
-          <div style={{ marginBottom: 48, maxWidth: 560 }}>
-            <Eyebrow>Common Questions</Eyebrow>
-            <h2 style={{ ...S.h2, marginBottom: 14 }}>
-              Real concerns. <em style={S.accentBlue}>Real answers.</em>
-            </h2>
-            <p style={S.body}>
-              Most people approaching retirement share the same three worries. Oceanview annuities are designed to address each one directly.
-            </p>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }} className="ov-concern-grid">
-            {CONCERNS.map((c, i) => (
-              <div key={i} style={{ background: '#fff', borderRadius: 16, border: '1px solid rgba(13,31,78,.07)', padding: '32px 28px', display: 'flex', flexDirection: 'column', gap: 18 }}>
-                <div style={S.iconTile}>
-                  <c.Icon size={22} color="#2494C1" strokeWidth={1.75} />
-                </div>
-                <div>
-                  <h3 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 20, color: '#0D1F4E', letterSpacing: '-0.015em', lineHeight: 1.2, margin: '0 0 12px' }}>{c.heading}</h3>
-                  <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 14.5, color: '#4A5568', lineHeight: 1.7, margin: 0 }}>{c.body}</p>
-                </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0 }} className="ov-stats-grid ov-stats-grid--light">
+            {TRUST.map((s, i) => (
+              <div key={s.label} style={{ padding: '40px 28px', borderLeft: i > 0 ? '1px solid var(--ov-border-faint)' : 'none', textAlign: 'center' }}>
+                <div style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 800, fontSize: 'clamp(20px, 2.2vw, 30px)', lineHeight: 1.15, color: 'var(--ov-navy-900)', letterSpacing: '-0.02em' }}>{s.value}</div>
+                <div style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13, color: 'var(--ov-grey-600)', marginTop: 8, lineHeight: 1.45 }}>{s.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* MYGA */}
-      <section style={{ background: 'var(--ov-navy-1000)' }} className="ov-section">
+      <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
         <div className="ov-container">
-          <div style={{ display: 'flex', gap: 72, alignItems: 'center', flexWrap: 'wrap' }} className="ov-split-row">
-            <div style={{ flex: '1 1 280px', minWidth: 0 }}>
-              <img src="assets/older-couple-1.png" alt="Couple reviewing retirement plans" loading="lazy" style={{ width: '100%', borderRadius: 20, display: 'block' }} />
-            </div>
-            <div style={{ flex: '1 1 300px', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 20 }}>
-              <div>
-                <Eyebrow light>Multi-Year Guaranteed Annuity</Eyebrow>
-                <h2 style={{ ...S.h2Light, marginBottom: 0 }}>
-                  A rate you can <em style={S.accent}>lock in and rely on.</em>
-                </h2>
+          <Eyebrow style={{ marginBottom: 12 }}>Oceanview Annuities</Eyebrow>
+          <h2 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(28px,3.2vw,44px)', color: '#0D1F4E', letterSpacing: '-0.025em', lineHeight: 1.12, margin: '0 0 14px', maxWidth: '22ch' }}>
+            Explore solutions designed for different retirement needs.
+          </h2>
+          <p style={{ ...body, maxWidth: '68ch', marginBottom: 32 }}>
+            Whether you value a guaranteed rate, want interest that can adjust over time or are looking for protection with index-linked potential, Oceanview offers several ways to give retirement savings a more defined role.
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20 }} className="ov-concern-grid">
+            {ANNUITIES.map((p) => (
+              <div key={p.title} style={card}>
+                <h3 style={h3}>{p.title}</h3>
+                <p style={{ ...body, flex: 1 }}>{p.body}</p>
+                <TextLink onClick={() => go(p.hash)}>{p.cta}</TextLink>
               </div>
-              <p style={S.bodyDark}>
-                A MYGA works like a CD — but with tax deferral and typically higher rates. You deposit a lump sum, lock in a guaranteed interest rate for a set term (2–10 years), and watch it grow without market exposure.
-              </p>
-              <FeatureList dark items={[
-                'Guaranteed interest rate locked for the full contract term',
-                'No market exposure — your balance only grows',
-                'Tax-deferred accumulation until you withdraw',
-                '10% annual free withdrawal beginning year 2',
-                'Death benefit passes directly to named beneficiaries',
-              ]} />
-              <PillMint onClick={() => { window.location.hash = 'harbourview-myga' }} style={{ alignSelf: 'flex-start' }}>
-                Explore MYGA Options
-              </PillMint>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* FIA */}
       <section style={{ background: '#fff' }} className="ov-section">
         <div className="ov-container">
-          <div style={{ display: 'flex', gap: 72, alignItems: 'center', flexWrap: 'wrap' }} className="ov-split-row prd-intro-img-right">
-            <div style={{ flex: '1 1 300px', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 20 }}>
-              <div>
-                <Eyebrow>Fixed Indexed Annuity</Eyebrow>
-                <h2 style={{ ...S.h2, marginBottom: 0 }}>
-                  Growth potential. <em style={S.accentBlue}>Zero downside.</em>
-                </h2>
+          <Eyebrow style={{ marginBottom: 12 }}>Current Rates</Eyebrow>
+          <h2 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(28px,3.2vw,44px)', color: '#0D1F4E', letterSpacing: '-0.025em', lineHeight: 1.12, margin: '0 0 14px' }}>
+            See what’s available today.
+          </h2>
+          <p style={{ ...body, maxWidth: '68ch', marginBottom: 32 }}>
+            Review current rates and crediting terms across Oceanview fixed and fixed indexed annuities. A current rate or cap is one part of the decision. Consider your goals, time horizon, liquidity needs and how you want this portion of your retirement savings to work.
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20, marginBottom: 28 }} className="ov-concern-grid">
+            {RATES.map((r) => (
+              <div key={r.title} style={card}>
+                <h3 style={h3}>{r.title}</h3>
+                <p style={{ ...body, fontSize: 13, letterSpacing: '.04em', textTransform: 'uppercase', fontWeight: 600 }}>{r.label}</p>
+                <div style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 800, fontSize: 40, color: '#0D1F4E', letterSpacing: '-0.03em', lineHeight: 1 }}>{r.rate}</div>
+                <p style={body}>{r.term}</p>
+                <p style={{ ...body, fontSize: 13 }}>Effective [DATE]</p>
+                {r.note && <p style={{ ...body, fontSize: 14 }}>{r.note}</p>}
               </div>
-              <p style={S.body}>
-                A Fixed Indexed Annuity links your interest credits to the performance of a market index — like the S&P 500 — but with a guarantee that you can never lose principal due to market losses. When the index goes up, you participate. When it falls, your balance stays put.
-              </p>
-              <FeatureList items={[
-                'Zero-floor protection — no principal loss from market downturns',
-                'Interest credits tied to S&P 500, Nasdaq-100, or Russell 2000',
-                'Tax-deferred growth with no annual tax bill on earnings',
-                'Waivers for nursing home confinement and terminal illness',
-                'Multiple crediting strategies to match your risk comfort',
-              ]} />
-              <PillMint onClick={() => { window.location.hash = 'harbourview-fia' }} style={{ alignSelf: 'flex-start' }}>
-                Explore FIA Options
-              </PillMint>
-            </div>
-            <div style={{ flex: '1 1 280px', minWidth: 0 }}>
-              <img src="assets/family.png" alt="Family planning for the future" loading="lazy" style={{ width: '100%', borderRadius: 20, display: 'block' }} />
-            </div>
+            ))}
           </div>
+          <TextLink onClick={() => go('client-resources?tab=rates')}>View All Current Rates</TextLink>
         </div>
       </section>
 
-      {/* Already a customer */}
-      <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
+      <section style={{ background: 'var(--ov-navy-1000)' }} className="ov-section">
         <div className="ov-container">
-          <div style={{ marginBottom: 40, maxWidth: 560 }}>
-            <Eyebrow>Existing Policyholders</Eyebrow>
-            <h2 style={{ ...S.h2, marginBottom: 14 }}>Already an Oceanview customer?</h2>
-            <p style={S.body}>Access your account, download forms, or reach our service team directly.</p>
+          <Eyebrow light style={{ marginBottom: 12 }}>Why Oceanview</Eyebrow>
+          <h2 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(28px,3.2vw,44px)', color: '#F2FCFF', letterSpacing: '-0.025em', lineHeight: 1.12, margin: '0 0 14px', maxWidth: '18ch' }}>
+            Clear solutions. Competitive value. Long-term focus.
+          </h2>
+          <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 16, color: 'rgba(242,252,255,.72)', lineHeight: 1.7, margin: '0 0 32px', maxWidth: '68ch' }}>
+            Oceanview focuses on fixed annuities. We bring together straightforward product design, competitive value and financial strength with a disciplined approach to the long-term commitments behind our policies.
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginBottom: 28 }} className="ov-concern-grid">
+            {PILLARS.map((p) => (
+              <div key={p.title} style={{ ...card, background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.1)' }}>
+                <h3 style={{ ...h3, color: '#F2FCFF' }}>{p.title}</h3>
+                <p style={{ ...body, color: 'rgba(242,252,255,.72)' }}>{p.body}</p>
+              </div>
+            ))}
           </div>
+          <TextLink color="#70BABF" onClick={() => go('about')}>Discover the Oceanview Difference</TextLink>
+        </div>
+      </section>
+
+      <section style={{ background: '#fff' }} className="ov-section">
+        <div className="ov-container">
+          <Eyebrow style={{ marginBottom: 12 }}>Looking for More?</Eyebrow>
+          <h2 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(28px,3.2vw,44px)', color: '#0D1F4E', letterSpacing: '-0.025em', lineHeight: 1.12, margin: '0 0 14px', maxWidth: '18ch' }}>
+            Explore the question that brought you here.
+          </h2>
+          <p style={{ ...body, maxWidth: '68ch', marginBottom: 32 }}>
+            Whether you want to understand an annuity feature or think through a specific retirement situation, Oceanview offers straightforward resources when you want to go deeper.
+          </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }} className="ov-concern-grid">
-            {[
-              { label: 'Client Portal', desc: 'View your account value, transaction history, and policy documents online.', cta: 'Access Portal', href: 'https://customers.oceanview.mccamish.com/SelfServicePortal/#/login' },
-              { label: 'Service Forms', desc: 'Download forms for beneficiary changes, withdrawals, transfers, and more.', cta: 'View Forms', hash: 'downloads' },
-              { label: 'Contact Us', desc: 'Reach our service team by phone or email for questions about your policy.', cta: 'Get in Touch', hash: 'contact' },
-            ].map(item => (
-              <div key={item.label} style={{ background: '#fff', border: '1px solid rgba(13,31,78,.07)', borderRadius: 14, padding: '28px 24px', display: 'flex', flexDirection: 'column', gap: 14 }}>
-                <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: '#0D1F4E' }}>{item.label}</div>
-                <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 14, color: '#4A5568', lineHeight: 1.65, margin: 0, flex: 1 }}>{item.desc}</p>
-                <button
-                  onClick={() => { if (item.href) { window.open(item.href, '_blank') } else if (item.hash) { window.location.hash = item.hash } }}
-                  style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 13, color: '#2494C1', background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left', display: 'inline-flex', alignItems: 'center', gap: 5 }}
-                >
-                  {item.cta} →
-                </button>
+            {MORE.map((item) => (
+              <div key={item.title} style={card}>
+                <h3 style={{ ...h3, fontSize: 20 }}>{item.title}</h3>
+                <p style={{ ...body, flex: 1 }}>{item.body}</p>
+                <TextLink onClick={() => go(item.hash)}>{item.cta}</TextLink>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Email signup */}
-      <section style={{ background: 'var(--ov-navy-1000)' }} className="ov-section">
+      <section className="ov-section" style={{ background: 'var(--ov-surface-tint)' }}>
         <div className="ov-container">
-          <div style={{ display: 'flex', gap: 80, alignItems: 'flex-start', flexWrap: 'wrap' }} className="ov-split-row">
-            <div style={{ flex: '1 1 280px', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div>
-                <Eyebrow light>Stay Informed</Eyebrow>
-                <h2 style={{ ...S.h2Light, marginBottom: 0 }}>
-                  Retirement insights <em style={S.accent}>in your inbox.</em>
-                </h2>
-              </div>
-              <p style={S.bodyDark}>
-                Rate updates, retirement planning guides, and consumer insights — delivered directly to you. No spam, unsubscribe anytime.
-              </p>
-            </div>
-            <div style={{ flex: '1 1 320px', minWidth: 0 }}>
-              <EmailSignup />
-            </div>
+          <h2 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(28px,3.2vw,40px)', color: '#0D1F4E', letterSpacing: '-0.025em', lineHeight: 1.12, margin: '0 0 24px' }}>
+            What would you like to do next?
+          </h2>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            {NEXT.map((n) => (
+              n.primary
+                ? <PillMint key={n.label} onClick={() => go(n.hash)}>{n.label}</PillMint>
+                : <PillGhost key={n.label} onClick={() => go(n.hash)}>{n.label}</PillGhost>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="ov-section" style={{ background: '#fff' }}>
+      <section style={{ background: '#fff' }} className="ov-section">
         <div className="ov-container">
-          <CTABanner
-            eyebrow="Get Started"
-            title="Ready to secure your retirement"
-            titleAccent="with guaranteed income?"
-            body="Speak with a licensed financial professional about which Oceanview annuity fits your retirement goals, timeline, and risk comfort."
-            cta="Contact Us"
-            onClick={() => { window.location.hash = 'contact'; }}
-          />
+          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 48, alignItems: 'center' }} className="nsg-split">
+            <div>
+              <Eyebrow style={{ marginBottom: 12 }}>Stay Informed</Eyebrow>
+              <h2 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(28px,3.2vw,44px)', color: '#0D1F4E', letterSpacing: '-0.025em', lineHeight: 1.12, margin: '0 0 14px' }}>
+                Retirement insights, made clearer.
+              </h2>
+              <p style={body}>
+                Get educational resources and perspectives from Oceanview to help you better understand annuities and retirement planning.
+              </p>
+            </div>
+            <EmailSignup />
+          </div>
         </div>
       </section>
 

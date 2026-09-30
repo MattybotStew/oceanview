@@ -2,6 +2,42 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-09-30 — Grok (Renewal Rates sales CTA)
+
+- Closing navy `CTABanner` on `#renewal-rates` now takes an optional `secondary`. Sales phone is `PillGhost light hero` with `tel:+18336567455` beside Explore Harbourview FIA. Standalone ghost button under the banner removed.
+
+## 2026-09-30 — Grok (Renewal Rates closer-look split)
+
+- `#renewal-rates` “Take a Closer Look at Rates That Keep Pace” is a two-column `.nsg-split`: `public/assets/harbourview-fia-hero.jpg` on the left, copy and both buttons on the right. Full `ov-container` width; stacks image then text at ≤800px. Hero image unchanged.
+
+## 2026-09-30 — Grok (Renewal Rates hero image)
+
+- Staging has no `/renewal-rates/` page. `#renewal-rates` hero uses the `/rates/` cover photo (`mid-50s-man-sitting-on-park-bench-looking-at-smart-phone-best-paying-annuities.png`), saved as `public/assets/renewal-rates-hero.png`, `backgroundPosition` `58% 28%`. Replaces the Harbourview FIA hero reuse. Copy unchanged.
+
+## 2026-09-30 — Grok (Professionals hero eyebrow)
+
+- `#professionals` hero `Eyebrow` only: `justifyContent: 'center'` and `width: '100%'` so the FINANCIAL PROFESSIONALS row sits in the middle of the container. Headline copy unchanged.
+
+## 2026-09-30 — Grok (Renewal Rates landing)
+
+- New unlisted route `#renewal-rates` (`RenewalRatesPage.jsx`) from Renewal Rates Landing Page web copy Draft v1. Download CTAs go to `#brochures`; Explore Harbourview FIA goes to `#harbourview-fia`. Historical 98.2% / 10.8% figures are from the draft; no live rate table.
+
+## 2026-09-30 — Grok (Financial Professionals page)
+
+- Rebuilt `#professionals` body from `FINANCIAL PROFESSIONALS page copy draft (1).docx`. Placeholder rates stay `X.XX%` / Effective [DATE]. Links use existing hashes only (`#products` for the rates hub, `#sales-tools`, `#brochures`, `#client-resources`, `#state-approval`, `#contact`, `#agent-portal`, `#about`, product routes).
+
+## 2026-09-30 — Grok (CurrentRate section order)
+
+- `#current-rate-fia` places How the Treasury Component Is Determined immediately after How CurrentRate Works (`insertAfter.howItWorks`), and CurrentRate vs Harbourview after At a Glance (`insertAfter.keyTerms`).
+- Riders / Waivers section removed for this product only. `RidersSection` still renders when a product passes `riders`.
+- Professional resources are 10 labeled links (rates, brochures, downloads, state-approval, comparisons, contact, agent-portal). Death benefit and RMD copy are readable blocks under Accessing Your Money. Hero line and image unchanged.
+
+## 2026-09-30 — Grok (Harbourview FIA end sections)
+
+- `#harbourview-fia` gained three optional tail blocks: Want to Understand FIAs First? (`#fia-overview`), Have a Retirement Situation in Mind? (`#les-market-volatility`, `#retirement-risk`), and Harbourview FIA Resources (rates, brochures, downloads).
+- Dedicated “What is an MVA?” callout sits with surrender charges. CapLock compare links to `#caplock`.
+- Optional `sectionOrder` on ProductDetailPage puts crediting menu, then Choosing a strategy, then Understand the Cap. Other products unchanged. Hero image field kept.
+
 ## 2026-09-30 — Grok (LevelCap and CapLock hero images)
 
 - `#levelcap` hero is the staging content photo (couple in the tide), `public/assets/levelcap-hero.png`. Staging `og:image` was the reused Russell 2000 file and was not used.

@@ -5,7 +5,7 @@
 
 ## Current Session State
 
-**Last Updated:** 2026-09-30 (Grok — product heroes from staging: `#levelcap` `assets/levelcap-hero.png`, `#caplock` `assets/caplock-hero.png`. Harbourview FIA/MYGA, Sky Harbourview, and CurrentRate already pointed at their staging hero files.)
+**Last Updated:** 2026-09-30 (Grok — `#renewal-rates` closing `CTABanner` secondary is `PillGhost light hero` “Talk with Oceanview Sales (833) 656-7455” → `tel:+18336567455`. Prior: `#renewal-rates` “Take a Closer Look” block is an `.nsg-split` with `public/assets/harbourview-fia-hero.jpg` left of the copy and both buttons. Prior: `#renewal-rates` hero background is `public/assets/renewal-rates-hero.png` from the staging `/rates/` WPBakery cover (park-bench photo), `backgroundPosition` `58% 28%`. Prior: `#professionals` hero eyebrow centered via `justifyContent: center` + `width: 100%` on that `Eyebrow` only. Prior: `#current-rate-fia`: Treasury component renders immediately after How CurrentRate Works via `insertAfter`; comparison (`simpleExample`) renders after At a Glance; riders omitted (section stays conditional); 10 professional resource links; death benefit and RMD are definition blocks under Accessing Your Money. Other products’ order unchanged.)
 
 ### Newly completed (2026-09-29)
 - `#lpl-landing` Horizon MYGA shown as available, with brochure and rate-sheet resource rows.
@@ -18,6 +18,7 @@
 ### In Progress
 - Mae review: product-first tab options + `#products-filter-test` (option 5). Live `#products` stays default until sign-off.
 - `#alzheimers-awareness` landing built (design sign-off pending).
+- `#renewal-rates` unlisted campaign landing (`RenewalRatesPage.jsx`) from the Renewal Rates draft. Download → `#brochures`; product CTA → `#harbourview-fia`.
 - **Homepage V2 live** — `#` / `#home` / `#home-v2` → `HomeV2Page.jsx`. Previous home at `#home-legacy` → `HomePage.jsx`.
 - **Home typography polish** — scoped `.home-v2-*` type classes; accent italics, display moments, editorial pillar grid.
 - **Home responsive** — stats 2-col @900px; pillars 1-col @860px; hero CTAs full-width @480px.
