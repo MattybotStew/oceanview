@@ -168,7 +168,7 @@ export default function Page() {
       "les-financial-windfall": "Financial Windfall — Life Events Series — Oceanview",
       "les-career-transitions": "Career Transitions — Life Events Series — Oceanview",
       "downloads": "Downloads — Oceanview",
-      "brochures": "Product Brochures — Oceanview",
+      "brochures": "Brochures, Applications & Forms — Oceanview",
       "our-story": "Our Story — Oceanview",
       "individuals": "Individuals — Oceanview",
       "professionals": "Professionals — Oceanview",

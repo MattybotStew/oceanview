@@ -42,10 +42,12 @@ function FeatureList({ features, dark }) {
   )
 }
 
-function ResourceCard({ label, title }) {
+function ResourceCard({ label, title, href }) {
+  const Tag = href ? 'a' : 'div'
   return (
-    <div
-      style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', borderRadius: 10, background: 'rgba(112,186,191,.12)', border: '1px solid rgba(36,148,193,.18)', cursor: 'pointer', transition: 'border-color .15s, box-shadow .15s', gap: 16 }}
+    <Tag
+      {...(href ? { href, target: '_blank', rel: 'noopener noreferrer' } : {})}
+      style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', borderRadius: 10, background: 'rgba(112,186,191,.12)', border: '1px solid rgba(36,148,193,.18)', cursor: 'pointer', transition: 'border-color .15s, box-shadow .15s', gap: 16, textDecoration: 'none' }}
       onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(36,148,193,.45)'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(13,31,78,.07)' }}
       onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(36,148,193,.18)'; e.currentTarget.style.boxShadow = '' }}
     >
@@ -54,7 +56,7 @@ function ResourceCard({ label, title }) {
         <div style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 14, color: '#0D1F4E', lineHeight: 1.35 }}>{title}</div>
       </div>
       <Download size={16} color="#2494C1" strokeWidth={2} style={{ flexShrink: 0 }} />
-    </div>
+    </Tag>
   )
 }
 

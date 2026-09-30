@@ -3,6 +3,11 @@
 Shared session log for all AI agents. Newest entries at the top.
 
 
+## 2026-09-30 — Grok (brochures nits)
+
+- `#brochures` title is “Brochures, Applications & Forms”. FIA Download PDF uses `PillGhost light` (white on navy). Brochure cards and spec/app/other rows use existing `lpl-pillars-grid` (4 columns, 2 at 860px, 1 at 480px).
+
+
 ## 2026-09-30 — Grok (LPL GitHub Pages)
 
 - Horizon MYGA resource titles aligned to the temp LPL page, including the California rate sheet. Coming Soon stays off. Published to GitHub Pages.

@@ -65,7 +65,7 @@ function BrochureCard({ icon: Icon, tag, title, body, dark, tint }) {
         <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 13.5, color: dark ? 'rgba(242,252,255,.65)' : '#4A5568', lineHeight: 1.6, margin: 0 }}>{body}</p>
       </div>
       <div style={{ paddingTop: 4 }}>
-        <PillGhost style={{ fontSize: 13 }}>Download PDF</PillGhost>
+        <PillGhost light={dark} style={{ fontSize: 13 }}>Download PDF</PillGhost>
       </div>
     </div>
   )
@@ -148,10 +148,10 @@ export default function BrochuresPage() {
             <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.4px', textTransform: 'uppercase', color: '#2494C1' }}>Client Resources</span>
           </div>
           <h1 style={{ fontFamily: 'var(--ov-ff-display)', fontWeight: 400, fontSize: 'clamp(32px,4.5vw,62px)', letterSpacing: '-0.025em', lineHeight: 1.08, color: '#0D1F4E', margin: '0 auto 24px', maxWidth: '18ch' }}>
-            Product Brochures
+            Brochures, Applications &amp; Forms
           </h1>
           <p style={{ fontFamily: 'var(--ov-ff-sans)', fontSize: 'clamp(15px,1.4vw,17px)', lineHeight: 1.65, color: '#4A5568', margin: '0 auto', maxWidth: '52ch' }}>
-            Plain-language product overviews for every Oceanview annuity — ready to share with clients or download as PDF.
+            Product brochures, specification sheets, application packets, and service forms — ready to view or download as PDF.
           </p>
         </div>
       </section>
@@ -201,7 +201,7 @@ export default function BrochuresPage() {
               Client-ready overviews for our multi-year guaranteed annuity and fixed annuity products.
             </p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }} className="ov-tools-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18 }} className="lpl-pillars-grid">
             {MYGA_BROCHURES.map(b => <BrochureCard key={b.title} {...b} tint />)}
           </div>
         </div>
@@ -217,7 +217,7 @@ export default function BrochuresPage() {
               Overviews of our index-linked annuity products — clear explanations of how each product works and who it suits.
             </p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }} className="ov-tools-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18 }} className="lpl-pillars-grid">
             {FIA_BROCHURES.map(b => <BrochureCard key={b.title} {...b} dark />)}
           </div>
         </div>
@@ -227,7 +227,7 @@ export default function BrochuresPage() {
 
       {tab !== 'brochures' && (
         <section style={{ background: 'var(--ov-surface-tint)' }} className="ov-section">
-          <div className="ov-container" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div className="ov-container lpl-pillars-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18 }}>
             {(tab === 'specs' ? SPEC_ROWS : tab === 'packs' ? APP_PACK_ROWS : OTHER_ROWS).map(row => (
               <DocRow key={row.title} {...row} />
             ))}
