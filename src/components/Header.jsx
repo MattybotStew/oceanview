@@ -75,6 +75,7 @@ export const NAV_DROPDOWNS = {
     links: [
       { label: "Case Studies",     href: "#client-resources?tab=case-studies" },
       { label: "Downloads",        href: "#client-resources?tab=downloads"    },
+      { label: "Brochures, Applications & Forms", href: "#brochures"          },
       { label: "Rates",            href: "#client-resources?tab=rates"        },
       { label: "Comparisons",      href: "#client-resources?tab=comparisons"  },
       { label: "Glossary",         href: "#client-resources?tab=glossary"     },
