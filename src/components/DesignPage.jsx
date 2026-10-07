@@ -831,11 +831,11 @@ function Pills() {
 
       <div style={S.card}>
         <div style={S.cardHd}>PageHero badge prop</div>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(0,31,84,.45)', border: '1px solid rgba(255,255,255,.22)', borderRadius: 200, padding: '5px 12px' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'transparent', border: '1px solid rgba(255,255,255,.55)', borderRadius: 200, padding: '5px 12px' }}>
           <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#F2FCFF' }}>New</span>
         </div>
         <div style={S.note}>
-          Optional <span style={S.mono}>badge</span> on PageHero — frosted pill above eyebrow on image heroes
+          Optional <span style={S.mono}>badge</span> on PageHero — stroke-only pill above eyebrow on image heroes
         </div>
       </div>
     </div>
@@ -1029,7 +1029,7 @@ function Patterns() {
 />`}</pre>
         <div style={S.note}>
           Primary CTA: <span style={S.mono}>PillMint hero</span> · Secondary: <span style={S.mono}>PillGhost light hero</span><br />
-          <span style={S.mono}>imgFocus</span> sets background-position at all breakpoints · badge optional frosted pill
+          <span style={S.mono}>imgFocus</span> sets background-position at all breakpoints · badge optional stroke-only pill
         </div>
         <Wpb>
           Do not rebuild with stacked WPBakery elements. Paste hero from <span style={S.mono}>recipes.html</span>

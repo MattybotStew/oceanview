@@ -25,7 +25,7 @@ export default function PageHero({ image, imgFocus, badge, eyebrow, title, title
           <HeroShaper />
             <div className="ov-hero-content">
               {badge && (
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(0,31,84,.45)', border: '1px solid rgba(255,255,255,.22)', borderRadius: 200, padding: '5px 12px', marginBottom: 4, alignSelf: 'flex-start' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'transparent', border: '1px solid rgba(255,255,255,.55)', borderRadius: 200, padding: '5px 12px', marginBottom: 4, alignSelf: 'flex-start' }}>
                   <span style={{ fontFamily: 'var(--ov-ff-sans)', fontWeight: 600, fontSize: 10, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#F2FCFF', whiteSpace: 'nowrap' }}>{badge}</span>
                 </div>
               )}

@@ -2,6 +2,10 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-10-07 — Grok (Hero eyebrow stroke)
+
+- PageHero category badge (product heroes) dropped the frosted fill. Outline only: transparent background, `1px solid rgba(255,255,255,.55)`. Matched in `.ov-badge--hero` and the `#design` sample. Line-style eyebrows (home slider, PageHero `eyebrow`) were already stroke-only.
+
 ## 2026-09-30 — Grok (Renewal Rates sales CTA)
 
 - Closing navy `CTABanner` on `#renewal-rates` now takes an optional `secondary`. Sales phone is `PillGhost light hero` with `tel:+18336567455` beside Explore Harbourview FIA. Standalone ghost button under the banner removed.

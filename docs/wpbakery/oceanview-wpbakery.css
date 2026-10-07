@@ -458,8 +458,8 @@ button.ov-btn,
   color: #70BABF;
 }
 .ov-badge--hero {
-  background: rgba(0, 31, 84, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.55);
   color: #F2FCFF;
   padding: 5px 12px;
   border-radius: 200px;
