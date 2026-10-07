@@ -145,6 +145,7 @@
 - **Stub routes:** Routes like `#about`, `#client-resources`, `#insights`, `#professionals` are navigation stubs that don't render pages; they trigger sub-nav dropdowns in Header.jsx
 - **Dynamic routes:** Product detail pages share `ProductDetailPage` component with different props based on route
 - **Internal / review pages:** `#design`, `#nav-dropdowns`, `#product-tab-examples`, `#products-filter-test`, and `#home-legacy` are intentionally unlisted (by design)
+- **White inline signups:** Pages that render their own light "Stay Informed" email capture (instead of the dark global footer form) are tracked in `docs/WHITE_FORM_PAGES.md`
 - **All pages use:** Consistent header, footer, layout grid (`ov-container`), spacing tokens (`ov-section`)
 - **Responsive:** Mobile nav collapses to hamburger; all pages have mobile breakpoints
 

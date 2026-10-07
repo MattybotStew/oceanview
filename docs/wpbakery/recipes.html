@@ -197,3 +197,75 @@
     </p>
   </div>
 </section>
+
+
+<!-- ========== 16. APPLICATIONS EXPLORER (Brochures, Applications & Forms) ========== -->
+<!-- Static markup + ov-applications-filter.js. Repeat .ov-apps-group per product/channel,
+     and one .ov-state-tile per state. data-ov-* values power the client-side filters.
+     Colorado (or any gated state) uses a button with data-ov-ack instead of a link. -->
+<section class="ov-section ov-bg-white" data-ov-apps>
+  <div class="ov-container">
+    <p class="ov-eyebrow">Applications</p>
+    <h2 class="ov-h2">State-specific application packages</h2>
+    <p class="ov-body-lg">Select your state and distribution channel to download the correct application and disclosure package.</p>
+
+    <div class="ov-apps-toolbar">
+      <div class="ov-apps-search">
+        <input type="search" data-ov-apps-search aria-label="Search application packages by state or product" placeholder="Search by state or product">
+      </div>
+      <div class="ov-apps-filters">
+        <div class="ov-apps-filter">
+          <span class="ov-apps-filter__label">Product</span>
+          <div class="ov-apps-chips" data-ov-apps-product>
+            <button type="button" class="ov-apps-chip is-active" data-value="all" aria-pressed="true">All products</button>
+            <button type="button" class="ov-apps-chip" data-value="harbourview-myga" aria-pressed="false">Harbourview MYGA</button>
+            <button type="button" class="ov-apps-chip" data-value="currentrate-myga" aria-pressed="false">CurrentRate MYGA</button>
+            <button type="button" class="ov-apps-chip" data-value="sky-harbourview-myga" aria-pressed="false">Sky Harbourview MYGA</button>
+            <button type="button" class="ov-apps-chip" data-value="harbourview-fia" aria-pressed="false">Harbourview FIA</button>
+            <button type="button" class="ov-apps-chip" data-value="caplock-fia" aria-pressed="false">CapLock FIA</button>
+          </div>
+        </div>
+        <div class="ov-apps-filter">
+          <span class="ov-apps-filter__label">Channel</span>
+          <div class="ov-apps-chips" data-ov-apps-channel>
+            <button type="button" class="ov-apps-chip is-active" data-value="all" aria-pressed="true">All channels</button>
+            <button type="button" class="ov-apps-chip" data-value="imo" aria-pressed="false">IMO</button>
+            <button type="button" class="ov-apps-chip" data-value="fi" aria-pressed="false">Financial Institution</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="ov-apps-readout">Showing <strong data-ov-apps-count>392</strong> of 392 application packages</p>
+
+    <div class="ov-apps-groups">
+      <section class="ov-apps-group" data-ov-product="harbourview-myga" data-ov-channel="imo">
+        <button type="button" class="ov-apps-group__head" aria-expanded="true">
+          <span class="ov-apps-group__title">
+            Harbourview MYGA
+            <span class="ov-apps-tag">MYGA</span>
+            <span class="ov-apps-group__channel">IMO</span>
+          </span>
+          <span class="ov-apps-group__meta">49 packages</span>
+        </button>
+        <div class="ov-apps-group__body">
+          <div class="ov-state-grid">
+            <a class="ov-state-tile" data-ov-code="AL" data-ov-name="Alabama" href="/wp-content/uploads/2026/02/AL_Harbourview_Annuity_Package-02.26.pdf" target="_blank" rel="noopener">
+              <span class="ov-state-tile__code">AL</span><span class="ov-state-tile__name">Alabama</span>
+            </a>
+            <a class="ov-state-tile" data-ov-code="AK" data-ov-name="Alaska" href="/wp-content/uploads/2026/02/AK_Harbourview_Annuity_Package-02.26.pdf" target="_blank" rel="noopener">
+              <span class="ov-state-tile__code">AK</span><span class="ov-state-tile__name">Alaska</span>
+            </a>
+            <button type="button" class="ov-state-tile ov-state-tile--ack" data-ov-code="CO" data-ov-name="Colorado" data-ov-ack>
+              <span class="ov-state-tile__code">CO</span><span class="ov-state-tile__name">Colorado</span>
+            </button>
+            <!-- …remaining 47 states… -->
+          </div>
+        </div>
+      </section>
+      <!-- …repeat .ov-apps-group for every product × channel… -->
+    </div>
+
+    <div class="ov-apps-empty" style="display:none;">No application packages match your search.</div>
+  </div>
+</section>

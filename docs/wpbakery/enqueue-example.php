@@ -29,6 +29,19 @@ add_action( 'wp_enqueue_scripts', function () {
 		[], // add parent theme handle here if load order matters, e.g. [ 'parent-style' ]
 		$ver
 	);
+
+	// Progressive-enhancement JS for the Applications explorer (static markup + filters).
+	$js_rel  = '/ov-applications-filter.js';
+	$js_path = get_stylesheet_directory() . $js_rel;
+	if ( file_exists( $js_path ) ) {
+		wp_enqueue_script(
+			'oceanview-apps-filter',
+			get_stylesheet_directory_uri() . $js_rel,
+			[],
+			(string) filemtime( $js_path ),
+			true
+		);
+	}
 }, 20 );
 
 /**

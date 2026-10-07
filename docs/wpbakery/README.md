@@ -5,6 +5,7 @@ This folder is the **WordPress / WPBakery** version of the React design system (
 | File | Purpose |
 |------|---------|
 | `oceanview-wpbakery.css` | Enqueue in the theme — tokens + component classes |
+| `ov-applications-filter.js` | Progressive-enhancement JS for the Applications explorer (search + product/channel filters) |
 | `recipes.html` | Copy-paste **Raw HTML** / Custom HTML element snippets |
 | `shortcodes.md` | Row/column recipes + Extra class names |
 | `color-swatches.md` | Hex values for WPBakery Design Options color pickers |
@@ -147,6 +148,7 @@ Inside cards:
 | Shadows | Prefer cards/borders; `--ov-shadow-card` available |
 | Cards | `.ov-card--*` |
 | Pills & badges | `.ov-badge`, `.ov-tabs` |
+| Applications explorer | `[data-ov-apps]` + `.ov-apps-*` / `.ov-state-*` + `ov-applications-filter.js` |
 | Forms | `.ov-input`, `.ov-label` |
 | Layout | `.ov-section`, `.ov-container`, `.ov-split` |
 | Patterns | `recipes.html` |

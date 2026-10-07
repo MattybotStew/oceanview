@@ -79,6 +79,8 @@ Open via URL/hash only. Do not “fix” by adding nav links unless stakeholders
 
 **Complete page inventory in `plan.md`** (session artifact)
 
+**White inline signup pages + client request:** `docs/WHITE_FORM_PAGES.md`
+
 ---
 
 ## Recent work (2026-07-22 — Composer)

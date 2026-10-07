@@ -2,6 +2,23 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-10-07 — opencode (deepseek-flash) — Brochures module redesign + Applications tab
+
+- Redesigned `#brochures` into four tabs: **Brochures · Product Spec Sheets · Applications · Forms & Disclosures** (was Brochures / Product Spec Sheets / App Packs / Other). Tab persists via `?tab=` (`history.replaceState`); deep links `?product=&channel=` pre-filter Applications on first load.
+- New `src/data/documents.js`, transcribed from the live page `oceanviewlife.com/resources/annuity-brochures-applications-forms/`: `APPLICATION_PRODUCTS` (5 products × channels × ~49 states = **392** app links; 6 Colorado entries are gated → acknowledgement modal), `BROCHURE_DOCS` (16 Salesforce brochure/spec/slip-sheet links), `SERVICE_FORMS` (25). All PDFs target the live WP site — no local assets.
+- New `src/components/ApplicationsExplorer.jsx` — search + product chips + channel chips, grouped Product → Channel state-tile grids, live readout (“Showing X of 392”), collapse toggles, Colorado modal. ~392 nodes rendered, `useMemo` filtering, no virtualization.
+- `BrochuresPage.jsx` — brochure cards resolve live PDFs (5 functional; Horizon/Topsider show “coming soon” since the prototype leads the live site); Specs tab = product spec sheets + strategy slip sheets; Forms tab = disclosures + 25 service forms. Reuses the `.ov-contact-tab` tablist/keyboard pattern.
+- `src/styles/tokens.css` — new `.ov-apps-*` / `.ov-state-*` / `.ov-modal-*` classes (860px / 480px breakpoints).
+- **WPBakery parity:** same classes added to `docs/wpbakery/oceanview-wpbakery.css` (header version → 1.2); new `docs/wpbakery/ov-applications-filter.js` (progressive-enhancement search/product/channel filter); JS enqueued in `enqueue-example.php`; recipe 16 + `shortcodes.md` §9 + `README.md` map/row.
+- Build clean. Playwright smoke at 1440/390px: 4 tabs render; Applications shows 392 tiles / 386 external links / 6 acknowledges / 8 groups; product + search filters, deep link, Colorado modal, and tab switching verified; 0 horizontal overflow at 390px; only console error is the favicon 404.
+- Data was extracted via Playwright DOM (`curl` is Cloudflare-blocked). Regenerate `documents.js` if the live list changes.
+
+## 2026-10-07 — opencode (deepseek-flash) — White signup page list
+
+- New doc `docs/WHITE_FORM_PAGES.md`: the four pages that render an inline white/light "Stay Informed" email capture (home `#`/`#home`/`#home-v2`, `#individuals`, `#national-senior-games`, `#alzheimers-awareness`), each with its client-request source and whether the dark footer form is hidden.
+- Flagged two loose ends: `#individuals` has no documented client request and still shows the dark footer form (only page with a duplicate signup); the Alzheimer's source docx is no longer in repo/Downloads.
+- Linked from `PAGES.md` (Notes for Dev) and `AGENTS.md`.
+
 ## 2026-10-07 — Grok (Hero eyebrow stroke)
 
 - PageHero category badge (product heroes) dropped the frosted fill. Outline only: transparent background, `1px solid rgba(255,255,255,.55)`. Matched in `.ov-badge--hero` and the `#design` sample. Line-style eyebrows (home slider, PageHero `eyebrow`) were already stroke-only.

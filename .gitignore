@@ -8,3 +8,6 @@ dist/
 figma-output.json
 src/figma/
 .env
+
+# playwright-mcp run artifacts
+.playwright-mcp/

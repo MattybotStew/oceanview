@@ -149,3 +149,18 @@ If the theme overrides pill styles, switch to Raw HTML `<a class="ov-btn …">` 
 7. Compliance Text Block (small meta type)
 
 Do **not** add these pages to the primary menu unless marketing asks — same “unlisted” pattern as the React prototype.
+
+---
+
+## 9. Applications explorer (state packages)
+
+Render the **static** grouped markup (recipe 16 in `recipes.html`) and let `ov-applications-filter.js` handle search/filtering — no plugin required. Enqueue the JS from `enqueue-example.php`.
+
+Structure:
+
+1. **Raw HTML** element containing the whole `[data-ov-apps]` block (toolbar + `.ov-apps-groups` + `.ov-apps-empty`).
+2. One `.ov-apps-group` per **product × channel**, with `data-ov-product` and `data-ov-channel`.
+3. One `.ov-state-tile` per state inside `.ov-state-grid`; gated states use a `<button data-ov-ack>` (see Colorado in the recipe).
+4. Keep `data-ov-apps-count` in the readout in sync with the number of tiles you render.
+
+> At ~390 tiles this is a lot of hand-built markup. Generate the Raw HTML from the client’s document list/spreadsheet rather than typing it. The JS only needs the attributes above.
