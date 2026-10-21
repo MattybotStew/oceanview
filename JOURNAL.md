@@ -15,7 +15,7 @@ Identical, and visible at both widths. **Nothing shipped for this** — flagging
 
 The only remaining delta in that element is the decorative hairline: prototype `rgba(255,255,255,.65)` vs the DS token `rgba(242,252,255,.6)` — a ~5% alpha difference, imperceptible. Left alone deliberately.
 
-
+## 2026-10-21 — Big Pickle — Spacing: hero stack rhythm (G10), section padding verified at parity
 
 **Question was "adjust gaps/margins/padding without messing up WPBakery".** Measured first, and the answer split in two.
 
