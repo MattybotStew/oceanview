@@ -2,7 +2,20 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
-## 2026-10-21 — Big Pickle — Spacing: hero stack rhythm (G10), section padding verified at parity
+## 2026-10-21 — Big Pickle — Hero eyebrow verified identical (no change needed)
+
+Checked the "hero eyebrow is 10px on WP vs 16px in the prototype" note I'd raised. **That was a measurement error on my part** — the 16px was the wrapper `div`'s inherited `font-size`, not the text. Measured the actual `<span>` on both sides at 1440 and 390:
+
+| | font-size | weight | letter-spacing | line-height | transform | colour |
+|---|---|---|---|---|---|---|
+| WordPress | 10px | 600 | 1.4px | 16px | uppercase | `rgb(242,252,255)` |
+| prototype | 10px | 600 | 1.4px | 16px | uppercase | `rgb(242,252,255)` |
+
+Identical, and visible at both widths. **Nothing shipped for this** — flagging it so a future agent doesn't "fix" a non-issue.
+
+The only remaining delta in that element is the decorative hairline: prototype `rgba(255,255,255,.65)` vs the DS token `rgba(242,252,255,.6)` — a ~5% alpha difference, imperceptible. Left alone deliberately.
+
+
 
 **Question was "adjust gaps/margins/padding without messing up WPBakery".** Measured first, and the answer split in two.
 
