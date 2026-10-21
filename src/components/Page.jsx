@@ -253,7 +253,7 @@ export default function Page() {
       return <StubPage title={title} eyebrow={eyebrow} />;
     }
     switch (route) {
-      case "products":          return <ProductsPage />;
+      case "products":          return <ProductsPage navVariant="parent-filter" />;
       case "products-filter-test": return <ProductsPage navVariant="parent-filter" />;
       // product detail pages
       case "harbourview-myga":      return <HarbourviewMYGAPage />;

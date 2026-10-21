@@ -69,7 +69,7 @@ Open via URL/hash only. Do not “fix” by adding nav links unless stakeholders
      - **Desktop:** parent filter chips + product tabs (unchanged)
      - **Mobile:** category = full-width dropdown picker; product tabs content-sized / grow-to-fill with horizontal scroll (no crushed labels)
      - **Desktop:** parent filter chips + product tabs (unchanged)
-   - **Live `#products`:** still default two-level sticky nav — do not swap until Mae signs off
+   - **Live `#products`:** option 5 parent-filter nav (same as `#products-filter-test`). Default two-level nav remains in code as `navVariant="default"` only.
    - Unused leftover: `ProductAccordionNav.jsx` (parent-accordion experiment; not on examples board)
 
 **Figma MCP client available:**

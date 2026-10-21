@@ -2,6 +2,26 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-10-21 — Grok — Products page uses parent-filter tabs
+
+- `#products` now renders `ProductsPage` with `navVariant="parent-filter"` (option 5: category filter + product tabs). `#products-filter-test` stays on the same variant.
+- Two-level sticky nav is still in `ProductsPage` as `navVariant="default"`, unused by routes.
+- WordPress staging (`oceanviewstg.wpengine.com/products/`) is a separate WP build and does not pick this up from a git push of this repo.
+
+## 2026-10-12 — deepseek-flash — Homepage design audit corrected; hero font-weight root-caused
+
+- New `docs/HOMEPAGE_DESIGN_AUDIT.md` — **design-elements-only** comparison of staging (`mattybotstew.github.io/oceanview`) vs production (`oceanviewprod.wpengine.com`). Supersedes the design findings in the earlier session handoff.
+- **Resolved the open "headline font weight differs" item.** It is a weight-value parity gap, not a fallback and not a missing font file — `PP Editorial New` loads on both. Same element, `.ov-hero-title`, three different sources:
+  - `src/components/Hero.jsx` (`S.h1`) — weight **800**, `clamp(28px, 8vw, 63px)`
+  - `docs/wpbakery/oceanview-wpbakery.css` (spec) — weight **800**, `clamp(28px, 5.5vw, 63px)`
+  - **production live WP CSS** — weight **400**, `clamp(28px, 4vw, 63px)`
+  - → staging renders Ultrabold; production renders Regular (lighter/thinner). **Production is the outlier**; 800 is already the documented spec (`.clinerules` 2026-08-31). Secondary: production's global `font-style: normal !important` reset forces the *"the retirement ahead."* accent upright, where spec/staging use teal **italic**.
+  - Latent trap flagged: the WP theme ships the serif under a second family name `'Editorial New'` with Ultrabold mapped to weight **700** (DS uses `"PP Editorial New"` @ 800) — a standing source of the same class of mismatch.
+- **Corrected the earlier report's inventory tables.** Those claimed 4 production-only and 3 staging-only design elements. Verified against the production page and the deployed staging bundle: **both environments render the same component set** (hero eyebrow, hero subtitle, "Discover the Oceanview Difference" CTA, full Retirement Resources 3-card grid, Current Rates, Stay Informed). The **only** production-only design element is the market ticker bar.
+- Reclassified two reported defects: the "duplicated ticker block" is the marquee's loop frame (one bar, not two stacked sections) — not a design defect; the "orphaned Retirement Resources heading" is not reproducible (all three cards render).
+- Recommends a P0 production-side CSS fix (weight 400→800, ramp 4vw→5.5vw, restore accent italic) and a P1 decision on whether the ticker belongs in the final design. Responsive pass still not assessed.
+- No source/design-system files changed in this session — audit + documentation only.
+
 ## 2026-10-07 — opencode (deepseek-flash) — Brochures module redesign + Applications tab
 
 - Redesigned `#brochures` into four tabs: **Brochures · Product Spec Sheets · Applications · Forms & Disclosures** (was Brochures / Product Spec Sheets / App Packs / Other). Tab persists via `?tab=` (`history.replaceState`); deep links `?product=&channel=` pre-filter Applications on first load.

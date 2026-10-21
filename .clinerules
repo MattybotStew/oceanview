@@ -7,6 +7,17 @@
 
 **Last Updated:** 2026-10-07 (opencode — `#brochures` redesign: four tabs (Brochures / Product Spec Sheets / **Applications** / Forms & Disclosures) with `?tab=` persistence. Applications tab houses the live WP state matrix — **392** app links across 5 products × IMO/FI channels — via new `src/data/documents.js` + `src/components/ApplicationsExplorer.jsx` (search + product/channel chips, state-tile grids, Colorado acknowledge modal). WPBakery parity: `.ov-apps-*`/`.ov-state-*`/`.ov-modal-*` in `oceanview-wpbakery.css` (v1.2) + new `docs/wpbakery/ov-applications-filter.js`. Prior: 2026-10-07 — new `docs/WHITE_FORM_PAGES.md` lists the four pages with an inline white/light "Stay Informed" signup (home, `#individuals`, `#national-senior-games`, `#alzheimers-awareness`) plus each client-request source; linked from `PAGES.md` + `AGENTS.md`. Flagged `#individuals` as the only page with a duplicate signup (no `hideSignup`, undocumented request). Prior: 2026-10-07 — Grok — PageHero `badge` is stroke-only: transparent fill, `1px solid rgba(255,255,255,.55)`. Same treatment on `docs/wpbakery/oceanview-wpbakery.css` `.ov-badge--hero` and the design-page sample. Prior: 2026-09-30 — `#renewal-rates` closing `CTABanner` secondary is `PillGhost light hero` “Talk with Oceanview Sales (833) 656-7455” → `tel:+18336567455`. Prior: `#renewal-rates` “Take a Closer Look” block is an `.nsg-split` with `public/assets/harbourview-fia-hero.jpg` left of the copy and both buttons. Prior: `#renewal-rates` hero background is `public/assets/renewal-rates-hero.png` from the staging `/rates/` WPBakery cover (park-bench photo), `backgroundPosition` `58% 28%`. Prior: `#professionals` hero eyebrow centered via `justifyContent: center` + `width: 100%` on that `Eyebrow` only. Prior: `#current-rate-fia`: Treasury component renders immediately after How CurrentRate Works via `insertAfter`; comparison (`simpleExample`) renders after At a Glance; riders omitted (section stays conditional); 10 professional resource links; death benefit and RMD are definition blocks under Accessing Your Money. Other products’ order unchanged.)
 
+### Newly completed (2026-10-12 — Homepage design audit, staging vs production)
+- New `docs/HOMEPAGE_DESIGN_AUDIT.md` (design elements only). Supersedes the design findings in the earlier session handoff report.
+- **Hero H1 font-weight root-caused.** Not a font-loading failure — `PP Editorial New` loads on both. `.ov-hero-title` weight differs by source:
+  - `src/components/Hero.jsx` (`S.h1`) → weight **800**, `clamp(28px, 8vw, 63px)`
+  - `docs/wpbakery/oceanview-wpbakery.css` (spec) → weight **800**, `clamp(28px, 5.5vw, 63px)`
+  - production live WP CSS → weight **400**, `clamp(28px, 4vw, 63px)`
+  - **Production is the outlier; 800 is the documented spec** (see 2026-08-31 entry). Production also forces the `.ov-accent` italic upright via a global `font-style: normal !important` reset.
+- **WP theme ships the serif under a second family name** `'Editorial New'` (theme `library/fonts/v2/stylesheet.css`) with Ultrabold mapped to weight **700**, while the DS uses `"PP Editorial New"` @ **800**. Collapse to one name + one mapping to avoid repeat weight mismatches.
+- Corrected the handoff report's inventory: both environments render the **same** component set (hero eyebrow, hero subtitle, "Discover the Oceanview Difference" CTA, full Retirement Resources 3-card grid, Current Rates, Stay Informed). The **only** production-only design element is the market ticker bar. The "duplicated ticker" is the marquee loop frame (not a design defect); the "orphaned Resources heading" is not reproducible.
+- No source/design-system files changed — audit + docs only.
+
 ### Newly completed (2026-10-07 — Brochures redesign)
 - `#brochures` → four tabs: Brochures / Product Spec Sheets / Applications / Forms & Disclosures. `?tab=`, `?product=`, `?channel=` supported.
 - `src/data/documents.js` (392 application links, 16 brochures, 25 service forms) + `src/components/ApplicationsExplorer.jsx`.
@@ -21,7 +32,7 @@
 **Active Agent:** Composer
 
 ### In Progress
-- Mae review: product-first tab options + `#products-filter-test` (option 5). Live `#products` stays default until sign-off.
+- `#products` and `#products-filter-test` both use option 5 parent-filter sticky nav (`navVariant="parent-filter"`). Two-level nav remains in `ProductsPage` as `navVariant="default"` only.
 - `#alzheimers-awareness` landing built (design sign-off pending).
 - `#renewal-rates` unlisted campaign landing (`RenewalRatesPage.jsx`) from the Renewal Rates draft. Download → `#brochures`; product CTA → `#harbourview-fia`.
 - **Homepage V2 live** — `#` / `#home` / `#home-v2` → `HomeV2Page.jsx`. Previous home at `#home-legacy` → `HomePage.jsx`.
