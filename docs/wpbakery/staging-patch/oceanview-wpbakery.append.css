@@ -267,3 +267,53 @@ h1 i, h2 i, h3 i, h4 i, h5 i, h6 i,
 .ov-accent {
   font-style: italic !important;
 }
+
+/* --------------------------------------------------------------------------
+   HERO STACK RHYTHM — the prototype's responsive gap scale
+   --------------------------------------------------------------------------
+   .ov-hero-card__content is the flex column holding eyebrow → h1 → sub →
+   CTAs. It was gapped at a flat 20px at every width, and the eyebrow carried
+   an extra bottom margin on top, so the visual rhythm read 30 / 20 / 20 where
+   the prototype is a flat 40 / 40 / 40 at desktop.
+
+   The prototype's own scale, read from `src/styles/tokens.css`
+   (.ov-hero-content) and confirmed by measurement:
+
+       default     40px
+       ≤1100px     28px
+       ≤720px      20px   (+ card padding 32/24 — already matched)
+       ≤480px      16px   (+ card padding 28/20)
+
+   Fixing the container gap rather than adding margins to each child means the
+   rhythm survives a builder reordering or swapping children in WPBakery.
+
+   No row padding is involved: WPBakery stores its per-row padding as an
+   inline style on .vc_row from Design Options, and nothing here reaches
+   .vc_row — this only touches the hero content column.
+   -------------------------------------------------------------------------- */
+.ov-hero-card__content {
+  gap: 40px;
+}
+
+.ov-hero-card__content > .ov-eyebrow {
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 1100px) {
+  .ov-hero-card__content {
+    gap: 28px;
+  }
+}
+
+@media (max-width: 720px) {
+  .ov-hero-card__content {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ov-hero-card__content {
+    gap: 16px;
+    padding: 28px 20px;
+  }
+}

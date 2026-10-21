@@ -2,6 +2,27 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-10-21 — Big Pickle — Spacing: hero stack rhythm (G10), section padding verified at parity
+
+**Question was "adjust gaps/margins/padding without messing up WPBakery".** Measured first, and the answer split in two.
+
+**Section padding: already at parity — left alone.** Every band on staging is `padding-block: var(--ov-section-py)` → **80px** desktop (64 / 48 / 36 down the breakpoints), the same token and scale the prototype uses, and **no `.vc_row` carries an inline padding** — i.e. WPBakery's Design Options are not setting row padding on any of the inspected pages. Total page height was within 49px of the prototype. So there was nothing to "fix" at row level, and blanket `.vc_row` rules would have been the one change that breaks the builder. Documented as a standing rule in `.clinerules`.
+
+**Hero stack: a real drift, fixed.** `.ov-hero-card__content` (the flex column holding eyebrow → h1 → sub → CTAs) was gapped at a flat **20px** at every width, and the eyebrow carried an extra **10px** bottom margin, so the rhythm read **30 / 20 / 20**.
+
+| width | prototype | staging before | staging now |
+|---|---|---|---|
+| 1440 | 40px | 20px | **40px** |
+| 1100 / 900 / 768 | 28px | 20px | **28px** |
+| 600 | 20px | 20px | **20px** |
+| 480 / 390 | 16px | 20px | **16px** |
+
+Sourced from the prototype's own `src/styles/tokens.css` (`.ov-hero-content`) rather than guessed, then confirmed by measurement on both sides at seven widths. Container `gap` + one eyebrow margin reset — no margins added per child, so a builder reordering of hero children can't break the rhythm. Also picked up the ≤480 card padding step (**28/20**), which the theme was missing.
+
+**Verified on staging:** gap scale matches the prototype at 1440/1100/900/768/600/480/390, hero padding matches at 600/480/390, and the 7-page chrome sweep still reads 104/104 at rest and 73/73 scrolled with no horizontal overflow.
+
+**Deployed:** sheet now **293,340 bytes / 11,465 lines**, re-downloaded and byte-identical to what was tested, `HERO STACK RHYTHM` marker present in the served CSS.
+
 ## 2026-10-21 — Big Pickle — Hero typography fixed on staging (weight + italic)
 
 **Problem:** the hero H1 rendered at **400** on a **4vw** ramp and its accent phrase was **roman**, where the prototype is **800 / 63px / italic**.

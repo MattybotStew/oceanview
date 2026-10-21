@@ -37,6 +37,7 @@
 | G7 | **Primary buttons** | **45px** pills (44px acceptable); banner CTAs **~62px** | Mixed **43–61px**; audience pills are the main visual outlier (G4) | ⏳ partial — G4 fixed; remaining button sizes not yet diffed |
 | G8 | **Footer link rhythm** | **37.6px** row step (25.6px line box + 12px gap); links flush left in column | **45px** step + **5px** link indent (legacy `ul li` margin/padding) | ✅ done |
 | G9 | **Inline signup row** | Two wide fields (**234px** in the home band / **171px** in the footer) + **47px** button on one row, consent below | Three narrow fields **~120px** (first/last/email) + button — different density | ✅ done |
+| G10 | **Hero stack rhythm** | `eyebrow → h1 → sub → CTAs` gapped **40px** desktop, scaling **28px ≤1100 / 20px ≤720 / 16px ≤480**; card padding **32/24** ≤720, **28/20** ≤480 | Flat **20px** at every width, plus a stray **10px** eyebrow margin → rhythm read **30 / 20 / 20** | ✅ done |
 
 **React reference:** `src/components/Header.jsx` (sticky 72px, no ticker in tree). **WP CSS:** the Design QA block appended to `oceanview-wpbakery.css` (see Phase 1 below).
 
@@ -52,7 +53,7 @@ All global items above except G7 are closed on `https://ocean.local` (theme `oce
 
 | File (theme root) | Change |
 |-------------------|--------|
-| `oceanview-wpbakery.css` | **Append** the Design QA block (G1–G9 CSS): default `--ov-header-h`, the `#content` offset, G4 pill label, G5 section measure, G6 dead gap, G8 footer rhythm. It is the last sheet the theme loads, so the block wins on source order. **Self-sufficient:** it tracks the ticker collapse in CSS via `body:has(.ov-ticker--hidden)`, using the class the theme already toggles — no PHP needed. Source: `docs/wpbakery/staging-patch/oceanview-wpbakery.append.css` |
+| `oceanview-wpbakery.css` | **Append** the Design QA block (G1–G10 CSS): default `--ov-header-h`, the `#content` offset, G4 pill label, G5 section measure, G6 dead gap, G8 footer rhythm, G10 hero stack rhythm. It is the last sheet the theme loads, so the block wins on source order. **Self-sufficient:** it tracks the ticker collapse in CSS via `body:has(.ov-ticker--hidden)`, using the class the theme already toggles — no PHP needed. Source: `docs/wpbakery/staging-patch/oceanview-wpbakery.append.css` |
 | `header.php` *(optional)* | `syncContentOffset()` updates `--ov-header-h` on `<html>` instead of writing an inline `margin-top` on `#content` — the measured height rather than the hardcoded 104/73 the CSS block uses |
 | `functions.php` *(optional)* | `oceanview_gf_signup_fields()` trims the newsletter form (G9). Needs a client decision first |
 
