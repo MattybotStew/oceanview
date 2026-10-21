@@ -69,7 +69,7 @@ Open via URL/hash only. Do not “fix” by adding nav links unless stakeholders
 | **1** — Global chrome (**Q0**) | ✅ on Local · ✅ **on staging** | One CSS append to `oceanview-wpbakery.css` (no PHP). Verified live 2026-10-21 |
 | **3** — Promote Phase 1 | ✅ **done 2026-10-21** | CSS block appended to `oceanview-wpbakery.css` on staging, verified live at 1440px + 390px across 7 pages. No PHP, no DB push, no purge needed |
 | **2** — Page builder | Open | P0 Products + Home; P1 Contact + Blog — **WPBakery on Local**, then staging |
-| **4** — Follow-ups | Open | Prod: same CSS append (incl. hero **800/italic**, fixed on staging). Then G7 button heights; Figma article/modal pairs |
+| **4** — Follow-ups | Open | **Prod strategy** (prod is still the legacy site — not a CSS append). Then Figma article/modal pairs |
 
 **Order after staging Q0:** Q1 sweep (Home stats gap, Client Resources nav band, prod hero CSS) → **S** Products nav → Home sections → Contact tabs → Blog grid → manual article QA.
 

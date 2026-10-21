@@ -2,6 +2,24 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-10-21 — Big Pickle — G7 button heights audited: already at parity (no change)
+
+**The audit's "mixed 43–61px" was a mismeasurement** — it compared the design's two button sizes against each other. Measured every `.ov-btn` on 11 staging pages plus the prototype:
+
+| variant | staging | prototype | delta |
+|---|---|---|---|
+| `--sm` | **43.8px** (28 instances) | **44.5px** | 0.7px |
+| `--lg` | **61px** (19 instances) | **61.5px** | 0.5px |
+| GF signup submit | **47px** | **47px** | **0** |
+
+Padding, font-size, pill radius and letter-spacing all match exactly; only two heights exist sitewide, so there is no mix to normalise. The brief's "45px / ~62px" was rounded from 44.5 / 61.5.
+
+**Cause of the residual:** `.ov-btn { line-height: 1.2 !important }` vs the prototype's `line-height: normal`. **Left as-is on purpose** — `1.2` is font-independent, so buttons keep their height when PP Mori swaps in or a fallback font is used. Switching to `normal` would buy 0.7px and cost layout shift on font load. If exactness is ever wanted, `min-height: 44.5px` / `61.5px` gets it without that trade.
+
+**No CSS shipped.** G7 closed in `docs/DESIGN_QA_WP_HANDOFF.md` with the measurements and the reasoning.
+
+**Also recorded:** production runs the **legacy site** — 36KB sheet, no `ov-ds` body class, zero `ov-*` markup, WPBakery 8.7.3 vs staging's 9.0.1 — so the Phase 1 append cannot go to prod; prod needs the DS migration, and `HOMEPAGE_DESIGN_AUDIT.md`'s production section is stale.
+
 ## 2026-10-21 — Big Pickle — Hero eyebrow verified identical (no change needed)
 
 Checked the "hero eyebrow is 10px on WP vs 16px in the prototype" note I'd raised. **That was a measurement error on my part** — the 16px was the wrapper `div`'s inherited `font-size`, not the text. Measured the actual `<span>` on both sides at 1440 and 390:
