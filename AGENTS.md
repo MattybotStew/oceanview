@@ -34,42 +34,112 @@ Open via URL/hash only. Do not “fix” by adding nav links unless stakeholders
 
 ---
 
-## Current Action Items (2026-07-22 — Composer)
+## Master plan — WordPress vs prototype (2026-10-21)
+
+**Goal:** WP (staging → prod) matches the React prototype on **layout, type, spacing, buttons, nav chrome, form UI** — not marketing copy.  
+**Figma board:** [Design QA](https://www.figma.com/design/fe7PYQtVJ2pNZ1VR6lznWz/2026-Oceanview-Design?node-id=9253-2) (WP left, prototype right).
+
+### Source of truth & deliberate divergence
+
+| Reference | Role |
+|-----------|------|
+| **React prototype** — `npm run dev`, hash routes (`#home`, `#products`, …) | Default UI truth |
+| **Local WP `ocean`** — `~/Local Sites/ocean/app/public/` | Build & verify before SFTP |
+| **Ticker on WP** | **Stays** — 32px strip + 72px nav = **104px** stack; collapses on scroll (→ 73px). Prototype has **no ticker** (72px only). **Do not remove** the ticker to match Figma/prototype. |
+
+**Theme on Local/staging:** `oceanviewlife` at `wp-content/themes/oceanviewlife/` (top-level — **not** `x-child` / `x`). WP does **not** auto-sync from this git repo; theme mirrors live in `docs/wpbakery/`.
+
+### Doc map (read before WP work)
+
+| Doc | Purpose |
+|-----|---------|
+| [`LOCAL_OCEAN_WP_PLAN.md`](LOCAL_OCEAN_WP_PLAN.md) | **Agent pickup** — link to full plan |
+| [`docs/LOCAL_OCEAN_WP_PLAN.md`](docs/LOCAL_OCEAN_WP_PLAN.md) | Phases 0–4 checklist |
+| [`docs/WP_DEV_PUNCHLIST.md`](docs/WP_DEV_PUNCHLIST.md) | Dev handoff + acceptance criteria |
+| [`docs/FIGMA_QA_FULL_SCOPE_AND_QUICK_WINS.md`](docs/FIGMA_QA_FULL_SCOPE_AND_QUICK_WINS.md) | All 11 page pairs; **Q0 / Q1 / S** tiers |
+| [`docs/DESIGN_QA_WP_HANDOFF.md`](docs/DESIGN_QA_WP_HANDOFF.md) | Full gap list (G1–G9) + SFTP notes |
+
+**Fix tiers:** **Q0** = sitewide SFTP bundle (Phase 1). **Q1** = small per-page CSS or builder tweak. **S** = structural rebuild (nav shell, tabs, grid).
+
+### Execution phases
+
+| Phase | Status | What |
+|-------|--------|------|
+| **0** — Local ready | ✅ | Pull WPE **Stg** (files + DB); permalinks save; site = `ocean` |
+| **1** — Global chrome (**Q0**) | ✅ on Local · ✅ **on staging** | One CSS append to `oceanview-wpbakery.css` (no PHP). Verified live 2026-10-21 |
+| **3** — Promote Phase 1 | ✅ **done 2026-10-21** | CSS block appended to `oceanview-wpbakery.css` on staging, verified live at 1440px + 390px across 7 pages. No PHP, no DB push, no purge needed |
+| **2** — Page builder | Open | P0 Products + Home; P1 Contact + Blog — **WPBakery on Local**, then staging |
+| **4** — Follow-ups | Open | Prod: same CSS append (incl. hero **800/italic**, fixed on staging). Then G7 button heights; Figma article/modal pairs |
+
+**Order after staging Q0:** Q1 sweep (Home stats gap, Client Resources nav band, prod hero CSS) → **S** Products nav → Home sections → Contact tabs → Blog grid → manual article QA.
+
+### Phase 1 / Q0 — ✅ verified on Local
+
+File-only promote (**no DB push**; ACF `options_enable_stock_ticker` on staging is separate):
+
+1. ✅ **104px header stack** — ticker kept (`oceanview_ticker_enabled()` + ACF); nav **72px**; `--ov-header-h` on `<html>` via `syncContentOffset()`; `#content { margin-top: var(--ov-header-h) !important }`.
+2. ✅ **Same offset on every template** — home hero card ~top **124** / left 20 / 1400×800.
+3. ✅ **Audience pills** — outline, **21.92px** label in 44px control.
+4. ✅ **Section intros** — **630.9px** column; eyebrow **10px** / deck **18px**; 40px dead gap before grids removed (scoped).
+5. ✅ **Footer** — **37.6px** link step; signup **two** fields + button (GF #21 Last Name hidden at render).
+
+Repo mirrors: `docs/wpbakery/staging-patch/` (CSS block to append + `header.php` / `functions.php` hunks), `docs/wpbakery/enqueue-example.php`.
+
+> ⚠️ **Client:** GF still says "First Name" where prototype says "Name" (last name no longer collected).  
+> **Trap:** Do **not** overwrite theme **279KB** `oceanview-wpbakery.css` with the repo **27KB** subset — newsletter row layout breaks. Header stays **`position: fixed`** (legacy `html { overflow-x: hidden }` breaks sticky).
+
+### SFTP/CSS vs WPBakery
+
+| Without WPBakery (Phase 1 + some Q1) | Needs WPBakery / template work |
+|--------------------------------------|--------------------------------|
+| Header, offset, pills, section measure, footer, GF field trim | Products option-5 sticky nav (~109px band) |
+| Scoped CSS (hero weight, spacing trims) | Contact left hero + **4× 51px tabs** |
+| | Blog **grid** + closing band (not ~10k px stack) |
+| | Home — Why Oceanview link on own row; Current Rates band |
+
+### Page-level backlog (Phase 2 / structural)
+
+| Priority | Page | Match prototype |
+|----------|------|-----------------|
+| P0 | **Products** | Option 5: full-width category pills (3 equal thirds) + product tabs — `#products` / `ProductsPage.jsx` |
+| P0 | **Home** | Stats spacing; Why OV CTA on own row; Current Rates band. ✅ hero below header |
+| P1 | **Contact** | Left hero + four tabbed sections (51px tabs) |
+| P1 | **Blog index** | Grid + closing band |
+| P2 | About, Leadership, Harbourview, Client Resources, Insights, White Papers, Individuals | Mostly Q0 — re-QA after staging promote |
+| — | Articles + pro-resource **modals** on Figma | Not yet diffed |
+
+Newsroom / FAQ on the board = WP-only duplicates (no prototype column).
+
+### Session prompt (Local / WP parity)
+
+```text
+Read AGENTS.md “Master plan — WordPress vs prototype”, docs/LOCAL_OCEAN_WP_PLAN.md, docs/DESIGN_QA_WP_HANDOFF.md.
+Local root: ~/Local Sites/ocean/app/public/  Theme: oceanviewlife
+Phase 1 (Q0) done on Local — next: SFTP promote to WPE staging OR Phase 2 WPBakery (Products, Home, Contact, Blog).
+Compare to npm run dev (hash routes). Ticker stays on WP (104px stack). UI only, not copy.
+```
+
+---
+
+## Current Action Items (React prototype repo)
 
 ### 🎯 Priority Tasks for Matt
 
 **Blocking Haley's 7/25 deadline:**
 - ✅ **Supplied full page list** (53 pages: 51 live + 2 internal) for dev subtask creation
 
-**Implementation backlog (3 tasks):**
+**React / prototype backlog:**
 
-1. **Fix spacing below hero section** (affects all pages)
-   - Hero wrapper: `Hero.jsx` line 19 (`marginBottom: 40px`)
-   - PageHero variant: `PageHero.jsx` (similar issue)
-   - Impact: All hero instances touching content below
-   - Test pages: Home, Products, all detail/product pages, professionals, landings
+1. ✅ **Hero spacing below hero** — `marginBottom: 40` removed from `Hero.jsx` / `PageHero.jsx` (2026-09-09).
 
-2. **Fix Product page/section issues** (dev handoff reference for Mikko)
-   - Tabbed nav rendering (MYGAs / FIAs tabs)
-   - Product card layout/interaction bugs
-   - Tab switching behavior
-   - Responsive layout on mobile
-   - Files: `ProductsCard.jsx` (homepage), `ProductsPage.jsx` (full page)
+2. **Product page body** (cards, tabs behavior, mobile) — reference `ProductsPage.jsx`, `ProductsCard.jsx` for Mikko where WP lags prototype.
 
-3. **Product page top nav — in review** (needs Mae approval)
-   - **Constraint:** product tabs are the focus; full product/category titles; page content below must not change (nav chrome only)
-   - **Board:** `#product-tab-examples` — five product-first sticky tab ideas:
-     1. Grouped strip (category dividers + all products)
-     2. Product row + parent eyebrow
-     3. Labeled product groups
-     4. Category prefix on products
-     5. Products + parent filter chips
-   - **Full-page test of option 5:** `#products-filter-test` → `ProductsPage` with `navVariant="parent-filter"` (same catalog as live `#products`)
-     - **Mobile:** category = full-width dropdown picker; product tabs content-sized / grow-to-fill with horizontal scroll (no crushed labels)
-     - **Desktop:** **full-width category pills** (three equal thirds across the container) + product tabs
-   - **Live `#products`:** option 5 parent-filter nav (same as `#products-filter-test`). Default two-level nav remains in code as `navVariant="default"` only.
-   - **Category row is full width (2026-10-21):** desktop categories are three **full-width pills** (equal thirds, pill styling kept) reading "Fixed Annuities" · "Fixed Annuities with Flexibility" · "Fixed Indexed Annuities". Mobile keeps the dropdown picker. Scroll-spy is muted for 900 ms after an explicit tab click so the smooth scroll can't steal the selection.
-   - Unused leftover: `ProductAccordionNav.jsx` (parent-accordion experiment; not on examples board)
+3. **Product sticky nav — decided in React (2026-10-21)**
+   - **Live `#products`:** option 5 `navVariant="parent-filter"` (same as `#products-filter-test`).
+   - **Desktop:** three **full-width category pills** (equal thirds) + product tabs; **mobile:** category dropdown + scrollable product tabs.
+   - **Board:** `#product-tab-examples` (five alternatives); `#products-filter-test` for full-page review.
+   - **WP handoff:** implement same chrome in WPBakery — see `docs/DESIGN_QA_WP_HANDOFF.md` (Products row).
+   - Unused: `ProductAccordionNav.jsx`.
 
 **Figma MCP client available:**
 - `figma-get-node.mjs` — extracts design metadata, context, screenshots
@@ -81,6 +151,12 @@ Open via URL/hash only. Do not “fix” by adding nav links unless stakeholders
 **White inline signup pages + client request:** `docs/WHITE_FORM_PAGES.md`
 
 ---
+
+## Recent work (2026-10-21 — Big Pickle)
+
+- **Master plan** documented above + [`docs/LOCAL_OCEAN_WP_PLAN.md`](docs/LOCAL_OCEAN_WP_PLAN.md), [`docs/FIGMA_QA_FULL_SCOPE_AND_QUICK_WINS.md`](docs/FIGMA_QA_FULL_SCOPE_AND_QUICK_WINS.md), [`docs/WP_DEV_PUNCHLIST.md`](docs/WP_DEV_PUNCHLIST.md).
+- **Phase 1 (Q0) global chrome** built and geometry-verified on Local `ocean`; **ticker stays** (Matt decision).
+- **Next:** SFTP promote Phase 1 to WPE staging, then Phase 2 WPBakery (Products, Home, Contact, Blog). Details in `JOURNAL.md`.
 
 ## Recent work (2026-07-22 — Composer)
 

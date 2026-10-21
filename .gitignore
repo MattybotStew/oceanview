@@ -11,3 +11,6 @@ src/figma/
 
 # playwright-mcp run artifacts
 .playwright-mcp/
+
+# local scratch: measurement probes + Local-site DB helpers
+.tmp/

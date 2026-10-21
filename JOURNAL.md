@@ -2,6 +2,159 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-10-21 — Big Pickle — Hero typography fixed on staging (weight + italic)
+
+**Problem:** the hero H1 rendered at **400** on a **4vw** ramp and its accent phrase was **roman**, where the prototype is **800 / 63px / italic**.
+
+**Cause — two rules inside `oceanview-wpbakery.css`, not font loading.** PP Editorial New ships 400, 400-italic, **800** and **800-italic**; the 800 faces were never requested (`document.fonts` showed them `unloaded`).
+
+1. `.ov-hero-title { font-weight: 400 !important; font-size: clamp(28px, 4vw, 63px) !important; }` — hard-coded to the wrong values.
+2. A sitewide `h1–h6 em, .ov-accent { font-style: normal !important }` reset. Because it is author `!important`, it also beat the `style="font-style:italic"` that content authors had already put **inline** on some accents — so those lost twice.
+
+**Fix,** appended to the Design QA block (no new file):
+
+```css
+.ov-hero-title { font-weight: 800 !important; font-size: clamp(28px, 5.5vw, 63px) !important; }
+body.home .ov-hero-title { font-size: clamp(28px, 8vw, 63px) !important; }   /* Hero.jsx ramps 8vw */
+h1 em, h2 em, … , .ov-accent { font-style: italic !important; }               /* mirrors the reset, flips it */
+```
+
+The italic rule deliberately mirrors the reset's selector list so it wins on ties by source order, and is scoped to headings + `.ov-accent` — `<em>` in body copy is untouched. Section H2 weight stays **400** (correct per the prototype); only their accents italicise.
+
+**Verified against the prototype** (ran `npm run dev`, measured `.ov-hero-title` on `#home` and `#about`): prototype 800 / 63px / -1.575px / italic accent on both. After the fix, WordPress matches on home, about and products; **48px at 600px** confirms the 8vw ramp; all four home H2 accents italic, H2 weight 400 unchanged.
+
+**Deployed:** re-downloaded the live sheet first (still byte-identical to the previous upload — nothing had drifted), then uploaded. Staging sheet now **291,733 bytes / 11,415 lines**, re-downloaded and byte-identical to what was tested, `HERO TYPOGRAPHY` marker present in the served CSS.
+
+**Still open:** production needs the same append; the P1 font-family duplication (`'Editorial New'` 700 vs `"PP Editorial New"` 800) is untouched — harmless while every `.ov-*` class uses `--ov-ff-display`.
+
+## 2026-10-21 — Big Pickle — Phase 1 DEPLOYED to WPE staging
+
+**Shipped:** the Design QA block, appended to `wp-content/themes/oceanviewlife/oceanview-wpbakery.css` on **oceanviewstg**. Nothing else on the server was touched — no `header.php`, no `functions.php`, no DB.
+
+**How:** WPE SSH is publickey-only (portal key never got added), so this went over **SFTP** (port 2222, user `oceanviewstg-matt`) with `docs/wpbakery/staging-patch/remote.sh`, an `expect` driver. Two gotchas worth remembering: the SFTP prompt is `Password:` with a capital P (a case-sensitive match silently times out), and this expect build does not support `(?i)` — match the literal `assword:` instead.
+
+**Safety checks before the write:**
+- Downloaded the live sheet first: **11,144 lines / 279,059 bytes**, mtime Oct 21 04:59 — matching the clone baseline, so dev had not changed it.
+- Stripped the 211-line block (+2 newlines) from the Local copy and `cmp`'d: **byte-identical** to the live file. That proves uploading the full Local file is exactly "live + block", with nothing else able to change.
+- Live original kept at `.tmp/staging-backup-oceanview-wpbakery.css` (gitignored).
+
+**Result:** remote file now **11,357 lines / 289,090 bytes**, sha256 `c3165dee…0304`, re-downloaded and byte-identical to what was tested locally; marker count exactly 1.
+
+**Verified live on staging** (Playwright, 1440px + 390px, 7 pages: home, about, products, contact, leadership, individuals, blog):
+
+| | at rest | scrolled |
+|---|---|---|
+| header stack | **104** (ticker 32 + nav 72) | **73** |
+| `#content` margin-top | **104px** | **73px** |
+
+Also: audience pill label **21.92px** in the 44px chip, section intro H2 **630px**, footer `<li>` **25.6px**, **no horizontal overflow** at either width. Notably `--ov-header-h` stays `104px` on `<html>` while the margin computes to `73px` — that is the `body:has(.ov-ticker--hidden)` rule doing the work, confirming the offset needs no theme PHP.
+
+**No cache purge needed:** both the old and new `?ver=` URLs return the new 289,090-byte file, and inner pages already rendered `?ver=1792613005`, so the page cache revalidated on its own.
+
+**Not deployed (deliberately):** the optional `header.php` `syncContentOffset()` and the `functions.php` GF trim. So the signup row still shows three fields (G9 open, waiting on the client's First/Last Name decision). The offset works purely in CSS.
+
+**Security:** the deploy used the account SFTP password, which was pasted into the chat — **rotate it**.
+
+## 2026-10-21 — Big Pickle — Phase 1 made CSS-only (safest ship)
+
+**Why:** "what is safest" — the CSS block previously depended on the `header.php` `syncContentOffset()` change to keep the offset in step as the ticker collapses. That made a *one-file, zero-PHP* ship impossible: shipping the CSS alone would leave a 31px gap under the bar when scrolled.
+
+**Fix:** the block now tracks the collapse **in pure CSS**, using state the theme already has (`.ov-ticker--hidden` is toggled by the theme's existing inline script past 10px, and `.ov-header-bar` is a hard 72px):
+
+```css
+:root                        { --ov-header-h: 104px; }
+body:has(.ov-ticker--hidden) { --ov-header-h: 73px; }
+body:not(:has(.ov-ticker))   { --ov-header-h: 72px; }   /* ticker switched off */
+#content { transition: margin-top .25s ease; }          /* matches the 250ms fold; off under prefers-reduced-motion */
+```
+
+Declarations on `body` beat the inherited value on `#content`, so this also cannot fight the optional JS (which writes the property on `<html>`) — the two agree.
+
+**Verified on Local with the sync JS temporarily disabled** (`syncContentOffset()` calls/listeners commented out, then restored): at rest **104px**, scrolled **73px**, ticker element removed **72px** — and the scrolled/off states still correct with `--ov-header-h: 500px` forced onto `<html>`, proving the CSS rules, not the JS, drive it. Full sweep re-run afterwards with JS restored: 13 templates at **104/104**, scrolled **73/73**, no overflow.
+
+**So the staging ship is now ranked by risk:** (1) append the CSS block — no PHP, cannot fatal, delete-to-rollback, fixes G2/G3/G4/G5/G6/G8; (2) *optional* `header.php` sync — measurement instead of hardcoded values; (3) *optional* `functions.php` GF trim — G9, needs the client's OK. Docs reordered to match (`docs/wpbakery/staging-patch/README.md`, `docs/WP_DEV_PUNCHLIST.md` §A0, `docs/DESIGN_QA_WP_HANDOFF.md`).
+
+
+
+**Why:** staging has a backup in progress and dev's structure must not be reorganised. The first shape (a new `oceanview-qa-overrides.css` + new enqueue + a mu-plugin trial) added parallel structure. Reshaped so Phase 1 lands as **three edits to three files that already exist on staging** — no new stylesheet, no new `wp_enqueue_style()`, no mu-plugin, no DB change.
+
+**What changed on Local (and therefore in the patch):**
+
+1. **`oceanview-wpbakery.css`** — the Design QA block is now **appended** to the theme's existing sheet instead of living in its own file. Verified it is the **last stylesheet the theme loads**, so the block wins on source order exactly as before. Source of truth: `docs/wpbakery/staging-patch/oceanview-wpbakery.append.css`. It now also declares the default `:root{--ov-header-h:104px}` (previously a PHP inline style).
+2. **`header.php`** — unchanged from the ticker work: `syncContentOffset()` writes `--ov-header-h` on `<html>`. Comment block corrected (it still claimed the ticker had been removed).
+3. **`functions.php`** — the QA enqueue + `wp_add_inline_style` token removed (both now unnecessary); the ticker helper and the GF trim stay.
+
+**Deleted:** `docs/wpbakery/oceanview-qa-overrides.css`, `docs/wpbakery/staging-test/` (the mu-plugin kit — superseded by this approach).
+
+**Verified on Local after the reshape** — geometry identical to before: 104px stack on 13 templates, `#content` at y=104, `--ov-header-h:104px`, pill 21.92px, section intros 630px/18px, footer li 25.6px, footer signup `[First Name 185.8][Email 185.8][Sign Up 142.5]` with Last Name off-screen. Scrolled: stack 73px **and** content margin 73px (they stay equal → no gap). `oceanview-wpbakery.css` is the last theme stylesheet, the QA sheet is no longer requested, and the only failed request is the pre-existing external `cdn.acsbapp.com` 404.
+
+**Handoff:** `docs/wpbakery/staging-patch/README.md` — the append block, the exact `syncContentOffset()` before/after, the `functions.php` block, upload-whole-file caveats (`header.php` calls `oceanview_ticker_enabled()`, so the two PHP files go together), 9 checks, and per-file rollback.
+
+## 2026-10-21 — Composer — AGENTS.md master plan refresh
+
+**What:** Replaced the scattered WP backlog in `AGENTS.md` / `CLAUDE.md` with a single **Master plan — WordPress vs prototype** section: doc map, phases 0–4, Q0/Q1/S tiers, SFTP vs WPBakery split, session prompt, ticker-stays rule. Trimmed duplicate Big Pickle prose to pointers. Synced `.clinerules`, root + doc `LOCAL_OCEAN_WP_PLAN.md` pickup links and agent prompt (Phase 1 done → promote or Phase 2).
+
+**Next:** Matt SFTP Phase 1 to WPE staging; agents pick up Phase 2 from `AGENTS.md`.
+
+## 2026-10-21 — Big Pickle — WP Phase 1 global chrome implemented on Local
+
+**Scope:** global chrome parity between the Local WordPress site (`~/Local Sites/ocean/app/public/`, theme **`oceanviewlife`**) and the React prototype. Global items G1–G6, G8, G9 are closed; G7 (remaining button sizes) is partial. Page-builder items (Products nav, Contact tabs, Blog grid, Home bands) are still Phase 2 and need WPBakery admin.
+
+> **Superseded in part — see the entry above.** This entry describes the first shape, where the parity CSS lived in a separate `oceanview-qa-overrides.css` with its own enqueue. It was reshaped the same day so the rules are **appended to the theme's existing `oceanview-wpbakery.css`** and no new file or enqueue is added. The *findings* below (offset conflicts, legacy rules, G1–G9 values) still stand; only the file layout changed.
+
+> **Update (same day, later): the market ticker is KEPT.** The work below originally shipped with the ticker removed (the React prototype had dropped it from the shell on 2026-09-09). Matt's call was to keep it — it is part of the approved WordPress design — so WordPress **deliberately diverges from the prototype** on that one point. What that changed:
+>
+> - `functions.php` — the forced-off `add_filter( 'oceanview_ticker_enabled', '__return_false' )` is **removed**; the filter now passes the ACF value through, so WP Admin can still switch the ticker off and a file-only promote can pin the state.
+> - Local DB — `wp_options.options_enable_stock_ticker` set back to `1` (still never pushed anywhere).
+> - `header.php` — `syncContentOffset()` now writes the `--ov-header-h` custom property onto `<html>` instead of an inline `margin-top` on `#content`. An inline style loses to the `!important` offset rule, and the property is what lets the **ticker's scroll-collapse** (104px stack → 73px) stay in step with the content.
+> - Header stack is **104px** (32px ticker + 72px nav) and the content starts at **y = 104**; the hero card lands at top 124. The nav bar itself is still 72px.
+> - Every doc was corrected: `AGENTS.md`, `.clinerules`, `JOURNAL.md`, `docs/DESIGN_QA_WP_HANDOFF.md` (G1 + the Phase 1 section), `docs/LOCAL_OCEAN_WP_PLAN.md`, `docs/wpbakery/enqueue-example.php`, `docs/wpbakery/oceanview-qa-overrides.css`.
+>
+
+**What changed in the theme** (all file-based, so it promotes over SFTP without a database push):
+
+- **`functions.php`**
+  - `oceanview_ticker_enabled()` reads the ACF option `options_enable_stock_ticker` and passes it through an `oceanview_ticker_enabled` filter. **The ticker is KEPT** (see the update below) — the filter is left as a pass-through so WP Admin can still switch it off and a file-only promote can pin the state.
+  - `wp_add_inline_style( 'oceanview-ds', ':root{--ov-header-h:104px;}' )` publishes the real header height (72px with the ticker off).
+  - `oceanview-qa-overrides.css` is enqueued **after** `oceanview-wpbakery.css` (source order wins at equal specificity).
+  - `oceanview_gf_signup_fields()` marks Gravity Forms #21's **Last Name** field hidden at render time (`gform_pre_render` / `gform_pre_validation` / `gform_pre_submission_filter`). GF skips hidden fields in validation, so it leaves the front end and the validation rules together.
+- **`header.php`** — ticker markup gated on `oceanview_ticker_enabled()`, so a disabled ticker is never rendered (not hidden with CSS). `syncContentOffset()` now writes the `--ov-header-h` custom property onto `<html>` instead of an inline margin on `#content` — an inline style would lose to the `!important` rule, and the property keeps working when the ticker collapses on scroll.
+- **`oceanview-qa-overrides.css`** (new) — G2/G3 content offset, G4 pill label line-height, G5 section measure, G6 dead gap, G8 footer rhythm.
+
+**Root causes found (worth remembering):**
+
+- **Two legacy writers were zeroing the content offset.** `library/dist/js/script-min.js` runs on `window.load`: `$("#content").css("margin-top", $(".header_wrapper").outerHeight())` — `.header_wrapper` is a zero-height wrapper because the DS header is `position: fixed`, so it wrote **0px** and the fixed header overlapped the top of every page. `header.php`'s inline `syncContentOffset()` also only ran once `#content` existed, so it never ran on first paint. Both write **inline** styles, so an author `!important` rule settles it: `#content { margin-top: var(--ov-header-h, 72px) !important; }`.
+- **`.ov-aud-chip`'s 29px line-height was not the DS's** — it came from the legacy base stylesheet's bare `a { font-size: 18px; line-height: 29px }` (`library/dist/css/style.css`).
+- **The footer link step was the legacy `ul li` rule**, not the DS's: `font-size:18px; line-height:28px; padding-left:5px; margin-bottom:5px` → 45px steps with a 5px indent. Resetting the `<li>` to the body strut (16px × 1.6) plus the DS's 12px gap gives the prototype's **37.6px**.
+- **The theme's `oceanview-wpbakery.css` is a full 279KB build**, not the 27KB subset in `docs/wpbakery/` — it already contains the header/ticker/footer rules **and** a correct two-field signup row (flex row + `order` to place the button between the email field and the consent). Do not overwrite the theme copy.
+- **`sticky` is unsafe for the header.** The legacy base stylesheet sets `html { overflow-x: hidden }`, which makes the root a scroll container and breaks viewport-relative sticky positioning. The bar stays `position: fixed` with a reliable content offset.
+
+**Verified on Local** (Playwright geometry, 1440px and 390px): header stack **104px** = 32px ticker + 72px nav on 13 templates (home, about, products, contact, blog, leadership, individuals, insights, white-papers, harbourview, client-resources, NSG, 404); `#content` at **y = 104**; home hero card at **top 124 / left 20 / 1400×800**; scrolled past 10px the ticker folds away → stack **73px** and the content offset follows (no stale 32px gap); pill label **21.92px** in the 44px chip; section headline + deck **630px**, deck **18px**; the 40px `vc_empty_space` after section intros gone; footer link step **37.6px**, flush left; footer signup row `[Name 185.8][Email 185.8][Sign Up 142.5]` on one line with the consent full-width below.
+
+**Handoff-doc figures corrected** (the earlier prose was approximate; measured prototype values win): eyebrow is **10px** (not 18 — 18 is the deck), section measure **630.9px**, footer link step **37.6px** (not 33), signup fields **234px** in the home band / **171px** in the footer.
+
+**Repo updated:** `docs/wpbakery/oceanview-qa-overrides.css` (new mirror), `docs/wpbakery/enqueue-example.php` (now carries the ticker switch, `--ov-header-h` token, QA-sheet enqueue and the GF field trim), `docs/wpbakery/README.md`, `docs/DESIGN_QA_WP_HANDOFF.md` (status column + a Phase 1 section), `docs/LOCAL_OCEAN_WP_PLAN.md` (Phase 0/1 checked off). Also added a warning banner to the top of `docs/wpbakery/oceanview-wpbakery.css`: **that repo file is a 27KB subset with no `.ov-gform-footer` / `.ov-gform-newsletter-inline` rules at all**, so copying it over the theme's 279KB build would silently delete the newsletter row's layout.
+
+**Loose ends / decisions for Matt:**
+
+- ⚠️ **The newsletter form no longer collects a last name**, and GF still labels the field "First Name" where the prototype says "Name". Both are one-line changes in `functions.php` — but the data-collection change needs a client decision.
+- **Next:** promote the three edits (append to `oceanview-wpbakery.css`, `header.php` `syncContentOffset()`, `functions.php` GF trim) to **WPE staging** over SFTP, purge the WPE cache, then verify before production. The Local DB value (`options_enable_stock_ticker = 1`) is **not** part of the promote and was never pushed anywhere.
+- **Phase 2** still needs WPBakery admin: Products option-5 nav, Contact four tabs, Blog grid, Home bands (stats / Why Oceanview link row / Current Rates).
+- **G7** — remaining primary-button heights (43–61px mixed) not yet diffed against the prototype's 45px pills.
+
+## 2026-10-21 — Composer — Local `ocean` WP execution plan
+
+- Added **`docs/LOCAL_OCEAN_WP_PLAN.md`** (phased checklist: Local setup → global child theme → WPBakery pages → push staging). Root pickup link **`LOCAL_OCEAN_WP_PLAN.md`** for Local modal / agent sessions.
+- Local path documented: `~/Local Sites/ocean/app/public/` (pull from WPE Oceanview **Stg** with Files + Database).
+- Linked from `AGENTS.md`, `CLAUDE.md`, `.clinerules`.
+
+## 2026-10-21 — Composer — WordPress Design QA plan (Figma → agents/knowledge)
+
+- Compared Figma **Design QA** canvas (`2026-Oceanview-Design`, node `9253:2`): WordPress captures **left**, React prototype **right** (source of truth). Scope agreed with Matt: **layout, type, buttons, nav, form UI** — not copy.
+- Findings captured in **`docs/DESIGN_QA_WP_HANDOFF.md`** (global G1–G9, page-level table, fix order, prototype hash routes). Summarized open backlog in **`AGENTS.md`** / **`CLAUDE.md`**; **`.clinerules`** WordPress parity section points at the doc.
+- Headline WP issues: market **ticker** + **104px** header vs prototype **72px**; **two header position models** (home hero under overlay vs inner pages with 104px body offset); Products **two-line category nav** vs prototype **option 5** full-width pills + tabs; Contact **no tab bar**; Blog **long stack** vs grid.
+- **Loose ends:** Newsroom/FAQ rows on board are WP-only duplicates; article pairs and professional-resource modals not yet reviewed.
+
 ## 2026-10-21 — opencode (Big Pickle) — Products page category nav goes full width
 
 - **Request (Matt):** make the product page nav full width; categories read **Fixed Annuities · Fixed Annuities with Flexibility · Fixed Indexed Annuities**. Follow-up: keep the **pills** (not tabs).
