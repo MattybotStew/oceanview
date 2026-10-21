@@ -1,0 +1,269 @@
+/* ==========================================================================
+   DESIGN QA — layout parity with the React prototype  (2026-10-21)
+   --------------------------------------------------------------------------
+   APPENDED TO THE END OF THIS FILE ON PURPOSE.
+
+   These are the Design QA fixes (G1–G9 in docs/DESIGN_QA_WP_HANDOFF.md).
+   They live here rather than in a separate stylesheet so there is no new
+   file and no new wp_enqueue_style() call — the theme's existing enqueue
+   already loads this sheet last, so at equal specificity these rules win
+   on source order over the component rules above.
+
+   Hand-maintained: if this sheet is ever regenerated from src/styles/
+   tokens.css, carry this block over (it is not generated).
+
+   Every block records the prototype value it was measured against, taken
+   in-browser at 1440px against `npm run dev`:
+
+     G1  header stack ......... prototype 72px            WP 104px (32px ticker + 72px bar) — ticker KEPT
+     G2  first content ........ prototype y = 72          WP y = 20  (offset wiped)
+     G4  audience pill label .. prototype 21.92px lh     WP 29px lh
+     G5  section intro ....... prototype 630.9px column  WP 1200px headline / 900px deck
+     G6  section gaps ........ no dead space              WP 40px Empty Space element
+     G8  footer link step .... prototype 37.6px          WP 45px + 5px indent
+     G9  signup row .......... prototype 2 fields + btn   WP 3 narrow fields
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   G1 · HEADER HEIGHT — 32px market ticker + 72px nav bar
+   --------------------------------------------------------------------------
+   The market ticker is KEPT. The React prototype dropped it from the shell
+   on 2026-09-09, but the ticker is part of the approved WordPress design, so
+   WordPress deliberately diverges from the prototype here: 104px stack vs
+   72px. The nav bar itself is still 72px.
+
+   This is the value used before JS runs. header.php's syncContentOffset()
+   overwrites the property with the measured header height, so the offset
+   tracks the ticker collapsing on scroll (104 → 73) instead of leaving a
+   stale 32px gap under the bar.
+   -------------------------------------------------------------------------- */
+:root {
+  --ov-header-h: 104px;
+}
+
+/* Self-sufficient fallback: the ticker folds away once the page is scrolled
+   past 10px (the theme's existing script toggles .ov-ticker--hidden, and the
+   bar is a fixed 72px). That shrinks the stack 104px → 73px (72px bar + the
+   ticker's transparent 1px border). Tracking it here means the offset stays
+   correct even if the syncContentOffset() JS below is never installed — the
+   sheet is the whole fix on its own.
+
+   When the JS *is* present it writes the measured height to --ov-header-h on
+   <html>; this rule then wins for #content because body is the nearer
+   ancestor, so the two agree rather than fight. */
+body:has(.ov-ticker--hidden) {
+  --ov-header-h: 73px;
+}
+
+/* And if the ticker is switched off entirely (ACF options_enable_stock_ticker),
+   the markup is not rendered at all and the stack is just the nav bar. */
+body:not(:has(.ov-ticker)) {
+  --ov-header-h: 72px;
+}
+
+/* Match the ticker's 250ms fold so the content does not jump while the
+   strip collapses. */
+#content {
+  transition: margin-top .25s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  #content {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   G2 / G3 · ONE HEADER POSITION MODEL
+   --------------------------------------------------------------------------
+   Prototype: <header> is sticky and the page's <main> simply starts at
+   y = 72 on every route — home included, the hero is never tucked under
+   the bar.
+
+   WordPress: .ov-header is position: fixed, so the page needs an explicit
+   offset, and two legacy writers were fighting over it:
+
+     1. library/dist/js/script-min.js — on window.load it runs
+        $("#content").css("margin-top", $(".header_wrapper").outerHeight()).
+        .header_wrapper is a zero-height wrapper (the DS header is fixed),
+        so it writes 0px and the fixed header overlaps the top of the
+        content on EVERY template.
+     2. header.php's inline syncContentOffset() — used to write the measured
+        height onto #content as an inline style; it now updates
+        --ov-header-h on <html> instead.
+
+   Both write an INLINE style, and an author !important declaration beats an
+   inline style — so this one rule settles the offset for good.
+
+   (Sticky, as in the prototype, is not an option: the legacy base sheet sets
+   html { overflow-x: hidden }, which makes the root a scroll container and
+   breaks viewport-relative sticky positioning. A fixed header plus a reliable
+   offset is visually identical at rest and behaves the same when scrolling.)
+   -------------------------------------------------------------------------- */
+#content {
+  margin-top: var(--ov-header-h, 104px) !important;
+}
+
+/* Logged-in editors get the WP admin bar above the header — keep the content
+   offset in step so nothing hides underneath it. */
+body.admin-bar .ov-header {
+  top: 32px;
+}
+body.admin-bar #content {
+  margin-top: calc(var(--ov-header-h, 104px) + 32px) !important;
+}
+@media screen and (max-width: 782px) {
+  body.admin-bar .ov-header {
+    top: 46px;
+  }
+  body.admin-bar #content {
+    margin-top: calc(var(--ov-header-h, 104px) + 46px) !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   G4 · AUDIENCE PILLS — ~22px centred label
+   --------------------------------------------------------------------------
+   Prototype: 44px chip, 13.7px label on a 21.92px line box (13.7 × the 1.6
+   body line-height), vertically centred.
+   WordPress: identical box, but the legacy theme's bare
+   `a { font-size: 18px; line-height: 29px }` (library/dist/css/style.css)
+   was the only line-height in scope, so the label sat on a 29px line box.
+
+   A unitless 1.6 resolves against the chip's own 13.7px → 21.92px.
+   -------------------------------------------------------------------------- */
+.ov-aud-chip {
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   G5 · SECTION INTRO — ~630px headline / deck column
+   --------------------------------------------------------------------------
+   Prototype: the section intro is a 630.9px column; the headline and the
+   deck below it share that measure.
+   WordPress: the same block is a full-width WPBakery column, so the headline
+   measured 1200px and the deck 900px.
+
+   Scoped to a text block that STARTS with an .ov-eyebrow — that is the
+   section-intro pattern, so hero copy, body copy and full-width bands are
+   untouched. The deck is set at the prototype's 18px rather than the 16px
+   default of .ov-body.
+   -------------------------------------------------------------------------- */
+#content .wpb_wrapper:has(> .ov-eyebrow) > .ov-h2 {
+  max-width: 630px !important;
+}
+#content .wpb_wrapper:has(> .ov-eyebrow) > p.ov-body {
+  max-width: 630px !important;
+  font-size: 18px;
+}
+
+/* --------------------------------------------------------------------------
+   G6 · DEAD GAP BEFORE CARD GRIDS
+   --------------------------------------------------------------------------
+   Prototype: the section intro sits directly above its card grid.
+   WordPress: a WPBakery "Empty Space" element (40px) was parked at the end
+   of the intro block, so the grid started 40px lower than the prototype on
+   top of the section's own padding.
+
+   Scoped to the same intro blocks as G5 — the site uses Empty Space elements
+   in ~50 posts for real spacing, so they are not removed globally.
+   -------------------------------------------------------------------------- */
+#content .wpb_wrapper:has(> .ov-eyebrow) > .vc_empty_space {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   G8 · FOOTER LINK RHYTHM — 37.6px row step, no 5px indent
+   --------------------------------------------------------------------------
+   Prototype: 37.6px between link rows (25.6px line box + 12px column gap),
+   links flush left in their column.
+   WordPress: 45px — the legacy theme's
+   `ul li { font-size: 18px; line-height: 28px; padding-left: 5px;
+   margin-bottom: 5px }` (library/dist/css/style.css) was still driving the
+   <li>s, adding a 5px indent and 5px of margin under every link.
+
+   Resetting the <li> to the body strut (16px × 1.6 = 25.6px) and dropping the
+   legacy indent + margin gives 25.6 + 12 = 37.6px.
+   -------------------------------------------------------------------------- */
+.ov-footer-link-list li {
+  margin: 0;
+  padding-left: 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   G9 · INLINE SIGNUP ROW — two wide fields + button on one row
+   --------------------------------------------------------------------------
+   Prototype: [Name][Email][Sign Up] on one row, consent checkbox below.
+   WordPress: the same slot is Gravity Forms #21, asking for First Name /
+   Last Name / Email — three narrow thirds plus the button.
+
+   No CSS is needed here: this sheet already lays both signup rows out as one
+   flex line with the button ordered between the email field and the consent
+   checkbox (.ov-gform-footer / .ov-gform-newsletter-inline). It was written
+   for TWO text fields, so the extra Last Name field is what pushed the row
+   into three narrow thirds.
+
+   The field set is trimmed in functions.php instead
+   (oceanview_gf_signup_fields), which marks the Last Name field hidden at
+   render time so it drops out of the front end and out of validation
+   together. Nothing to override here.
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   HERO TYPOGRAPHY — weight 800, the prototype's size ramp, italic accents
+   --------------------------------------------------------------------------
+   Two independent drifts, both caused by rules inside this sheet — not by
+   font loading. PP Editorial New ships 400, 400-italic, 800 and 800-italic,
+   and the 800 faces are simply never requested today.
+
+   Measured at 1440px:
+
+     |                  | WordPress            | prototype        |
+     |------------------|----------------------|------------------|
+     | hero weight      | 400                  | 800              |
+     | hero size        | 57.6px (4vw)         | 63px             |
+     | accent <em>      | roman                | italic           |
+
+   Letter-spacing already matches (-0.025em) and is driven off the size, so
+   it corrects itself once the ramp is fixed.
+
+   Deliberately narrow in scope:
+   - Weight and size only touch .ov-hero-title. Section H2s are *correctly*
+     400 (the prototype's section H2 is 400/42px) — only their accent goes
+     italic, which the last rule below handles.
+   - Italic is restored for .ov-accent only, so a plain <em>/<i> used for
+     editorial emphasis inside a heading stays upright, as the existing
+     "no italic on headings" reset intends.
+   -------------------------------------------------------------------------- */
+
+.ov-hero-title {
+  font-weight: 800 !important;
+  /* Inner-page heroes (PageHero.jsx uses 5.5vw). */
+  font-size: clamp(28px, 5.5vw, 63px) !important;
+}
+
+/* The homepage hero ramps faster — 8vw in Hero.jsx. WordPress puts `home` on
+   <body> for the front page. */
+body.home .ov-hero-title {
+  font-size: clamp(28px, 8vw, 63px) !important;
+}
+
+/* Accent words are italic throughout the prototype (65 occurrences) on both
+   heroes and section headings.
+
+   Two things flatten them: the sitewide "no italic on headings" reset above
+   (worth keeping — it is what stops stray <em> markup in body copy from
+   going italic), and, for the same reason, the inline
+   `style="font-style:italic"` that the content authors already put on some
+   accents — an author !important beats an inline style, so those lose too.
+
+   This mirrors the reset's selector list exactly but flips the value, and it
+   sits later in the file, so it wins the ties. Scoped to headings and
+   .ov-accent only: <em> in paragraphs is untouched. Colour is left alone. */
+h1 em, h2 em, h3 em, h4 em, h5 em, h6 em,
+h1 i, h2 i, h3 i, h4 i, h5 i, h6 i,
+.ov-hero-title em, .ov-heading em,
+.ov-accent {
+  font-style: italic !important;
+}

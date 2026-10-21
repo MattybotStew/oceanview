@@ -4,13 +4,16 @@ This folder is the **WordPress / WPBakery** version of the React design system (
 
 | File | Purpose |
 |------|---------|
-| `oceanview-wpbakery.css` | Enqueue in the theme — tokens + component classes |
+| `oceanview-wpbakery.css` | Enqueue in the theme — tokens + component classes. **Append** the Design QA block from `staging-patch/` to the end of it (layout/spacing fixes vs the React prototype; wins on source order) |
+| `staging-patch/` | The Design QA CSS block to append to the theme's sheet, plus the `header.php` / `functions.php` hunks and rollback steps |
 | `ov-applications-filter.js` | Progressive-enhancement JS for the Applications explorer (search + product/channel filters) |
 | `recipes.html` | Copy-paste **Raw HTML** / Custom HTML element snippets |
 | `shortcodes.md` | Row/column recipes + Extra class names |
 | `color-swatches.md` | Hex values for WPBakery Design Options color pickers |
 
 React prototype remains the visual reference. **Do not rebuild pages in React for production** — rebuild in WPBakery using these classes.
+
+**WordPress vs prototype gaps (layout/UI):** see **`docs/DESIGN_QA_WP_HANDOFF.md`** (Figma Design QA board, Oct 2026). Homepage-specific prod/staging notes: **`docs/HOMEPAGE_DESIGN_AUDIT.md`**.
 
 ---
 
@@ -19,9 +22,9 @@ React prototype remains the visual reference. **Do not rebuild pages in React fo
 1. **Fonts** — Upload PP Editorial New + PP Mori (or subset) into the theme, e.g. `wp-content/themes/your-child/fonts/`.  
    Adjust `@font-face` paths at the top of `oceanview-wpbakery.css` if needed.
 
-2. **CSS** — Copy `oceanview-wpbakery.css` into the child theme root.
+2. **CSS** — Copy `oceanview-wpbakery.css` into the child theme root, then **append** the Design QA block from `staging-patch/oceanview-wpbakery.append.css` to the end of it (the parity rules win on source order, so they need no separate sheet).
 
-3. **Enqueue** — Copy hooks from `enqueue-example.php` into the child theme `functions.php` (or `require` that file). It enqueues the CSS (cache-bust via `filemtime`) and adds body class `ov-ds`.
+3. **Enqueue** — Copy hooks from `enqueue-example.php` into the child theme `functions.php` (or `require` that file). It enqueues the CSS sheet (cache-bust via `filemtime`), adds body class `ov-ds`, and carries the market-ticker switch plus the newsletter-form field trim.
 
 4. **Forms** — Gravity Forms / CF7 inputs inherit light styles when the form sits in normal content; use `.ov-input--dark` or a navy row for footer-style fields.
 

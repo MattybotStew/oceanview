@@ -11,6 +11,21 @@
  * 3. Prefer these classes over one-off Design Options so the site stays consistent.
  *
  * Naming: ov-*  (same prefix as the React site)
+ *
+ * ⚠️ THIS COPY IS A SUBSET — DO NOT OVERWRITE THE LIVE THEME FILE
+ * The `oceanviewlife` theme ships a **full ~279KB build** of this stylesheet
+ * that includes component rules this subset does not carry — notably the
+ * footer/inline signup rows (`.ov-gform-footer`, `.ov-gform-newsletter-inline`,
+ * which lay the newsletter fields out as one flex line with the button ordered
+ * between the email field and the consent checkbox), plus the header, ticker
+ * and footer rules.
+ *
+ * Copying this file over the theme's copy would silently delete those rules
+ * and re-break the newsletter row. When promoting, upload the theme's own
+ * file (or a diffed merge), never a blind copy of this subset.
+ * The parity layer for the Design QA pass is **appended to the end of the
+ * theme's sheet** (source: `staging-patch/oceanview-wpbakery.append.css`), so
+ * it is NOT part of this subset either — append that block, do not replace.
  */
 
 /* ============================================================
