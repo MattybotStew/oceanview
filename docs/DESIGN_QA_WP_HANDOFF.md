@@ -12,13 +12,17 @@
 
 ## Recommended fix order
 
-1. ✅ Global header (72px bar + **kept** market ticker, consistent content offset on **every** template including home) — **done on Local**
-2. ✅ Global type measure + section gaps + audience pills — **done on Local**
+1. ✅ Global header (72px bar + **kept** market ticker, consistent content offset on **every** template including home) — **live on staging**
+2. ✅ Global type measure + section gaps + audience pills — **live on staging**
 3. ⬜ Products sticky nav (option 5 parent-filter) — needs WPBakery admin
 4. ⬜ Contact tab shell + Blog index layout — needs WPBakery admin
 5. ⬜ Home-specific bands (stats, Why Oceanview link row, Current Rates padding) — needs WPBakery admin
-6. ✅ Footer rhythm + signup form row layout — **done on Local**
+6. ✅ Footer rhythm + signup form row layout — **live on staging**
 7. ⬜ Remaining article pages + modals (if in Mikko’s scope)
+
+**Also live on staging (2026-10-21):** hero H1 **800** + the prototype size ramp, restored accent **italics**, **section eyebrow 11px / hero 10px**, hero stack rhythm **40 / 28 / 20 / 16**, `/individuals/` 630px intros, and **G7 closed** — buttons were already at parity (43.8/61 vs 44.5/61.5px).
+
+> ⚠️ **Production cannot take this append.** `oceanviewlife.com` still runs the **legacy** theme — 36KB stylesheet, no `ov-ds` body class, zero `ov-*` markup, WPBakery 8.7.3 vs staging's 9.0.1. Reaching prod means the design-system migration, not a CSS push. See `AGENTS.md` → **Production**.
 
 ---
 

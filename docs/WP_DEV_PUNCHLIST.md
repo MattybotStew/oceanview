@@ -25,7 +25,7 @@
 
 | Track | Status | How to ship |
 |-------|--------|-------------|
-| **A. Global chrome (Phase 1)** | ✅ Built and verified on **Local** (`ocean.local`) | **SFTP** 3 files to staging → purge WPE cache |
+| **A. Global chrome + type (Phase 1)** | ✅ **Live on staging, verified 2026-10-21** | One CSS append to `oceanview-wpbakery.css` — no PHP, no new files. See `docs/wpbakery/staging-patch/` |
 | **B. Page layout (Phase 2)** | ⬜ Open | **WPBakery** (and/or theme templates) on each page |
 | **C. Hero typography (prod gap)** | ⬜ Open | CSS — see [HOMEPAGE_DESIGN_AUDIT.md](./HOMEPAGE_DESIGN_AUDIT.md) |
 | **D. Articles + modals** | ⬜ Not spec’d yet | Pending Design QA on Figma board |

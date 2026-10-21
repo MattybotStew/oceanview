@@ -48,7 +48,7 @@ Do these on **Local** first; push to **staging SFTP** when verified.
 
 **Verified on Local (1440px + 390px):** header stack **104px** (32px ticker + 72px nav) and content at y=104 on 13 templates; hero card at top 124 / left 20 / 1400×800; pill label 21.92px; section column 630px; footer step 37.6px; footer signup row `[Name][Email][Sign Up]` on one line with consent below. Scrolling past 10px folds the ticker away → stack 73px, content offset follows.
 
-**Promote to staging next:** the **safest ship is one append** — the Design QA block into `oceanview-wpbakery.css` (no PHP, no new files, cannot fatal; the block tracks the ticker collapse in CSS). Then purge the WPE cache. `header.php` and `functions.php` hunks are optional refinements. Step-by-step checks and rollback: [`docs/wpbakery/staging-patch/README.md`](./wpbakery/staging-patch/README.md). The Local DB value (`options_enable_stock_ticker = 1`) is **not** part of the promote.
+**✅ Promoted to staging 2026-10-21 and verified live.** The Design QA block was appended to `oceanview-wpbakery.css` (now **295,748 bytes**) over SFTP — no PHP, no new files, no DB push. Verified at 1440 + 390: header stack 104 → 73 scrolled on 7 pages, pills 21.92px, section intros 630px, section eyebrow 11px / hero 10px, hero H1 800 + italic accents, hero stack 40/28/20/16, footer 37.6px, signup two fields, no overflow. No cache purge was required. Because only the stylesheet changed, the `header.php` / `functions.php` hunks were **not** uploaded — they remain optional. `docs/wpbakery/staging-patch/README.md` has the full recipe and rollback.
 
 ---
 
@@ -104,7 +104,7 @@ Never push Local DB to **production** without staging sign-off and snapshot.
 ```text
 Read AGENTS.md “Master plan — WordPress vs prototype”, docs/LOCAL_OCEAN_WP_PLAN.md, docs/DESIGN_QA_WP_HANDOFF.md.
 Local root: ~/Local Sites/ocean/app/public/  Theme: oceanviewlife
-Phase 1 (Q0) is done on Local — next: SFTP promote to WPE staging OR Phase 2 WPBakery (Products, Home, Contact, Blog).
+Phase 1 (Q0) is LIVE on WPE staging and verified — next: Phase 2 WPBakery (Products nav, Contact tabs, Blog grid, Home bands).
 Compare to npm run dev (hash routes). Ticker stays on WP (104px stack). Scope: layout/type/UI only, not copy.
 ```
 

@@ -2,6 +2,21 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-10-21 — Big Pickle — Session close: agent context updated
+
+All agent-facing context refreshed to match what is actually live:
+
+| File | Updated |
+|---|---|
+| `AGENTS.md` (+ `CLAUDE.md`, kept identical) | Phase table, **What is live on staging** table, **Deploying** recipe, **Traps**, **Production** reality, SFTP-vs-WPBakery split |
+| `.clinerules` | Pickup line, full staging-state table, deploy driver, `#content` specificity trap, production warning, `Last Updated` |
+| `LOCAL_OCEAN_WP_PLAN.md` (root) | Phase 1 live, prod caveat, deploy pointer |
+| `docs/LOCAL_OCEAN_WP_PLAN.md` | 1.6 corrected to section eyebrow 11px; promote marked done with the verification numbers |
+| `docs/WP_DEV_PUNCHLIST.md` | Track A = live on staging |
+| `docs/DESIGN_QA_WP_HANDOFF.md` | Fix order marked live; hero type/eyebrow/hero-stack added; production warning |
+
+**State for the next session:** Phase 1 is live on staging and verified. Open work is **Phase 2 (WPBakery)**: Products option-5 nav, Contact four tabs, Blog grid, Home bands (stats / Why-Oceanview link row / Current Rates). Plus the **G9** client decision (GF says "First Name" where the prototype says "Name"; last name no longer collected) and the **production strategy** — prod is the legacy site, so parity there is a DS migration, not a CSS append.
+
 ## 2026-10-21 — Big Pickle — Eyebrows were a size small (10px → 11px section)
 
 **Reported:** an eyebrow that looked "super small". Audited rather than guessed — and the audit found nothing *broken*, but one thing *wrong*.

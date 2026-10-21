@@ -66,36 +66,110 @@ Open via URL/hash only. Do not “fix” by adding nav links unless stakeholders
 | Phase | Status | What |
 |-------|--------|------|
 | **0** — Local ready | ✅ | Pull WPE **Stg** (files + DB); permalinks save; site = `ocean` |
-| **1** — Global chrome (**Q0**) | ✅ on Local · ✅ **on staging** | One CSS append to `oceanview-wpbakery.css` (no PHP). Verified live 2026-10-21 |
-| **3** — Promote Phase 1 | ✅ **done 2026-10-21** | CSS block appended to `oceanview-wpbakery.css` on staging, verified live at 1440px + 390px across 7 pages. No PHP, no DB push, no purge needed |
-| **2** — Page builder | Open | P0 Products + Home; P1 Contact + Blog — **WPBakery on Local**, then staging |
-| **4** — Follow-ups | Open | **Prod strategy** (prod is still the legacy site — not a CSS append). Then Figma article/modal pairs |
+| **1** — Global chrome + type (**Q0**) | ✅ **live on staging, verified 2026-10-21** | One appended CSS block. No PHP, no new file, no new enqueue, no DB push |
+| **2** — Page builder | **Next** | P0 Products + Home; P1 Contact + Blog — needs WPBakery admin |
+| **3** — Production | ⚠️ **not a CSS append** | Prod still runs the **legacy** theme — see "Production" below |
+| **4** — Follow-ups | Open | G9 client decision; Figma article/modal pairs |
 
-**Order after staging Q0:** Q1 sweep (Home stats gap, Client Resources nav band, prod hero CSS) → **S** Products nav → Home sections → Contact tabs → Blog grid → manual article QA.
+### What is live on staging (2026-10-21)
 
-### Phase 1 / Q0 — ✅ verified on Local
+A single Design QA block appended to the **end** of
+`wp-content/themes/oceanviewlife/oceanview-wpbakery.css` (staging file now
+**295,748 bytes** / 11,518 lines). It is the last stylesheet the theme loads, so
+it wins on source order. **No PHP, no mu-plugin, no new stylesheet, no DB change.**
 
-File-only promote (**no DB push**; ACF `options_enable_stock_ticker` on staging is separate):
+| Item | Live value |
+|---|---|
+| Header stack | **104px** = 32px ticker + 72px nav; `#content` starts at **y = 104** on every template |
+| Scroll behaviour | ticker folds → stack **73px**, offset follows. Pure CSS via `body:has(.ov-ticker--hidden)` — needs **no** theme PHP |
+| Audience pills | outline, **21.92px** label in the 44px control |
+| Section intros | **630px** measure, deck **18px**, 40px dead gap gone |
+| Section eyebrow | **11px** @ `0.1em` / 17.6px line — **hero** eyebrow stays **10px** @ 1.4px |
+| Hero H1 | **800**; `clamp(28px, 8vw, 63px)` home, `clamp(28px, 5.5vw, 63px)` inner pages |
+| Accent italics | restored — headings + `.ov-accent` only; `<em>` in body copy stays upright |
+| Hero stack rhythm | gap **40** → 28 (≤1100) → 20 (≤720) → 16 (≤480); card padding 28/20 ≤480 |
+| Footer | **37.6px** link step; signup = Name + Email + Sign Up on one row |
+| Buttons | already at parity — 43.8/61px vs prototype 44.5/61.5px (0.7px, **left alone**, see G7) |
 
-1. ✅ **104px header stack** — ticker kept (`oceanview_ticker_enabled()` + ACF); nav **72px**; `--ov-header-h` on `<html>` via `syncContentOffset()`; `#content { margin-top: var(--ov-header-h) !important }`.
-2. ✅ **Same offset on every template** — home hero card ~top **124** / left 20 / 1400×800.
-3. ✅ **Audience pills** — outline, **21.92px** label in 44px control.
-4. ✅ **Section intros** — **630.9px** column; eyebrow **11px** / deck **18px** (hero eyebrow stays **10px**); 40px dead gap before grids removed (scoped).
-5. ✅ **Footer** — **37.6px** link step; signup **two** fields + button (GF #21 Last Name hidden at render).
+Verified at 1440px + 390px across 7–13 pages; **no horizontal overflow**;
+`#content` offset 104 at rest and 73 scrolled on every page.
 
-Repo mirrors: `docs/wpbakery/staging-patch/` (CSS block to append + `header.php` / `functions.php` hunks), `docs/wpbakery/enqueue-example.php`.
+### Deploying to staging (proven, repeatable)
 
-> ⚠️ **Client:** GF still says "First Name" where prototype says "Name" (last name no longer collected).  
-> **Trap:** Do **not** overwrite theme **279KB** `oceanview-wpbakery.css` with the repo **27KB** subset — newsletter row layout breaks. Header stays **`position: fixed`** (legacy `html { overflow-x: hidden }` breaks sticky).
+SFTP only — WPE **SSH is publickey-only** and this machine's key is not
+authorised. Use the checked-in driver:
+
+```bash
+cd docs/wpbakery/staging-patch
+OV_PASS='…' OV_USER='oceanviewstg-matt' ./remote.sh probe      # transport check
+OV_PASS='…' ./remote.sh get <remote> <local>                    # download
+OV_PASS='…' ./remote.sh put <local>  <remote>                   # upload
+```
+
+Remote theme root is **`/`** on the SFTP host (i.e.
+`/wp-content/themes/oceanviewlife/…`). Workflow that has been safe every time:
+
+1. `get` the live sheet and compare it with the previous upload — abort if it moved.
+2. Edit the repo block (`docs/wpbakery/staging-patch/oceanview-wpbakery.append.css`),
+   rebuild Local's file as `baseline + block`, test on Local.
+3. `put`, then `get` again and `cmp` — must be byte-identical.
+4. `curl` the served CSS for the section marker, then measure with Playwright.
+
+**No cache purge needed** — `filemtime()` versions the file and WPE re-validated
+on its own. **Never push the Local DB.**
+
+Two gotchas that cost time: this `expect` build does **not** support `(?i)`, and
+the WPE SFTP prompt is `Password:` with a capital P — a case-sensitive match
+fails as a silent timeout. Match the literal `assword:`.
+
+### Traps (each one already cost a session)
+
+- **Section padding is already at parity — do not "fix" it.** Every band is
+  `padding-block: var(--ov-section-py)` = 80px (64/48/36 down the breakpoints),
+  the same token and scale as the prototype, and **no `.vc_row` carries an inline
+  padding** from Design Options. A blanket `.vc_row { padding }` rule is the one
+  change that breaks the builder. Fix component-level rules instead.
+- **`#content` beats a bare class.** The sheet carries
+  `#content .ov-eyebrow { font-size: 10px !important }`; a plain
+  `.ov-eyebrow` override silently half-applies (tracking changes, size doesn't).
+  Include the `#content` prefix.
+- **Do not overwrite the theme's `oceanview-wpbakery.css`** with the repo's
+  `docs/wpbakery/oceanview-wpbakery.css` — that is a **27KB subset** of the
+  **279KB** build and deletes the header/footer/newsletter rules. Append only.
+- **Header stays `position: fixed`** — legacy `html { overflow-x: hidden }`
+  breaks viewport-relative `sticky`.
+- **`--ov-fz-eyebrow: 16px` in `src/styles/tokens.css` is unused** — no
+  component renders 16px. Do not wire it up.
+- **Ticker stays on WP** (104px stack). It is a deliberate divergence from the
+  prototype, not a defect.
+
+### Production — read before planning any prod work
+
+`oceanviewlife.com` is **not** running this build:
+
+| | Prod | Staging |
+|---|---|---|
+| `oceanview-wpbakery.css` | **36KB** / 1,279 lines | **295KB** / 11,518 lines |
+| `ov-ds` body class | **none** | present |
+| `ov-hero-title` / `ov-section` / `ov-ticker` markup | **0 occurrences** | everywhere |
+| WPBakery | 8.7.3 | 9.0.1 |
+| Template | `page-template-default` | `template-oceanview-v2` |
+
+So the Design QA block **cannot be appended to prod** — the selectors match
+nothing there. Prod is the legacy site; reaching it needs the **design-system
+migration** (templates + DS sheet + per-page `_oceanview_ds_enabled` opt-in),
+which is a project, not a push. `docs/HOMEPAGE_DESIGN_AUDIT.md`'s production
+section predates this and should be re-checked before anyone plans from it.
 
 ### SFTP/CSS vs WPBakery
 
-| Without WPBakery (Phase 1 + some Q1) | Needs WPBakery / template work |
+| Without WPBakery (done) | Needs WPBakery / template work |
 |--------------------------------------|--------------------------------|
-| Header, offset, pills, section measure, footer, GF field trim | Products option-5 sticky nav (~109px band) |
-| Scoped CSS (hero weight, spacing trims) | Contact left hero + **4× 51px tabs** |
+| Header, offset, pills, section measure, eyebrow, hero type/rhythm, footer | Products option-5 sticky nav (~109px band) |
+| Scoped CSS on component classes | Contact left hero + **4× 51px tabs** |
 | | Blog **grid** + closing band (not ~10k px stack) |
 | | Home — Why Oceanview link on own row; Current Rates band |
+| | Anything that changes row/column **structure** |
 
 ### Page-level backlog (Phase 2 / structural)
 
@@ -115,7 +189,7 @@ Newsroom / FAQ on the board = WP-only duplicates (no prototype column).
 ```text
 Read AGENTS.md “Master plan — WordPress vs prototype”, docs/LOCAL_OCEAN_WP_PLAN.md, docs/DESIGN_QA_WP_HANDOFF.md.
 Local root: ~/Local Sites/ocean/app/public/  Theme: oceanviewlife
-Phase 1 (Q0) done on Local — next: SFTP promote to WPE staging OR Phase 2 WPBakery (Products, Home, Contact, Blog).
+Phase 1 (Q0) is LIVE on WPE staging and verified — next: Phase 2 WPBakery (Products nav, Contact tabs, Blog grid, Home bands).
 Compare to npm run dev (hash routes). Ticker stays on WP (104px stack). UI only, not copy.
 ```
 
