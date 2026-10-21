@@ -66,10 +66,9 @@ Open via URL/hash only. Do not “fix” by adding nav links unless stakeholders
      5. Products + parent filter chips
    - **Full-page test of option 5:** `#products-filter-test` → `ProductsPage` with `navVariant="parent-filter"` (same catalog as live `#products`)
      - **Mobile:** category = full-width dropdown picker; product tabs content-sized / grow-to-fill with horizontal scroll (no crushed labels)
-     - **Desktop:** parent filter chips + product tabs (unchanged)
-     - **Mobile:** category = full-width dropdown picker; product tabs content-sized / grow-to-fill with horizontal scroll (no crushed labels)
-     - **Desktop:** parent filter chips + product tabs (unchanged)
+     - **Desktop:** **full-width category pills** (three equal thirds across the container) + product tabs
    - **Live `#products`:** option 5 parent-filter nav (same as `#products-filter-test`). Default two-level nav remains in code as `navVariant="default"` only.
+   - **Category row is full width (2026-10-21):** desktop categories are three **full-width pills** (equal thirds, pill styling kept) reading "Fixed Annuities" · "Fixed Annuities with Flexibility" · "Fixed Indexed Annuities". Mobile keeps the dropdown picker. Scroll-spy is muted for 900 ms after an explicit tab click so the smooth scroll can't steal the selection.
    - Unused leftover: `ProductAccordionNav.jsx` (parent-accordion experiment; not on examples board)
 
 **Figma MCP client available:**

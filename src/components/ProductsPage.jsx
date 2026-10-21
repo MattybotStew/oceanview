@@ -200,6 +200,10 @@ const CATEGORIES = [
 const SCROLL_MARGIN = "240px";
 const SCROLL_MARGIN_FILTER = "200px";
 
+// How long the scroll-spy stays quiet after an explicit tab click, so the
+// smooth scroll it triggers can't override the user's selection.
+const SPY_LOCK_MS = 900;
+
 const NAV_PRODUCTS = [
   { label: "Harbourview MYGA",           href: "#prd-harbourview-myga",      cat: "fixed-annuities" },
   { label: "Horizon MYGA",               href: "#prd-horizon-myga",           cat: "fixed-annuities" },
@@ -212,18 +216,17 @@ const NAV_PRODUCTS = [
 ];
 
 const FILTER_NAV = {
+  // Desktop: full-width pills — each category fills an equal third of the row,
+  // so the three labels read across the full container width.
   chipRow: {
     display: "flex",
     gap: 8,
     padding: "12px 0 10px",
-    overflowX: "auto",
-    WebkitOverflowScrolling: "touch",
-    scrollbarWidth: "none",
     borderBottom: "1px solid #e8e5e5",
-    position: "relative",
   },
   chip: {
-    flex: "0 0 auto",
+    flex: "1 1 0",
+    minWidth: 0,
     padding: "8px 16px",
     borderRadius: 999,
     border: "1px solid var(--ov-border-soft)",
@@ -234,10 +237,13 @@ const FILTER_NAV = {
     color: "var(--ov-navy-1000)",
     cursor: "pointer",
     whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    textAlign: "center",
     transition: "all .15s",
   },
   chipOn: {
-    borderColor: "var(--ov-teal-600)",
+    border: "1px solid var(--ov-teal-600)",
     background: "rgba(36,148,193,0.12)",
     color: "var(--ov-navy-900)",
   },
@@ -359,6 +365,7 @@ export default function ProductsPage({ navVariant = "default" }) {
   const productTabRefs = useRef({});
   const productRowRef = useRef(null);
   const pickerRef = useRef(null);
+  const spyLockRef = useRef(0);
 
   // Detect mobile viewport
   useEffect(() => {
@@ -401,11 +408,13 @@ export default function ProductsPage({ navVariant = "default" }) {
       const rootMargin = isMobile ? "-10% 0px -80% 0px" : "-30% 0px -60% 0px";
       const obs = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveProduct(id);
-            const cat = NAV_PRODUCTS.find(p => p.href === `#${id}`)?.cat;
-            if (cat) setFilterCat(cat);
-          }
+          if (!entry.isIntersecting) return;
+          // Ignore the spy while a click-driven scroll is in flight, otherwise
+          // products passed mid-scroll can steal the selection from the user.
+          if (Date.now() - spyLockRef.current < SPY_LOCK_MS) return;
+          setActiveProduct(id);
+          const cat = NAV_PRODUCTS.find(p => p.href === `#${id}`)?.cat;
+          if (cat) setFilterCat(cat);
         },
         { rootMargin, threshold: 0 }
       );
@@ -429,6 +438,7 @@ export default function ProductsPage({ navVariant = "default" }) {
     : NAV_PRODUCTS;
 
   const handleCategoryClick = (catId) => {
+    spyLockRef.current = Date.now();
     setFilterCat(catId);
     setCatMenuOpen(false);
     const firstProduct = NAV_PRODUCTS.find(p => p.cat === catId);
@@ -439,6 +449,7 @@ export default function ProductsPage({ navVariant = "default" }) {
   };
 
   const handleProductClick = (href) => {
+    spyLockRef.current = Date.now();
     setActiveProduct(href.slice(1));
     scrollToId(href.slice(1));
   };
@@ -499,7 +510,7 @@ export default function ProductsPage({ navVariant = "default" }) {
                 )}
               </div>
             ) : (
-              /* Desktop: pill filter chips */
+              /* Desktop: full-width pills (equal thirds) */
               <div style={FILTER_NAV.chipRow} className="prd-filter-chips" role="tablist" aria-label="Product categories">
                 {CATEGORIES.map(cat => {
                   const on = cat.id === filterCat;

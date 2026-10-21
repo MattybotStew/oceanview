@@ -2,6 +2,17 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-10-21 — opencode (Big Pickle) — Products page category nav goes full width
+
+- **Request (Matt):** make the product page nav full width; categories read **Fixed Annuities · Fixed Annuities with Flexibility · Fixed Indexed Annuities**. Follow-up: keep the **pills** (not tabs).
+- `src/components/ProductsPage.jsx` — in the option-5 parent-filter nav, the desktop category row is no longer a set of small content-sized pill chips (which left ~477px of dead space to the right of a 1200px container). The three categories are now **full-width pills**, each filling an equal third of the row: `FILTER_NAV.chip` gets `flex: 1 1 0` + centered text, `chipRow` loses the horizontal-scroll setup. Pill styling is unchanged (999px radius, 13px semibold, teal border + 12% teal wash when active, subtle `var(--ov-border-soft)` border when inactive). Longest label ("Fixed Annuities with Flexibility", 183px) fits without wrapping or ellipsis down to the 900px desktop breakpoint (273px per pill).
+- Product tab row below is unchanged and still filters to the active category; the two rows now align as columns (395/395/395 at 1440px).
+- **Mobile unchanged** (<900px): full-width dropdown picker (category) + content-sized product tabs with horizontal scroll.
+- **Bug fix (found while testing):** an explicit category/product click could be overridden mid-scroll by the IntersectionObserver scroll-spy, leaving the nav showing a different category than the one clicked. Added `SPY_LOCK_MS = 900` + `spyLockRef` — the spy ignores entries for 900 ms after a click-driven scroll. Manual scrolling still updates the nav normally.
+- Also removed a pre-existing React style warning on the chips (shorthand `border` in `chip` mixed with `borderColor` in `chipOn` → both are now the `border` shorthand).
+- Verified in Playwright: equal-third pills at 900/960/1024/1100/1280/1440/1920px, no wrapping/ellipsis, no horizontal overflow at 390px, all three category clicks land on the right section + product set, mobile picker selects correctly, manual scroll still drives the active category/product, 0 console errors on a fresh load. `npm run build` clean.
+- Pre-existing, **not** introduced here: `#products` has ~130px of horizontal document overflow between 899px and 1100px viewport (present before this change too).
+
 ## 2026-10-21 — Grok — Products page uses parent-filter tabs
 
 - `#products` now renders `ProductsPage` with `navVariant="parent-filter"` (option 5: category filter + product tabs). `#products-filter-test` stays on the same variant.
