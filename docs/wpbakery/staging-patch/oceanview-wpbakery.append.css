@@ -156,6 +156,23 @@ body.admin-bar #content {
   font-size: 18px;
 }
 
+/* Same section intro, one level deeper: WPBakery emits the block inside an
+   anchor div when the row is a jump target —
+     <div class="wpb_wrapper">
+       <div id="current-rates" style="scroll-margin-top:100px">
+         <p class="ov-eyebrow"> … <h2 class="ov-h2"> … <p class="ov-body">
+   so the direct-child rule above misses it and the headline runs the full
+   column (1200px). Matching the anchor-div pattern keeps the measure at 630
+   without widening the first rule's scope. The `~` sibling combinator means
+   it only applies when an eyebrow precedes the headline in the same block. */
+#content .wpb_wrapper > div[id] > .ov-eyebrow ~ .ov-h2 {
+  max-width: 630px !important;
+}
+#content .wpb_wrapper > div[id] > .ov-eyebrow ~ p.ov-body {
+  max-width: 630px !important;
+  font-size: 18px;
+}
+
 /* --------------------------------------------------------------------------
    G6 · DEAD GAP BEFORE CARD GRIDS
    --------------------------------------------------------------------------
@@ -266,6 +283,42 @@ h1 i, h2 i, h3 i, h4 i, h5 i, h6 i,
 .ov-hero-title em, .ov-heading em,
 .ov-accent {
   font-style: italic !important;
+}
+
+/* --------------------------------------------------------------------------
+   EYEBROW SIZE — 11px section / 10px hero
+   --------------------------------------------------------------------------
+   Every .ov-eyebrow in the sheet is pinned to 10px / 1.4px tracking. That is
+   the *hero* variant's value, not the section value:
+
+     Hero.jsx          inline  fontSize 10, letterSpacing 1.4px
+     common.jsx        <Eyebrow>  fontSize 11, letterSpacing 0.1em  (→ 1.1px)
+
+   So section eyebrows render a size and a tracking step tighter than the
+   prototype — measurably: staging 10px/1.4px/16px, prototype 11px/1.1px/17.6px
+   (17.6 = 1.6 × 11, the inherited body line-height).
+
+   The `#content` prefix is required: the sheet already carries
+   `#content .ov-eyebrow { font-size: 10px !important }`, which outranks a
+   bare class selector — that is why a plain `.ov-eyebrow` override loses.
+
+   Restores the section size and leaves the hero exactly as it is. Body copy
+   and the footer eyebrow (.ov-footer-eyebrow, a separate class) are untouched.
+
+   Note: tokens.css also carries `--ov-fz-eyebrow: 16px`, but no component in
+   the prototype renders an eyebrow at 16px — don't wire that token up.
+   -------------------------------------------------------------------------- */
+#content .ov-eyebrow,
+#content .ov-eyebrow__text {
+  font-size: 11px !important;
+  letter-spacing: 0.1em !important;
+  line-height: 1.6 !important;
+}
+
+#content .ov-hero-card__content > .ov-eyebrow {
+  font-size: 10px !important;
+  letter-spacing: 1.4px !important;
+  line-height: 16px !important;
 }
 
 /* --------------------------------------------------------------------------

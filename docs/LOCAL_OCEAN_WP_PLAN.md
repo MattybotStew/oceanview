@@ -43,7 +43,7 @@ Do these on **Local** first; push to **staging SFTP** when verified.
 | 1.3 | ✅ **Same header offset on every template** — `#content { margin-top: var(--ov-header-h, 72px) !important }` (beats two legacy inline writers), with `--ov-header-h` kept current as the ticker collapses on scroll | [`DESIGN_QA_WP_HANDOFF.md`](./DESIGN_QA_WP_HANDOFF.md) G2 |
 | 1.4 | ✅ **Audience pills** — outline, **21.92px** centered label in the 44px control | `.ov-aud-chip` in `tokens.css` |
 | 1.5 | ✅ Ship CSS — the theme already carried the full `oceanview-wpbakery.css`; the parity block is **appended to that same sheet** (no new file, no new enqueue) | [`staging-patch/oceanview-wpbakery.append.css`](./wpbakery/staging-patch/oceanview-wpbakery.append.css) → theme `oceanview-wpbakery.css` |
-| 1.6 | ✅ Section headline **630.9px** column, eyebrow **10px** / deck **18px**; trimmed the 40px dead gap before card grids | Handoff G5–G6 |
+| 1.6 | ✅ Section headline **630.9px** column, section eyebrow **11px** (hero 10px) / deck **18px**; trimmed the 40px dead gap before card grids | Handoff G5–G6 |
 | 1.7 | ✅ Footer link rhythm **37.6px**; signup row = **two** wide fields + button (GF #21 "Last Name" hidden at render time) | Handoff G8–G9 |
 
 **Verified on Local (1440px + 390px):** header stack **104px** (32px ticker + 72px nav) and content at y=104 on 13 templates; hero card at top 124 / left 20 / 1400×800; pill label 21.92px; section column 630px; footer step 37.6px; footer signup row `[Name][Email][Sign Up]` on one line with consent below. Scrolling past 10px folds the ticker away → stack 73px, content offset follows.

@@ -80,7 +80,7 @@ File-only promote (**no DB push**; ACF `options_enable_stock_ticker` on staging 
 1. ✅ **104px header stack** — ticker kept (`oceanview_ticker_enabled()` + ACF); nav **72px**; `--ov-header-h` on `<html>` via `syncContentOffset()`; `#content { margin-top: var(--ov-header-h) !important }`.
 2. ✅ **Same offset on every template** — home hero card ~top **124** / left 20 / 1400×800.
 3. ✅ **Audience pills** — outline, **21.92px** label in 44px control.
-4. ✅ **Section intros** — **630.9px** column; eyebrow **10px** / deck **18px**; 40px dead gap before grids removed (scoped).
+4. ✅ **Section intros** — **630.9px** column; eyebrow **11px** / deck **18px** (hero eyebrow stays **10px**); 40px dead gap before grids removed (scoped).
 5. ✅ **Footer** — **37.6px** link step; signup **two** fields + button (GF #21 Last Name hidden at render).
 
 Repo mirrors: `docs/wpbakery/staging-patch/` (CSS block to append + `header.php` / `functions.php` hunks), `docs/wpbakery/enqueue-example.php`.

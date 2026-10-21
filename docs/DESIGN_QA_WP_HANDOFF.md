@@ -32,7 +32,7 @@
 | G2 | **Header position** | Header **inside** page flow; `Main Content` starts at **y = 72**; hero **below** nav, not under it | **Two models:** home `Body` at y=0 with hero ~20px down (header overlays); inner pages offset **104px** | ✅ done |
 | G3 | **Sticky behavior** | `Header.jsx`: `position: sticky; top: 0; z-index: 100` on **72px** bar | Fixed + inconsistent spacer; `top` stack included the ticker | ✅ done (fixed bar — see note) |
 | G4 | **Audience pills** | Outline ghost pills; label line **21.92px** (13.7px × 1.6), vertically centered in the **44px** control | Label on a **29px** line (legacy `a { font-size:18px; line-height:29px }`) | ✅ done |
-| G5 | **Section headline measure** | Headline + deck in a **630.9px** left column; eyebrow **10px** / deck **18px** | Headline **1200px**, deck **900px @ 16px** — headlines stay on one line | ✅ done |
+| G5 | **Section headline measure** | Headline + deck in a **630.9px** left column; section eyebrow **11px** (hero **10px**); deck **18px** | Headline **1200px**, deck **900px @ 16px** — headlines stay on one line | ✅ done |
 | G6 | **Section internal gaps** | No dead space between headline block and cards | Extra **40px** `vc_empty_space` container between headline and card grid | ✅ done (scoped to section intros) |
 | G7 | **Primary buttons** | `--sm` **44.5px**, `--lg` **61.5px** (the brief's "45px / ~62px" was rounded); pill radius | `--sm` **43.8px**, `--lg` **61px** — same two variants, not a mix | ✅ done (sub-pixel residual — see note) |
 | G8 | **Footer link rhythm** | **37.6px** row step (25.6px line box + 12px gap); links flush left in column | **45px** step + **5px** link indent (legacy `ul li` margin/padding) | ✅ done |

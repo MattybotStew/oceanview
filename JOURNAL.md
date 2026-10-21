@@ -2,6 +2,31 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-10-21 — Big Pickle — Eyebrows were a size small (10px → 11px section)
+
+**Reported:** an eyebrow that looked "super small". Audited rather than guessed — and the audit found nothing *broken*, but one thing *wrong*.
+
+**Full sweep first:** all **84 pages** in the sitemap, every visible text element. The minimum font-size on every single page is **10px**, and the smallest element is always `.ov-eyebrow`. No element anywhere is below 9.5px, none is shrunk by a transform, and the six tabbed pages show no hidden-panel outliers. So nothing is "gone small" — the eyebrow is simply the smallest text on the site.
+
+**But 10px is the wrong value for section eyebrows.** The theme pins every `.ov-eyebrow` to 10px / 1.4px tracking. That is the **hero** variant's value, taken from `Hero.jsx`'s inline style:
+
+| variant | source | size |
+|---|---|---|
+| hero | `Hero.jsx` inline | **10px**, letter-spacing 1.4px |
+| section | `common.jsx` `<Eyebrow>` | **11px**, letter-spacing **0.1em** (=1.1px) |
+
+So the earlier "eyebrow = 10px" figure in the handoff had been measured off the hero and then applied to every eyebrow on the site.
+
+**Fix** (appended to the Design QA block): section eyebrows to **11px / 0.1em / line-height 1.6**, hero pinned back to **10px / 1.4px / 16px**.
+
+**One trap worth recording:** a bare `.ov-eyebrow { font-size: 11px !important }` silently lost. The sheet carries `#content .ov-eyebrow { font-size: 10px !important }`, which outranks a single class — the override needs the `#content` prefix too. Symptom was a partial application: letter-spacing changed while font-size did not, which is what gave it away.
+
+**Also deployed with this** (edited earlier, never pushed): the `/individuals/` 630px intro fix — those blocks sit inside an anchor div (`#current-rates`, for the menu jump) so the `> .ov-h2` rule never matched, leaving one headline at 1200px. Added an anchor-div variant using the `~` sibling combinator.
+
+**Verified on staging:** hero eyebrow **10px/1.4/16**, section **11px/1.1/17.6** on home, products and about; `/individuals/` intros now **630 / 630 / 630 / 630** (the newsletter banner stays 552, it is a different component); 7-page chrome sweep still 73/73 scrolled with no overflow. Sheet now **295,748 bytes**, re-downloaded and byte-identical.
+
+**Docs corrected** where they repeated "eyebrow 10px": `AGENTS.md`, `.clinerules`, `DESIGN_QA_WP_HANDOFF.md` (G5), `LOCAL_OCEAN_WP_PLAN.md`. Also noted that `--ov-fz-eyebrow: 16px` in tokens.css is **unused** — no component renders 16px, so it must not be wired up.
+
 ## 2026-10-21 — Big Pickle — G7 button heights audited: already at parity (no change)
 
 **The audit's "mixed 43–61px" was a mismeasurement** — it compared the design's two button sizes against each other. Measured every `.ov-btn` on 11 staging pages plus the prototype:
@@ -21,6 +46,8 @@ Padding, font-size, pill radius and letter-spacing all match exactly; only two h
 **Also recorded:** production runs the **legacy site** — 36KB sheet, no `ov-ds` body class, zero `ov-*` markup, WPBakery 8.7.3 vs staging's 9.0.1 — so the Phase 1 append cannot go to prod; prod needs the DS migration, and `HOMEPAGE_DESIGN_AUDIT.md`'s production section is stale.
 
 ## 2026-10-21 — Big Pickle — Hero eyebrow verified identical (no change needed)
+
+> **Partially superseded** — see the entry at the top of this file. The **hero** eyebrow was and is correct at 10px. But generalising that value to *section* eyebrows was wrong: those are **11px** in the prototype (`common.jsx` `<Eyebrow>`), and staging shipped 10px sitewide until the fix. This entry stands for the hero only.
 
 Checked the "hero eyebrow is 10px on WP vs 16px in the prototype" note I'd raised. **That was a measurement error on my part** — the 16px was the wrapper `div`'s inherited `font-size`, not the text. Measured the actual `<span>` on both sides at 1440 and 390:
 
