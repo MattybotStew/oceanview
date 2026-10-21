@@ -125,8 +125,8 @@ sections" observation in the earlier report is not reproducible.
 
 | # | Defect | Environment | Severity | Status |
 |---|---|---|---|---|
-| 1 | Hero headline renders at weight 400 instead of the specified 800; responsive size ramp is 4vw instead of 5.5vw | Production | **Medium** | Confirmed — production drift from spec (§1) |
-| 2 | Hero accent phrase forced upright instead of italic | Production | Low–Medium | Confirmed — `!important` reset overrides the design (§1) |
+| 1 | Hero headline renders at weight 400 instead of the specified 800; responsive size ramp is 4vw instead of 5.5vw | Production | **Medium** | ✅ **Fixed on staging 2026-10-21** — see §5 |
+| 2 | Hero accent phrase forced upright instead of italic | Production | Low–Medium | ✅ **Fixed on staging 2026-10-21** — see §5 |
 | 3 | Market ticker bar present, absent from the React design | Production | Low (design decision) | Confirmed as an element difference, not a defect per se |
 | 4 | "Duplicated ticker block" | Production | — | **Reclassified:** not a design defect. The second copy of the data set is the marquee's loop frame; it is one bar, not two stacked sections. No layout/design fix required. |
 | 5 | "Orphaned Retirement Resources heading" | Production | — | **Not reproducible** — the three cards render (§2). |
@@ -138,9 +138,9 @@ sections" observation in the earlier report is not reproducible.
 
 | Priority | Action | Owner |
 |---|---|---|
-| **P0** | Align production `.ov-hero-title` to spec: `font-weight` 400 → **800**, `font-size` ramp 4vw → **5.5vw** | Front-end Dev |
-| **P0** | Restore the accent italic on production (scope the global `font-style: normal !important` reset so it does not hit `.ov-accent`) | Front-end Dev |
-| **P1** | Collapse the two font family names / weight mappings (`"PP Editorial New"` 800 vs `'Editorial New'` 700) to one | Front-end Dev |
+| **P0** | Align `.ov-hero-title` to spec: `font-weight` 400 → **800**, size ramp 4vw → **8vw home / 5.5vw inner** | Front-end Dev | ✅ Fixed on staging — measured 63px / 800 at 1440px, 48px at 600px |
+| **P0** | Restore the accent italic (the sitewide `font-style: normal !important` reset was flattening it) | Front-end Dev | ✅ Fixed on staging — heroes and section H2s now italic; H2 weight stays 400 |
+| **P1** | Collapse the two font family names / weight mappings (`"PP Editorial New"` 800 vs `'Editorial New'` 700) to one | Front-end Dev | Open — not needed for the weight fix (all `.ov-*` classes use `--ov-ff-display`) |
 | **P1** | Decide whether the market ticker bar belongs in the final design — it exists only on production and is absent from the React design system | Design / Product |
 | **P2** | Re-run the visual comparison after the weight fix; the earlier "missing sections" issues need no action | QA |
 | **P2** | Responsive pass at 320 / 768 / 1024 / 1440px — still not assessed. Note the hero H1 ramp is the one element that already differs between environments at intermediate widths | QA |
@@ -158,3 +158,13 @@ font-loading failure. Production renders the brand serif at **400 Regular** wher
 prototype and this repo's WPBakery package specify **800 Ultrabold** — so production's headline reads
 lighter than the design intends. The same `!important` block also flattens the italic accent to
 upright. Both are production-side drift, fixable in the WP stylesheet without touching the prototype.
+
+**Update (2026-10-21):** both are fixed on **staging**. The font files were never the problem — PP
+Editorial New ships 400, 400-italic, **800** and **800-italic**; the 800 faces were simply never
+requested. The cause was two rules inside `oceanview-wpbakery.css`: `.ov-hero-title` hard-coding
+`font-weight: 400` and `font-size: clamp(28px, 4vw, 63px)`, and a sitewide
+`h1–h6 em / .ov-accent { font-style: normal !important }` reset. The Design QA block appended to that
+sheet now restores 800, the prototype's ramp (**8vw** home / **5.5vw** inner, both capped at 63px) and
+the italic accents. Measured live on staging: hero **63px / 800 / -1.575px** at 1440px, **48px** at
+600px, accent **italic**; section H2s correctly stay **400** with italic accents. Production still
+needs the same append.
