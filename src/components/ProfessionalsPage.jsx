@@ -340,11 +340,13 @@ export default function ProfessionalsPage() {
       </section>
 
       <section className="ov-section" style={{ background: '#fff', paddingTop: 0 }}>
-        <div className="ov-container" style={{ maxWidth: 860 }}>
+        <div className="ov-container">
           <h2 style={{ ...S.h3, marginBottom: 16 }}>Important Information</h2>
-          {DISCLOSURES.map((p) => (
-            <p key={p.slice(0, 40)} style={{ ...S.body, fontSize: 13, marginBottom: 12 }}>{p}</p>
-          ))}
+          <div className="ov-disclosure-columns">
+            {DISCLOSURES.map((p) => (
+              <p key={p.slice(0, 40)} style={{ ...S.body, fontSize: 14, lineHeight: 1.65, marginBottom: 12 }}>{p}</p>
+            ))}
+          </div>
         </div>
       </section>
     </main>

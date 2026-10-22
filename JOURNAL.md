@@ -2,6 +2,55 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-10-22 — Big Pickle — `/professionals/` "Important Information" now spans the page (prototype)
+
+**Request (Mae → Matt):** "The only thing I don't love is the important information at the bottom. Can we make that spread across the page. It looks strange in the center like that." — https://oceanviewstg.wpengine.com/professionals/
+
+**Measured the live page first (Playwright, 1440px):** the block renders at **620px, centered** (`margin: 0 290px`) inside a **1200px** content area. The cause is a deliberate rule in the theme sheet (line ~9432):
+
+```css
+.ov-prof-important-info { max-width: 620px; margin: 0 auto; }
+```
+
+Its own comment says it mirrors the Figma reference ("a narrow 620px reading column"), so this is a **client-approved change away from the Figma reference** — flagged in `.clinerules` so a later QA pass doesn't undo it.
+
+**Decided with Matt:** **two columns across the full content width.** Heading spans the full width; the 12 disclosure paragraphs flow into two **576px** columns (48px gap, ~80 chars/line); one column ≤900px; mobile unchanged (already full width).
+
+**Prototype change (done):**
+
+| File | Change |
+|---|---|
+| `src/components/ProfessionalsPage.jsx` | Dropped `maxWidth: 860` on the container → standard `.ov-container` (1200px content at 1440). Paragraphs wrapped in `.ov-disclosure-columns`. Body type **13px → 14px / line-height 1.65** — now identical to WP's `.ov-pdt-detail-item__text`. |
+| `src/styles/tokens.css` | New `.ov-disclosure-columns` — `column-count: 2`, `column-gap: 48px`, `break-inside: avoid` on children, 1 column ≤900px. |
+| `docs/wpbakery/oceanview-wpbakery.css` | Same rule mirrored into the WPBakery package (repo-only file; not deployed). |
+
+**Verified in the prototype** (dev server, `#professionals`): 1440px → columns **1200px** wide, **576px** each, **6 + 6** paragraphs, heading 1200px, body 14px / 23.1px (`#4A5568`), block height **568px** (was 1113px), **no horizontal overflow**. 1024px → 2 × 456px. 860px and 390px → single column, full width.
+
+**Pre-existing, unrelated:** the prototype header's off-canvas drawer (`position: fixed`, `translateX(320px)`) overflows the viewport at 860–1024px (scrollWidth 1090). Confirmed by stashing this change and re-measuring — same numbers, so it is not from this work. Left alone (header work, not this page).
+
+**⏳ Not done — WordPress.** Staging still shows the 620px centred column. The CSS-only fix is ready to apply to the theme sheet (`docs/wpbakery/staging-patch/oceanview-wpbakery.append.css` + the same text appended to the theme file): `.ov-prof-important-info { max-width: none; margin: 0 }`, `column-count: 2` on `.ov-pdt-card-inner`, `break-inside: avoid` on `.ov-pdt-detail-item`, 1 column ≤900px. Scoped to `.ov-prof-important-info` — only `/professionals/` uses it; the shared `.ov-pdt-card` / `.ov-pdt-detail-item` classes also back the product pages, which must not change. Deploy via SFTP (`remote.sh put` → `get` → `cmp`), no purge needed.
+
+## 2026-10-22 — Big Pickle — WPE staging credential rotated
+
+**Done by Matt, in the WP Engine User Portal:** the `oceanviewstg` account password (SSH **and** SFTP share one credential) was changed. This closes the **"Security: rotate it"** note from the Phase 1 deploy, where the old password had been pasted into chat.
+
+**Nothing in the repo changed — by design.** No password is committed or cached:
+
+| Location | State |
+|---|---|
+| `docs/wpbakery/staging-patch/remote.sh` | Reads `$OV_PASS`, else line 1 of `~/.ov_sftp_pass`. No literal credential. |
+| `~/.ov_sftp_pass` | **absent** — so `OV_PASS=… ./remote.sh …` is required per invocation |
+| `.clinerules` / `AGENTS.md` | Reference the *mechanism* only (`OV_PASS`), no secret |
+
+**Reusable one-liner for the next deploy** (keeps it out of shell history):
+
+```bash
+printf '%s' 'NEWPASS' > ~/.ov_sftp_pass && chmod 600 ~/.ov_sftp_pass
+# then plain: ./remote.sh probe   /   get <remote> <local>   /   put <local> <remote>
+```
+
+**Loose end:** the new password has **not** been verified against staging from this machine (Matt chose to skip the `probe`). First deploy should start with `./remote.sh probe` — expected `RESULT=sftp` on port 2222, since SSH password auth was already refused (WPE SSH is publickey-only and this machine's key isn't authorised in the portal). If `probe` returns `sftp-denied`, the portal user is `oceanviewstg-matt` and the host is `oceanviewstg.sftp.wpengine.com:2222`.
+
 ## 2026-10-21 — Big Pickle — Session close: agent context updated
 
 All agent-facing context refreshed to match what is actually live:
@@ -147,7 +196,7 @@ Also: audience pill label **21.92px** in the 44px chip, section intro H2 **630px
 
 **Not deployed (deliberately):** the optional `header.php` `syncContentOffset()` and the `functions.php` GF trim. So the signup row still shows three fields (G9 open, waiting on the client's First/Last Name decision). The offset works purely in CSS.
 
-**Security:** the deploy used the account SFTP password, which was pasted into the chat — **rotate it**.
+**Security:** the deploy used the account SFTP password, which was pasted into the chat — **rotate it**. ✅ Rotated 2026-10-22 (see entry at top of this journal).
 
 ## 2026-10-21 — Big Pickle — Phase 1 made CSS-only (safest ship)
 

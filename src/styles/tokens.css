@@ -765,6 +765,14 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 860px) { .ov-portal-grid { grid-template-columns: repeat(2, 1fr) !important; } }
 @media (max-width: 540px) { .ov-portal-grid { grid-template-columns: 1fr !important; } }
 
+/* Disclosure fine print ("Important Information") — flows into two columns
+   across the full content width so the block spans the page instead of
+   floating as a narrow centred column. Client request, 2026-10-22.
+   One column ≤ 900px (matches the WP handoff for /professionals/). */
+.ov-disclosure-columns { column-count: 2; column-gap: 48px; }
+.ov-disclosure-columns > * { break-inside: avoid; page-break-inside: avoid; }
+@media (max-width: 900px) { .ov-disclosure-columns { column-count: 1; } }
+
 /* ─── Blog ───────────────────────────────────────────────────── */
 .ov-blog-card:hover > div { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(13,31,78,.10) !important; }
 .ov-blog-card:hover .ov-blog-img { transform: scale(1.04); }

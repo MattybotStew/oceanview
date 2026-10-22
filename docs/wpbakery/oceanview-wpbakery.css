@@ -992,3 +992,15 @@ button.ov-btn,
   .ov-apps-group__head { flex-wrap: wrap; }
   .ov-modal-card { padding: 28px 20px 22px; }
 }
+
+/* ============================================================
+   DISCLOSURE COLUMNS (Important Information / fine print)
+   Flows long disclosure paragraphs into two columns across the
+   full content width, so the block spans the page instead of
+   floating as a narrow centred column. Client request, 2026-10-22
+   (Mae, /professionals/). One column ≤ 900px.
+   Prototype source: src/styles/tokens.css → .ov-disclosure-columns
+   ============================================================ */
+.ov-disclosure-columns { column-count: 2; column-gap: 48px; }
+.ov-disclosure-columns > * { break-inside: avoid; page-break-inside: avoid; }
+@media (max-width: 900px) { .ov-disclosure-columns { column-count: 1; } }

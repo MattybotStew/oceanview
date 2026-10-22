@@ -199,9 +199,10 @@ These are **small** changes visible on the Figma board but **not** full rebuilds
 | Item | Link |
 |------|------|
 | Design QA canvas | [node 9253-2](https://www.figma.com/design/fe7PYQtVJ2pNZ1VR6lznWz/2026-Oceanview-Design?node-id=9253-2) |
-| Dev punchlist sticky (yellow) | [node 9273-34](https://www.figma.com/design/fe7PYQtVJ2pNZ1VR6lznWz/2026-Oceanview-Design?node-id=9273-34) |
-| Quick wins Q0/Q1 sticky (blue) | [node 9274-32](https://www.figma.com/design/fe7PYQtVJ2pNZ1VR6lznWz/2026-Oceanview-Design?node-id=9274-32) |
+| Done vs remaining (light blue) | [node 9282-34](https://www.figma.com/design/fe7PYQtVJ2pNZ1VR6lznWz/2026-Oceanview-Design?node-id=9282-34) |
+| Dev punchlist sticky (yellow) | [node 9272-2](https://www.figma.com/design/fe7PYQtVJ2pNZ1VR6lznWz/2026-Oceanview-Design?node-id=9272-2) |
+| Quick wins Q0/Q1 sticky | [node 9274-32](https://www.figma.com/design/fe7PYQtVJ2pNZ1VR6lznWz/2026-Oceanview-Design?node-id=9274-32) |
 
 ---
 
-*2026-10-21 — Full board review (11 WP/proto pairs + unpaired frames). Q0 implemented on Local; staging promote pending.*
+*2026-10-21 — Full board review (11 WP/proto pairs + unpaired frames). Q0 live on staging; Phase 2 WPBakery open.*

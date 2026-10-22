@@ -4,7 +4,7 @@
 **Source of truth:** React prototype + design tokens in the [oceanview](https://github.com/mattybotstew/oceanview) repo (`npm run dev`, hash routes).  
 **Visual spec:** [Figma — Design QA](https://www.figma.com/design/fe7PYQtVJ2pNZ1VR6lznWz/2026-Oceanview-Design?node-id=9253-2) (WordPress left, prototype right).  
 **Full board scope + quick wins (Q0/Q1 vs structural):** [`FIGMA_QA_FULL_SCOPE_AND_QUICK_WINS.md`](./FIGMA_QA_FULL_SCOPE_AND_QUICK_WINS.md)  
-**Figma handoff note on board:** [WP Dev Punchlist sticky](https://www.figma.com/design/fe7PYQtVJ2pNZ1VR6lznWz/2026-Oceanview-Design?node-id=9273-34) (left of page pairs, yellow frame).  
+**Figma notes on board (left of pairs):** [Done vs remaining](https://www.figma.com/design/fe7PYQtVJ2pNZ1VR6lznWz/2026-Oceanview-Design?node-id=9282-34) (blue) · [WP Dev Punchlist](https://www.figma.com/design/fe7PYQtVJ2pNZ1VR6lznWz/2026-Oceanview-Design?node-id=9272-2) (yellow) · [Quick wins Q0/Q1](https://www.figma.com/design/fe7PYQtVJ2pNZ1VR6lznWz/2026-Oceanview-Design?node-id=9274-32).  
 **Scope:** Layout, typography, spacing, buttons, header/footer chrome, form **UI** — **not** marketing copy or footer link text changes unless product asks separately.
 
 **Intentional WP ≠ prototype:** The **32px market ticker stays** on WordPress (104px header stack: ticker + 72px nav). The React prototype has no ticker (72px only). Do not remove the ticker to match Figma/prototype.
