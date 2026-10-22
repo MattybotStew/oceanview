@@ -119,6 +119,15 @@ Compare each page to prototype routes in the table below. **SFTP will not fix ro
 
 About, Leadership, Harbourview, Client Resources, Insights, White Papers, Individuals — re-QA after Phase A promote; fix any remaining section spacing in builder. **Individuals:** headlines may need narrower text column if still full-width.
 
+### Client-requested change — `/professionals/` Important Information (2026-10-22)
+
+- [ ] Make the **Important Information** block at the bottom of `/professionals/` **span the full content width** instead of sitting in a narrow centred column (client ask: "looks strange in the center like that").
+  - **CSS-only append** — ready to ship: `docs/wpbakery/staging-patch/append-2026-10-22-professionals-disclosure.css` (same target file as Phase 1: the theme's `oceanview-wpbakery.css`; no PHP, no new enqueue, no DB change).
+  - Result: 12 disclosure paragraphs flow into **two columns** (576px each, 48px gap) across the full 1200px content area; heading spans full width; one column ≤900px.
+  - **Scoped to `.ov-prof-important-info`** — that wrapper is used only by `/professionals/`; the shared `.ov-pdt-card` / `.ov-pdt-detail-item` classes back the product pages and must not change.
+  - ⚠️ The 620px column it replaces was deliberate (it mirrored the Figma reference). This change is **client-approved** — do not "restore" 620px in a later QA pass.
+  - Detail, checks and rollback: `docs/wpbakery/staging-patch/README.md` → **Step 4**.
+
 ### Prototype routes for side-by-side QA
 
 | Page | Prototype (local dev) |
@@ -170,6 +179,7 @@ Separate from Design QA board — documented in [HOMEPAGE_DESIGN_AUDIT.md](./HOM
 | `docs/DESIGN_QA_WP_HANDOFF.md` | Full gap analysis + Phase 1 implementation notes |
 | `docs/wpbakery/oceanview-wpbakery.css` | Design system CSS (already on theme; keep in sync) |
 | `docs/wpbakery/staging-patch/oceanview-wpbakery.append.css` | Design QA CSS block — append to the theme's `oceanview-wpbakery.css` |
+| `docs/wpbakery/staging-patch/append-2026-10-22-professionals-disclosure.css` | `/professionals/` disclosure columns — append to the same theme sheet |
 | `docs/wpbakery/enqueue-example.php` | Enqueue pattern for `functions.php` |
 | `docs/wpbakery/README.md` | React → WPBakery mapping |
 | `src/components/Header.jsx` | Header behavior reference |
@@ -177,4 +187,4 @@ Separate from Design QA board — documented in [HOMEPAGE_DESIGN_AUDIT.md](./HOM
 
 ---
 
-*Document version: 2026-10-21 — Design QA + Local Phase 1 complete; Phase 2 open for WPBakery.*
+*Document version: 2026-10-22 — Design QA + Local Phase 1 complete; Phase 2 open for WPBakery; `/professionals/` disclosure-columns CSS handed to dev for the WPE deploy.*

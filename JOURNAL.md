@@ -28,7 +28,44 @@ Its own comment says it mirrors the Figma reference ("a narrow 620px reading col
 
 **Pre-existing, unrelated:** the prototype header's off-canvas drawer (`position: fixed`, `translateX(320px)`) overflows the viewport at 860–1024px (scrollWidth 1090). Confirmed by stashing this change and re-measuring — same numbers, so it is not from this work. Left alone (header work, not this page).
 
-**⏳ Not done — WordPress.** Staging still shows the 620px centred column. The CSS-only fix is ready to apply to the theme sheet (`docs/wpbakery/staging-patch/oceanview-wpbakery.append.css` + the same text appended to the theme file): `.ov-prof-important-info { max-width: none; margin: 0 }`, `column-count: 2` on `.ov-pdt-card-inner`, `break-inside: avoid` on `.ov-pdt-detail-item`, 1 column ≤900px. Scoped to `.ov-prof-important-info` — only `/professionals/` uses it; the shared `.ov-pdt-card` / `.ov-pdt-detail-item` classes also back the product pages, which must not change. Deploy via SFTP (`remote.sh put` → `get` → `cmp`), no purge needed.
+**⏳ WordPress side — see the next entry.** Staging still shows the 620px centred column. The CSS-only fix is prepared and **handed to the dev team for the WPE deploy** (not deployed from this session).
+
+## 2026-10-22 — Big Pickle — WPE deploy of the `/professionals/` fix handed to the dev team
+
+**Decision (Matt):** the WordPress Engine side is **dev's job now** — the agent side stops at a prepared, ready-to-append CSS file and a written handoff. Nothing was pushed to WPE from here, and the rotated SFTP password was not used.
+
+**Verified against the live site (public GET, no credentials) before writing the handoff:**
+
+| Check | Result |
+|---|---|
+| Live sheet | `wp-content/themes/oceanviewlife/oceanview-wpbakery.css` — **295,748 bytes** (unchanged since Phase 1) |
+| Markup | `.ov-prof-important-info > .ov-pdt-section-head` + `.ov-pdt-card > .ov-pdt-card-inner > .ov-pdt-detail-item > p.ov-pdt-detail-item__text` — confirmed on `/professionals/` |
+| Existing rule | `.ov-prof-important-info { max-width: 620px; margin: 0 auto; }` at line **9432**; `.ov-prof-important-info .ov-pdt-card-inner { padding: 16px 0 0; }` at 9441 — no `#content`-prefixed variant, so a plain override wins |
+| Type | already **14px / 1.65 / #4A5568** on `.ov-pdt-detail-item__text` → **no type change needed** on WP (matches the prototype) |
+| Scope | `.ov-prof-important-info` → **0 occurrences** on /individuals/, /downloads/, /client-resources/, /products/, /contact/, /about/ |
+
+**Handoff artefacts (all in-repo, no secret, no credentials):**
+
+| File | What it is |
+|---|---|
+| `docs/wpbakery/staging-patch/append-2026-10-22-professionals-disclosure.css` | **The block to append.** One file, CSS only. Append to the theme's `oceanview-wpbakery.css` — same target file as Phase 1, so it wins on source order; no PHP, no new enqueue, no DB change, no purge needed (`filemtime()` versions the file). |
+| `docs/wpbakery/staging-patch/README.md` → **Step 4** | Full instructions, the measured target, checks (1440px / ≤900px) and rollback. |
+| `docs/WP_DEV_PUNCHLIST.md` | New "Client-requested change" item under P2 + the file added to the repo reference table. |
+
+**The block itself:**
+
+```css
+.ov-prof-important-info { max-width: none; margin: 0; }
+.ov-prof-important-info .ov-pdt-card-inner { column-count: 2; column-gap: 48px; }
+.ov-prof-important-info .ov-pdt-detail-item { break-inside: avoid; page-break-inside: avoid; }
+@media (max-width: 900px) { .ov-prof-important-info .ov-pdt-card-inner { column-count: 1; } }
+```
+
+Every selector is prefixed with `.ov-prof-important-info` so the shared product-page classes are untouched. The live `.ov-pdt-card-inner` padding (`16px 0 0`) is kept — the override only adds column properties.
+
+**Still true (unchanged):** the 620px column it replaces was deliberate and mirrored the Figma reference. This is a **client-approved move away from that reference** — flagged in `.clinerules` so a later QA pass does not undo it, and repeated in the punchlist.
+
+**Not touched by this handoff:** the WPE staging credential rotation (password changed in the portal 2026-10-22, still unprobed from this machine), and Phase 2 WPBakery work (Products nav, Contact tabs, Blog grid, Home bands) — all still open.
 
 ## 2026-10-22 — Big Pickle — WPE staging credential rotated
 

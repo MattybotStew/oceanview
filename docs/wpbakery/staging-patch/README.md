@@ -155,6 +155,53 @@ add_filter( 'gform_pre_submission_filter', 'oceanview_gf_signup_fields' );
 
 ---
 
+## Step 4 — `/professionals/` "Important Information" (client request 2026-10-22)
+
+**Assigned to the dev team — WPE deploy.** Same safe pattern as step 1: one CSS
+append, no PHP, no new file, no new enqueue, no DB change.
+
+**Ask (Mae, via Matt):** the Important Information block at the bottom of
+`/professionals/` "looks strange in the center like that" — make it spread
+across the page.
+
+**Why it looks narrow today:** the theme renders that block as a deliberate
+620px centred reading column (theme sheet line ~9432 —
+`.ov-prof-important-info { max-width: 620px; margin: 0 auto; }`) that mirrored
+the Figma reference. This change is **client-approved and moves away from that
+reference** — do not "restore" 620px in a later QA pass.
+
+**File to append:**
+[`append-2026-10-22-professionals-disclosure.css`](./append-2026-10-22-professionals-disclosure.css)
+
+```bash
+cat append-2026-10-22-professionals-disclosure.css >> oceanview-wpbakery.css
+```
+
+Same target file as step 1 (`wp-content/themes/oceanviewlife/oceanview-wpbakery.css`),
+same "append, never replace" rule, no cache purge needed (`filemtime()` versions
+the file).
+
+**Result:** the 12 disclosure paragraphs flow into **two columns across the
+full 1200px content width** (576px each, 48px gap, ~80 chars/line). The
+heading spans full width. One column at ≤900px; mobile unchanged (already full
+width). Paragraph type is already 14px / 1.65 in WP — matching the prototype —
+so no type change is needed.
+
+**Scope is safe:** every selector is prefixed with `.ov-prof-important-info`,
+which is used **only** by `/professionals/` (verified 2026-10-22: 0 occurrences
+on `/individuals/`, `/downloads/`, `/client-resources/`, `/products/`,
+`/contact/`, `/about/`). The shared `.ov-pdt-card` / `.ov-pdt-detail-item`
+classes also back the product detail pages and are deliberately left alone.
+
+**Checks (1440px):** the block spans the full content width (not 620px
+centred); two even columns of ~576px with a 48px gap; 6 + 6 paragraphs;
+heading on its own full-width line; block height ~568px (was ~1113px); no
+horizontal overflow. At 900px and below: single column, full width.
+
+**Rollback:** delete the appended block (it is the last thing in the file).
+
+---
+
 ## What *not* to do: uploading whole files
 
 Tempting because it needs no hand-editing, but it is the riskiest option:

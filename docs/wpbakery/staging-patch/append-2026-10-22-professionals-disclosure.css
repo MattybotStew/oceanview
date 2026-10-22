@@ -1,0 +1,50 @@
+/* ============================================================================
+   /professionals/ — "Important Information" disclosure block: spread across
+   the full content width instead of a narrow centred column.
+   Client request 2026-10-22 (Mae, via Matt): "Can we make that spread across
+   the page. It looks strange in the center like that."
+
+   APPEND to the end of the theme sheet:
+       wp-content/themes/oceanviewlife/oceanview-wpbakery.css
+   (same file as the Phase 1 Design QA block — it is the last stylesheet the
+   theme loads, so this wins on source order with no new enqueue, no PHP and
+   no DB change. No cache purge needed: filemtime() versions the file.)
+
+   WHY THE EXISTING RULE EXISTS
+   The theme currently renders this block as a deliberate 620px reading column
+   (theme sheet line ~9432) that mirrored the Figma reference. This change is
+   CLIENT-APPROVED and moves AWAY from that reference — do not "restore" the
+   620px column in a later QA pass.
+
+   SCOPE
+   Every selector below is prefixed with .ov-prof-important-info, a
+   page-specific wrapper used ONLY by /professionals/ (verified: 0
+   occurrences on /individuals/, /downloads/, /client-resources/, /products/,
+   /contact/, /about/). The shared .ov-pdt-card / .ov-pdt-detail-item classes
+   also back the product detail pages, so they must NOT be touched directly.
+
+   MEASURED RESULT (target, 1440px viewport)
+   Content area 1200px; two columns of 576px with a 48px gap; 12 paragraphs
+   split 6 + 6; block height ~568px (was ~1113px); no horizontal overflow.
+   ========================================================================== */
+
+.ov-prof-important-info {
+  max-width: none;
+  margin: 0;
+}
+
+.ov-prof-important-info .ov-pdt-card-inner {
+  column-count: 2;
+  column-gap: 48px;
+}
+
+.ov-prof-important-info .ov-pdt-detail-item {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+@media (max-width: 900px) {
+  .ov-prof-important-info .ov-pdt-card-inner {
+    column-count: 1;
+  }
+}
