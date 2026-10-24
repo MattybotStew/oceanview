@@ -2,6 +2,86 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-10-24 — DeepSeek (OpenCode) — Rates page redesign + rate-update audit
+
+**Request (Matt):** `/rates/` must show rates for **all** products; Figma mockup + Mikko handoff. Plus: can rates be updated in one place, or individually? And is TablePress still used?
+
+**Audit (public pages, 2026-10-24):**
+
+| | Finding |
+|---|---|
+| Staging `/rates/` | 5 hand-built tables — Harbourview MYGA, CurrentRate MYGA, Sky Harbourview, Harbourview FIA, CapLock FIA. **Horizon MYGA and Topsider FIA missing.** |
+| Staging other surfaces | `/how-oceanview-mygas-compare/` (3 weekly competitor tables). Product pages, `/renewal-rates/`, `/client-resources/` and home do **not** publish rate tables (home = ticker only). |
+| Production `/rates/` | **TablePress is still active** — 10 tables across 5 tabs + effective dates + CA table + rate-sheet download. |
+| Staging TablePress | **Absent** — no plugin, no `.tablepress` markup, no TablePress CSS/JS. |
+| Answer | Rates are updated individually today (5–7 tables on `/rates/`, 3 on the comparison page, rate-sheet PDFs, inline figures). Recommended: one rates source + one shared renderer consumed everywhere. |
+
+**Delivered:**
+
+| Where | What |
+|---|---|
+| Prototype | `src/components/RatesPage.jsx` + `src/data/ratesPage.js`; route `#rates`. Sticky 7-product index, band tables (MYGA) and grouped strategy tables (FIA), quoted-at-application cards for Horizon/Topsider, navy "source of truth" band, disclosures. 6,783px at 1440; no overflow at 390; build passes. |
+| Figma → **new pages** → section **"Rates page — 2026"** | Native frame **"Current Annuity Rates — redesign"** #9306:8489, 1440 × 6,209. |
+| Figma comment | `1980091667` pinned to #9306:8489 — component guidance, missing-rate state, data-source recommendation, TablePress answer. **Mikko assignment still manual.** |
+| Docs | `docs/RATE_PAGES_INVENTORY.md` — every staging + production page where rates appear, with URLs, plus the TablePress evidence and the single-source recommendation. |
+
+**Open:** Horizon MYGA / Topsider FIA rates are not published anywhere — the mockup uses a request-rate state. Client must decide whether to publish them and supply values. Whether to restore TablePress on staging or move to a structured rates source is a decision for Mikko/client.
+
+## 2026-10-24 — DeepSeek (OpenCode) — Compliance Corner redesign + Figma mockup
+
+**Request (Matt):** staging `/newsroom/compliance-corner/` needs redesign + development; mockup in Figma, hand to Mikko.
+
+**Found on staging:** broken two-column layout — an empty **"Press Releases"** left column, the description stranded mid-page, downloads as full-width stacked buttons, and only **9 issues** rendered. Production has **10** (staging is missing **Volume 3 Issue 1**).
+
+**Delivered:**
+
+| Where | What |
+|---|---|
+| Prototype | `src/components/ComplianceCornerPage.jsx` + `src/data/complianceCorner.js`; route `#compliance-corner` wired in `Page.jsx`. Hero (office photo) → intro + 3 cards → archive grouped by volume (10 issue cards, 3/2/1 cols) → navy "Looking for press releases?" CTA → footer. 4,080px at 1440; no overflow at 390; `npm run build` passes. |
+| Figma → **new pages** → section **"Compliance Corner — 2026"** | Native frame **"Compliance Corner — redesign"** #9302:7994, 1440 × 3,677. Hero uses the real `faq-hero.jpg`, imported via `figma.createImage` (2.0MB) because the file didn't contain it. |
+| Figma comment | `1980090317` pinned to #9302:7994 — staging defects, all 10 download URLs (incl. Salesforce links), date caveats, responsive breakpoints. **Mikko assignment still manual.** |
+
+**Key detail:** archive keeps the production URLs — Vol 1 issues are `/wp-content/uploads/2025/04/...` PDFs; Vol 2 Issue 2 onward are Salesforce links that must not be re-hosted. Dates are only known for Vol 1 #1 (Aug 2021), #2 (Oct 2021) and Vol 2 #1 (Jun 2023); other cards say "PDF download".
+
+## 2026-10-24 — DeepSeek (OpenCode) — "How Oceanview MYGAs Compare" redesign + Figma mockup
+
+**Request (Matt):** staging `/how-oceanview-mygas-compare/` is thin/wrong and needs to match the production page; mockup in Figma, then hand to Mikko.
+
+**Measured first:** staging = 2,825px tall with one generic **"MYGAs vs. CDs & Treasuries"** table. Production = 6,404px with the full weekly market comparison (2/3/4-year carrier tables from Annuity Rate Watch), AM Best context, six "How to Think About These Comparisons" checks, two advisor CTAs and a long disclosure block.
+
+**Delivered:**
+
+| Where | What |
+|---|---|
+| Prototype | `src/components/HowMygasComparePage.jsx` + `src/data/mygasCompare.js`; new unlisted route `#how-oceanview-mygas-compare` wired in `Page.jsx`. Content parity with production; new design system. Verified 1440 (5,961px) and 390 — no horizontal overflow; rate tables scroll inside a 760px min-width wrapper on mobile. `npm run build` passes. |
+| Figma → **new pages** → section **"Rate comparison page — 2026"** (y 29315) | Native editable frame **"How Oceanview MYGAs Compare — redesign"** #9300:7606, 1440 × 5,608. Header/footer cloned from the Harbourview FIA page. Screenshot-checked hero, all three tables, considerations, next-step and disclosures. |
+| Figma comment | `1980088628`, pinned to #9300:7606 — section inventory + dev notes (dynamic rate feed, column widths, mobile scroll, link targets). **Mikko assignment still manual.** |
+
+**Design decisions:** Oceanview row is highlighted in each rate table (mint fill + semibold carrier) so the comparison reads at a glance; "as of" date is a chip; table header keeps the navy band. Sample rate values are the production Oct 19, 2026 data and must be treated as placeholder — the dev note says not to hardcode and to wire Annuity Rate Watch/an ACF repeater.
+
+**Loose ends:** rates need a real data source; disclosure copy needs compliance sign-off; hero photo may be swapped for an approved meeting photo.
+
+## 2026-10-24 — DeepSeek (OpenCode) — Comparison page mockups: Harbourview/CurrentRate MYGA + CapLock/Harbourview FIA
+
+**Request (Matt, pre-push):** two product comparison pages from the copy drafts, as Figma mockups, then a comment assigned to Mikko for development.
+
+**Delivered:**
+
+| Where | What |
+|---|---|
+| Figma → **new pages** page → section **"Product comparison pages — 2026"** | Two native, editable 1440px frames: `Harbourview MYGA or CurrentRate MYGA? — Comparison` (#9298:1572, 11,857px) and `CapLock FIA or Harbourview FIA? — Comparison` (#9298:2182, 10,965px). Header/footer cloned from the Harbourview FIA page so chrome matches the file. Section is at y 17058, 3180px wide, no overlap with existing content. |
+| Figma comments | Pinned comments posted on each frame: `1980087465` (MYGA) and `1980087467` (FIA), with section inventory + dev notes. **Mikko assignment still has to be clicked in Figma UI** — the comment API cannot create @mentions/assignments. |
+| Prototype | `src/components/ComparisonPage.jsx` (data-driven template) + `src/data/comparisons.js` (copy verbatim from both docx drafts). New unlisted routes `#harbourview-currentrate-myga-comparison` and `#caplock-harbourview-fia-comparison` wired in `Page.jsx` (route set, title/description, switch). |
+
+**Verified:** 1440 and 390 in the real browser — no horizontal overflow on either page (the shared `CTABanner` was fixed: its action group now wraps at ≤600px, which also removes the pre-existing 527px overflow on product pages). `npm run build` passes. Figma frames screenshot-checked section by section (hero, At a Glance, product split, navy clarify, sales CTA).
+
+**Decisions:** used native Figma frames (not screenshot fills) to match the existing `new pages` convention and keep the mockup editable for Mikko. At a Glance is a 3-column 26/37/37 table; mobile note in the handoff comment says scroll or stack, never below 13px.
+
+**Loose ends:**
+- CurrentRate MYGA has **no prototype product page** — its "Explore / Product Resources" links currently point to `products` / `client-resources?tab=rates`. Final URL needs confirmation.
+- The two pages are **not linked from Client Resources → Comparisons** yet (that tab still lists the old three comparison cards).
+- The Figma Desktop Bridge manifest (`~/.figma-console-mcp/plugin/manifest.json`) was given `http://localhost:5173` + `http://127.0.0.1:5173` so the plugin could read the copy JSON; the temporary Vite CORS middleware and JSON file were removed afterwards.
+
 ## 2026-10-22 — Big Pickle — `/professionals/` "Important Information" now spans the page (prototype)
 
 **Request (Mae → Matt):** "The only thing I don't love is the important information at the bottom. Can we make that spread across the page. It looks strange in the center like that." — https://oceanviewstg.wpengine.com/professionals/

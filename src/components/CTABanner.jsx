@@ -80,7 +80,7 @@ export default function CTABanner({ eyebrow, title, titleAccent, body, cta = 'Ge
         </h2>
         {body && <p style={S.body}>{body}</p>}
       </div>
-      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center', flexShrink: 0 }}>
+      <div className="cta-actions" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center', flexShrink: 0 }}>
         <PillMint hero onClick={onClick}>{cta}</PillMint>
         {secondary}
       </div>

@@ -65,6 +65,11 @@ import BrochuresPage from './BrochuresPage.jsx'
 import AlzheimersAwarenessPage from './AlzheimersAwarenessPage.jsx'
 import RenewalRatesPage from './RenewalRatesPage.jsx'
 import HomeV2Page from './HomeV2Page.jsx'
+import ComparisonPage from './ComparisonPage.jsx'
+import HowMygasComparePage from './HowMygasComparePage.jsx'
+import ComplianceCornerPage from './ComplianceCornerPage.jsx'
+import RatesPage from './RatesPage.jsx'
+import { mygaComparison, fiaComparison } from '../data/comparisons.js'
 
 const STUB_ROUTES = {
   // Top-level nav
@@ -113,6 +118,10 @@ const PAGE_ROUTES = new Set([
   "alzheimers-awareness",
   "renewal-rates",
   "home-v2", "home-legacy",
+  "harbourview-currentrate-myga-comparison", "caplock-harbourview-fia-comparison",
+  "how-oceanview-mygas-compare",
+  "compliance-corner",
+  "rates",
   "disclaimers", "privacy", "terms", "accessibility", "agent-portal", "design", "nav-dropdowns", "product-tab-examples", "products-filter-test",
   // product pages — canonical routes
   "harbourview-myga", "horizon-myga", "sky-harbourview-myga",
@@ -197,6 +206,11 @@ export default function Page() {
       "products-filter-test": "Products (Filter Nav Test) — Oceanview",
       "home-v2": "Oceanview Life and Annuity",
       "home-legacy": "Previous Homepage — Oceanview",
+      "harbourview-currentrate-myga-comparison": "Harbourview MYGA or CurrentRate MYGA? — Oceanview",
+      "caplock-harbourview-fia-comparison": "CapLock FIA or Harbourview FIA? — Oceanview",
+      "how-oceanview-mygas-compare": "How Oceanview MYGAs Compare — Oceanview",
+      "compliance-corner": "Compliance Corner — Oceanview",
+      "rates": "Current Annuity Rates — Oceanview",
     };
     const descriptions = {
       "": "Clear annuity solutions for the retirement ahead. Oceanview offers fixed and fixed indexed annuities built around straightforward features, competitive value and long-term retirement solutions.",
@@ -230,6 +244,11 @@ export default function Page() {
       "products-filter-test": "Test Products page with option 5 nav — parent category filter chips + product tabs. Same catalog as #products.",
       "home-v2": "Clear annuity solutions for the retirement ahead. Oceanview offers fixed and fixed indexed annuities built around straightforward features, competitive value and long-term retirement solutions.",
       "home-legacy": "Previous Oceanview homepage (carousel hero, prod-parity layout). Retained for reference at #home-legacy.",
+      "harbourview-currentrate-myga-comparison": "Compare Harbourview MYGA and CurrentRate MYGA — rate certainty versus annual rate responsiveness.",
+      "caplock-harbourview-fia-comparison": "Compare CapLock FIA and Harbourview FIA — cap predictability versus broader interest-crediting choice.",
+      "how-oceanview-mygas-compare": "How Oceanview MYGAs compare with other A-rated carriers across 2-, 3- and 4-year terms — rates, terms and what to consider.",
+      "compliance-corner": "Compliance Corner is Oceanview's compliance e-newsletter — download every issue from the archive.",
+      "rates": "Current MYGA and FIA rates for every Oceanview product — guaranteed rates, caps and participation rates in one place.",
     };
     document.title = titles[route] || "Oceanview Life and Annuity";
     let meta = document.querySelector('meta[name="description"]');
@@ -321,6 +340,11 @@ export default function Page() {
       case "home":
       case "home-v2":            return <HomeV2Page goto={goto} />;
       case "home-legacy":        return <HomePage goto={goto} />;
+      case "harbourview-currentrate-myga-comparison": return <ComparisonPage page={mygaComparison} />;
+      case "caplock-harbourview-fia-comparison":      return <ComparisonPage page={fiaComparison} />;
+      case "how-oceanview-mygas-compare":             return <HowMygasComparePage />;
+      case "compliance-corner":                        return <ComplianceCornerPage />;
+      case "rates":                                    return <RatesPage />;
       case "faq":               return <FAQPage />;
       case "leadership":        return <LeadershipPage />;
       default:                  return <HomePage goto={goto} />;

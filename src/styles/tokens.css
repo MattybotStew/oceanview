@@ -1660,3 +1660,25 @@ a { color: inherit; text-decoration: none; }
   .ov-modal-card { padding: 28px 20px 22px; }
 }
 
+
+/* ── Product comparison pages (.cmp-*) ─────────────────────────────── */
+@media (max-width: 980px) {
+  .cmp-grid { grid-template-columns: 1fr !important; }
+  .cmp-split { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .cmp-split > div:first-child { position: static !important; }
+  .cmp-q { grid-template-columns: 1fr !important; gap: 6px !important; }
+}
+@media (max-width: 600px) {
+  .cta-actions { flex-shrink: 1 !important; width: 100%; }
+  .cta-actions .ov-btn { flex: 0 0 auto; }
+}
+
+/* ── Compliance Corner archive ─────────────────────────────────────── */
+@media (max-width: 980px) {
+  .cc-grid { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 640px) {
+  .cc-grid { grid-template-columns: 1fr !important; }
+}
+.cc-issue { transition: border-color .15s, box-shadow .15s, transform .15s; }
+.cc-issue:hover { border-color: rgba(36,148,193,.45); box-shadow: 0 10px 30px rgba(13,31,78,.08); }
