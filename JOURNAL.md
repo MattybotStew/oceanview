@@ -2,6 +2,26 @@
 
 Shared session log for all AI agents. Newest entries at the top.
 
+## 2026-10-24 — DeepSeek (OpenCode) — Rate inventory for Mikko / Mae
+
+**Request (Matt):** give Mikko a list of every rate location across the site so he can copy them into one place for Mae to update.
+
+**Done:** rewrote `docs/RATE_PAGES_INVENTORY.md` as a build+content handoff. It now has:
+
+| Part | Contents |
+|---|---|
+| A | WordPress staging (A1–A13) + production TablePress (P1–P3) surfaces |
+| B | All 11 React prototype surfaces (B1–B12) with exact file paths — Rates hub, Client Resources Rates tab, Products badges, Home card, 6 product blocks, comparison page, renewal campaign, newsroom, blog, partner landings, downloads, ticker |
+| C | **Conflict table** — Harbourview 5-yr has four values (5.15/4.35/5.20/5.20); FIA caps, bands, product names and effective dates also disagree |
+| D | Suggested `ov_rates` record for Mae + 6 shortcodes/blocks |
+| E | P0/P1/P2 order + 7 acceptance tests |
+| F | Surfaces that must stay dated snapshots (blog, newsroom, renewal stats, ticker) |
+| G | 6 open questions |
+
+**Key finding:** `ClientResourcesPage.jsx` (B2) carries a second full rate schedule that contradicts `ratesPage.js` (B1) — the 5.20% used on Products/Home is actually the **3-year Premier** rate, mislabelled 5-year. Also ~170 hardcoded values + 6 `X.XX%` placeholders.
+
+**No code changes.** Open: client must pick the authoritative value set before Mikko copies anything.
+
 ## 2026-10-24 — DeepSeek (OpenCode) — Rates page redesign + rate-update audit
 
 **Request (Matt):** `/rates/` must show rates for **all** products; Figma mockup + Mikko handoff. Plus: can rates be updated in one place, or individually? And is TablePress still used?

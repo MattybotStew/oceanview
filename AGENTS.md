@@ -58,7 +58,7 @@ Open via URL/hash only. Do not “fix” by adding nav links unless stakeholders
 | [`docs/WP_DEV_PUNCHLIST.md`](docs/WP_DEV_PUNCHLIST.md) | Dev handoff + acceptance criteria |
 | [`docs/FIGMA_QA_FULL_SCOPE_AND_QUICK_WINS.md`](docs/FIGMA_QA_FULL_SCOPE_AND_QUICK_WINS.md) | All 11 page pairs; **Q0 / Q1 / S** tiers |
 | [`docs/DESIGN_QA_WP_HANDOFF.md`](docs/DESIGN_QA_WP_HANDOFF.md) | Full gap list (G1–G9) + SFTP notes |
-| [`docs/RATES_INVENTORY.md`](docs/RATES_INVENTORY.md) | **Where every published rate lives** — 4 storage mechanisms, per-page counts, and the one-source plan for Mae/Mikko |
+| [`docs/RATE_PAGES_INVENTORY.md`](docs/RATE_PAGES_INVENTORY.md) | **Where every published rate lives** — staging + production + prototype surfaces, the 4 shortcodes and their attributes, conflicts, and the one-source plan for Mae/Mikko |
 
 **Fix tiers:** **Q0** = sitewide SFTP bundle (Phase 1). **Q1** = small per-page CSS or builder tweak. **S** = structural rebuild (nav shell, tabs, grid).
 
